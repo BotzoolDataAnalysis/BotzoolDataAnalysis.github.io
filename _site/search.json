@@ -1,0 +1,12 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Botzool Data Analysis",
+    "section": "",
+    "text": "This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University.\nThe related courses are:\n\nBi7540 Analýza dat v ekologii společenstev\nBi7542 Data analysis in community ecology\nBi8190 Manipulace a vizualizace dat v R (Data manipulation and visualisation in R)\n\nMoreover, this website contains guidelines for the use of AI in ecology.\n\nWebsite Navigation\n\nData Analysis in Community Ecology\nData Manipulation and Visualisation\nAI",
+    "crumbs": [
+      "Home"
+    ]
+  }
+]
