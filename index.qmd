@@ -1,27 +1,46 @@
 ---
-title: "BotzoolDataAnalysis"
-author: "klaraklink, IrcaAxmanova"
-format: html
-editor: visual
+project: 
+  type: website
+  
+website:
+  title: "Botzool Data Analysis"
+  navbar:
+    title: "Botzool Data Analysis"
+    left:
+      - text: "Data Manipulation and Visualization"
+        href: index.qmd
+      - text: "Community Ecology"
+        href: community_ecology.qmd
+      - text: "AI in Teaching"
+        href: ai_in_teaching.qmd
+  sidebar:
+    title: "Botzool Data Analysis"
+    contents:
+      - text: "Data Manipulation and Visualization"
+        href: index.qmd
+      - text: "Community Ecology"
+        href: community_ecology.qmd
+      - text: "AI in Teaching"
+        href: ai_in_teaching.qmd
+author: "Klára Klinkovská, Irena Axmanová"
+format: 
+  html:
+    theme: cosmo
+    toc: true
 ---
 
-## Quarto
+This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University. 
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+The related courses are:
 
-## Running Code
+Bi7540 Analýza dat v ekologii společenstev
+Bi7542 Data analysis in community ecology
+Bi8190 Manipulace a vizualizace dat v R (Data manipulation and visualisation in R)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+Moreover, this website contains guidelines for the use of AI in ecology.
 
-```{r}
-1 + 1
-```
+### Website Navigation
 
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
+- [Data Analysis in Community Ecology](/CommunityEcology/community_ecology.qmd)
+- [Data Manipulation and Visualisation](DataManipulationVisualisation/data_manipulation_visualisation.qmd)
+- [AI](AIinTeaching/ai_in_teaching.qmd)
