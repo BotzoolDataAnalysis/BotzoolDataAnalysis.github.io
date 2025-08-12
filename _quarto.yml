@@ -1,0 +1,55 @@
+project: 
+  type: website
+  output-dir: docs
+
+website:
+  title: "Botzool Data Analysis"
+  
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+  
+  sidebar:
+    pinned: true
+    align: center
+    style: "docked"
+    search: true
+    collapse-level: 2 
+    contents:
+    
+      - text: "Home"
+        href: index.qmd
+        
+      - section: "Data Manipulation and Visualization"
+        href: DataManipulationVisualisation/data_manipulation_visualisation.qmd
+        contents: 
+          - text: "1 Introduction"
+            href: DataManipulationVisualisation/1_introduction.qmd
+          - text: "2 Data manipulation"
+            href: DataManipulationVisualisation/2_data_manipulation.qmd
+          - text: "3 Data visualisation"
+            href: DataManipulationVisualisation/3_data_visualisation.qmd
+          - text: "4 Wide vs. long format"
+            href: DataManipulationVisualisation/4_wide_vs_long.qmd
+          - text: "5 Join functions"
+            href: DataManipulationVisualisation/5_join_functions.qmd
+          - text: "6 Advanced data visualisation"
+            href: DataManipulationVisualisation/6_advanced_visualisation.qmd
+          - text: "7 Automatisation"
+            href: DataManipulationVisualisation/7_automatisation.qmd
+          - text: "8 Maps"
+            href: DataManipulationVisualisation/8_maps.qmd
+          - text: "9 Advanced maps"
+            href: DataManipulationVisualisation/9_advanced_maps.qmd
+          - text: "11 GitHub"
+            href: DataManipulationVisualisation/11_github.qmd
+        
+      - text: "Community Ecology"
+        href: CommunityEcology/community_ecology.qmd
+        
+      - text: "AI in Data Analysis"
+        href: AIinTeaching/ai_in_teaching.qmd
+        
+format: 
+  html:
+    theme: cosmo
+    toc: true

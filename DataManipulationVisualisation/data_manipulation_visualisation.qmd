@@ -1,29 +1,85 @@
 ---
 title: "Data Manipulation and Visualisation"
-format: html:
-  toc: true
-aliases: 
-  - ../DataManipulationVisualisation/data_manipulation_visualisation.qmd
-  
 ---
+# Introduction
 
-## Quarto
+V průběhu kurzu představíme pokročilé metody manipulace a vizualizace dat v programu R, zejména s využitím knihoven z kolekce tidyverse (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). Cílem předmětu je naučit studenty rutinní manipulaci s daty, tak aby si je uměli importovat, upravit, filtrovat, připojit nové informace z externích dat, vytvořit nové proměnné (např. na základě výpočtu), seskupit vzorky na základě nějaké charakteristiky/informace a pro tyto skupiny vypočítat další parametry. Dále se studenti naučí základní i pokročilé metody vizualizace dat pomocí ggplot2 a tvorbu základních map v R. Cílem předmětu je i osvojení přístupu open data science, kdy se naučí připravit skript tak, aby bylo možné ho na závěr publikovat na platformě GitHub. 
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+# 1 Úvod
+- R jako programovací jazyk
+- Tidyverse package, %>%, |>
+- projekty v RStudiu, cheatsheets, keyboard shortcuts  
+- zásady tidy skriptu (úprava, nadpisy, záložky, poznámky)
+- zdroje informací a kde hledat pomoc, AI
+- import pomocí readr, readxl, na co si dávat pozor (encoding)
+- struktura dat (names, table, glimpse)
+- tidy data (zásady, příprava, kontrola), přejmenování proměnných (rename)
 
-## Running Code
+# 2 Základní manipulace s daty
+- základní manipulace s daty (select, filter, mutate, arrange, slice)
+- export dat (write_csv)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# 3 Vizualizace dat pomocí ggplot
+- logika ggplot
+- základní geom funkce (point, line, boxplot, histogram, barplot)
+- prokládání trendů 
+- symboly, barvy
+- legenda, popisky os
+- theme
+- uložení grafu (ggsave)
 
-```{r}
-1 + 1
+# 4  Wide vs. long format
+- převody formátů (pivot)
+- nové proměnné (mutate, group_by, summarise)
+- species richness, součty/podíly různých hodnot v rámci vzorku (count)
+ 
+# 5 Join funkce
+- spojovací funkce (left_join, full_join), přidání informací z jiných datových souborů
+- filtrovací funkce: semi_join, anti_join
+- podíly určitých skupin podle vlastností, indikační hodnoty, CWM 
+- úprava nomenklatury (pokročilé mutate, summarise), slučování duplicit
+- mutate s vícenásobnou podmínkou (ifelse, case_when)
+
+# 6 Pokročilá vizualizace dat 
+- ggplot advanced - faceting, patchwork, ggpubr, ggeffects
+- shiny trailer (ukázka)
+
+# 7 Automatizace skriptu
+- použití smyček (for loops)
+- napsání vlastní funkce
+- ukázka práce s nested dataframes (purrr)
+
+# 8 Mapy v R 
+- mapy pomocí terra
+- zobrazení vzorků v prostoru (přehledová mapa, měřítko, legenda…) na podkladě open street maps
+- kartogramy, mapování v gridu
+
+# 9 Pokročilé mapy v R 
+- extrakce dat z rastru, digitální model
+- výběr dat pomocí masky
+- škálování mapovaných bodů podle hodnot (barva, symbol)
+
+# 10 Od databáze ke grafu (opakovací hodina)
+- import dat z databáze, propojení různých datových souborů, úprava struktury dat
+- filtrování podsouboru
+- sloučení duplicit např. vzniklých převodem nomenklatury
+- napojení externích vlastností, výpočty vážených průměrů 
+- příprava grafu pro publikaci
+- sloučení celého procesu do jedné pipeliny 
+
+# 11 GitHub
+- jak funguje, stažení dat z veřejných projektů
+- vlastní účet
+- vytvoření vlastního úložiště (repository), propojení s R projektem v počítači
+- spolupráce na projektu (branch, commit, push, pull) 
+- publikace skriptu, zveřejnění (doi, zásady readme)
+
+# Example
+
+```{r warning=FALSE, message=FALSE}
+library(ggplot2)
+
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  theme_minimal()
 ```
-
-You can add options to executable code like this 
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
