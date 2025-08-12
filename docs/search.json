@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Botzool Data Analysis",
+    "section": "",
+    "text": "This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University.\nThe related courses are:\n\nBi7540 Analýza dat v ekologii společenstev\nBi7542 Data analysis in community ecology\nBi8190 Manipulace a vizualizace dat v R (Data manipulation and visualisation in R)\n\nMoreover, this website contains guidelines for the use of AI in ecology.\n\nWebsite Navigation\n\nData Analysis in Community Ecology\nData Manipulation and Visualisation\nAI",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "CommunityEcology/community_ecology.html",
+    "href": "CommunityEcology/community_ecology.html",
+    "title": "Data Analysis in Community Ecology",
+    "section": "",
+    "text": "Cookbook might be moved here",
+    "crumbs": [
+      "Community Ecology"
+    ]
+  },
+  {
+    "objectID": "AIinTeaching/ai_in_teaching.html",
+    "href": "AIinTeaching/ai_in_teaching.html",
+    "title": "AI in Data Analysis",
+    "section": "",
+    "text": "How to use AI in data analysis?",
+    "crumbs": [
+      "AI in Data Analysis"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/data_manipulation_visualisation.html",
+    "href": "DataManipulationVisualisation/data_manipulation_visualisation.html",
+    "title": "Data Manipulation and Visualisation",
+    "section": "",
+    "text": "Introduction\nV průběhu kurzu představíme pokročilé metody manipulace a vizualizace dat v programu R, zejména s využitím knihoven z kolekce tidyverse (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). Cílem předmětu je naučit studenty rutinní manipulaci s daty, tak aby si je uměli importovat, upravit, filtrovat, připojit nové informace z externích dat, vytvořit nové proměnné (např. na základě výpočtu), seskupit vzorky na základě nějaké charakteristiky/informace a pro tyto skupiny vypočítat další parametry. Dále se studenti naučí základní i pokročilé metody vizualizace dat pomocí ggplot2 a tvorbu základních map v R. Cílem předmětu je i osvojení přístupu open data science, kdy se naučí připravit skript tak, aby bylo možné ho na závěr publikovat na platformě GitHub.\n\n\n1 Úvod\n\nR jako programovací jazyk\nTidyverse package, %&gt;%, |&gt;\nprojekty v RStudiu, cheatsheets, keyboard shortcuts\n\nzásady tidy skriptu (úprava, nadpisy, záložky, poznámky)\nzdroje informací a kde hledat pomoc, AI\nimport pomocí readr, readxl, na co si dávat pozor (encoding)\nstruktura dat (names, table, glimpse)\ntidy data (zásady, příprava, kontrola), přejmenování proměnných (rename)\n\n\n\n2 Základní manipulace s daty\n\nzákladní manipulace s daty (select, filter, mutate, arrange, slice)\nexport dat (write_csv)\n\n\n\n3 Vizualizace dat pomocí ggplot\n\nlogika ggplot\nzákladní geom funkce (point, line, boxplot, histogram, barplot)\nprokládání trendů\nsymboly, barvy\nlegenda, popisky os\ntheme\nuložení grafu (ggsave)\n\n\n\n4 Wide vs. long format\n\npřevody formátů (pivot)\nnové proměnné (mutate, group_by, summarise)\nspecies richness, součty/podíly různých hodnot v rámci vzorku (count)\n\n\n\n5 Join funkce\n\nspojovací funkce (left_join, full_join), přidání informací z jiných datových souborů\nfiltrovací funkce: semi_join, anti_join\npodíly určitých skupin podle vlastností, indikační hodnoty, CWM\núprava nomenklatury (pokročilé mutate, summarise), slučování duplicit\nmutate s vícenásobnou podmínkou (ifelse, case_when)\n\n\n\n6 Pokročilá vizualizace dat\n\nggplot advanced - faceting, patchwork, ggpubr, ggeffects\nshiny trailer (ukázka)\n\n\n\n7 Automatizace skriptu\n\npoužití smyček (for loops)\nnapsání vlastní funkce\nukázka práce s nested dataframes (purrr)\n\n\n\n8 Mapy v R\n\nmapy pomocí terra\nzobrazení vzorků v prostoru (přehledová mapa, měřítko, legenda…) na podkladě open street maps\nkartogramy, mapování v gridu\n\n\n\n9 Pokročilé mapy v R\n\nextrakce dat z rastru, digitální model\nvýběr dat pomocí masky\nškálování mapovaných bodů podle hodnot (barva, symbol)\n\n\n\n10 Od databáze ke grafu (opakovací hodina)\n\nimport dat z databáze, propojení různých datových souborů, úprava struktury dat\nfiltrování podsouboru\nsloučení duplicit např. vzniklých převodem nomenklatury\nnapojení externích vlastností, výpočty vážených průměrů\npříprava grafu pro publikaci\nsloučení celého procesu do jedné pipeliny\n\n\n\n11 GitHub\n\njak funguje, stažení dat z veřejných projektů\nvlastní účet\nvytvoření vlastního úložiště (repository), propojení s R projektem v počítači\nspolupráce na projektu (branch, commit, push, pull)\npublikace skriptu, zveřejnění (doi, zásady readme)\n\n\n\nExample\n\nlibrary(ggplot2)\n\nggplot(mtcars, aes(x = wt, y = mpg)) +\n  geom_point() +\n  theme_minimal()",
+    "crumbs": [
+      "Data Manipulation and Visualization"
+    ]
+  }
+]
