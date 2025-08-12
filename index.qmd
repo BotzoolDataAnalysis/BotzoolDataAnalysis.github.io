@@ -1,6 +1,7 @@
 ---
 title: "Botzool Data Analysis"
 page-layout: full
+type: html
 ---
 
 This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University. 
