@@ -2,3 +2,75 @@
 title: "1 Introduction"
 ---
 
+## Tidy script
+
+Few useful tips how to handle your scripts tidy:
+
+1.  **use projects**
+
+-   create directories data, results, maps, backup etc.
+
+2.  **libraries**
+
+-   list all the libraries you need at the beginning of the script
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(readxl)
+```
+
+3.  **remarks**
+
+-   `ctrl + shift + C` will change the text to non-active (marked with hash tags #)
+
+-   add notes to your scripts, you will be grateful later
+
+4.  **separate scripts or sections**
+
+-   `ctrl + shift + R` insert named section
+
+-   use 4x`#`
+
+-   `Alt + O` fold all
+
+-   `Shift + Alt + O` unfold all
+
+5.  **names of variables**
+
+-   short and easy to handle, without spaces, strange symbols
+
+-   rename strange names one by one
+
+-   `%>% rename (ReleveNr = "Releve number")`
+
+-   or change all difficult patterns at once
+
+-   RegEx Regular expression
+
+```{r}
+#| eval: false
+env <- env %>%
+   rename_all(~ str_replace_all(., c(
+    "\\." = "",     #remove dots in the variable names
+    "\\mÂ²" = "m2",
+    "\\Â°" = "deg",
+    "\\%" = "perc", # remove symbol % and change it to perc
+    "\\(" = "",
+    "\\)" = "",
+    "\\/" = "",
+    "\\?" = "",
+    "\\s", "."))) #remove spaces
+```
+
+6.  **piping**
+
+-   pipe binds individual steps into a sequence
+
+-   `ctrl+shift+M` inserts a pipe `%>%` or `|>`
+
+**extra reading**
+
+<https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>
+
+<https://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script>

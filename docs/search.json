@@ -10,6 +10,28 @@
     ]
   },
   {
+    "objectID": "DataManipulationVisualisation/1_introduction.html",
+    "href": "DataManipulationVisualisation/1_introduction.html",
+    "title": "1 Introduction",
+    "section": "",
+    "text": "Few useful tips how to handle your scripts tidy:\n\nuse projects\n\n\ncreate directories data, results, maps, backup etc.\n\n\nlibraries\n\n\nlist all the libraries you need at the beginning of the script\n\n\nlibrary(tidyverse)\nlibrary(readxl)\n\n\nremarks\n\n\nctrl + shift + C will change the text to non-active (marked with hash tags #)\nadd notes to your scripts, you will be grateful later\n\n\nseparate scripts or sections\n\n\nctrl + shift + R insert named section\nuse 4x#\nAlt + O fold all\nShift + Alt + O unfold all\n\n\nnames of variables\n\n\nshort and easy to handle, without spaces, strange symbols\nrename strange names one by one\n%&gt;% rename (ReleveNr = \"Releve number\")\nor change all difficult patterns at once\nRegEx Regular expression\n\n\nenv &lt;- env %&gt;%\n   rename_all(~ str_replace_all(., c(\n    \"\\\\.\" = \"\",     #remove dots in the variable names\n    \"\\\\mÂ²\" = \"m2\",\n    \"\\\\Â°\" = \"deg\",\n    \"\\\\%\" = \"perc\", # remove symbol % and change it to perc\n    \"\\\\(\" = \"\",\n    \"\\\\)\" = \"\",\n    \"\\\\/\" = \"\",\n    \"\\\\?\" = \"\",\n    \"\\\\s\", \".\"))) #remove spaces\n\n\npiping\n\n\npipe binds individual steps into a sequence\nctrl+shift+M inserts a pipe %&gt;% or |&gt;\n\nextra reading\nhttps://www.tidyverse.org/blog/2017/12/workflow-vs-script/\nhttps://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "1 Introduction"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/1_introduction.html#tidy-script",
+    "href": "DataManipulationVisualisation/1_introduction.html#tidy-script",
+    "title": "1 Introduction",
+    "section": "",
+    "text": "Few useful tips how to handle your scripts tidy:\n\nuse projects\n\n\ncreate directories data, results, maps, backup etc.\n\n\nlibraries\n\n\nlist all the libraries you need at the beginning of the script\n\n\nlibrary(tidyverse)\nlibrary(readxl)\n\n\nremarks\n\n\nctrl + shift + C will change the text to non-active (marked with hash tags #)\nadd notes to your scripts, you will be grateful later\n\n\nseparate scripts or sections\n\n\nctrl + shift + R insert named section\nuse 4x#\nAlt + O fold all\nShift + Alt + O unfold all\n\n\nnames of variables\n\n\nshort and easy to handle, without spaces, strange symbols\nrename strange names one by one\n%&gt;% rename (ReleveNr = \"Releve number\")\nor change all difficult patterns at once\nRegEx Regular expression\n\n\nenv &lt;- env %&gt;%\n   rename_all(~ str_replace_all(., c(\n    \"\\\\.\" = \"\",     #remove dots in the variable names\n    \"\\\\mÂ²\" = \"m2\",\n    \"\\\\Â°\" = \"deg\",\n    \"\\\\%\" = \"perc\", # remove symbol % and change it to perc\n    \"\\\\(\" = \"\",\n    \"\\\\)\" = \"\",\n    \"\\\\/\" = \"\",\n    \"\\\\?\" = \"\",\n    \"\\\\s\", \".\"))) #remove spaces\n\n\npiping\n\n\npipe binds individual steps into a sequence\nctrl+shift+M inserts a pipe %&gt;% or |&gt;\n\nextra reading\nhttps://www.tidyverse.org/blog/2017/12/workflow-vs-script/\nhttps://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "1 Introduction"
+    ]
+  },
+  {
     "objectID": "CommunityEcology/community_ecology.html",
     "href": "CommunityEcology/community_ecology.html",
     "title": "Data Analysis in Community Ecology",
