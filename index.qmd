@@ -1,21 +1,19 @@
 ---
 title: "Botzool Data Analysis"
-page-layout: full
-type: html
 ---
 
-This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University. 
+This is a website for the study materials related to the courses on data analysis at the Department of Botany and Zoology, Faculty of Science, Masaryk University.
 
 The related courses are:
 
-- Bi7540 Analýza dat v ekologii společenstev
-- Bi7542 Data analysis in community ecology
-- Bi8190 Manipulace a vizualizace dat v R (Data manipulation and visualisation in R)
+-   Bi7540 Analýza dat v ekologii společenstev
+-   Bi7542 Data analysis in community ecology
+-   Bi8190 Manipulace a vizualizace dat v R (Data manipulation and visualisation in R)
 
 Moreover, this website contains guidelines for the use of AI in ecology.
 
 ### Website Navigation
 
-- [Data Analysis in Community Ecology](CommunityEcology/community_ecology.qmd)
-- [Data Manipulation and Visualisation](DataManipulationVisualisation/data_manipulation_visualisation.qmd)
-- [AI](AIinTeaching/ai_in_teaching.qmd)
+-   [Data Analysis in Community Ecology](CommunityEcology/community_ecology.qmd)
+-   [Data Manipulation and Visualisation](DataManipulationVisualisation/data_manipulation_visualisation.qmd)
+-   [AI](AIinTeaching/ai_in_teaching.qmd)
