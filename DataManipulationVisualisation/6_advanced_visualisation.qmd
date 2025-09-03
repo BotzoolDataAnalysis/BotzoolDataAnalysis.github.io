@@ -2,3 +2,52 @@
 title: "6 Advanced Visualisation"
 ---
 
+ggplot advanced
+
+data argument - highlight subset of points
+
+playing with colors, shapes, text, ggrepel, alpha, sizes, different geoms - violin, jitter, path, segment
+
+multiple layers in one plot
+
+position in barplot
+
+aesthetic specifications vignette: [https://ggplot2.tidyverse.org/articles/ggplot2-specs.html](#0)
+
+faceting
+
+multiple plots together - patchwork
+
+legend position etc
+
+axis transformation, limits, spaces
+
+ggpubr
+
+ggeffects
+
+shiny trailer
+
+## Exercises
+
+1.  recreate a plot
+
+## Further reading
+
+ggplot2 vignette: <https://ggplot2.tidyverse.org>
+
+R 4 Data Science: [https://r4ds.hadley.nz/visualize.html](http://127.0.0.1:46175/#0 "https://r4ds.hadley.nz/visualize.html")
+
+Cheatsheet: <https://rstudio.github.io/cheatsheets/html/data-visualization.html>
+
+ggplot2: Elegant Graphics for Data Analysis (3e): <https://ggplot2-book.org>
+
+R Graphics Cookbook: <https://r-graphics.org>
+
+ggplot Extensions: <https://exts.ggplot2.tidyverse.org/gallery>
+
+Mastering Shiny: <https://mastering-shiny.org>
+
+Tutorial for effective visual science communication: <https://ascpt.onlinelibrary.wiley.com/doi/full/10.1002/psp4.12455>
+
+Graphics principles cheatsheet: <https://github.com/GraphicsPrinciples/CheatSheet/blob/master/NVSCheatSheet.pdf>

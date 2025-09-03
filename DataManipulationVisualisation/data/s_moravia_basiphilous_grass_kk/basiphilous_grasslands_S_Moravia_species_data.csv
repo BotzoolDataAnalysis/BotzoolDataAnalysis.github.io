@@ -1,0 +1,341 @@
+Taxon,SpecName_Layer,Layer,Ellenberg_Light,Ellenberg_Temperature,Ellenberg_Moisture,Ellenberg_Soil_Reaction,Ellenberg_Nutrients,dist_freq,dist_sev,THE,THF,conserv_stat,alien,inv_status,THE_THF
+Acer campestre,Acer campestre_7,0,5,6,5,7,6,-0.845,0.087,FALSE,FALSE,LC(NA),NA,NA,NA
+Acer pseudoplatanus,Acer pseudoplatanus_7,0,4,5,6,6,7,-0.735,0.052,FALSE,FALSE,LC(NA),NA,NA,NA
+Achillea millefolium agg.,Achillea millefolium agg._6,6,7,5,5,6,5,-0.247,0.47,NA,NA,NA,NA,NA,NA
+Acinos arvensis,Acinos arvensis_6,6,9,7,2,7,2,-0.334,0.301,FALSE,FALSE,NA,NA,NA,NA
+Adonis vernalis,Adonis vernalis_6,6,8,7,3,8,2,-0.333,0.227,NA,NA,VU,NA,NA,NA
+Aegopodium podagraria,Aegopodium podagraria_6,6,6,5,6,7,8,-0.57,0.347,FALSE,FALSE,LC(NA),NA,NA,NA
+Aesculus hippocastanum,Aesculus hippocastanum_7,0,4,6,5,6,7,NA,NA,NA,NA,LC(NA),neophyte,nat,NA
+Agrimonia eupatoria,Agrimonia eupatoria_6,6,7,6,4,8,4,-0.404,0.274,NA,NA,LC(NA),NA,NA,NA
+Agrostis capillaris,Agrostis capillaris_6,6,7,5,4,4,4,-0.37,0.361,FALSE,FALSE,LC(NA),NA,NA,NA
+Agrostis stolonifera agg.,Agrostis stolonifera agg._6,6,7,5,7,6,5,NA,NA,NA,NA,NA,NA,NA,NA
+Ajuga chamaepitys ssp. chamaepitys,Ajuga chamaepitys ssp. chamaepitys_6,6,8,8,3,8,4,NA,NA,NA,NA,CR,archaeophyte,nat,NA
+Ajuga genevensis,Ajuga genevensis_6,6,7,6,4,7,3,-0.567,0.201,FALSE,FALSE,LC(NA),NA,NA,NA
+Ajuga reptans,Ajuga reptans_6,6,5,5,6,6,6,-0.552,0.199,FALSE,FALSE,LC(NA),NA,NA,NA
+Allium flavum,Allium flavum_6,6,8,7,2,7,2,-0.666,0.247,FALSE,FALSE,NT,NA,NA,NA
+Allium oleraceum,Allium oleraceum_6,6,6,6,4,7,4,-0.708,0.287,NA,NA,LC(NA),NA,NA,NA
+Allium rotundum,Allium rotundum_6,6,7,7,4,8,4,NA,NA,NA,NA,NT,NA,NA,NA
+Alyssum alyssoides,Alyssum alyssoides_6,6,9,6,3,8,3,-0.228,0.467,FALSE,FALSE,LC(NA),NA,NA,NA
+Anagallis arvensis,Anagallis arvensis_6,6,7,6,5,7,6,0.416,0.978,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Anagallis foemina,Anagallis foemina_6,6,7,7,4,8,6,0.492,0.996,NA,NA,NT,archaeophyte,nat,NA
+Anthericum ramosum,Anthericum ramosum_6,6,7,6,3,7,3,-0.559,0.156,FALSE,FALSE,LC,NA,NA,NA
+Anthoxanthum odoratum,Anthoxanthum odoratum_6,6,7,5,5,4,4,NA,NA,FALSE,FALSE,LC(NA),NA,NA,NA
+Anthyllis vulneraria,Anthyllis vulneraria_6,6,8,5,4,7,3,-0.132,0.293,FALSE,TRUE,NA,NA,NA,TRUE
+Aquilegia vulgaris,Aquilegia vulgaris_6,6,6,5,5,7,5,-0.708,0.185,NA,NA,NT,NA,NA,NA
+Arctium lappa,Arctium lappa_6,6,8,6,5,7,8,-0.497,0.587,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Arenaria serpyllifolia agg.,Arenaria serpyllifolia agg._6,6,8,5,4,6,4,-0.134,0.636,FALSE,FALSE,NA,NA,NA,NA
+Arrhenatherum elatius,Arrhenatherum elatius_6,6,7,5,5,7,7,-0.42,0.404,FALSE,FALSE,LC(NA),archaeophyte,inv,NA
+Artemisia campestris,Artemisia campestris_6,6,8,7,2,6,3,-0.271,0.269,FALSE,FALSE,LC(NA),NA,NA,NA
+Artemisia pontica,Artemisia pontica_6,6,9,7,3,8,4,-0.55,0.301,NA,NA,NT,NA,NA,NA
+Artemisia vulgaris,Artemisia vulgaris_6,6,7,6,5,6,8,-0.33,0.691,FALSE,FALSE,LC(NA),NA,NA,NA
+Asparagus officinalis,Asparagus officinalis_6,6,7,7,3,7,4,-0.738,0.285,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Asperula cynanchica,Asperula cynanchica_6,6,8,7,3,8,3,-0.247,0.238,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Aster amellus,Aster amellus_6,6,8,6,3,8,3,-0.287,0.21,TRUE,FALSE,NT,NA,NA,TRUE
+Astragalus austriacus,Astragalus austriacus_6,6,8,7,3,9,3,-0.092,0.252,FALSE,FALSE,NT,NA,NA,NA
+Astragalus cicer,Astragalus cicer_6,6,7,6,4,8,4,-0.12,0.404,NA,NA,LC(NA),NA,NA,NA
+Astragalus glycyphyllos,Astragalus glycyphyllos_6,6,6,6,4,7,4,-0.637,0.205,FALSE,FALSE,LC(NA),NA,NA,NA
+Astragalus onobrychis,Astragalus onobrychis_6,6,8,7,2,9,3,-0.055,0.256,TRUE,FALSE,NT,NA,NA,TRUE
+Atriplex oblongifolia,Atriplex oblongifolia_6,6,8,7,4,7,6,-0.397,0.827,NA,NA,LC(NA),archaeophyte,nat,NA
+Avenula pubescens,Avenula pubescens_6,6,7,6,4,6,4,-0.197,0.237,FALSE,FALSE,LC(NA),NA,NA,NA
+Ballota nigra,Ballota nigra_6,6,7,6,5,7,8,-0.711,0.606,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Berberis vulgaris,Berberis vulgaris_7,0,7,6,4,8,4,-0.927,0.152,FALSE,FALSE,NT,NA,NA,NA
+Betonica officinalis,Betonica officinalis_6,6,6,6,4,7,4,-0.472,0.227,FALSE,FALSE,LC(NA),NA,NA,NA
+Betula pendula,Betula pendula_7,0,7,5,5,4,3,-0.814,0.131,FALSE,FALSE,LC(NA),NA,NA,NA
+Bothriochloa ischaemum,Bothriochloa ischaemum_6,6,9,7,3,8,3,-0.221,0.24,FALSE,FALSE,NT,NA,NA,NA
+Brachypodium pinnatum,Brachypodium pinnatum_6,6,6,6,4,7,4,-0.538,0.217,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Brachypodium sylvaticum,Brachypodium sylvaticum_6,6,4,5,5,6,7,-0.752,0.155,FALSE,FALSE,LC(NA),NA,NA,NA
+Briza media,Briza media_6,6,8,5,5,5,3,-0.298,0.272,FALSE,FALSE,LC(NA),NA,NA,NA
+Bromus erectus,Bromus erectus_6,6,8,5,3,8,4,-0.127,0.271,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Bromus inermis,Bromus inermis_6,6,8,6,4,8,6,-0.591,0.469,FALSE,FALSE,LC(NA),NA,NA,NA
+Bromus japonicus,Bromus japonicus_6,6,8,7,4,8,5,-0.048,0.789,NA,NA,LC,archaeophyte,nat,NA
+Bromus sterilis,Bromus sterilis_6,6,7,6,4,6,7,-0.676,0.701,FALSE,FALSE,LC(NA),archaeophyte,inv,NA
+Bromus tectorum,Bromus tectorum_6,6,8,6,3,8,5,-0.298,0.768,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Buglossoides purpurocaerulea,Buglossoides purpurocaerulea_6,6,5,7,4,8,4,-0.74,0.059,FALSE,FALSE,LC,NA,NA,NA
+Bupleurum falcatum,Bupleurum falcatum_6,6,6,6,3,8,3,-0.58,0.203,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Calamagrostis epigejos,Calamagrostis epigejos_6,6,7,5,5,6,6,-0.629,0.413,FALSE,FALSE,LC(NA),NA,NA,NA
+Campanula bononiensis,Campanula bononiensis_6,6,7,6,3,8,3,-0.776,0.159,FALSE,FALSE,VU,NA,NA,NA
+Campanula glomerata,Campanula glomerata_6,6,7,6,4,7,4,-0.241,0.239,NA,NA,NA,NA,NA,NA
+Campanula moravica,Campanula moravica_6,6,7,6,3,6,3,NA,NA,NA,NA,NT,NA,NA,NA
+Campanula rapunculoides,Campanula rapunculoides_6,6,6,6,5,7,6,-0.629,0.447,NA,NA,LC(NA),NA,NA,NA
+Campanula sibirica,Campanula sibirica_6,6,8,8,2,8,3,-0.09,0.235,FALSE,FALSE,NT,NA,NA,NA
+Campanula trachelium,Campanula trachelium_6,6,4,5,6,7,7,-0.739,0.135,FALSE,FALSE,LC(NA),NA,NA,NA
+Carduus acanthoides,Carduus acanthoides_6,6,9,6,4,8,7,-0.273,0.726,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Carduus crispus,Carduus crispus_6,6,6,5,6,6,9,-0.628,0.524,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex caryophyllea,Carex caryophyllea_6,6,8,6,4,6,3,-0.234,0.265,NA,NA,LC(NA),NA,NA,NA
+Carex digitata var. digitata,Carex digitata var. digitata_6,6,4,5,5,6,6,-0.735,0.047,FALSE,FALSE,NA,NA,NA,NA
+Carex flacca,Carex flacca_6,6,7,5,6,8,3,-0.309,0.23,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex hirta,Carex hirta_6,6,7,6,6,6,5,-0.262,0.356,NA,NA,LC(NA),NA,NA,NA
+Carex humilis,Carex humilis_6,6,7,6,2,8,3,-0.425,0.215,TRUE,FALSE,NT,NA,NA,TRUE
+Carex michelii,Carex michelii_6,6,6,7,3,7,4,-0.523,0.153,FALSE,FALSE,NT,NA,NA,NA
+Carex montana,Carex montana_6,6,5,5,4,7,4,-0.627,0.101,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex muricata agg.,Carex muricata agg._6,6,5,5,5,6,5,-0.737,0.212,FALSE,FALSE,NA,NA,NA,NA
+Carex pallescens,Carex pallescens_6,6,7,5,6,4,4,-0.327,0.295,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex panicea,Carex panicea_6,6,8,5,8,6,4,-0.463,0.244,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex praecox,Carex praecox_6,6,8,6,4,6,4,-0.393,0.303,NA,NA,LC(NA),NA,NA,NA
+Carex sylvatica,Carex sylvatica_6,6,3,5,6,6,6,-0.668,0.124,FALSE,FALSE,LC(NA),NA,NA,NA
+Carex tomentosa,Carex tomentosa_6,6,7,6,6,8,4,-0.142,0.256,NA,NA,LC(NA),NA,NA,NA
+Carlina acaulis,Carlina acaulis_6,6,8,5,4,5,3,-0.237,0.289,FALSE,TRUE,NA,NA,NA,TRUE
+Carlina vulgaris agg.,Carlina vulgaris agg._6,6,8,5,4,7,3,-0.228,0.26,TRUE,FALSE,NA,NA,NA,TRUE
+Carpinus betulus,Carpinus betulus_0,0,4,6,5,6,5,-0.739,0.05,FALSE,FALSE,LC(NA),NA,NA,NA
+Centaurea jacea,Centaurea jacea_6,6,7,5,5,6,5,-0.216,0.314,FALSE,FALSE,NA,NA,NA,NA
+Centaurea scabiosa,Centaurea scabiosa_6,6,7,6,4,8,4,-0.324,0.266,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Centaurea stoebe,Centaurea stoebe_6,6,8,7,2,6,4,-0.306,0.297,FALSE,FALSE,LC(NA),NA,NA,NA
+Centaurea triumfetti,Centaurea triumfetti_6,6,7,7,3,8,3,-0.623,0.189,FALSE,FALSE,NT,NA,NA,NA
+Centaurium erythraea,Centaurium erythraea_6,6,8,6,5,6,5,-0.2,0.303,NA,NA,LC,NA,NA,NA
+Cerastium arvense,Cerastium arvense_6,6,8,6,4,6,4,-0.322,0.343,NA,NA,LC(NA),NA,NA,NA
+Cerastium holosteoides,Cerastium holosteoides_6,6,7,5,5,6,6,-0.127,0.464,NA,NA,LC(NA),NA,NA,NA
+Cerinthe minor,Cerinthe minor_6,6,7,6,4,8,4,-0.175,0.521,NA,NA,LC,NA,NA,NA
+Chaerophyllum aromaticum,Chaerophyllum aromaticum_6,6,7,5,7,6,8,-0.467,0.431,FALSE,FALSE,LC(NA),NA,NA,NA
+Chamaecytisus ratisbonensis,Chamaecytisus ratisbonensis_6,6,7,7,3,7,3,-0.323,0.218,TRUE,FALSE,NT,NA,NA,TRUE
+Chamaecytisus supinus,Chamaecytisus supinus_6,6,7,6,4,6,3,-0.425,0.19,NA,NA,NT,NA,NA,NA
+Chenopodium album agg.,Chenopodium album agg._6,6,7,6,5,6,7,0.018,0.9,FALSE,FALSE,NA,NA,NA,NA
+Chondrilla juncea,Chondrilla juncea_6,6,8,7,2,6,3,-0.117,0.292,NA,NA,VU,NA,NA,NA
+Cichorium intybus,Cichorium intybus_6,6,8,6,4,7,5,-0.169,0.613,NA,NA,LC(NA),archaeophyte,nat,NA
+Cirsium arvense,Cirsium arvense_6,6,8,5,5,6,7,-0.217,0.723,FALSE,FALSE,LC(NA),archaeophyte,inv,NA
+Cirsium oleraceum,Cirsium oleraceum_6,6,6,5,8,7,7,-0.42,0.321,FALSE,FALSE,LC(NA),NA,NA,NA
+Cirsium pannonicum,Cirsium pannonicum_6,6,7,7,4,8,4,-0.188,0.241,FALSE,TRUE,NT,NA,NA,TRUE
+Cirsium vulgare,Cirsium vulgare_6,6,8,5,5,7,8,-0.417,0.603,NA,NA,LC(NA),NA,NA,NA
+Clematis vitalba,Clematis vitalba_6,6,7,7,5,7,7,-0.878,0.357,FALSE,FALSE,LC(NA),NA,NA,NA
+Clinopodium vulgare,Clinopodium vulgare_6,6,6,6,4,7,4,-0.687,0.174,FALSE,FALSE,LC(NA),NA,NA,NA
+Colchicum autumnale,Colchicum autumnale_6,6,6,5,6,6,5,-0.355,0.284,NA,NA,LC(NA),NA,NA,NA
+Consolida regalis,Consolida regalis_6,6,7,7,4,7,6,0.188,0.971,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Convolvulus arvensis,Convolvulus arvensis_6,6,7,6,4,7,6,-0.14,0.758,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Conyza canadensis,Conyza canadensis_6,6,8,6,4,6,6,-0.109,0.8,FALSE,FALSE,LC(NA),neophyte,inv,NA
+Cornus sanguinea,Cornus sanguinea_0,0,6,6,5,7,5,-0.874,0.102,FALSE,FALSE,NA,NA,NA,NA
+Corylus avellana,Corylus avellana_7,0,6,5,5,6,6,-0.819,0.064,FALSE,FALSE,LC(NA),NA,NA,NA
+Cota tinctoria,Cota tinctoria_6,6,8,6,3,6,4,-0.518,0.171,FALSE,FALSE,NT,NA,NA,NA
+Crataegus species,Crataegus species_0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Crepis biennis,Crepis biennis_6,6,7,5,5,6,6,-0.189,0.483,NA,NA,LC(NA),NA,NA,NA
+Cytisus nigricans,Cytisus nigricans_6,6,6,6,4,6,3,-0.708,0.146,FALSE,FALSE,LC(NA),NA,NA,NA
+Cytisus procumbens,Cytisus procumbens_6,6,8,8,3,8,3,-0.561,0.211,FALSE,FALSE,NT,NA,NA,NA
+Dactylis glomerata,Dactylis glomerata_6,6,7,5,5,6,6,-0.384,0.396,FALSE,FALSE,NA,NA,NA,NA
+Daucus carota,Daucus carota_6,6,8,5,4,6,5,-0.118,0.588,FALSE,FALSE,LC(NA),NA,NA,NA
+Dianthus carthusianorum,Dianthus carthusianorum_6,6,8,5,3,7,3,NA,NA,NA,NA,NA,NA,NA,NA
+Dictamnus albus,Dictamnus albus_6,6,7,8,3,8,3,-0.624,0.146,FALSE,FALSE,NT,NA,NA,NA
+Dorycnium pentaphyllum agg.,Dorycnium pentaphyllum agg._6,6,7,6,3,8,3,-0.195,0.222,TRUE,FALSE,NT,NA,NA,TRUE
+Echinops sphaerocephalus,Echinops sphaerocephalus_6,6,8,7,4,7,7,-0.371,0.622,FALSE,FALSE,LC(NA),neophyte,inv,NA
+Echium vulgare,Echium vulgare_6,6,9,5,4,6,4,-0.301,0.467,FALSE,FALSE,LC(NA),NA,NA,NA
+Elymus hispidus,Elymus hispidus_6,6,7,7,3,7,4,-0.516,0.308,FALSE,FALSE,NA,NA,NA,NA
+Elymus repens,Elymus repens_6,6,7,5,5,6,7,-0.315,0.708,FALSE,FALSE,LC(NA),NA,NA,NA
+Epilobium lamyi,Epilobium lamyi_6,6,7,6,5,5,4,NA,NA,NA,NA,LC,NA,NA,NA
+Equisetum arvense,Equisetum arvense_6,6,6,5,6,5,5,-0.348,0.518,NA,NA,LC(NA),NA,NA,NA
+Erigeron acris agg.,Erigeron acris agg._6,6,8,5,4,7,3,-0.139,0.403,NA,NA,NA,NA,NA,NA
+Erigeron annuus agg.,Erigeron annuus agg._6,6,8,5,5,6,6,-0.384,0.623,FALSE,FALSE,NA,neophyte,inv,NA
+Eryngium campestre,Eryngium campestre_6,6,9,7,3,7,3,-0.3,0.292,FALSE,FALSE,LC(NA),NA,NA,NA
+Euonymus europaeus,Euonymus europaeus_7,0,5,5,5,7,6,-0.963,0.132,FALSE,FALSE,LC(NA),NA,NA,NA
+Eupatorium cannabinum,Eupatorium cannabinum_6,6,7,5,7,7,7,-0.509,0.33,FALSE,FALSE,LC(NA),NA,NA,NA
+Euphorbia cyparissias,Euphorbia cyparissias_6,6,8,6,3,6,3,-0.476,0.259,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Euphorbia epithymoides,Euphorbia epithymoides_6,6,6,7,3,8,3,-0.558,0.136,FALSE,FALSE,NT,NA,NA,NA
+Euphorbia esula,Euphorbia esula_6,6,8,6,4,7,4,-0.301,0.56,NA,NA,NA,NA,NA,NA
+Euphorbia stricta,Euphorbia stricta_6,6,6,5,6,6,6,NA,NA,NA,NA,NT,NA,NA,NA
+Euphorbia virgata,Euphorbia virgata_6,6,8,7,4,8,3,-0.453,0.364,FALSE,FALSE,LC(NA),NA,NA,NA
+Euphrasia officinalis var. rostkoviana,Euphrasia officinalis var. rostkoviana_6,6,8,5,5,4,4,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Euphrasia stricta ssp. stricta,Euphrasia stricta ssp. stricta_6,6,8,6,4,5,2,-0.082,0.294,FALSE,FALSE,LC(NA),NA,NA,NA
+Falcaria vulgaris,Falcaria vulgaris_6,6,7,7,3,8,5,-0.402,0.556,FALSE,FALSE,LC(NA),NA,NA,NA
+Fallopia convolvulus,Fallopia convolvulus_6,6,7,6,5,6,6,-0.244,0.874,FALSE,FALSE,LC(NA),NA,NA,NA
+Festuca pratensis agg.,Festuca pratensis agg._6,6,7,5,6,6,6,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Festuca rubra,Festuca rubra_6,6,7,5,5,5,5,-0.324,0.325,FALSE,FALSE,LC(NA),NA,NA,NA
+Festuca rupicola,Festuca rupicola_6,6,8,6,3,8,3,-0.345,0.277,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Filipendula vulgaris,Filipendula vulgaris_6,6,7,6,4,8,3,-0.176,0.262,NA,NA,LC(NA),NA,NA,NA
+Fragaria vesca,Fragaria vesca_6,6,6,5,5,6,5,-0.699,0.175,FALSE,FALSE,LC(NA),NA,NA,NA
+Fragaria viridis,Fragaria viridis_6,6,7,5,3,7,4,-0.558,0.264,FALSE,TRUE,LC(NA),NA,NA,TRUE
+Frangula alnus,Frangula alnus_7,0,6,6,7,4,4,-0.868,0.077,FALSE,FALSE,LC(NA),NA,NA,NA
+Fraxinus excelsior,Fraxinus excelsior_0,0,4,5,6,7,7,-0.797,0.087,FALSE,FALSE,LC(NA),NA,NA,NA
+Galatella linosyris,Galatella linosyris_6,6,8,7,2,8,3,-0.281,0.234,TRUE,FALSE,NT,NA,NA,TRUE
+Galium album,Galium album_6,6,7,6,4,6,6,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Galium aparine,Galium aparine_6,6,6,6,5,6,8,-0.619,0.592,FALSE,FALSE,LC(NA),NA,NA,NA
+Galium glaucum,Galium glaucum_6,6,8,7,2,8,3,-0.517,0.216,FALSE,FALSE,NT,NA,NA,NA
+Galium pumilum,Galium pumilum_6,6,7,5,4,4,3,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Galium verum,Galium verum_6,6,7,6,4,5,3,NA,NA,FALSE,FALSE,LC(NA),NA,NA,NA
+Galium x pomeranicum,Galium x pomeranicum_6,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Genista tinctoria,Genista tinctoria_6,6,7,6,4,6,3,-0.518,0.171,FALSE,FALSE,LC(NA),NA,NA,NA
+Gentiana cruciata,Gentiana cruciata_6,6,7,6,3,8,3,NA,NA,NA,NA,EN,NA,NA,NA
+Gentianopsis ciliata,Gentianopsis ciliata_6,6,7,6,3,8,3,-0.081,0.235,NA,NA,VU,NA,NA,NA
+Geranium pratense,Geranium pratense_6,6,7,6,5,7,7,-0.306,0.414,NA,NA,LC(NA),NA,NA,NA
+Geranium pusillum,Geranium pusillum_6,6,7,6,4,6,7,0.151,0.932,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Geum urbanum,Geum urbanum_6,6,5,5,5,6,7,-0.81,0.278,FALSE,FALSE,LC(NA),NA,NA,NA
+Glechoma hederacea,Glechoma hederacea_6,6,5,6,6,6,7,NA,NA,FALSE,FALSE,LC(NA),NA,NA,NA
+Helianthemum grandiflorum ssp. obscurum,Helianthemum grandiflorum ssp. obscurum_6,6,8,6,3,7,3,NA,NA,FALSE,TRUE,NA,NA,NA,TRUE
+Helictochloa pratensis,Helictochloa pratensis_6,6,8,6,3,6,2,-0.168,0.311,FALSE,FALSE,NA,NA,NA,NA
+Heracleum sphondylium,Heracleum sphondylium_6,6,7,5,5,6,8,-0.451,0.378,NA,NA,NA,NA,NA,NA
+Hieracium lachenalii,Hieracium lachenalii_6,6,5,5,5,4,3,-0.69,0.129,FALSE,FALSE,LC(NA),NA,NA,NA
+Hieracium sabaudum,Hieracium sabaudum_6,6,5,6,5,4,4,-0.665,0.126,FALSE,FALSE,LC(NA),NA,NA,NA
+Hieracium umbellatum,Hieracium umbellatum_6,6,7,6,4,6,3,-0.391,0.248,NA,NA,LC(NA),NA,NA,NA
+Hylotelephium maximum,Hylotelephium maximum_6,6,7,6,4,5,3,NA,NA,FALSE,FALSE,LC(NA),NA,NA,NA
+Hypericum elegans,Hypericum elegans_6,6,8,7,3,8,3,NA,NA,NA,NA,EN,NA,NA,NA
+Hypericum montanum,Hypericum montanum_6,6,5,6,4,7,4,-0.773,0.04,FALSE,FALSE,LC(NA),NA,NA,NA
+Hypericum perforatum,Hypericum perforatum_6,6,7,5,4,6,4,-0.505,0.338,FALSE,FALSE,LC(NA),NA,NA,NA
+Hypochaeris maculata,Hypochaeris maculata_6,6,8,6,4,7,3,-0.201,0.309,FALSE,TRUE,VU,NA,NA,TRUE
+Inula britannica,Inula britannica_6,6,8,6,7,8,5,-0.249,0.361,FALSE,FALSE,LC(NA),NA,NA,NA
+Inula conyzae,Inula conyzae_6,6,6,6,4,7,3,-0.827,0.259,FALSE,FALSE,LC(NA),NA,NA,NA
+Inula ensifolia,Inula ensifolia_6,6,8,7,3,8,3,-0.217,0.213,TRUE,FALSE,NT,NA,NA,TRUE
+Inula hirta,Inula hirta_6,6,7,6,3,8,3,-0.404,0.194,FALSE,FALSE,NT,NA,NA,NA
+Inula oculus-christi,Inula oculus-christi_6,6,9,8,2,8,3,-0.166,0.24,NA,NA,NT,NA,NA,NA
+Inula salicina,Inula salicina_6,6,7,6,5,8,4,-0.41,0.238,FALSE,FALSE,NT,NA,NA,NA
+Juglans regia,Juglans regia_7,0,6,7,5,7,7,NA,NA,NA,NA,LC(NA),archaeophyte,inv,NA
+Jurinea mollis,Jurinea mollis_6,6,8,7,2,9,3,0,0.223,NA,NA,VU,NA,NA,NA
+Knautia arvensis agg.,Knautia arvensis agg._6,6,7,6,4,6,4,-0.209,0.34,FALSE,TRUE,NA,NA,NA,TRUE
+Koeleria macrantha+pyramidata,Koeleria macrantha+pyramidata_6,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lactuca serriola,Lactuca serriola_6,6,8,7,4,6,6,-0.219,0.819,FALSE,FALSE,LC(NA),archaeophyte,inv,NA
+Lamium purpureum,Lamium purpureum_6,6,7,5,5,7,7,0.194,0.954,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Lathyrus tuberosus,Lathyrus tuberosus_6,6,7,6,4,8,5,0.068,0.845,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Leontodon hispidus,Leontodon hispidus_6,6,7,5,5,6,6,-0.213,0.309,FALSE,FALSE,LC(NA),NA,NA,NA
+Leucanthemum vulgare agg.,Leucanthemum vulgare agg._6,6,7,5,5,6,5,-0.193,0.347,FALSE,FALSE,NA,NA,NA,NA
+Ligustrum vulgare,Ligustrum vulgare_0,0,6,6,4,7,5,-0.912,0.077,FALSE,FALSE,LC(NA),NA,NA,NA
+Linaria vulgaris,Linaria vulgaris_6,6,8,6,4,7,5,-0.26,0.658,NA,NA,LC(NA),archaeophyte,nat,NA
+Linum catharticum,Linum catharticum_6,6,7,5,5,7,3,-0.28,0.236,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Linum flavum,Linum flavum_6,6,8,7,3,8,3,-0.349,0.215,NA,NA,VU,NA,NA,NA
+Linum tenuifolium,Linum tenuifolium_6,6,9,8,2,8,2,-0.061,0.228,TRUE,FALSE,NT,NA,NA,TRUE
+Listera ovata,Listera ovata_6,6,5,5,6,7,6,-0.487,0.223,NA,NA,LC,NA,NA,NA
+Lithospermum officinale,Lithospermum officinale_6,6,6,6,4,8,5,NA,NA,NA,NA,VU,NA,NA,NA
+Lotus corniculatus,Lotus corniculatus_6,6,7,5,4,7,4,-0.245,0.334,NA,NA,LC(NA),NA,NA,NA
+Lysimachia nummularia,Lysimachia nummularia_6,6,5,6,7,6,6,-0.48,0.288,NA,NA,LC(NA),NA,NA,NA
+Malus species,Malus species_7,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Malva alcea,Malva alcea_6,6,8,6,4,7,6,NA,NA,NA,NA,NT,NA,NA,NA
+Medicago falcata,Medicago falcata_6,6,8,6,3,8,3,-0.299,0.275,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Medicago lupulina,Medicago lupulina_6,6,7,5,4,7,4,-0.094,0.664,FALSE,FALSE,LC(NA),NA,NA,NA
+Medicago sativa,Medicago sativa_6,6,8,6,4,7,5,-0.083,0.664,NA,NA,LC(NA),neophyte,nat,NA
+Melampyrum arvense,Melampyrum arvense_6,6,7,7,3,8,4,-0.22,0.288,NA,NA,VU,archaeophyte,nat,NA
+Melampyrum nemorosum,Melampyrum nemorosum_6,6,5,6,4,6,4,-0.688,0.115,FALSE,FALSE,NA,NA,NA,NA
+Melica transsilvanica,Melica transsilvanica_6,6,7,7,3,7,4,-0.736,0.281,FALSE,FALSE,LC,NA,NA,NA
+Melilotus albus,Melilotus albus_6,6,9,6,4,7,4,-0.229,0.626,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Melilotus officinalis,Melilotus officinalis_6,6,8,6,4,7,5,-0.232,0.651,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Microthlaspi perfoliatum,Microthlaspi perfoliatum_6,6,8,6,4,8,4,-0.7,0.498,FALSE,FALSE,LC(NA),NA,NA,NA
+Muscari comosum,Muscari comosum_6,6,7,7,3,7,4,-0.648,0.333,NA,NA,NT,NA,NA,NA
+Myosotis arvensis,Myosotis arvensis_6,6,7,6,5,5,6,0.199,0.901,FALSE,FALSE,LC(NA),NA,NA,NA
+Myosotis ramosissima,Myosotis ramosissima_6,6,9,6,3,6,3,-0.352,0.414,NA,NA,LC(NA),NA,NA,NA
+Nigella arvensis,Nigella arvensis_6,6,8,7,3,8,3,NA,NA,NA,NA,CR,archaeophyte,nat,NA
+Nonea pulla,Nonea pulla_6,6,8,6,3,8,4,-0.375,0.582,NA,NA,LC,NA,NA,NA
+Odontites luteus,Odontites luteus_6,6,8,7,3,8,2,0,0.227,NA,NA,VU,NA,NA,NA
+Odontites vernus ssp. serotinus,Odontites vernus ssp. serotinus_6,6,6,6,6,6,5,NA,NA,NA,NA,NA,NA,NA,NA
+Onobrychis viciifolia agg.,Onobrychis viciifolia agg._6,6,8,6,4,8,4,NA,NA,NA,NA,NA,NA,NA,NA
+Ononis spinosa,Ononis spinosa_6,6,8,6,4,7,3,-0.145,0.253,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Orchis militaris,Orchis militaris_6,6,7,7,4,8,2,NA,NA,NA,NA,EN,NA,NA,NA
+Orobanche alba,Orobanche alba_6,6,8,7,3,8,3,NA,NA,NA,NA,LC,NA,NA,NA
+Orobanche elatior,Orobanche elatior_6,6,8,7,4,8,3,NA,NA,NA,NA,VU,NA,NA,NA
+Papaver rhoeas,Papaver rhoeas_6,6,7,6,4,7,6,0.256,0.967,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Pastinaca sativa,Pastinaca sativa_6,6,8,6,5,7,5,-0.221,0.55,NA,NA,NA,NA,NA,NA
+Peucedanum alsaticum,Peucedanum alsaticum_6,6,7,7,4,8,3,-0.579,0.25,FALSE,FALSE,NT,NA,NA,NA
+Peucedanum cervaria,Peucedanum cervaria_6,6,7,6,3,7,3,-0.452,0.184,FALSE,FALSE,LC,NA,NA,NA
+Phleum phleoides,Phleum phleoides_6,6,8,6,3,7,3,-0.431,0.237,FALSE,TRUE,LC(NA),NA,NA,TRUE
+Phleum pratense agg.,Phleum pratense agg._6,6,7,5,5,6,7,NA,NA,NA,NA,NA,NA,NA,NA
+Picea abies,Picea abies_7,0,5,4,6,4,4,-0.884,0.07,FALSE,FALSE,LC(NA),NA,NA,NA
+Picris hieracioides,Picris hieracioides_6,6,8,6,4,7,5,-0.176,0.484,NA,NA,LC(NA),NA,NA,NA
+Pilosella bauhini,Pilosella bauhini_6,6,8,7,3,7,3,-0.232,0.235,NA,NA,LC(NA),NA,NA,NA
+Pilosella densiflora,Pilosella densiflora_6,6,8,7,3,7,3,NA,NA,NA,NA,NT,NA,NA,NA
+Pilosella officinarum,Pilosella officinarum_6,6,7,5,4,5,2,-0.329,0.272,FALSE,FALSE,LC(NA),NA,NA,NA
+Pimpinella major,Pimpinella major_6,6,7,5,5,7,6,-0.367,0.324,FALSE,FALSE,LC(NA),NA,NA,NA
+Pimpinella saxifraga,Pimpinella saxifraga_6,6,7,5,3,6,3,-0.308,0.293,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Pinus sylvestris,Pinus sylvestris_0,0,6,5,5,5,2,-0.93,0.062,FALSE,FALSE,LC(NA),NA,NA,NA
+Plantago lanceolata,Plantago lanceolata_6,6,7,5,5,6,5,-0.137,0.448,FALSE,FALSE,LC(NA),NA,NA,NA
+Plantago major,Plantago major_6,6,7,5,5,6,6,-0.039,0.704,FALSE,FALSE,NA,NA,NA,NA
+Plantago media,Plantago media_6,6,7,6,4,7,4,-0.162,0.319,TRUE,TRUE,NA,NA,NA,TRUE
+Platanthera bifolia agg.,Platanthera bifolia agg._6,6,6,6,5,6,4,NA,NA,NA,NA,VU,NA,NA,NA
+Poa angustifolia,Poa angustifolia_6,6,7,6,4,6,4,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Poa compressa,Poa compressa_6,6,9,6,3,7,3,-0.513,0.525,FALSE,FALSE,LC(NA),NA,NA,NA
+Poa palustris,Poa palustris_6,6,6,5,8,6,7,-0.505,0.41,NA,NA,LC(NA),NA,NA,NA
+Polygala amarella,Polygala amarella_6,6,8,5,8,8,2,-0.612,0.121,NA,NA,EN,NA,NA,NA
+Polygala comosa,Polygala comosa_6,6,8,6,3,8,3,-0.05,0.26,FALSE,TRUE,LC(NA),NA,NA,TRUE
+Polygala major,Polygala major_6,6,8,7,3,8,3,-0.088,0.233,TRUE,FALSE,NT,NA,NA,TRUE
+Polygala vulgaris,Polygala vulgaris_6,6,7,5,5,4,3,-0.463,0.279,FALSE,FALSE,LC(NA),NA,NA,NA
+Potentilla argentea,Potentilla argentea_6,6,9,6,2,5,3,-0.211,0.431,FALSE,FALSE,LC(NA),NA,NA,NA
+Potentilla heptaphylla,Potentilla heptaphylla_6,6,7,6,3,8,4,-0.253,0.253,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Potentilla incana,Potentilla incana_6,6,9,7,2,8,2,-0.326,0.249,FALSE,FALSE,NT,NA,NA,NA
+Potentilla recta,Potentilla recta_6,6,8,7,3,7,3,-0.444,0.268,NA,NA,LC,NA,NA,NA
+Potentilla reptans,Potentilla reptans_6,6,6,6,6,7,6,-0.288,0.471,FALSE,FALSE,LC(NA),NA,NA,NA
+Primula veris,Primula veris_6,6,7,6,4,7,4,-0.615,0.179,FALSE,FALSE,LC,NA,NA,NA
+Prunella grandiflora,Prunella grandiflora_6,6,7,6,3,8,3,-0.07,0.244,TRUE,FALSE,NT,NA,NA,TRUE
+Prunella laciniata,Prunella laciniata_6,6,7,6,3,8,3,-0.335,0.247,NA,NA,NT,NA,NA,NA
+Prunella vulgaris,Prunella vulgaris_6,6,7,5,5,6,5,-0.265,0.345,NA,NA,LC(NA),NA,NA,NA
+Prunella x dissecta (P. grandiflora x laciniata),Prunella x dissecta (P. grandiflora x laciniata)_6,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Prunus species,Prunus species_0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pulmonaria angustifolia,Pulmonaria angustifolia_6,6,6,7,4,7,3,-0.377,0.224,FALSE,FALSE,VU,NA,NA,NA
+Pulsatilla grandis,Pulsatilla grandis_6,6,8,7,3,7,2,-0.053,0.237,FALSE,FALSE,VU,NA,NA,NA
+Pulsatilla pratensis ssp. bohemica,Pulsatilla pratensis ssp. bohemica_6,6,8,6,3,7,2,-0.341,0.23,FALSE,FALSE,VU,NA,NA,NA
+Quercus petraea,Quercus petraea_7,0,6,6,5,5,4,NA,NA,NA,NA,LC(NA),NA,NA,NA
+Quercus pubescens,Quercus pubescens_7,0,7,8,3,7,3,NA,NA,NA,NA,NT,NA,NA,NA
+Quercus robur,Quercus robur_7,0,6,6,6,6,5,-0.774,0.08,FALSE,FALSE,LC(NA),NA,NA,NA
+Ranunculus polyanthemos,Ranunculus polyanthemos_6,6,6,6,4,7,3,-0.278,0.272,FALSE,FALSE,LC(NA),NA,NA,NA
+Rapistrum perenne,Rapistrum perenne_6,6,8,7,3,8,5,-0.506,0.297,NA,NA,NT,NA,NA,NA
+Reseda lutea,Reseda lutea_6,6,8,6,3,8,5,-0.276,0.697,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Rhamnus cathartica,Rhamnus cathartica_0,0,7,5,4,8,5,-1.051,0.128,FALSE,FALSE,LC(NA),NA,NA,NA
+Rhinanthus alectorolophus,Rhinanthus alectorolophus_6,6,8,6,4,7,5,0.053,0.736,NA,NA,VU,NA,NA,NA
+Rhinanthus major,Rhinanthus major_6,6,7,5,5,7,3,-0.319,0.255,NA,NA,LC(NA),NA,NA,NA
+Rhinanthus minor,Rhinanthus minor_6,6,7,5,4,5,4,-0.129,0.313,NA,NA,LC(NA),NA,NA,NA
+Robinia pseudoacacia,Robinia pseudoacacia_0,0,6,6,4,6,7,-1.252,0.187,FALSE,FALSE,LC(NA),neophyte,inv,NA
+Rosa species,Rosa species_0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Rubus caesius,Rubus caesius_6,6,6,5,6,7,7,-0.635,0.417,NA,NA,LC(NA),NA,NA,NA
+Salix caprea,Salix caprea_7,0,7,5,6,6,6,-0.979,0.266,FALSE,FALSE,LC(NA),NA,NA,NA
+Salsola tragus ssp. tragus,Salsola tragus ssp. tragus_6,6,9,7,3,7,6,NA,NA,FALSE,FALSE,EN,NA,NA,NA
+Salvia nemorosa,Salvia nemorosa_6,6,8,7,3,8,4,-0.451,0.384,FALSE,FALSE,LC(NA),NA,NA,NA
+Salvia pratensis,Salvia pratensis_6,6,7,6,3,8,4,-0.358,0.259,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Salvia verticillata,Salvia verticillata_6,6,7,6,4,7,5,-0.31,0.34,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Sanguisorba minor,Sanguisorba minor_6,6,7,6,3,7,3,-0.301,0.269,TRUE,TRUE,LC(NA),NA,NA,TRUE
+Scabiosa canescens,Scabiosa canescens_6,6,7,7,3,8,3,-0.193,0.22,TRUE,FALSE,NT,NA,NA,TRUE
+Scabiosa ochroleuca,Scabiosa ochroleuca_6,6,8,6,3,8,3,-0.173,0.251,TRUE,FALSE,LC(NA),NA,NA,TRUE
+Scorzonera purpurea,Scorzonera purpurea_6,6,8,7,3,8,3,NA,NA,NA,NA,VU,NA,NA,NA
+Securigera varia,Securigera varia_6,6,7,5,4,7,4,-0.43,0.314,FALSE,TRUE,LC(NA),NA,NA,TRUE
+Sedum acre,Sedum acre_6,6,8,6,2,6,2,-0.218,0.327,FALSE,FALSE,LC(NA),NA,NA,NA
+Sedum sexangulare,Sedum sexangulare_6,6,8,6,2,6,3,-0.415,0.285,FALSE,FALSE,LC(NA),NA,NA,NA
+Senecio jacobaea,Senecio jacobaea_6,6,8,6,4,7,4,-0.208,0.293,NA,NA,LC(NA),NA,NA,NA
+Seseli annuum,Seseli annuum_6,6,8,6,3,8,2,-0.211,0.238,NA,NA,NT,NA,NA,NA
+Seseli hippomarathrum,Seseli hippomarathrum_6,6,9,7,2,9,1,-0.157,0.233,FALSE,FALSE,NT,NA,NA,NA
+Seseli osseum,Seseli osseum_6,6,9,7,2,7,2,-0.419,0.238,FALSE,FALSE,LC,NA,NA,NA
+Silene latifolia,Silene latifolia_6,6,7,6,4,7,7,-0.356,0.728,NA,NA,LC(NA),archaeophyte,nat,NA
+Silene otites,Silene otites_6,6,9,7,2,7,2,-0.159,0.258,FALSE,FALSE,NT,NA,NA,NA
+Silene vulgaris,Silene vulgaris_6,6,6,6,4,6,4,-0.595,0.341,FALSE,FALSE,NA,NA,NA,NA
+Solidago gigantea,Solidago gigantea_6,6,7,6,6,6,7,-0.426,0.544,NA,NA,LC(NA),neophyte,inv,NA
+Solidago virgaurea,Solidago virgaurea_6,6,6,5,5,5,4,-0.718,0.144,FALSE,FALSE,LC(NA),NA,NA,NA
+Sonchus oleraceus,Sonchus oleraceus_6,6,7,6,5,7,8,-0.078,0.886,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Stachys recta,Stachys recta_6,6,7,6,3,8,3,-0.527,0.242,FALSE,FALSE,LC(NA),NA,NA,NA
+Stipa capillata,Stipa capillata_6,6,9,7,2,8,2,-0.3,0.256,FALSE,FALSE,NT,NA,NA,NA
+Symphytum officinale,Symphytum officinale_6,6,7,6,7,7,8,-0.504,0.397,FALSE,FALSE,LC(NA),NA,NA,NA
+Symphytum tuberosum,Symphytum tuberosum_6,6,4,6,5,7,6,-0.687,0.106,FALSE,FALSE,LC(NA),NA,NA,NA
+Syringa vulgaris,Syringa vulgaris_7,0,7,7,4,7,6,NA,NA,FALSE,FALSE,LC(NA),neophyte,nat,NA
+Tanacetum corymbosum,Tanacetum corymbosum_6,6,6,7,4,7,4,-0.714,0.102,FALSE,FALSE,LC(NA),NA,NA,NA
+Tanacetum vulgare,Tanacetum vulgare_6,6,7,6,5,7,6,-0.3,0.595,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Taraxacum sect. Taraxacum,Taraxacum sect. Taraxacum_6,6,7,5,5,7,7,-0.346,0.593,NA,NA,NA,NA,NA,NA
+Teucrium chamaedrys,Teucrium chamaedrys_6,6,7,7,3,8,3,-0.507,0.224,FALSE,FALSE,LC,NA,NA,NA
+Thalictrum minus,Thalictrum minus_6,6,6,7,3,8,3,-0.595,0.217,FALSE,FALSE,NA,NA,NA,NA
+Thesium linophyllon,Thesium linophyllon_6,6,7,7,3,8,3,-0.212,0.22,NA,NA,NT,NA,NA,NA
+Thymus pannonicus agg.,Thymus pannonicus agg._6,6,8,7,3,7,3,NA,NA,NA,NA,NA,NA,NA,NA
+Thymus praecox,Thymus praecox_6,6,8,6,2,7,2,-0.381,0.229,FALSE,FALSE,LC,NA,NA,NA
+Thymus pulegioides,Thymus pulegioides_6,6,7,6,4,6,3,-0.392,0.289,FALSE,TRUE,NA,NA,NA,TRUE
+Tilia cordata,Tilia cordata_0,0,4,6,5,6,5,-0.734,0.042,FALSE,FALSE,LC(NA),NA,NA,NA
+Torilis japonica,Torilis japonica_6,6,6,6,5,7,8,-0.755,0.364,FALSE,FALSE,LC(NA),NA,NA,NA
+Tragopogon orientalis,Tragopogon orientalis_6,6,7,6,4,7,6,-0.037,0.338,NA,NA,LC(NA),NA,NA,NA
+Trifolium alpestre,Trifolium alpestre_6,6,7,6,3,7,3,-0.546,0.17,FALSE,FALSE,LC(NA),NA,NA,NA
+Trifolium campestre,Trifolium campestre_6,6,8,6,4,6,4,-0.1,0.5,FALSE,FALSE,LC(NA),NA,NA,NA
+Trifolium montanum,Trifolium montanum_6,6,7,6,3,8,3,-0.166,0.26,FALSE,TRUE,LC(NA),NA,NA,TRUE
+Trifolium ochroleucon,Trifolium ochroleucon_6,6,7,6,4,8,3,-0.377,0.272,NA,NA,NT,NA,NA,NA
+Trifolium pratense,Trifolium pratense_6,6,7,5,5,7,6,-0.107,0.463,NA,NA,LC(NA),NA,NA,NA
+Trifolium repens,Trifolium repens_6,6,7,5,5,6,6,-0.067,0.569,NA,NA,LC(NA),NA,NA,NA
+Trinia glauca,Trinia glauca_6,6,9,8,2,8,2,NA,NA,NA,NA,EN,NA,NA,NA
+Tripleurospermum inodorum,Tripleurospermum inodorum_6,6,7,6,5,6,7,0.041,0.857,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Trisetum flavescens,Trisetum flavescens_6,6,7,5,5,6,5,-0.125,0.339,FALSE,FALSE,LC(NA),NA,NA,NA
+Tussilago farfara,Tussilago farfara_6,6,8,5,6,7,6,-0.275,0.644,FALSE,FALSE,LC(NA),NA,NA,NA
+Urtica dioica,Urtica dioica_6,6,5,5,6,7,9,-0.665,0.383,FALSE,FALSE,LC(NA),NA,NA,NA
+Valeriana excelsa ssp. sambucifolia,Valeriana excelsa ssp. sambucifolia_6,6,6,5,8,6,7,-0.73,0.22,FALSE,FALSE,NA,NA,NA,NA
+Valeriana officinalis,Valeriana officinalis_6,6,7,5,7,7,7,-0.485,0.313,NA,NA,LC(NA),NA,NA,NA
+Verbascum chaixii ssp. austriacum,Verbascum chaixii ssp. austriacum_6,6,7,6,3,7,5,-0.528,0.252,FALSE,FALSE,NA,NA,NA,NA
+Veronica chamaedrys agg.,Veronica chamaedrys agg._6,6,6,5,5,7,6,-0.428,0.299,NA,NA,NA,NA,NA,NA
+Veronica officinalis,Veronica officinalis_6,6,5,5,4,4,4,-0.593,0.202,FALSE,FALSE,LC(NA),NA,NA,NA
+Veronica persica,Veronica persica_6,6,7,6,5,7,7,0.372,0.98,FALSE,FALSE,LC(NA),neophyte,nat,NA
+Veronica prostrata,Veronica prostrata_6,6,8,7,2,8,3,-0.074,0.283,FALSE,FALSE,LC,NA,NA,NA
+Veronica spicata,Veronica spicata_6,6,7,6,3,7,2,-0.282,0.235,FALSE,FALSE,LC,NA,NA,NA
+Veronica teucrium,Veronica teucrium_6,6,7,6,3,7,4,-0.482,0.21,NA,NA,LC,NA,NA,NA
+Vicia angustifolia,Vicia angustifolia_6,6,7,6,4,5,5,0.215,0.896,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Vicia cracca agg.,Vicia cracca agg._6,6,7,5,4,7,5,NA,NA,NA,NA,NA,NA,NA,NA
+Vicia hirsuta,Vicia hirsuta_6,6,7,6,4,5,5,0.064,0.812,FALSE,FALSE,LC(NA),NA,NA,NA
+Vicia sepium,Vicia sepium_6,6,6,5,5,6,6,-0.423,0.34,NA,NA,LC(NA),NA,NA,NA
+Vicia tetrasperma,Vicia tetrasperma_6,6,7,6,4,5,5,0.047,0.78,FALSE,FALSE,LC(NA),NA,NA,NA
+Vincetoxicum hirundinaria,Vincetoxicum hirundinaria_6,6,6,6,3,7,3,-0.795,0.145,FALSE,FALSE,LC(NA),NA,NA,NA
+Viola ambigua,Viola ambigua_6,6,7,7,3,8,3,-0.327,0.255,NA,NA,NT,NA,NA,NA
+Viola arvensis,Viola arvensis_6,6,7,5,5,6,6,0,0.904,FALSE,FALSE,LC(NA),NA,NA,NA
+Viola hirta,Viola hirta_6,6,6,5,3,8,3,-0.589,0.216,FALSE,FALSE,LC(NA),NA,NA,NA
+Viola odorata,Viola odorata_6,6,5,6,5,7,7,-0.889,0.282,FALSE,FALSE,LC(NA),archaeophyte,nat,NA
+Viola riviniana,Viola riviniana_6,6,4,6,5,6,6,-0.732,0.119,FALSE,FALSE,NA,NA,NA,NA
+Viola rupestris,Viola rupestris_6,6,7,6,3,8,2,-0.429,0.193,FALSE,FALSE,NT,NA,NA,NA
+Viola x hirtiformis (V. ambigua x hirta),Viola x hirtiformis (V. ambigua x hirta)_6,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Viola x scabra,Viola x scabra_6,6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Vitis vinifera,Vitis vinifera_7,0,6,7,5,7,6,NA,NA,NA,NA,LC(NA),NA,NA,NA

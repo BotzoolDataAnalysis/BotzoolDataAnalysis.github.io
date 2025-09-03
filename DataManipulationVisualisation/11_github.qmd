@@ -2,3 +2,34 @@
 title: "11 GitHub"
 ---
 
+version control and GitHub
+
+easy: how to find, download code from someone without an account (examples - maps course, published codes for articles)
+
+but much more is possible when you create your own account:
+
+install git
+
+create your own GitHub account
+
+setup connection with RStudio
+
+create your first repository (e.g. for your scripts from this course)
+
+settings - private repositories, colaborators
+
+code, readme, issues etc.
+
+commit, push, pull
+
+branches, pull request
+
+merge conflicts
+
+publication in a long-term repository - connection with Zenodo
+
+GitHub pages - our study materials, personal webpages (add examples)
+
+## Further reading
+
+Happy Git and GitHub for the useR: <https://happygitwithr.com>

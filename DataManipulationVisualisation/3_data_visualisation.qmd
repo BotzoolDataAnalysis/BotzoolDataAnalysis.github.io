@@ -59,6 +59,8 @@ ggplot(data = penguins,
   geom_point()
 ```
 
+Now, the plot with a point for each row in the data appears. However, there is a warning message in the console, which tells us that 2 rows contained missing values or values outside of the scale range. We didn't set any limit for x or y axis, so it most likely means there are some missing values in the data. We will not focus on this point now, but the ideal next step would be to check the data, where the missing values appeared and why. If possible, correct missing data in the original data, load new data and continue.
+
 Note that we use `+` for adding layers to `ggplot()` instead of `%>%` or `|>`. This is because `+` in `ggplot()` existed earlier than the pipe was discovered. It might be confusing and a cause errors, but don't worry, `R` will tell you what's wrong if it happens:
 
 ```{r}
@@ -71,6 +73,7 @@ ggplot(data = penguins,
 When we look at the scatterplot, there doesn't appear to be a clear relationship between the penguin bill length and bill depth. Let's add one more layer to our plot to check the relationship. To add a line based on linear regression, we use `geom_smooth` function with `method = 'lm'`:
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point() + 
@@ -80,17 +83,19 @@ ggplot(data = penguins,
 Now it seems there is a slightly negative relationship, which is a bit contrary to the expectations. Moreover, if we focus on the positions of the points in the scatterplot are a bit clustered. Let's recall the structure of our data. We have measurements of three different species in the dataset. What if this is the cause? Let's incorporate the species identity into our visualisation. We can do this by adding colour to the points. For this we need to modify the aesthetics:
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
   geom_point() + 
   geom_smooth(method = 'lm')
 ```
 
-Now it is clear that species identity is really important and the relationship between the bill dimensions is in fact positive.
+Now it is clear that species identity is really important and the relationship between the bill dimensions is in fact positive. This is a classical example of the [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) (a relationship appears in several groups of data, but disappears of reverses when the groups are combined).
 
 In addition to the colour, we can also distinguish species in the plot by adding `shape` aesthetics.
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, colour = species, shape = species)) +
   geom_point() + 
@@ -104,6 +109,7 @@ Let's play a bit more with the different shapes and colours, the points could be
 ![](images/clipboard-808881017.png)
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, colour = species, shape = species)) +
   geom_point() + 
@@ -114,6 +120,7 @@ ggplot(data = penguins,
 Oh, but this is not what we wanted, the shapes have only coloured boundaries, but no fill. Let's make it correctly. The fill colour is specified by the `fill` aesthetics, so we have to add this one. Moreover, the `colour` aesthetics is now specified directly in the `ggplot()` function, which means it applies to all layers in the plot. But we want all points to have black borders, so the `colour` should apply only to the lines. We can do this by moving the `colour` aesthetics to the `geom_smooth()` layer.
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
   geom_point() + 
@@ -126,6 +133,7 @@ Much nicer! Note that adding the `fill` aesthetics to the `ggplot()` also change
 The legend is now showing all aesthetics differentiating the groups in the plot. Maybe we don't need to display all of them. It would be enough to display a legend for the points, because the lines have the same colours. We can switch off legend for a given layer using `show.legend = F`:
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
   geom_point() + 
@@ -136,6 +144,7 @@ ggplot(data = penguins,
 To make the plot more publication-ready, we should pay more attention to the axes labels. We can change them using the `labs()` function. To rename the legend, we have to specify labels for all aesthetics used to distinguish the different categories.
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
   geom_point() + 
@@ -147,6 +156,7 @@ ggplot(data = penguins,
 Almost publication-ready, except the grey background is not very nice. It might be easily remove by adding a different `theme`. One of our favourites is `theme_bw(),` meaning black and white, but you can experiment with [different ones](https://ggplot2.tidyverse.org/reference/ggtheme.html) or even define your own.
 
 ```{r}
+#| warning: false
 ggplot(data = penguins, 
        mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
   geom_point() + 
@@ -163,6 +173,7 @@ This is our final plot showing the relationship between penguin bill dimensions 
 Let's explore the dataset more and take a look at different plot types. For example, we can look at the distribution of the penguin body mass using a histogram. We only specify `x` aesthetics here, because the histogram divides x-axis into equally spaced bins and then uses the height of the bar to display the number of observations that fall into each bin. The `binwidth` argument sets the width of the bins.
 
 ```{r}
+#| warning: false
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
 ```
@@ -174,6 +185,7 @@ For now, we will not go into detail on how to improve the appearance of this plo
 There is surely also a difference between different penguin species. We can visualise the differences using a boxplot:
 
 ```{r}
+#| warning: false
 ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot()
 ```
@@ -181,6 +193,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 We can also colour the boxes using the `fill` aesthetics. To make this plot nicer, we will again change the `theme` of the plot. We can also change the label of the y axis, while the label of the x axis is a bit redundant and it would be better to remove it. This might be done within the `theme()` function. That's where we can customise the properties of different plot components, such as axis labels, legend or background grid lines. To remove the given component, we set the argument to `element_blank()`.
 
 ```{r}
+#| warning: false
 ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
   geom_boxplot() + 
   labs(y = 'Body mass (g)', fill = 'Species') + 
@@ -193,6 +206,7 @@ ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
 To examine the distribution of a categorical variable, we can use a bar chart. The penguin measurements come from three different islands, let's see how the distribution of measurement across the islands looks like:
 
 ```{r}
+#| warning: false
 ggplot(penguins, aes(x = island)) +
   geom_bar()
 ```
@@ -200,6 +214,7 @@ ggplot(penguins, aes(x = island)) +
 And were all three penguin species measured at each of the three islands? We can see that when we map species using the `fill` aesthetics. The `colour` would control the border colour of the bars. We can also set that all bars should have black borders by setting `colour = 'black'` in `geom_bar`. We can also directly modify the `theme` and plot labels.
 
 ```{r}
+#| warning: false
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(colour = 'black') + 
   labs(x = 'Island', y = 'Number of individuals', fill = 'Species') + 
@@ -209,6 +224,8 @@ ggplot(penguins, aes(x = island, fill = species)) +
 Instead of the number of individuals, we can also display the relative frequency of different species at the islands by setting `position = 'fill'`.
 
 ```{r}
+#| warning: false
+
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(colour = 'black', position = 'fill') + 
   labs(x = 'Island', y = 'Relative frequency', fill = 'Species') + 
@@ -226,21 +243,27 @@ ggsave('plots/island_relative_frequency.png', width = 6, height = 4)
 
 ## 3.6 Exercises
 
-1.  scatterplot with different data, relationship of two numerical variables, add groups (iris, species richness in vegetation plots vs environmental variables)
+1.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xslx` and visualise the relationship between species richness of forest herb layer and the tree canopy cover. Is the relationship the same in different forest types?
 
-2.  histogram, other way to display distibution of numerical variable? (density plot, violin plot)
+2.  Draw a boxplot showing the differences in forest herb layer species richness in different forest types. Which forest type appears to be the most species-rich? Would there be another way to visualise the relationship between the herb-layer species richness and forest type? Explore the [ggplot extensions gallery](https://exts.ggplot2.tidyverse.org/gallery) and find a different plot type that might be useful here.
 
-3.  boxplots for different data (iris, species richness in vegetation plots vs vegetation types, hydro?)
+3.  Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')` Squirrels of which colour were the most common? Draw a barplot to visualise the differences. Try to find a way to colour the bars with colours resembling the squirrel colours.
 
-4.  three or more variables, how to deal with them? Propose a solution (colour/fill + shape, faceting)
+4.  Load the [Pokemon dataset](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`. Visualise the distribution of Pokémon weights using at least two different `geom` functions.
 
-5.  playing with `scale` - set different colours7
+5.  How would you transform the variable before an analysis? Find a way to visualise the distribution on a transformed scale using a `ggplot` function.
 
-6.  playing with `theme` - remove legend, axis labels, background grid
+6.  What is the relationship between the height and weight of water-type Pokémons?
 
-    always save the resulting plot
+7.  Which Pokémon type has the highest attack power? Visualise the relationship.
+
+8.  Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.
+
+9.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
 ## 3.7 Further reading
+
+ggplot2 vignette: <https://ggplot2.tidyverse.org>
 
 R 4 Data Science: <https://r4ds.hadley.nz/data-visualize.html>
 
