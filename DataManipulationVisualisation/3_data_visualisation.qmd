@@ -245,19 +245,19 @@ ggsave('plots/island_relative_frequency.png', width = 6, height = 4)
 
 1.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xslx` and visualise the relationship between species richness of forest herb layer and the tree canopy cover. Is the relationship the same in different forest types?
 
-2.  Draw a boxplot showing the differences in forest herb layer species richness in different forest types. Which forest type appears to be the most species-rich? Would there be another way to visualise the relationship between the herb-layer species richness and forest type? Explore the [ggplot extensions gallery](https://exts.ggplot2.tidyverse.org/gallery) and find a different plot type that might be useful here.
+2.  Draw a boxplot showing the differences in forest herb layer species richness in different forest types. Which forest type appears to be the most species-rich? \* Would there be another way to visualise the relationship between the herb-layer species richness and forest type? Explore the [ggplot extensions gallery](https://exts.ggplot2.tidyverse.org/gallery) and find a different plot type that might be useful here.
 
-3.  Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')` Squirrels of which colour were the most common? Draw a barplot to visualise the differences. Try to find a way to colour the bars with colours resembling the squirrel colours.
+3.  Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')` Squirrels of which colour were the most common? Draw a barplot to visualise the differences. \* Try to find a way to colour the bars with colours resembling the squirrel colours.
 
-4.  Load the [Pokemon dataset](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`. Visualise the distribution of Pokémon weights using at least two different `geom` functions.
+4.  Load the [Pokemon dataset](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`. Visualise the distribution of Pokémon weights. \* Try to use at least two different `geom` functions.
 
-5.  How would you transform the variable before an analysis? Find a way to visualise the distribution on a transformed scale using a `ggplot` function.
+5.  \* How would you transform the variable before an analysis? Find a way to visualise the distribution on a transformed scale using a `ggplot` function.
 
-6.  What is the relationship between the height and weight of water-type Pokémons?
+6.  What is the relationship between the attack and special attack power of water-type Pokémons?
 
 7.  Which Pokémon type has the highest attack power? Visualise the relationship.
 
-8.  Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.
+8.  Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. \* When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.
 
 9.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
