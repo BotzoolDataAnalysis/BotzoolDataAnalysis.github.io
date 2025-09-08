@@ -40,6 +40,8 @@ website:
             href: DataManipulationVisualisation/8_maps.qmd
           - text: "9 Advanced maps"
             href: DataManipulationVisualisation/9_advanced_maps.qmd
+          - text: "10 From a database to a plot"
+            href: DataManipulationVisualisation/10_database_to_plot.qmd
           - text: "11 GitHub"
             href: DataManipulationVisualisation/11_github.qmd
         
