@@ -2,55 +2,146 @@
 title: "1 Introduction"
 ---
 
-## Tidy script
+In this chapter, we will train how to get ready for analyses in R. Preparing the project, starting a script, importing data and their first exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.
 
-Few useful tips how to handle your scripts tidy:
+You already know that **R** is a programming language and environment for statistical analysis and data visualisation. R is free and open-source, available from the [`CRAN directory`](https://cran.rstudio.com/). R is extended by a large number of software packages, which contain reusable code, documentation, and sample data. In this course, we will focus in the first place on the **tidyverse** collection of packages, which are designed for everyday data handling and visualisation (see more [`here`](https://www.tidyverse.org/)).
 
-1.  **use projects**
+We will work with R using the interface called **RStudio IDE**, in short **RStudio**, which is an integrated development environment for R and can be downloaded [`here`](https://posit.co/download/rstudio-desktop/).
 
--   create directories data, results, maps, backup etc.
+[TO DO]{.underline}: **install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try further reading section at the end of this chapter or come and ask before the first lesson.
 
-2.  **libraries**
+## 1.1. Introducing Tidyverse
 
--   list all the libraries you need at the beginning of the script
+![](images/IA_clipboard1Tidyverse.png){fig-align="center" width="755"}
+
+Tidyverse is a collection of R packages for transforming and visualizing data, which share an underlying philosophy (tidy data, tibbles, %\>%) and common interface. When you install the `tidyverse`, you get all the core packages at once, namely `dplyr`, `tibble`, `ggplot2`, `readr`,`tidyr`, `stringr`, `forcats`,`lubridate`and`purr`.
+
+In addition you get automatically installed also several more packages, which share the same approach, although developed later or by someone else, for example `readxl`, `magrittr`. Find more [`here`](https://www.tidyverse.org/).
+
+Remember, that all the core packages are activated within the tidyverse library
 
 ```{r}
 #| warning: false
 library(tidyverse)
+```
+
+while for the extra ones you have to use an extra call
+
+```{r}
+#| warning: false
 library(readxl)
 ```
 
-3.  **remarks**
+### 1.1.1 Tidy data
 
--   `ctrl + shift + C` will change the text to non-active (marked with hash tags #)
+Data that are easy to handle and analyse. ![](images/IA_clipboard1TidyData.png){fig-align="center" width="755"}
 
--   add notes to your scripts, you will be grateful later
+Find more in the R for data science book <https://r4ds.hadley.nz/>
 
-4.  **separate scripts or sections**
+### 1.1.2 Tibbles
 
--   `ctrl + shift + R` insert named section
+Tibbles are new, updated versions of base-R data frames. They are designed to work better with other tidyverse packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g. strings to factors), they never change the names of variables, and they never create row names. Example:
 
--   use 4x`#`
+```{r}
+data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+tibble (data)
+```
 
--   `Alt + O` fold all
+### 1.1.3 Pipes %\>%
 
--   `Shift + Alt + O` unfold all
+The Tidyverse tools use a pipe: %\>% or \|\> The pipe allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. In base R the logic of reading is from inside out and you have to save all the steps separately.
 
-5.  **names of variables**
+See this example of the same steps with different approaches\>
 
--   short and easy to handle, without spaces, strange symbols
+Base R method
 
--   rename strange names one by one
+```{r}
+data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+# 1. Create new variable in the data
+data$Productivity <- ifelse(data$Biomass < 60, "low", "high")
 
--   `%>% rename (ReleveNr = "Releve number")`
+# 2. Select only some columns, save as new dataframe
+df <- data[, c("PlotID", "ForestTypeName", "Productivity", "pH_KCl")]
 
--   or change all difficult patterns at once
+# 3. Order by soil pH (descending)
+df <- df[order(df$pH_KCl, decreasing = TRUE), ]
 
--   RegEx Regular expression
+# 4. Keep only the first 20 rows with highest pH
+df_top20 <- df[1:20, ]
+
+# 5. Print the resulting subset to see which forest types grow in the high pH soils and if they have rather low or high productivity
+df_top20
+```
+
+Piping (the same steps, but just in one line)
+
+```{r}
+data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx") %>%
+  mutate(Productivity = ifelse(Biomass < 100, "low", "high")) %>%
+  select(PlotID, ForestTypeName, Productivity, pH_KCl) %>%
+  arrange(desc(pH_KCl)) %>%
+  slice_head(n = 20)
+```
+
+Note: It is even possible to overwrite original dataset with an assignment pipe %\<\>% included in `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
+
+Tip: Insert a pipe by `ctrl+shift+M`
+
+## 1.2. Effective and reproducible workflow
+
+There are several rules to make your workflow effective and reproducible after some time or by other people.
+
+### 1.2.1 Projects
+
+If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more [`here`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). Good habit is to organize each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.
+
+R Studio easily enables creating projects and switching between them (either through File-Open/New/Recent Project or by clicking on the upper right corner icon for projects). ![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
+
+Tip: get used to creating the same subfolders in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure.
+
+### 1.2.2 Scripts
+
+**libraries** - list all the libraries your code need at the beginning of the script
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+**remarks**
+
+\- add notes to your scripts, you will be grateful later
+
+\- change the text to non-active (marked with hash tags #) `ctrl + shift + C`
+
+**separate scripts or sections**
+
+\- insert named section using `ctrl + shift + R`
+
+\- or divide the code by `####`
+
+\- fold all sections with `Alt + O`
+
+\- unfold all with `Shift + Alt + O`
+
+**names of variables**
+
+\- should be short and easy to handle, without spaces, strange symbols
+
+\- rename strange names one by one
+
+Tip: rename gives first the new name
+
+```{r}
+#| warning: false
+# data %>% rename (ReleveNr = "Releve number")
+```
+
+\- or change all difficult patterns at once, using RegEx Regular expressions
 
 ```{r}
 #| eval: false
-env <- env %>%
+data <- data %>%
    rename_all(~ str_replace_all(., c(
     "\\." = "",     #remove dots in the variable names
     "\\mÂ²" = "m2",
@@ -63,14 +154,70 @@ env <- env %>%
     "\\s", "."))) #remove spaces
 ```
 
-6.  **piping**
+## 1.3 Data import
 
--   pipe binds individual steps into a sequence
+import data with Tidyverse: readr, readxl (see cheatsheet)
 
--   `ctrl+shift+M` inserts a pipe `%>%` or `|>`
+check the folder content
 
-**extra reading**
+```{r}
+list.files() #all files in the working=project directory
+list.files("data") #content of data folder
+list.files("data/Forest-understory-diversity_IA") #content of subfolder
+```
 
-<https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>
+we will work with the forest dataset, try importing different data
 
-<https://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script>
+```{r}
+data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+```
+
+few tips how to check the structure
+
+```{r}
+tibble(data)
+names(data)
+glimpse(data)
+table(data$ForestTypeName)
+```
+
+## 1.4 Where to find help
+
+Motto: *Majority of the problems in R can be solved if you know how to ask and where*.
+
+Knowing that I am lost in "Regular expressions" already helps to ask more specifically.
+
+-   Cheatsheets
+
+-   Vignettes
+
+-   StackOverFlow
+
+-   GitHub
+
+-   AI tools
+
+Or just come and ask!
+
+## 1.5 Exercises
+
+1.  Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections.
+2.  Find cheatsheet for ReadXl and find out how to import second sheet of Excel file.
+3.  Try import of a file via Rstudio and describe pros/cons.
+4.  Check the messy data, try to fix them and import.
+
+## 1.6 Further reading
+
+RStudio: Download and basic information <https://posit.co/download/rstudio-desktop/>
+
+David Zelený: Tutorial how to install R and Rstudio <https://www.davidzeleny.net/anadat-r/doku.php/en:r>
+
+Datacamp: Tutorial for R studio <https://www.datacamp.com/tutorial/r-studio-tutorial?utm_cid=19589720821&utm_aid=157156375351&utm_campaign=230119_1-ps-other~dsa~tofu_2-b2c_3-emea_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9209603-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~emea-en~dsa~tofu~tutorial-r-programming&gad_source=1&gad_campaignid=19589720821&gbraid=0AAAAADQ9WsGYLLxwdtiAlqFG_Qtdjkbvf&gclid=CjwKCAjwt-_FBhBzEiwA7QEqyP2ZGSuRbUrCK9jKWmxUdqNp8w6Lb1Ou4EAPR1-2M2VRcaX6b0UU8hoCDWcQAvD_BwE>
+
+Why to organise your work in projects <https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>
+
+David Zelený clean and tidy script <https://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script>
+
+Tidyverse suggestions to good coding style <https://style.tidyverse.org/>
+
+R for data science book <https://r4ds.hadley.nz/>
