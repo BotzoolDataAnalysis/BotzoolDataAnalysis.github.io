@@ -221,11 +221,18 @@ Knowing that I am lost in "Regular expressions" already helps to ask more specif
 Or just come and ask!
 
 ## 1.5 Exercises
+For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder
+https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/a3803acec824e44acae72b4cac405d6bb538030b/DataManipulationVisualisation/data
 
+There will be some obligatory tasks, while voluntarily tasks will be marked by *.
+
+In this chapter:
 1.  Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections.
-2.  Find a cheatsheet for readxl and find out how to import second sheet of Excel file.
-3.  Try import of a file via Rstudio and describe pros/cons.
-4.  Check the messy data, try to fix them and import.
+2. Create another project and script, try switching between.
+3. Download data from xxx, save them into your data folder and import them to the working environment, ... 
+2. *Find a cheatsheet for readxl and find out how to import second sheet of Excel file.
+3. Try import of a file via Rstudio and describe pros/cons.
+4. Check the xxx, in the folder messy data, try to fix them and import.
 5.  \*Do you know what is reprex and how to prepare it?
 
 ## 1.6 Further reading

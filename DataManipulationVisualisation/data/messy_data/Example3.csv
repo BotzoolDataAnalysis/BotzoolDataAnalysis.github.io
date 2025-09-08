@@ -1,0 +1,9 @@
+﻿SeqID,PlotID,Habitat,Measurement,Species1,Species2,Species3,Species4,Species5,Species6,Species7,Species8,Species9,Species10
+1,1,AA,CoverPerc,25,10,5,1,1,NA,NA,NA,NA,NA
+2,1,AA,Phenology,flowering,vegetative,vegetative,fruiting,flowering,NA,NA,NA,NA,NA
+3,2,AB,CoverPerc,40,NA,20,NA,1,3,1,NA,NA,NA
+4,2,AB,Phenology,vegetative,NA,vegetative,NA,flowering,vegetative,flowering,NA,NA,NA
+5,3,AA,CoverPerc,30,10,5,NA,NA,5,NA,3,1,NA
+6,3,AA,Phenology,vegetative,vegetative,vegetative,NA,NA,vegetative,NA,flowering,vegetative,NA
+7,4,AC,CoverPerc,25,NA,NA,NA,NA,NA,18,5,10,1
+8,4,AC,Phenology,flowering,NA,NA,NA,NA,NA,vegetative,flowering,vegetative,flowering
