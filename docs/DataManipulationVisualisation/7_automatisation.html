@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -66,6 +100,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -174,6 +237,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/10_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 From a database to a plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../DataManipulationVisualisation/11_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11 GitHub</span></a>
   </div>
@@ -197,8 +266,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#functions" id="toc-functions" class="nav-link active" data-scroll-target="#functions">7.1 Functions</a>
+  <ul class="collapse">
+  <li><a href="#vector-functions" id="toc-vector-functions" class="nav-link" data-scroll-target="#vector-functions">7.1.1 Vector functions</a></li>
+  <li><a href="#data-frame-functions" id="toc-data-frame-functions" class="nav-link" data-scroll-target="#data-frame-functions">7.1.2 Data frame functions</a></li>
+  <li><a href="#plot-functions" id="toc-plot-functions" class="nav-link" data-scroll-target="#plot-functions">7.1.3 Plot functions</a></li>
+  </ul></li>
+  <li><a href="#for-loops" id="toc-for-loops" class="nav-link" data-scroll-target="#for-loops">7.2 For loops</a></li>
+  <li><a href="#purrr-and-working-with-nested-dataframes" id="toc-purrr-and-working-with-nested-dataframes" class="nav-link" data-scroll-target="#purrr-and-working-with-nested-dataframes">7.3 purrr and working with nested dataframes</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">7.4 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -222,8 +306,1286 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<blockquote class="blockquote">
+<p>“Copy-and-paste is a powerful tool, but you should avoid doing it more than twice.” – Hadley Wickham, R for Data Science</p>
+</blockquote>
+<p>It’s not only a matter of the script length. Repeating the same code multiple times might easily lead to errors and inconsistencies, and it is therefore better to avoid it. There are multiple ways to reduce copy-pasting when we want to repeat a similar operation multiple times. In this chapter, you will learn how to write your own <strong>function</strong> and some tools for <strong>iteration,</strong> including <strong>for loops</strong> and functions from the <code>purrr</code> package.</p>
+<p>Throughout this chapter, we will use the following packages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">7.1 Functions</h2>
+<p>In more complex data analysis tasks, when you need to repeat a similar operation multiple times, e.g.&nbsp;calculate the same model for multiple subsets of data, calculate models with the same explanatory variables for different response variables, or draw similarly looking plots for multiple variables, it becomes really useful to be able to write your own function and hide the repeated code into it. A huge advantage of only writing the code once and saving it as a function is that when you have to change something, you only do it once and thus prevent mistakes like replacing the variable name in one place but not in the other, etc. In the long term, it also saves time and improves the understandability of the code, as the script does not end up being hundreds or thousands of lines long and all important commands are in one place.</p>
+<p>We will use a penguin dataset that you know already:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+<section id="vector-functions" class="level3">
+<h3 class="anchored" data-anchor-id="vector-functions">7.1.1 Vector functions</h3>
+<p>Let’s say we want to standardise each measured variable in the dataset, and just imagine for now that there is no <code>scale()</code> function, so we have to do it manually. We would end up with something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bill_length_mm =</span> (bill_length_mm <span class="sc">-</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(bill_length_mm, <span class="at">na.rm =</span> T), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">bill_depth_mm =</span> (bill_depth_mm <span class="sc">-</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(bill_depth_mm, <span class="at">na.rm =</span> T),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">flipper_length_mm =</span> (flipper_length_mm <span class="sc">-</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(flipper_length_mm, <span class="at">na.rm =</span> T),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">body_mass_g =</span> (body_mass_g <span class="sc">-</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(body_mass_g, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Adelie  Torgersen         -0.883         0.784            -1.42      -0.563 
+ 2 Adelie  Torgersen         -0.810         0.126            -1.06      -0.501 
+ 3 Adelie  Torgersen         -0.663         0.430            -0.421     -1.19  
+ 4 Adelie  Torgersen         NA            NA                NA         NA     
+ 5 Adelie  Torgersen         -1.32          1.09             -0.563     -0.937 
+ 6 Adelie  Torgersen         -0.847         1.75             -0.776     -0.688 
+ 7 Adelie  Torgersen         -0.920         0.329            -1.42      -0.719 
+ 8 Adelie  Torgersen         -0.865         1.24             -0.421      0.590 
+ 9 Adelie  Torgersen         -1.80          0.480            -0.563     -0.906 
+10 Adelie  Torgersen         -0.352         1.54             -0.776      0.0602
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>When creating such a code, it is quite easy to forget to replace the variable name in one place when copying it. To avoid that and make the code easier to read, we can transform the code into a function. We need three things to do that:</p>
+<ol type="1">
+<li>a <strong>function name</strong>, this should be concise and informative (please avoid <code>myfunction1()</code>, etc.) and not mess up already existing functions, we will use <code>custom_scale</code> to distinguish our function from the <code>scale()</code>.</li>
+<li><strong>arguments</strong>, which are the things that we want to vary across calls, in our case, we have just one numerical variable we are working with, so we will call it <code>x</code>.</li>
+<li><strong>body</strong>, that is the code that stays the same across calls.</li>
+</ol>
+<p>Every function defined in R has the following structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="cf">function</span>(arguments){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  body</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In our case, the function would look like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>custom_scale <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When we run this code, our new function is saved into the environment, and we can use it as any other function. We created a function that takes a vector and returns a vector of the same length that might be use within the <code>mutate()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bill_length_mm =</span> <span class="fu">custom_scale</span>(bill_length_mm), </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">bill_depth_mm =</span> <span class="fu">custom_scale</span>(bill_depth_mm),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">flipper_length_mm =</span> <span class="fu">custom_scale</span>(flipper_length_mm),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">body_mass_g =</span> <span class="fu">custom_scale</span>(body_mass_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Adelie  Torgersen         -0.883         0.784            -1.42      -0.563 
+ 2 Adelie  Torgersen         -0.810         0.126            -1.06      -0.501 
+ 3 Adelie  Torgersen         -0.663         0.430            -0.421     -1.19  
+ 4 Adelie  Torgersen         NA            NA                NA         NA     
+ 5 Adelie  Torgersen         -1.32          1.09             -0.563     -0.937 
+ 6 Adelie  Torgersen         -0.847         1.75             -0.776     -0.688 
+ 7 Adelie  Torgersen         -0.920         0.329            -1.42      -0.719 
+ 8 Adelie  Torgersen         -0.865         1.24             -0.421      0.590 
+ 9 Adelie  Torgersen         -1.80          0.480            -0.563     -0.906 
+10 Adelie  Torgersen         -0.352         1.54             -0.776      0.0602
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>We can, of course, reduce the duplication even further by using the <code>across()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g), <span class="sc">~</span><span class="fu">custom_scale</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Adelie  Torgersen         -0.883         0.784            -1.42      -0.563 
+ 2 Adelie  Torgersen         -0.810         0.126            -1.06      -0.501 
+ 3 Adelie  Torgersen         -0.663         0.430            -0.421     -1.19  
+ 4 Adelie  Torgersen         NA            NA                NA         NA     
+ 5 Adelie  Torgersen         -1.32          1.09             -0.563     -0.937 
+ 6 Adelie  Torgersen         -0.847         1.75             -0.776     -0.688 
+ 7 Adelie  Torgersen         -0.920         0.329            -1.42      -0.719 
+ 8 Adelie  Torgersen         -0.865         1.24             -0.421      0.590 
+ 9 Adelie  Torgersen         -1.80          0.480            -0.563     -0.906 
+10 Adelie  Torgersen         -0.352         1.54             -0.776      0.0602
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>There are some useful RStudio keyboard shortcuts you can use to work with functions:</p>
+<ul>
+<li><p>To find a definition of any function, place a cursor on the name of the function in the script and press <code>F2</code>.</p></li>
+<li><p>To extract a function from a code you have written, use <code>Alt + Ctrl + X</code>. Just be sure you always check the results, because sometimes it will not do exactly what you expect, so you will have to make some adjustments.</p></li>
+</ul>
+<p>We can also write summary functions to be used in a <code>summarise()</code> call. For example, we could calculate the difference between the minimum and maximum values of the given variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>range_diff <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">max</span>(x, <span class="at">na.rm =</span> T) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">bill_length_mm =</span> <span class="fu">range_diff</span>(bill_length_mm), </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">bill_depth_mm =</span> <span class="fu">range_diff</span>(bill_depth_mm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  bill_length_mm bill_depth_mm
+           &lt;dbl&gt;         &lt;dbl&gt;
+1           27.5           8.4</code></pre>
+</div>
+</div>
+</section>
+<section id="data-frame-functions" class="level3">
+<h3 class="anchored" data-anchor-id="data-frame-functions">7.1.2 Data frame functions</h3>
+<p>Till now, we have written several vector functions that might be used within <code>dplyr</code> functions. But functions may operate even at the data frame level. We will show here a real-world example of data sampled in three types of sand vegetation - pioneer sand vegetation (<em>Corynephorion</em>), acidophilous sand grasslands (<em>Armerion</em>) and basiphilous sand grasslands (<em>Festucion valesiacae</em>). The species data of all three vegetation types are saved in a long format in one file, and the header data with cluster assignment in a second file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spe_long <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/sands/sands_spe_long.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3154 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): valid_name
+dbl (2): releve_nr, cover_perc
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(spe_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,154
+Columns: 3
+$ releve_nr  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,…
+$ valid_name &lt;chr&gt; "Achillea millefolium agg.", "Artemisia campestris", "Carex…
+$ cover_perc &lt;dbl&gt; 0.5, 0.5, 0.5, 3.0, 0.5, 15.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>head <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/sands/sands_head.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 172 Columns: 89
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (40): country, reference, nr_in_tab, coverscale, author, syntaxon, moss_...
+dbl (46): releve_nr, table_nr, date, surf_area, altitude, exposition, inclin...
+lgl  (3): rs_project, maniptyp, name_ass
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(head)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 172
+Columns: 89
+$ releve_nr           &lt;dbl&gt; 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17…
+$ country             &lt;chr&gt; "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "C…
+$ reference           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ table_nr            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ nr_in_tab           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ coverscale          &lt;chr&gt; "02", "02", "02", "02", "02", "02", "02", "02", "0…
+$ author              &lt;chr&gt; "1120", "1120", "1120", "1120", "1120", "1120", "1…
+$ date                &lt;dbl&gt; 20230501, 20230501, 20230501, 20230501, 20230507, …
+$ syntaxon            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ surf_area           &lt;dbl&gt; 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16…
+$ altitude            &lt;dbl&gt; 188, 191, 196, 197, 181, 191, 193, 201, 187, 190, …
+$ exposition          &lt;dbl&gt; NA, NA, NA, NA, 225, 360, 180, 225, NA, 270, NA, N…
+$ inclinatio          &lt;dbl&gt; NA, NA, NA, NA, 2, 2, 2, 40, NA, 2, 0, 0, 5, 3, 2,…
+$ cov_total           &lt;dbl&gt; 50, 80, 70, 70, 80, 80, 85, 70, 60, 80, 60, 80, 80…
+$ cov_trees           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_shrubs          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_herbs           &lt;dbl&gt; 20, 40, 20, 20, 70, 70, 70, 50, 35, 60, 40, 75, 50…
+$ cov_mosses          &lt;dbl&gt; 30, 70, 50, 50, 70, 70, 45, 30, 50, 50, 30, 30, 50…
+$ cov_lichen          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_algae           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_litter          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_water           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ cov_rock            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ tree_high           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ tree_low            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ shrub_high          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ shrub_low           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ herb_high           &lt;dbl&gt; 5, 10, 5, 5, 15, 20, 25, 25, 15, 20, 10, 15, 25, 3…
+$ herb_low            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ herb_max            &lt;dbl&gt; 10, 30, 20, 20, 30, 35, 70, 90, 50, 60, 60, 60, 70…
+$ crypt_high          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ moss_ident          &lt;chr&gt; "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", …
+$ lich_ident          &lt;chr&gt; "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", …
+$ remarks             &lt;chr&gt; NA, NA, "Cetraria species = Cetraria muricata", NA…
+$ coord_code          &lt;chr&gt; "01", "01", "01", "01", "01", "01", "01", "01", "0…
+$ rs_project          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ resurvey            &lt;chr&gt; "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", …
+$ rs_site             &lt;dbl&gt; 1, 1, 1, 1, 2, 3, 4, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7,…
+$ rs_plot             &lt;dbl&gt; 1, 2, 3, 77, 4, 5, 6, 7, 8, 9, 78, 79, 10, 11, 12,…
+$ rs_observ           &lt;chr&gt; "1_1_2", "1_2_2", "1_3_2", "1_77_2", "2_4_2", "3_5…
+$ plot_shape          &lt;chr&gt; "square", "square", "square", "square", "square", …
+$ manipulate          &lt;chr&gt; "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", …
+$ maniptyp            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ loc_method          &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, NA, NA, NA, NA, 4, 4, 4, 4…
+$ data_owner          &lt;chr&gt; "Klára Klinkovská, Masaryk University", "Klára Kli…
+$ eva_access          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ longitude           &lt;dbl&gt; 17.29211, 17.29086, 17.29110, 17.29024, 17.15501, …
+$ latitude            &lt;dbl&gt; 48.95597, 48.95687, 48.95826, 48.95889, 48.96134, …
+$ precision           &lt;dbl&gt; 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+$ locality            &lt;chr&gt; "Bzenec (okr. Hodonín), PP Vojenské cvifi?tI, 2,5 …
+$ field_nr            &lt;chr&gt; "PKK01", "PKK02", "PKK03", "PKK04", "PKK06", "PKK0…
+$ habitat             &lt;chr&gt; "pionýrská vegetace na písku, d2íve cesta", "suchý…
+$ geology             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ soil                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ s_ph_h2o            &lt;dbl&gt; 5.34, 5.06, 4.82, 4.90, 5.38, 6.22, 6.33, 5.53, 4.…
+$ esy_code            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ esy_name            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ plot_observation_id &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ plot_id             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ nr_table_in_publ    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ cover_scale_name    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ name_association    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ name_alliance       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ expert_system       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ dataset             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ surveyor            &lt;chr&gt; "Klara Klinkovska", "Klara Klinkovska", "Klara Kli…
+$ old_releve_nr       &lt;dbl&gt; 115576, 115577, 115574, 115573, 115670, 115627, 11…
+$ loc_match           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ gps_match           &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ new_site            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ cov_ground          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ conserv             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ management          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ subplot             &lt;chr&gt; "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", …
+$ longitude2          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ latitude2           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ longitude3          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ latitude3           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ longitude4          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ latitude4           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ year                &lt;dbl&gt; 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 20…
+$ time                &lt;chr&gt; "new", "new", "new", "new", "new", "new", "new", "…
+$ orig                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ import_nr           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ name_all            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ name_ass            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ plot_type           &lt;chr&gt; "resampling", "resampling", "resampling", "resampl…
+$ cluster             &lt;chr&gt; "Corynephorion", "Armerion", "Corynephorion", "Cor…
+$ year0               &lt;dbl&gt; 19, 18, 18, 20, 17, 18, 17, 19, 18, 20, 18, 20, 18…</code></pre>
+</div>
+</div>
+<p>Imagine we now want to run an ordination analysis that needs species data in a wide format for each of the three vegetation types separately. We need to subset the species data to only the selected vegetation type, select only relevant columns, square-root the species abundances, and transform the data into a wide format. We can incorporate all these steps into a single function, that we will then run three times for different subsets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>subset_to_wide <span class="ot">&lt;-</span> <span class="cf">function</span>(data_long, veg_type){</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  data_long <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">semi_join</span>(head <span class="sc">|&gt;</span> <span class="fu">filter</span>(cluster <span class="sc">==</span> veg_type)) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(releve_nr, valid_name, cover_perc) <span class="sc">|&gt;</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cover_perc =</span> <span class="fu">sqrt</span>(cover_perc)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> valid_name, <span class="at">values_from =</span> cover_perc, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>releve_nr)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>spe_wide_cory <span class="ot">&lt;-</span> <span class="fu">subset_to_wide</span>(spe_long, <span class="st">'Corynephorion'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>spe_wide_arm <span class="ot">&lt;-</span> <span class="fu">subset_to_wide</span>(spe_long, <span class="st">'Armerion'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>spe_wide_fes <span class="ot">&lt;-</span> <span class="fu">subset_to_wide</span>(spe_long, <span class="st">'Festucion valesiacae'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
+</div>
+<p>Writing your own functions with the <code>dplyr</code> and <code>tidyr</code> calls inside sometimes also brings some challenges. We unfortunately do not have enough space here to deal with them, but there are great sources with detailed explanation, where you can learn more or find help if needed, e.g.&nbsp;<a href="https://r4ds.hadley.nz/functions.html#data-frame-functions" class="uri">https://r4ds.hadley.nz/functions.html#data-frame-functions</a>, <a href="https://dplyr.tidyverse.org/articles/programming.html">programming with dplyr</a>, <a href="https://tidyr.tidyverse.org/articles/programming.html">programming with tidyr</a>, <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">What is data-masking and why do I need {{?</a>.</p>
+</section>
+<section id="plot-functions" class="level3">
+<h3 class="anchored" data-anchor-id="plot-functions">7.1.3 Plot functions</h3>
+<p>Sometimes it is also useful to reduce the amount of replicated code when plotting many different things in a similar way. The plot functions work similarly to the data frame functions, just return a plot instead of a data frame. For example, we might want to visualise the relationship between bill length and bill depth of three different penguin species separately. We have to first filter our penguin dataset to contain data on only one species, and then create a scatterplot using a <code>ggplot</code> sequence. This is how we would write the code for plotting the data for one species:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">'Adelie'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(bill_length_mm, bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Adelie'</span>, <span class="at">x =</span> <span class="st">'Bill length [mm]'</span>, <span class="at">y =</span> <span class="st">'Bill depth [mm]'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s now turn this code into a function instead of copy-pasting it two more times to plot the same relationship for the two other species:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plot_species <span class="ot">&lt;-</span> <span class="cf">function</span>(data, species_name){</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(species <span class="sc">==</span> species_name) <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(bill_length_mm, bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> species_name, <span class="at">x =</span> <span class="st">'Bill length [mm]'</span>, <span class="at">y =</span> <span class="st">'Bill depth [mm]'</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_species</span>(penguins, <span class="st">'Adelie'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To learn more about reducing duplication in your <code>ggplot2</code> code look here: <a href="https://r4ds.hadley.nz/functions.html#plot-functions" class="uri">https://r4ds.hadley.nz/functions.html#plot-functions</a>, <a href="https://ggplot2-book.org/programming.html">Programming with ggplot2</a>, <a href="https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html</a>.</p>
+</section>
+</section>
+<section id="for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="for-loops">7.2 For loops</h2>
+<p>We will now move to the iteration part of this chapter, which means repeating the same action multiple times on different objects. In any programming language, it is possible to automate such repetitions using a <strong>for loop</strong>. The basic structure of a for loop looks like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (variable <span class="cf">in</span> sequence) {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># do something with the variable</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The for loop takes one variable from a given sequence, runs the code inside <code>{}</code> for this variable and then moves to the next variable in the sequence. A basic example might be printing numbers from a sequence:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+</div>
+</div>
+<p>The for loop takes one number, prints it, then takes the next one, prints it, and so on till the end of the sequence.</p>
+<p>We can, for example, take our plot function to plot the scatterplot of bill length and bill depth of individual species and loop over the species names to sequentially make a plot for all species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (species_name <span class="cf">in</span> <span class="fu">unique</span>(penguins<span class="sc">$</span>species)) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_species</span>(penguins, species_name) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are always multiple ways to get to the same result, and this is also true for iteration in R. The <code>purrr</code> package has powerful tools to iterate over multiple elements. But even when you choose to prefer <code>purrr</code> solutions, it is worth being familiar with for loops and their functionality, because you might see them often in the code of other people, and they are universal across programming languages.</p>
+</section>
+<section id="purrr-and-working-with-nested-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="purrr-and-working-with-nested-dataframes">7.3 purrr and working with nested dataframes</h2>
+<p>We already went through most of the <code>tidyverse</code> packages, but we didn’t talk about the <code>purrr</code> package yet. <code>purrr</code> provides powerful tools for automatisation of tasks that need to be repeated multiple times, e.g.&nbsp;for each file in a directory, each element of a list, each dataframe… They allow you to replace for loops with <code>map()</code> functions, which might be more powerful, readable and consistent with the rest of <code>tidyverse</code>.</p>
+<p>Let’s start with the task of reading multiple files at once. Imagine you have multiple files that are of the same structure, but for some reason, they are stored in multiple files. As example data, we will use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the <code>gapminder</code> folder is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the <code>read_csv()</code> function twelve times, but there is a more elegant way. Let’s list the files first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">'data/gapminder/'</span>, <span class="at">pattern =</span> <span class="st">'.csv'</span>, <span class="at">full.names =</span> T)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>paths</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "data/gapminder/gapminder_1952.csv" "data/gapminder/gapminder_1957.csv"
+ [3] "data/gapminder/gapminder_1962.csv" "data/gapminder/gapminder_1967.csv"
+ [5] "data/gapminder/gapminder_1972.csv" "data/gapminder/gapminder_1977.csv"
+ [7] "data/gapminder/gapminder_1982.csv" "data/gapminder/gapminder_1987.csv"
+ [9] "data/gapminder/gapminder_1992.csv" "data/gapminder/gapminder_1997.csv"
+[11] "data/gapminder/gapminder_2002.csv" "data/gapminder/gapminder_2007.csv"</code></pre>
+</div>
+</div>
+<p>The <code>map()</code> function works similarly to <code>across()</code>, but instead of doing something to each column in a data frame, it does something to each element of a vector. It is an analogy of a for loop, the function takes each element of a sequence and applies a function to it. We can use it now to read all 12 csv files in one line:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">map</span>(paths, <span class="sc">~</span><span class="fu">read_csv</span>(.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(files)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 12
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 28.8 55.2 43.1 30 62.5 ...
+  ..$ pop      : num [1:142] 8425333 1282697 9279525 4232095 17876956 ...
+  ..$ gdpPercap: num [1:142] 779 1601 2449 3521 5911 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 30.3 59.3 45.7 32 64.4 ...
+  ..$ pop      : num [1:142] 9240934 1476505 10270856 4561361 19610538 ...
+  ..$ gdpPercap: num [1:142] 821 1942 3014 3828 6857 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 32 64.8 48.3 34 65.1 ...
+  ..$ pop      : num [1:142] 10267083 1728137 11000948 4826015 21283783 ...
+  ..$ gdpPercap: num [1:142] 853 2313 2551 4269 7133 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 34 66.2 51.4 36 65.6 ...
+  ..$ pop      : num [1:142] 11537966 1984060 12760499 5247469 22934225 ...
+  ..$ gdpPercap: num [1:142] 836 2760 3247 5523 8053 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 36.1 67.7 54.5 37.9 67.1 ...
+  ..$ pop      : num [1:142] 13079460 2263554 14760787 5894858 24779799 ...
+  ..$ gdpPercap: num [1:142] 740 3313 4183 5473 9443 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 38.4 68.9 58 39.5 68.5 ...
+  ..$ pop      : num [1:142] 14880372 2509048 17152804 6162675 26983828 ...
+  ..$ gdpPercap: num [1:142] 786 3533 4910 3009 10079 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 39.9 70.4 61.4 39.9 69.9 ...
+  ..$ pop      : num [1:142] 12881816 2780097 20033753 7016384 29341374 ...
+  ..$ gdpPercap: num [1:142] 978 3631 5745 2757 8998 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 40.8 72 65.8 39.9 70.8 ...
+  ..$ pop      : num [1:142] 13867957 3075321 23254956 7874230 31620918 ...
+  ..$ gdpPercap: num [1:142] 852 3739 5681 2430 9140 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 41.7 71.6 67.7 40.6 71.9 ...
+  ..$ pop      : num [1:142] 16317921 3326498 26298373 8735988 33958947 ...
+  ..$ gdpPercap: num [1:142] 649 2497 5023 2628 9308 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 41.8 73 69.2 41 73.3 ...
+  ..$ pop      : num [1:142] 22227415 3428038 29072015 9875024 36203463 ...
+  ..$ gdpPercap: num [1:142] 635 3193 4797 2277 10967 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 42.1 75.7 71 41 74.3 ...
+  ..$ pop      : num [1:142] 25268405 3508512 31287142 10866106 38331121 ...
+  ..$ gdpPercap: num [1:142] 727 4604 5288 2773 8798 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; 
+ $ : spc_tbl_ [142 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+  ..$ country  : chr [1:142] "Afghanistan" "Albania" "Algeria" "Angola" ...
+  ..$ continent: chr [1:142] "Asia" "Europe" "Africa" "Africa" ...
+  ..$ lifeExp  : num [1:142] 43.8 76.4 72.3 42.7 75.3 ...
+  ..$ pop      : num [1:142] 31889923 3600523 33333216 12420476 40301927 ...
+  ..$ gdpPercap: num [1:142] 975 5937 6223 4797 12779 ...
+  ..- attr(*, "spec")=
+  .. .. cols(
+  .. ..   country = col_character(),
+  .. ..   continent = col_character(),
+  .. ..   lifeExp = col_double(),
+  .. ..   pop = col_double(),
+  .. ..   gdpPercap = col_double()
+  .. .. )
+  ..- attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<p>We got a list with 12 data frames. To access the first element of the list, we would call <code>files[[1]]</code>. For further work with lists and <code>map()</code> functions, it is worth remembering that the elements of a list are called with the double square brackets.</p>
+<p>To combine all data frames in a list, we can use <code>list_rbind()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="ot">&lt;-</span> <span class="fu">map</span>(paths, <span class="sc">~</span><span class="fu">read_csv</span>(.x)) <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,704
+Columns: 5
+$ country   &lt;chr&gt; "Afghanistan", "Albania", "Algeria", "Angola", "Argentina", …
+$ continent &lt;chr&gt; "Asia", "Europe", "Africa", "Africa", "Americas", "Oceania",…
+$ lifeExp   &lt;dbl&gt; 28.801, 55.230, 43.077, 30.015, 62.485, 69.120, 66.800, 50.9…
+$ pop       &lt;dbl&gt; 8425333, 1282697, 9279525, 4232095, 17876956, 8691212, 69277…
+$ gdpPercap &lt;dbl&gt; 779.4453, 1601.0561, 2449.0082, 3520.6103, 5911.3151, 10039.…</code></pre>
+</div>
+</div>
+<p>But we somehow lost the information about the year. To fix it, we store the file names in the data frame. First step is to set names of the list elements of <code>paths</code>, the <code>basename()</code> function extracts just the file name from the path. Second, we save the names in a resulting data frame to a column called <code>year</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="ot">&lt;-</span> paths <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(basename) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">read_csv</span>(.x)) <span class="sc">|&gt;</span> </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>(<span class="at">names_to =</span> <span class="st">'year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,704
+Columns: 6
+$ year      &lt;chr&gt; "gapminder_1952.csv", "gapminder_1952.csv", "gapminder_1952.…
+$ country   &lt;chr&gt; "Afghanistan", "Albania", "Algeria", "Angola", "Argentina", …
+$ continent &lt;chr&gt; "Asia", "Europe", "Africa", "Africa", "Americas", "Oceania",…
+$ lifeExp   &lt;dbl&gt; 28.801, 55.230, 43.077, 30.015, 62.485, 69.120, 66.800, 50.9…
+$ pop       &lt;dbl&gt; 8425333, 1282697, 9279525, 4232095, 17876956, 8691212, 69277…
+$ gdpPercap &lt;dbl&gt; 779.4453, 1601.0561, 2449.0082, 3520.6103, 5911.3151, 10039.…</code></pre>
+</div>
+</div>
+<p>Still not perfect, it would be nice to extract just the year from the file name. The easiest way to do it in this case is to use the <code>parse_number()</code> function that extracts just a number from a string:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="ot">&lt;-</span> paths <span class="sc">|&gt;</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(basename) <span class="sc">|&gt;</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">read_csv</span>(.x)) <span class="sc">|&gt;</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>(<span class="at">names_to =</span> <span class="st">'year'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 142 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (3): lifeExp, pop, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,704
+Columns: 6
+$ year      &lt;dbl&gt; 1952, 1952, 1952, 1952, 1952, 1952, 1952, 1952, 1952, 1952, …
+$ country   &lt;chr&gt; "Afghanistan", "Albania", "Algeria", "Angola", "Argentina", …
+$ continent &lt;chr&gt; "Asia", "Europe", "Africa", "Africa", "Americas", "Oceania",…
+$ lifeExp   &lt;dbl&gt; 28.801, 55.230, 43.077, 30.015, 62.485, 69.120, 66.800, 50.9…
+$ pop       &lt;dbl&gt; 8425333, 1282697, 9279525, 4232095, 17876956, 8691212, 69277…
+$ gdpPercap &lt;dbl&gt; 779.4453, 1601.0561, 2449.0082, 3520.6103, 5911.3151, 10039.…</code></pre>
+</div>
+</div>
+<p>It might be a good idea to save the resulting data frame as a single csv file now to make future data loading easier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(gapminder_df, <span class="st">'data/gapminder_clean/gapminder.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>purrr</code> contains not only the <code>map()</code> function, but also it relatives, so we will look at the differences between them now:</p>
+<ul>
+<li><p><code>map()</code> makes a list</p></li>
+<li><p><code>map_lgl()</code> makes a logical vector</p></li>
+<li><p><code>map_int()</code> makes an integer vector</p></li>
+<li><p><code>map_dbl()</code> makes a double vector</p></li>
+<li><p><code>map_chr()</code> makes a character vector</p></li>
+</ul>
+<p>Each of the above-mentioned functions takes a vector input, applies a function to each element and returns a vector of the same length.</p>
+<ul>
+<li><code>map2()</code> takes two vectors, usually of the same length and iterates over two arguments at a time</li>
+</ul>
+<p>And there is also a group of <code>walk()</code> functions, which return their side-effects and return the input <code>.x</code>. They might be used, for example, for saving multiple files or plots.</p>
+<p>Let’s say, we want to save our gapminder data divided by continent. We first make a nested data frame by continent. This is something similar to <code>group_by()</code>, we take a variable that makes groups in our dataset and divide the rest of the data according to this variable. The grouping variable stays in one column, and a smaller data frame is created for each level of this variable. All these smaller data frames are stored in the <code>data</code> column. We now want to save each of these smaller data frames as a separate csv file. We now create a column, where we define a path for each file to be saved.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>gapminder_nest <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>continent) <span class="sc">|&gt;</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">path =</span> <span class="fu">paste0</span>(<span class="st">'data/gapminder_continent/gapminder_'</span>, continent, <span class="st">'.csv'</span>)) </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder_nest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5
+Columns: 3
+$ continent &lt;chr&gt; "Asia", "Europe", "Africa", "Americas", "Oceania"
+$ data      &lt;list&gt; [&lt;tbl_df[396 x 5]&gt;], [&lt;tbl_df[360 x 5]&gt;], [&lt;tbl_df[624 x 5]&gt;…
+$ path      &lt;chr&gt; "data/gapminder_continent/gapminder_Asia.csv", "data/gapmin…</code></pre>
+</div>
+</div>
+<p>We can see that the <code>data</code> column is a list containing tibbles with different numbers of rows, but the same number of columns. To look at one of them we need to use the <code>[[]]</code> again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>gapminder_nest<span class="sc">$</span>data[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 396 × 5
+    year country          lifeExp       pop gdpPercap
+   &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1  1952 Afghanistan         28.8   8425333      779.
+ 2  1952 Bahrain             50.9    120447     9867.
+ 3  1952 Bangladesh          37.5  46886859      684.
+ 4  1952 Cambodia            39.4   4693836      368.
+ 5  1952 China               44   556263527      400.
+ 6  1952 Hong Kong, China    61.0   2125900     3054.
+ 7  1952 India               37.4 372000000      547.
+ 8  1952 Indonesia           37.5  82052000      750.
+ 9  1952 Iran                44.9  17272000     3035.
+10  1952 Iraq                45.3   5441766     4130.
+# ℹ 386 more rows</code></pre>
+</div>
+</div>
+<p>And we can save all the tibbles in separate csv files at once using the <code>walk2()</code> call, which at each step takes one tibble from the <code>data</code> column and one path definition from the <code>path</code> column and runs the <code>write_csv()</code> function with these two arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(gapminder_nest<span class="sc">$</span>data, gapminder_nest<span class="sc">$</span>path, <span class="sc">~</span><span class="fu">write_csv</span>(.x, .y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The work with nested data frames becomes really helpful when we want to perform the same calculation many times. We will work with the <code>gapminder</code> data again and try to answer the following questions: How does life expectancy change over time in individual countries? In which countries has the life expectancy risen the most over time?</p>
+<p>To explore the data a little bit first, we can plot them:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, lifeExp, <span class="at">group =</span> country)) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_automatisation_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Overall, life expectancy has been steadily increasing over time, but we need some estimation of the trend in individual countries. A possible way to do this would be to fit a linear model to the data from each country and look at the estimate. Given the 142 countries in the dataset, we really do not want to run the code for each one manually with copy-pasted code. Because we want to work at the country level, we will now nest our data by country. To calculate a linear model for data from each country, we will iterate over the <code>data</code> column and save the resulting model to a new column. This might be done with <code>map()</code> within the <code>mutate()</code> call.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>country) <span class="sc">|&gt;</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The column <code>m</code> we just created is again a list and contains the results of linear models for the relationship between life expectancy and time for all countries. With each one of them, we can do whatever is possible with a model result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(by_country<span class="sc">$</span>m[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lifeExp ~ year, data = .x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5447 -0.9905 -0.2757  0.8847  1.6868 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -507.53427   40.48416  -12.54 1.93e-07 ***
+year           0.27533    0.02045   13.46 9.84e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.223 on 10 degrees of freedom
+Multiple R-squared:  0.9477,    Adjusted R-squared:  0.9425 
+F-statistic: 181.2 on 1 and 10 DF,  p-value: 9.835e-08</code></pre>
+</div>
+</div>
+<p>To easily extract the estimates from the model, we will use <code>tidy()</code> function from the <code>broom</code> package. <code>broom</code> is not a part of the <code>tidyverse</code>, but it is a related package, which becomes very helpful when working with models within the <code>tidyverse</code> workflow, because it provides tools to convert statistical objects into tidy tibbles. The <code>tidy()</code> function summarizes information about the model components:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(by_country<span class="sc">$</span>m[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic      p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+1 (Intercept) -508.      40.5        -12.5 0.000000193 
+2 year           0.275    0.0205      13.5 0.0000000984</code></pre>
+</div>
+</div>
+<p>And we can again use it to iterate over all models to get these summaries for all countries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>country) <span class="sc">|&gt;</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x)))</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 142
+Columns: 4
+$ country &lt;chr&gt; "Afghanistan", "Albania", "Algeria", "Angola", "Argentina", "A…
+$ data    &lt;list&gt; [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;], […
+$ m       &lt;list&gt; [-507.5342716, 0.2753287, -1.10629487, -0.95193823, -0.663581…
+$ m_tidy  &lt;list&gt; [&lt;tbl_df[2 x 5]&gt;], [&lt;tbl_df[2 x 5]&gt;], [&lt;tbl_df[2 x 5]&gt;], [&lt;tb…</code></pre>
+</div>
+</div>
+<p>The summary is now in a tibble, but there is still a list of tibbles in the <code>m_tidy</code> column. To get the results to a data frame where we can sort the values and filter across all values, we need to <code>unnest()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>country) <span class="sc">|&gt;</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy)</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 284
+Columns: 8
+$ country   &lt;chr&gt; "Afghanistan", "Afghanistan", "Albania", "Albania", "Algeria…
+$ data      &lt;list&gt; [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;],…
+$ m         &lt;list&gt; [-507.5342716, 0.2753287, -1.10629487, -0.95193823, -0.6635…
+$ term      &lt;chr&gt; "(Intercept)", "year", "(Intercept)", "year", "(Intercept)",…
+$ estimate  &lt;dbl&gt; -507.5342716, 0.2753287, -594.0725110, 0.3346832, -1067.8590…
+$ std.error &lt;dbl&gt; 40.484161954, 0.020450934, 65.655359062, 0.033166387, 43.802…
+$ statistic &lt;dbl&gt; -12.536613, 13.462890, -9.048348, 10.091036, -24.379118, 25.…
+$ p.value   &lt;dbl&gt; 1.934055e-07, 9.835213e-08, 3.943337e-06, 1.462763e-06, 3.07…</code></pre>
+</div>
+</div>
+<p>We now have a column for each column originally included in the tibbles inside <code>m_tidy</code>. The list-columns we did not unnest still remain list-columns. There are now two rows for each country, one for each model coefficient - the intercept and the year. We are not interested in model intercepts now, so we can filter them out. To see in which countries has the life expectancy risen the most over time, we can arrange the dataset according to the model estimate.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>country) <span class="sc">|&gt;</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy) <span class="sc">|&gt;</span> </span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'year'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(estimate))</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 142
+Columns: 8
+$ country   &lt;chr&gt; "Oman", "Vietnam", "Saudi Arabia", "Indonesia", "Libya", "Ye…
+$ data      &lt;list&gt; [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;], [&lt;tbl_df[12 x 5]&gt;],…
+$ m         &lt;list&gt; [-1470.085705, 0.772179, 0.3702564, -0.9886387, -1.7645338,…
+$ term      &lt;chr&gt; "year", "year", "year", "year", "year", "year", "year", "yea…
+$ estimate  &lt;dbl&gt; 0.7721790, 0.6716154, 0.6496231, 0.6346413, 0.6255357, 0.605…
+$ std.error &lt;dbl&gt; 0.039265234, 0.021970572, 0.034812325, 0.010796685, 0.025754…
+$ statistic &lt;dbl&gt; 19.665718, 30.568863, 18.660721, 58.781125, 24.288551, 22.82…
+$ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 3.18…</code></pre>
+</div>
+</div>
+<p>Or we can just print out the top 10 countries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(estimate, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 8
+   country            data     m     term  estimate std.error statistic  p.value
+   &lt;chr&gt;              &lt;list&gt;   &lt;lis&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Oman               &lt;tibble&gt; &lt;lm&gt;  year     0.772    0.0393      19.7 2.53e- 9
+ 2 Vietnam            &lt;tibble&gt; &lt;lm&gt;  year     0.672    0.0220      30.6 3.29e-11
+ 3 Saudi Arabia       &lt;tibble&gt; &lt;lm&gt;  year     0.650    0.0348      18.7 4.22e- 9
+ 4 Indonesia          &lt;tibble&gt; &lt;lm&gt;  year     0.635    0.0108      58.8 4.93e-14
+ 5 Libya              &lt;tibble&gt; &lt;lm&gt;  year     0.626    0.0258      24.3 3.19e-10
+ 6 Yemen, Rep.        &lt;tibble&gt; &lt;lm&gt;  year     0.605    0.0265      22.8 5.87e-10
+ 7 West Bank and Gaza &lt;tibble&gt; &lt;lm&gt;  year     0.601    0.0332      18.1 5.59e- 9
+ 8 Tunisia            &lt;tibble&gt; &lt;lm&gt;  year     0.588    0.0261      22.5 6.64e-10
+ 9 Gambia             &lt;tibble&gt; &lt;lm&gt;  year     0.582    0.0192      30.3 3.57e-11
+10 Jordan             &lt;tibble&gt; &lt;lm&gt;  year     0.572    0.0319      17.9 6.31e- 9</code></pre>
+</div>
+</div>
+<p>The use of nested data frames and <code>broom</code> has great potential. Depending on the question, it is possible to filter only significant results, select models with the highest explanatory power, etc. To learn more about the automatisation using purrr and running many models, look here: <a href="https://r4ds.hadley.nz/iteration.html" class="uri">https://r4ds.hadley.nz/iteration.html</a>, <a href="https://adv-r.hadley.nz/functionals.html" class="uri">https://adv-r.hadley.nz/functionals.html</a>, <a href="https://r4ds.had.co.nz/many-models.html" class="uri">https://r4ds.had.co.nz/many-models.html</a>, <a href="https://www.tmwr.org" class="uri">https://www.tmwr.org</a>.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">7.4 Exercises</h2>
+<ol type="1">
+<li><p>Rewrite the following code as a function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>z <span class="sc">/</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Use the function to calculate the percentage of each species in the penguins dataset.</p></li>
+<li><p>Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula <span class="math inline">\(C = (F-32) *5/9\)</span>. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.</p></li>
+<li><p>* Write a function that calculates the Shannon diversity index using the formula <span class="math inline">\(H' = -∑p_i ln(p_i)\)</span>. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.</p></li>
+<li><p>Take the Pokémon dataset and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. * Try to generalize the code so that you can plot a distribution of any numerical variable.</p></li>
+<li><p>Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. * Save all plots in a <code>plots</code> folder.</p></li>
+<li><p>Do the same using <code>purrr</code> functions.</p></li>
+</ol>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<p>R for Data Science: <a href="https://r4ds.hadley.nz/program.html" class="uri">https://r4ds.hadley.nz/program.html</a></p>
+<p>Hands on Programming with R: <a href="https://rstudio-education.github.io/hopr" class="uri">https://rstudio-education.github.io/hopr</a></p>
+<p>Advanced R: <a href="https://adv-r.hadley.nz" class="uri">https://adv-r.hadley.nz</a></p>
+<p>Programming with dplyr: <a href="https://dplyr.tidyverse.org/articles/programming.html" class="uri">https://dplyr.tidyverse.org/articles/programming.html</a></p>
+<p>Programming with tidyr: <a href="https://tidyr.tidyverse.org/articles/programming.html" class="uri">https://tidyr.tidyverse.org/articles/programming.html</a></p>
+<p>Programming with ggplot2: <a href="https://ggplot2-book.org/programming.html" class="uri">https://ggplot2-book.org/programming.html</a></p>
+<p>Tidy modeling with R: <a href="https://www.tmwr.org" class="uri">https://www.tmwr.org</a></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

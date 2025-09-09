@@ -24,7 +24,7 @@ To get the data, we need to load another package (if you get an error message, t
 library(palmerpenguins)
 ```
 
-Before plotting, we can briefly look at the data structure:
+By loading the package, we got access to a penguin dataset, that we might now call as an object called `penguins`. Before plotting, we can briefly look at the data structure:
 
 ```{r}
 glimpse(penguins)

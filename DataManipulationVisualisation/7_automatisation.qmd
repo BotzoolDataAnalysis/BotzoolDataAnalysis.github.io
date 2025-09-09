@@ -2,3 +2,398 @@
 title: "7 Automatisation"
 ---
 
+> "Copy-and-paste is a powerful tool, but you should avoid doing it more than twice." – Hadley Wickham, R for Data Science
+
+It's not only a matter of the script length. Repeating the same code multiple times might easily lead to errors and inconsistencies, and it is therefore better to avoid it. There are multiple ways to reduce copy-pasting when we want to repeat a similar operation multiple times. In this chapter, you will learn how to write your own **function** and some tools for **iteration,** including **for loops** and functions from the `purrr` package.
+
+Throughout this chapter, we will use the following packages:
+
+```{r}
+#| warning: false
+library(palmerpenguins)
+library(broom)
+library(tidyverse)
+```
+
+## 7.1 Functions
+
+In more complex data analysis tasks, when you need to repeat a similar operation multiple times, e.g. calculate the same model for multiple subsets of data, calculate models with the same explanatory variables for different response variables, or draw similarly looking plots for multiple variables, it becomes really useful to be able to write your own function and hide the repeated code into it. A huge advantage of only writing the code once and saving it as a function is that when you have to change something, you only do it once and thus prevent mistakes like replacing the variable name in one place but not in the other, etc. In the long term, it also saves time and improves the understandability of the code, as the script does not end up being hundreds or thousands of lines long and all important commands are in one place.
+
+We will use a penguin dataset that you know already:
+
+```{r}
+glimpse(penguins)
+```
+
+### 7.1.1 Vector functions
+
+Let's say we want to standardise each measured variable in the dataset, and just imagine for now that there is no `scale()` function, so we have to do it manually. We would end up with something like this:
+
+```{r}
+penguins |> 
+  mutate(bill_length_mm = (bill_length_mm - mean(bill_length_mm, na.rm = T))/sd(bill_length_mm, na.rm = T), 
+         bill_depth_mm = (bill_depth_mm - mean(bill_depth_mm, na.rm = T))/sd(bill_depth_mm, na.rm = T),
+         flipper_length_mm = (flipper_length_mm - mean(flipper_length_mm, na.rm = T))/sd(flipper_length_mm, na.rm = T),
+         body_mass_g = (body_mass_g - mean(body_mass_g, na.rm = T))/sd(body_mass_g, na.rm = T))
+```
+
+When creating such a code, it is quite easy to forget to replace the variable name in one place when copying it. To avoid that and make the code easier to read, we can transform the code into a function. We need three things to do that:
+
+1.  a **function name**, this should be concise and informative (please avoid `myfunction1()`, etc.) and not mess up already existing functions, we will use `custom_scale` to distinguish our function from the `scale()`.
+2.  **arguments**, which are the things that we want to vary across calls, in our case, we have just one numerical variable we are working with, so we will call it `x`.
+3.  **body**, that is the code that stays the same across calls.
+
+Every function defined in R has the following structure:
+
+```{r}
+#| eval: false
+
+name <- function(arguments){
+  body
+}
+```
+
+In our case, the function would look like this:
+
+```{r}
+custom_scale <- function(x){
+  (x - mean(x, na.rm = T))/sd(x, na.rm = T)
+}
+```
+
+When we run this code, our new function is saved into the environment, and we can use it as any other function. We created a function that takes a vector and returns a vector of the same length that might be use within the `mutate()` function.
+
+```{r}
+penguins |> 
+  mutate(bill_length_mm = custom_scale(bill_length_mm), 
+         bill_depth_mm = custom_scale(bill_depth_mm),
+         flipper_length_mm = custom_scale(flipper_length_mm),
+         body_mass_g = custom_scale(body_mass_g))
+```
+
+We can, of course, reduce the duplication even further by using the `across()` function:
+
+```{r}
+penguins |> 
+  mutate(across(c(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g), ~custom_scale(.x)))
+```
+
+There are some useful RStudio keyboard shortcuts you can use to work with functions:
+
+-   To find a definition of any function, place a cursor on the name of the function in the script and press `F2`.
+
+-   To extract a function from a code you have written, use `Alt + Ctrl + X`. Just be sure you always check the results, because sometimes it will not do exactly what you expect, so you will have to make some adjustments.
+
+We can also write summary functions to be used in a `summarise()` call. For example, we could calculate the difference between the minimum and maximum values of the given variable:
+
+```{r}
+range_diff <- function(x){
+  max(x, na.rm = T) - min(x, na.rm = T)
+}
+
+penguins |> 
+  summarize(bill_length_mm = range_diff(bill_length_mm), 
+            bill_depth_mm = range_diff(bill_depth_mm))
+```
+
+### 7.1.2 Data frame functions
+
+Till now, we have written several vector functions that might be used within `dplyr` functions. But functions may operate even at the data frame level. We will show here a real-world example of data sampled in three types of sand vegetation - pioneer sand vegetation (*Corynephorion*), acidophilous sand grasslands (*Armerion*) and basiphilous sand grasslands (*Festucion valesiacae*). The species data of all three vegetation types are saved in a long format in one file, and the header data with cluster assignment in a second file.
+
+```{r}
+spe_long <- read_csv('data/sands/sands_spe_long.csv')
+glimpse(spe_long)
+
+head <- read_csv('data/sands/sands_head.csv')
+glimpse(head)
+```
+
+Imagine we now want to run an ordination analysis that needs species data in a wide format for each of the three vegetation types separately. We need to subset the species data to only the selected vegetation type, select only relevant columns, square-root the species abundances, and transform the data into a wide format. We can incorporate all these steps into a single function, that we will then run three times for different subsets:
+
+```{r}
+subset_to_wide <- function(data_long, veg_type){
+  data_long |> 
+    semi_join(head |> filter(cluster == veg_type)) |>
+    select(releve_nr, valid_name, cover_perc) |> 
+    mutate(cover_perc = sqrt(cover_perc)) |> 
+    pivot_wider(names_from = valid_name, values_from = cover_perc, values_fill = 0) |> 
+    select(-releve_nr)
+}
+
+spe_wide_cory <- subset_to_wide(spe_long, 'Corynephorion')
+spe_wide_arm <- subset_to_wide(spe_long, 'Armerion')
+spe_wide_fes <- subset_to_wide(spe_long, 'Festucion valesiacae')
+```
+
+Writing your own functions with the `dplyr` and `tidyr` calls inside sometimes also brings some challenges. We unfortunately do not have enough space here to deal with them, but there are great sources with detailed explanation, where you can learn more or find help if needed, e.g. <https://r4ds.hadley.nz/functions.html#data-frame-functions>, [programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html), [programming with tidyr](https://tidyr.tidyverse.org/articles/programming.html), [What is data-masking and why do I need {{?](https://rlang.r-lib.org/reference/topic-data-mask.html).
+
+### 7.1.3 Plot functions
+
+Sometimes it is also useful to reduce the amount of replicated code when plotting many different things in a similar way. The plot functions work similarly to the data frame functions, just return a plot instead of a data frame. For example, we might want to visualise the relationship between bill length and bill depth of three different penguin species separately. We have to first filter our penguin dataset to contain data on only one species, and then create a scatterplot using a `ggplot` sequence. This is how we would write the code for plotting the data for one species:
+
+```{r}
+penguins |> 
+    filter(species == 'Adelie') |> 
+    ggplot(aes(bill_length_mm, bill_depth_mm)) +
+    geom_point() +
+    theme_bw() +
+    labs(title = 'Adelie', x = 'Bill length [mm]', y = 'Bill depth [mm]')
+```
+
+Let's now turn this code into a function instead of copy-pasting it two more times to plot the same relationship for the two other species:
+
+```{r}
+plot_species <- function(data, species_name){
+  data |> 
+    filter(species == species_name) |> 
+    ggplot(aes(bill_length_mm, bill_depth_mm)) +
+    geom_point() +
+    theme_bw() +
+    labs(title = species_name, x = 'Bill length [mm]', y = 'Bill depth [mm]')
+}
+plot_species(penguins, 'Adelie')
+```
+
+To learn more about reducing duplication in your `ggplot2` code look here: <https://r4ds.hadley.nz/functions.html#plot-functions>, [Programming with ggplot2](https://ggplot2-book.org/programming.html), <https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html>.
+
+## 7.2 For loops
+
+We will now move to the iteration part of this chapter, which means repeating the same action multiple times on different objects. In any programming language, it is possible to automate such repetitions using a **for loop**. The basic structure of a for loop looks like this:
+
+```{r}
+#| eval: false
+for (variable in sequence) {
+  # do something with the variable
+}
+```
+
+The for loop takes one variable from a given sequence, runs the code inside `{}` for this variable and then moves to the next variable in the sequence. A basic example might be printing numbers from a sequence:
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+The for loop takes one number, prints it, then takes the next one, prints it, and so on till the end of the sequence.
+
+We can, for example, take our plot function to plot the scatterplot of bill length and bill depth of individual species and loop over the species names to sequentially make a plot for all species.
+
+```{r}
+for (species_name in unique(penguins$species)) {
+  plot_species(penguins, species_name) |> 
+    print()
+}
+```
+
+There are always multiple ways to get to the same result, and this is also true for iteration in R. The `purrr` package has powerful tools to iterate over multiple elements. But even when you choose to prefer `purrr` solutions, it is worth being familiar with for loops and their functionality, because you might see them often in the code of other people, and they are universal across programming languages.
+
+## 7.3 purrr and working with nested dataframes
+
+We already went through most of the `tidyverse` packages, but we didn't talk about the `purrr` package yet. `purrr` provides powerful tools for automatisation of tasks that need to be repeated multiple times, e.g. for each file in a directory, each element of a list, each dataframe... They allow you to replace for loops with `map()` functions, which might be more powerful, readable and consistent with the rest of `tidyverse`.
+
+Let's start with the task of reading multiple files at once. Imagine you have multiple files that are of the same structure, but for some reason, they are stored in multiple files. As example data, we will use the [gapminder](https://www.gapminder.org/data) dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the `gapminder` folder is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the `read_csv()` function twelve times, but there is a more elegant way. Let's list the files first:
+
+```{r}
+paths <- list.files('data/gapminder/', pattern = '.csv', full.names = T)
+paths
+```
+
+The `map()` function works similarly to `across()`, but instead of doing something to each column in a data frame, it does something to each element of a vector. It is an analogy of a for loop, the function takes each element of a sequence and applies a function to it. We can use it now to read all 12 csv files in one line:
+
+```{r}
+files <- map(paths, ~read_csv(.x))
+str(files)
+```
+
+We got a list with 12 data frames. To access the first element of the list, we would call `files[[1]]`. For further work with lists and `map()` functions, it is worth remembering that the elements of a list are called with the double square brackets.
+
+To combine all data frames in a list, we can use `list_rbind()`:
+
+```{r}
+gapminder_df <- map(paths, ~read_csv(.x)) |> 
+  list_rbind()
+glimpse(gapminder_df)
+```
+
+But we somehow lost the information about the year. To fix it, we store the file names in the data frame. First step is to set names of the list elements of `paths`, the `basename()` function extracts just the file name from the path. Second, we save the names in a resulting data frame to a column called `year`.
+
+```{r}
+gapminder_df <- paths |> 
+  set_names(basename) |> 
+  map(~read_csv(.x)) |> 
+  list_rbind(names_to = 'year')
+glimpse(gapminder_df)
+```
+
+Still not perfect, it would be nice to extract just the year from the file name. The easiest way to do it in this case is to use the `parse_number()` function that extracts just a number from a string:
+
+```{r}
+gapminder_df <- paths |> 
+  set_names(basename) |> 
+  map(~read_csv(.x)) |> 
+  list_rbind(names_to = 'year') |> 
+  mutate(year = parse_number(year))
+glimpse(gapminder_df)
+```
+
+It might be a good idea to save the resulting data frame as a single csv file now to make future data loading easier.
+
+```{r}
+write_csv(gapminder_df, 'data/gapminder_clean/gapminder.csv')
+```
+
+`purrr` contains not only the `map()` function, but also it relatives, so we will look at the differences between them now:
+
+-   `map()` makes a list
+
+-   `map_lgl()` makes a logical vector
+
+-   `map_int()` makes an integer vector
+
+-   `map_dbl()` makes a double vector
+
+-   `map_chr()` makes a character vector
+
+Each of the above-mentioned functions takes a vector input, applies a function to each element and returns a vector of the same length.
+
+-   `map2()` takes two vectors, usually of the same length and iterates over two arguments at a time
+
+And there is also a group of `walk()` functions, which return their side-effects and return the input `.x`. They might be used, for example, for saving multiple files or plots.
+
+Let's say, we want to save our gapminder data divided by continent. We first make a nested data frame by continent. This is something similar to `group_by()`, we take a variable that makes groups in our dataset and divide the rest of the data according to this variable. The grouping variable stays in one column, and a smaller data frame is created for each level of this variable. All these smaller data frames are stored in the `data` column. We now want to save each of these smaller data frames as a separate csv file. We now create a column, where we define a path for each file to be saved.
+
+```{r}
+gapminder_nest <- gapminder_df |> 
+  nest(data = -continent) |> 
+  mutate(path = paste0('data/gapminder_continent/gapminder_', continent, '.csv')) 
+
+glimpse(gapminder_nest)
+```
+
+We can see that the `data` column is a list containing tibbles with different numbers of rows, but the same number of columns. To look at one of them we need to use the `[[]]` again.
+
+```{r}
+gapminder_nest$data[[1]]
+```
+
+And we can save all the tibbles in separate csv files at once using the `walk2()` call, which at each step takes one tibble from the `data` column and one path definition from the `path` column and runs the `write_csv()` function with these two arguments.
+
+```{r}
+
+walk2(gapminder_nest$data, gapminder_nest$path, ~write_csv(.x, .y))
+```
+
+The work with nested data frames becomes really helpful when we want to perform the same calculation many times. We will work with the `gapminder` data again and try to answer the following questions: How does life expectancy change over time in individual countries? In which countries has the life expectancy risen the most over time?
+
+To explore the data a little bit first, we can plot them:
+
+```{r}
+gapminder_df |> 
+  ggplot(aes(year, lifeExp, group = country)) +
+  geom_line()
+```
+
+Overall, life expectancy has been steadily increasing over time, but we need some estimation of the trend in individual countries. A possible way to do this would be to fit a linear model to the data from each country and look at the estimate. Given the 142 countries in the dataset, we really do not want to run the code for each one manually with copy-pasted code. Because we want to work at the country level, we will now nest our data by country. To calculate a linear model for data from each country, we will iterate over the `data` column and save the resulting model to a new column. This might be done with `map()` within the `mutate()` call.
+
+```{r}
+by_country <- gapminder_df |> 
+  nest(data = -country) |> 
+  mutate(m = map(data, ~lm(lifeExp~year, data = .x)))
+```
+
+The column `m` we just created is again a list and contains the results of linear models for the relationship between life expectancy and time for all countries. With each one of them, we can do whatever is possible with a model result:
+
+```{r}
+summary(by_country$m[[1]])
+```
+
+To easily extract the estimates from the model, we will use `tidy()` function from the `broom` package. `broom` is not a part of the `tidyverse`, but it is a related package, which becomes very helpful when working with models within the `tidyverse` workflow, because it provides tools to convert statistical objects into tidy tibbles. The `tidy()` function summarizes information about the model components:
+
+```{r}
+tidy(by_country$m[[1]])
+```
+
+And we can again use it to iterate over all models to get these summaries for all countries.
+
+```{r}
+by_country <- gapminder_df |> 
+  nest(data = -country) |> 
+  mutate(m = map(data, ~lm(lifeExp~year, data = .x)), 
+         m_tidy = map(m, ~tidy(.x)))
+
+glimpse(by_country)
+```
+
+The summary is now in a tibble, but there is still a list of tibbles in the `m_tidy` column. To get the results to a data frame where we can sort the values and filter across all values, we need to `unnest()`.
+
+```{r}
+by_country <- gapminder_df |> 
+  nest(data = -country) |> 
+  mutate(m = map(data, ~lm(lifeExp~year, data = .x)), 
+         m_tidy = map(m, ~tidy(.x))) |> 
+  unnest(m_tidy)
+
+glimpse(by_country)
+```
+
+We now have a column for each column originally included in the tibbles inside `m_tidy`. The list-columns we did not unnest still remain list-columns. There are now two rows for each country, one for each model coefficient - the intercept and the year. We are not interested in model intercepts now, so we can filter them out. To see in which countries has the life expectancy risen the most over time, we can arrange the dataset according to the model estimate.
+
+```{r}
+by_country <- gapminder_df |> 
+  nest(data = -country) |> 
+  mutate(m = map(data, ~lm(lifeExp~year, data = .x)), 
+         m_tidy = map(m, ~tidy(.x))) |> 
+  unnest(m_tidy) |> 
+  filter(term == 'year') |> 
+  arrange(desc(estimate))
+
+glimpse(by_country)
+```
+
+Or we can just print out the top 10 countries:
+
+```{r}
+by_country |> slice_max(estimate, n = 10)
+```
+
+The use of nested data frames and `broom` has great potential. Depending on the question, it is possible to filter only significant results, select models with the highest explanatory power, etc. To learn more about the automatisation using purrr and running many models, look here: <https://r4ds.hadley.nz/iteration.html>, <https://adv-r.hadley.nz/functionals.html>, <https://r4ds.had.co.nz/many-models.html>, <https://www.tmwr.org>.
+
+## 7.4 Exercises
+
+1.  Rewrite the following code as a function:
+
+    ```{r}
+    #| eval: false
+    x / sum(x, na.rm = T)*100
+    y / sum(y, na.rm = T)*100
+    z / sum(z, na.rm = T)*100
+    ```
+
+2.  Use the function to calculate the percentage of each species in the penguins dataset.
+
+3.  Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula $C = (F-32) *5/9$. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.
+
+4.  \* Write a function that calculates the Shannon diversity index using the formula $H' = -∑p_i ln(p_i)$. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.
+
+5.  Take the Pokémon dataset and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. \* Try to generalize the code so that you can plot a distribution of any numerical variable.
+
+6.  Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
+
+7.  Do the same using `purrr` functions.
+
+## Further reading
+
+R for Data Science: <https://r4ds.hadley.nz/program.html>
+
+Hands on Programming with R: <https://rstudio-education.github.io/hopr>
+
+Advanced R: <https://adv-r.hadley.nz>
+
+Programming with dplyr: <https://dplyr.tidyverse.org/articles/programming.html>
+
+Programming with tidyr: <https://tidyr.tidyverse.org/articles/programming.html>
+
+Programming with ggplot2: <https://ggplot2-book.org/programming.html>
+
+Tidy modeling with R: <https://www.tmwr.org>

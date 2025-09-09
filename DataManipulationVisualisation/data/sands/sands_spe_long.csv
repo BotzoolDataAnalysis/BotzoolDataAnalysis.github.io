@@ -1,0 +1,3155 @@
+releve_nr,valid_name,cover_perc
+1,Achillea millefolium agg.,0.5
+1,Artemisia campestris,0.5
+1,Carex hirta,0.5
+1,Corynephorus canescens,3
+1,Euphorbia cyparissias,0.5
+1,Pilosella officinarum,15
+1,Hypericum perforatum,0.5
+1,Hypochaeris radicata,0.5
+1,Linaria genistifolia,0.5
+1,Pinus sylvestris,0.5
+1,Poa pratensis agg.,0.5
+1,Rumex acetosella,0.5
+1,Thymus serpyllum,0.5
+2,Armeria elongata subsp. elongata,0.5
+2,Calamagrostis epigejos,3
+2,Carex hirta,0.5
+2,Carex praecox,0.5
+2,Cerastium holosteoides,0.5
+2,Convolvulus arvensis,0.5
+2,Corynephorus canescens,0.5
+2,Euphorbia cyparissias,0.5
+2,Helichrysum arenarium,0.5
+2,Pilosella officinarum,0.5
+2,Hypericum perforatum,3
+2,Hypochaeris radicata,0.5
+2,Linaria genistifolia,0.5
+2,Pinus sylvestris,0.5
+2,Poa pratensis agg.,15
+2,Potentilla argentea,0.5
+2,Rumex acetosella,0.5
+2,Thymus serpyllum,0.5
+3,Corynephorus canescens,15
+3,Erigeron annuus agg.,0.5
+3,Hypericum perforatum,0.5
+3,Rumex acetosella,0.5
+4,Corynephorus canescens,15
+4,Rumex acetosella,0.5
+6,Achillea millefolium agg.,0.5
+6,Armeria elongata subsp. elongata,15
+6,Arrhenatherum elatius,0.5
+6,Avenula pubescens,15
+6,Carex hirta,0.5
+6,Carex praecox,0.5
+6,Dianthus carthusianorum agg.,0.5
+6,Euphorbia cyparissias,0.5
+6,Falcaria vulgaris,0.5
+6,Festuca pratensis,0.5
+6,Festuca rubra,0.5
+6,Galium album s. l.,0.5
+6,Galium verum,0.5
+6,Plantago lanceolata,3
+6,Poa pratensis agg.,15
+6,Silene latifolia subsp. alba,0.5
+6,Tragopogon dubius,0.5
+7,Anthoxanthum odoratum,15
+7,Calamagrostis epigejos,15
+7,Elymus repens,15
+7,Euphorbia cyparissias,15
+7,Festuca rubra,0.5
+7,Hypochaeris radicata,0.5
+7,Poa pratensis agg.,0.5
+7,Potentilla argentea,0.5
+7,Quercus robur,0.5
+7,Rumex acetosella,0.5
+7,Silene latifolia subsp. alba,15
+7,Taraxacum sect. Taraxacum,0.5
+7,Tragopogon dubius,0.5
+7,Vicia villosa subsp. villosa,0.5
+8,Achillea millefolium agg.,0.5
+8,Arrhenatherum elatius,15
+8,Centaurea stoebe,0.5
+8,Convolvulus arvensis,0.5
+8,Echium vulgare,0.5
+8,Elymus repens,15
+8,Euphorbia cyparissias,0.5
+8,Festuca rubra,0.5
+8,Plantago lanceolata,0.5
+8,Poa pratensis agg.,37.5
+8,Potentilla argentea,0.5
+8,Rumex thyrsiflorus,15
+8,Scabiosa ochroleuca,0.5
+8,Securigera varia,0.5
+8,Silene latifolia subsp. alba,0.5
+8,Vicia villosa subsp. villosa,3
+9,Anthoxanthum odoratum,0.5
+9,Arrhenatherum elatius,15
+9,Artemisia campestris,3
+9,Calamagrostis epigejos,0.5
+9,Carex caryophyllea,15
+9,Carex hirta,0.5
+9,Carex praecox,15
+9,Centaurea stoebe,0.5
+9,Cynodon dactylon,0.5
+9,Elymus repens,0.5
+9,Euphorbia cyparissias,0.5
+9,Festuca valesiaca s. l.,3
+9,Hypericum perforatum,0.5
+9,Hypochaeris radicata,0.5
+9,Luzula multiflora,0.5
+9,Poa compressa,0.5
+9,Poa pratensis agg.,3
+9,Potentilla verna agg.,0.5
+9,Rumex acetosella,0.5
+9,Scabiosa ochroleuca,0.5
+9,Silene latifolia subsp. alba,0.5
+9,Verbascum phoeniceum,3
+10,Anthoxanthum odoratum,0.5
+10,Calamagrostis epigejos,0.5
+10,Corynephorus canescens,15
+10,Hypericum perforatum,15
+10,Pinus sylvestris,0.5
+10,Poa pratensis agg.,3
+10,Rumex acetosella,0.5
+10,Verbascum thapsus,0.5
+11,Achillea millefolium agg.,0.5
+11,Armeria elongata subsp. elongata,0.5
+11,Arrhenatherum elatius,3
+11,Calamagrostis epigejos,0.5
+11,Carex hirta,0.5
+11,Centaurea stoebe,0.1
+11,Convolvulus arvensis,0.5
+11,Corynephorus canescens,0.5
+11,Dianthus carthusianorum agg.,0.5
+11,Echium vulgare,0.5
+11,Euphorbia cyparissias,0.1
+11,Festuca valesiaca s. l.,37.5
+11,Festuca psammophila subsp. dominii,0.5
+11,Helichrysum arenarium,0.5
+11,Pilosella officinarum,0.5
+11,Hypericum perforatum,3
+11,Linaria genistifolia,0.1
+11,Poa pratensis agg.,0.5
+11,Potentilla argentea,0.5
+11,Rumex acetosella,0.5
+11,Securigera varia,3
+11,Silene otites,3
+11,Stipa borysthenica,3
+11,Stipa capillata,0.5
+11,Thymus serpyllum,0.5
+11,Verbascum thapsus,0.5
+12,Artemisia campestris,15
+12,Centaurea stoebe,0.1
+12,Chondrilla juncea,0.1
+12,Corynephorus canescens,0.5
+12,Dianthus carthusianorum agg.,0.5
+12,Festuca psammophila subsp. dominii,0.5
+12,Helichrysum arenarium,0.5
+12,Plantago lanceolata,15
+12,Poa compressa,0.5
+12,Poa pratensis agg.,15
+12,Potentilla argentea,0.5
+12,Rumex acetosella,0.5
+12,Seseli osseum,0.5
+12,Silene vulgaris,0.5
+12,Stipa borysthenica,0.5
+12,Verbascum thapsus,0.1
+14,Carex hirta,0.5
+14,Echium vulgare,0.5
+14,Elymus repens,0.5
+14,Eryngium campestre,0.5
+14,Euphorbia cyparissias,0.5
+14,Festuca psammophila subsp. dominii,15
+14,Hypericum perforatum,0.5
+14,Plantago lanceolata,3
+14,Poa pratensis agg.,3
+14,Potentilla argentea,3
+14,Rumex acetosella,0.5
+14,Silene latifolia subsp. alba,0.5
+14,Silene otites,0.5
+14,Stipa borysthenica,37.5
+15,Achillea millefolium agg.,0.5
+15,Anthoxanthum odoratum,15
+15,Calamagrostis epigejos,3
+15,Carex supina,0.5
+15,Centaurea stoebe,0.5
+15,Corynephorus canescens,3
+15,Cynodon dactylon,0.5
+15,Dianthus carthusianorum agg.,0.5
+15,Echium vulgare,0.5
+15,Erigeron annuus agg.,0.5
+15,Euphorbia cyparissias,0.5
+15,Festuca valesiaca s. l.,15
+15,Helichrysum arenarium,0.5
+15,Pilosella officinarum,0.5
+15,Hypericum perforatum,0.5
+15,Plantago lanceolata,0.5
+15,Poa pratensis agg.,3
+15,Rumex acetosella,15
+15,Verbascum phoeniceum,0.5
+16,Achillea millefolium agg.,0.5
+16,Agrostis vinealis,15
+16,Anthoxanthum odoratum,0.5
+16,Arrhenatherum elatius,0.5
+16,Calamagrostis epigejos,37.5
+16,Carex caryophyllea,0.5
+16,Carex hirta,0.5
+16,Crataegus species,0.5
+16,Cynodon dactylon,0.5
+16,Erigeron annuus agg.,0.5
+16,Euphorbia cyparissias,0.5
+16,Festuca valesiaca s. l.,0.5
+16,Hypericum perforatum,0.5
+16,Luzula campestris,0.5
+16,Plantago lanceolata,0.5
+16,Poa pratensis agg.,37.5
+16,Rumex acetosella,3
+16,Teucrium chamaedrys,0.5
+16,Thymus pannonicus agg.,0.5
+17,Achillea millefolium agg.,0.5
+17,Anthoxanthum odoratum,3
+17,Calamagrostis epigejos,3
+17,Carex supina,3
+17,Corynephorus canescens,0.5
+17,Cynodon dactylon,3
+17,Dianthus carthusianorum agg.,0.5
+17,Echium vulgare,0.5
+17,Erigeron annuus agg.,0.5
+17,Eryngium campestre,0.5
+17,Festuca valesiaca s. l.,37.5
+17,Helichrysum arenarium,0.5
+17,Hypericum perforatum,3
+17,Hypochaeris radicata,0.1
+17,Plantago lanceolata,0.5
+17,Poa pratensis agg.,15
+17,Potentilla argentea,0.5
+17,Potentilla verna agg.,0.5
+17,Ranunculus illyricus,0.1
+17,Rumex acetosella,15
+17,Sedum acre,0.5
+17,Silene viscosa,0.5
+17,Verbascum phoeniceum,0.5
+17,Thymus pannonicus agg.,0.5
+18,Achillea millefolium agg.,0.5
+18,Arrhenatherum elatius,0.5
+18,Calamagrostis epigejos,15
+18,Carex caryophyllea,3
+18,Carex hirta,0.5
+18,Carex supina,3
+18,Centaurea stoebe,0.5
+18,Cerastium holosteoides,0.5
+18,Cynodon dactylon,0.5
+18,Dactylis glomerata,0.5
+18,Dianthus carthusianorum agg.,0.5
+18,Erigeron annuus agg.,0.5
+18,Euphorbia cyparissias,0.5
+18,Festuca valesiaca s. l.,15
+18,Galium verum,0.5
+18,Hypericum perforatum,3
+18,Luzula campestris,0.5
+18,Plantago lanceolata,0.5
+18,Poa pratensis agg.,37.5
+18,Potentilla argentea,0.5
+18,Teucrium chamaedrys,0.5
+18,Thymus pannonicus agg.,3
+19,Achillea millefolium agg.,0.5
+19,Agrostis vinealis,15
+19,Anthoxanthum odoratum,15
+19,Armeria elongata subsp. elongata,0.5
+19,Calamagrostis epigejos,0.1
+19,Centaurea stoebe,0.5
+19,Corynephorus canescens,15
+19,Cynodon dactylon,0.5
+19,Dianthus carthusianorum agg.,15
+19,Echium vulgare,0.5
+19,Erigeron annuus agg.,0.5
+19,Eryngium campestre,0.1
+19,Euphorbia cyparissias,0.5
+19,Festuca valesiaca s. l.,15
+19,Galium verum,0.5
+19,Helichrysum arenarium,0.5
+19,Pilosella officinarum,0.5
+19,Hypericum perforatum,3
+19,Hypochaeris radicata,0.5
+19,Koeleria macrantha,0.5
+19,Plantago lanceolata,0.5
+19,Poa pratensis agg.,0.5
+19,Potentilla argentea,0.5
+19,Rumex acetosella,0.5
+19,Sedum acre,3
+19,Senecio jacobaea,0.1
+19,Silene otites,0.5
+19,Verbascum phlomoides,0.1
+20,Achillea millefolium agg.,0.5
+20,Anthoxanthum odoratum,0.5
+20,Carex hirta,0.1
+20,Centaurea stoebe,0.5
+20,Chondrilla juncea,0.1
+20,Convolvulus arvensis,0.5
+20,Corynephorus canescens,37.5
+20,Cynodon dactylon,0.5
+20,Erigeron acris agg.,0.5
+20,Erigeron annuus agg.,0.5
+20,Eryngium campestre,0.5
+20,Euphorbia cyparissias,0.1
+20,Festuca valesiaca s. l.,0.5
+20,Helichrysum arenarium,3
+20,Pilosella officinarum,0.5
+20,Hypericum perforatum,0.5
+20,Koeleria macrantha,0.5
+20,Plantago lanceolata,0.5
+20,Poa pratensis agg.,0.5
+20,Potentilla argentea,0.5
+20,Senecio jacobaea,0.5
+20,Silene otites,0.5
+21,Achillea millefolium agg.,0.5
+21,Arrhenatherum elatius,15
+21,Carex hirta,0.5
+21,Convolvulus arvensis,0.5
+21,Echium vulgare,0.5
+21,Elymus repens,0.5
+21,Erodium cicutarium,0.1
+21,Eryngium campestre,0.5
+21,Euphorbia cyparissias,0.5
+21,Festuca pratensis,15
+21,Festuca rubra,0.5
+21,Potentilla argentea,0.5
+21,Rumex acetosa,0.5
+21,Rumex acetosella,0.5
+21,Securigera varia,15
+21,Silene nutans,3
+21,Silene otites,0.5
+21,Verbascum lychnitis,0.5
+22,Achillea millefolium agg.,0.5
+22,Ajuga genevensis,0.1
+22,Anthoxanthum odoratum,0.5
+22,Arrhenatherum elatius,15
+22,Calamagrostis epigejos,37.5
+22,Carex hirta,0.5
+22,Dactylis glomerata,0.5
+22,Erigeron annuus agg.,0.5
+22,Euphorbia cyparissias,0.5
+22,Festuca rubra,3
+22,Filipendula vulgaris,3
+22,Fragaria vesca,0.5
+22,Hypericum perforatum,0.5
+22,Lotus corniculatus,0.5
+22,Myosotis species,0.1
+22,Poa palustris,3
+22,Poa pratensis agg.,3
+22,Quercus robur,0.5
+22,Ranunculus polyanthemos,0.5
+22,Rubus caesius,15
+22,Securigera varia,3
+22,Taraxacum sect. Taraxacum,0.5
+22,Trifolium pratense,0.5
+22,Veronica chamaedrys,0.1
+23,Achillea millefolium agg.,0.5
+23,Dactylis glomerata,0.5
+23,Erigeron annuus agg.,0.5
+23,Lolium perenne,0.5
+23,Potentilla argentea,3
+23,Quercus robur,37.5
+23,Taraxacum sect. Erythrosperma,0.5
+23,Trifolium repens,0.5
+24,Arrhenatherum elatius,0.5
+24,Calamagrostis epigejos,37.5
+24,Carex hirta,15
+24,Eryngium campestre,0.1
+24,Festuca rubra,15
+24,Hypericum perforatum,3
+24,Malus sylvestris agg.,0.1
+24,Poa pratensis agg.,15
+24,Rumex acetosella,0.5
+25,Achillea millefolium agg.,0.5
+25,Agrostis vinealis,15
+25,Anthoxanthum odoratum,15
+25,Arabis glabra,0.5
+25,Armeria elongata subsp. elongata,0.5
+25,Arrhenatherum elatius,15
+25,Calamagrostis epigejos,3
+25,Carex hirta,0.5
+25,Cerastium holosteoides,0.5
+25,Elymus hispidus,3
+25,Euonymus europaeus,0.5
+25,Euphorbia cyparissias,0.5
+25,Festuca rubra,15
+25,Hypericum perforatum,0.5
+25,Luzula multiflora,0.5
+25,Poa pratensis agg.,15
+25,Potentilla argentea,0.5
+25,Rumex acetosella,15
+25,Silene latifolia subsp. alba,0.5
+25,Teucrium chamaedrys,0.5
+25,Verbascum phoeniceum,3
+26,Agrostis capillaris,0.5
+26,Arrhenatherum elatius,0.5
+26,Calamagrostis epigejos,62.5
+26,Carex hirta,37.5
+26,Euonymus europaeus,0.5
+26,Euphorbia cyparissias,0.5
+26,Festuca rubra,0.5
+26,Galium verum,0.5
+26,Hypericum perforatum,0.5
+26,Poa pratensis agg.,15
+26,Rhamnus cathartica,15
+26,Rosa canina agg.,0.5
+26,Rumex acetosella,0.5
+26,Teucrium chamaedrys,0.5
+26,Veronica chamaedrys,0.5
+26,Viola canina,0.5
+27,Agrostis vinealis,0.5
+27,Calamagrostis epigejos,0.5
+27,Carex hirta,0.1
+27,Cirsium arvense,0.1
+27,Convolvulus arvensis,0.5
+27,Corynephorus canescens,15
+27,Cynodon dactylon,3
+27,Eryngium campestre,0.5
+27,Linaria genistifolia,0.5
+27,Linaria vulgaris,0.1
+27,Pinus sylvestris,0.5
+27,Rumex acetosella,0.5
+28,Agrostis vinealis,0.5
+28,Carex praecox,0.5
+28,Corynephorus canescens,15
+28,Eryngium campestre,0.5
+28,Euphorbia cyparissias,0.5
+28,Festuca psammophila subsp. dominii,0.5
+28,Helichrysum arenarium,0.5
+28,Hypericum perforatum,3
+28,Poa pratensis agg.,0.5
+28,Rumex acetosella,15
+28,Stipa borysthenica,15
+28,Thymus serpyllum,15
+28,Verbascum phoeniceum,0.5
+28,Seseli osseum,0.5
+29,Achillea millefolium agg.,0.1
+29,Agrostis vinealis,0.5
+29,Anthoxanthum odoratum,15
+29,Artemisia campestris,0.5
+29,Calamagrostis epigejos,0.5
+29,Carex hirta,0.1
+29,Carex praecox,0.5
+29,Cirsium arvense,0.5
+29,Corynephorus canescens,15
+29,Euphorbia cyparissias,0.5
+29,Festuca psammophila subsp. dominii,15
+29,Helichrysum arenarium,15
+29,Pilosella officinarum,0.5
+29,Hypericum perforatum,0.5
+29,Hypochaeris radicata,0.5
+29,Jasione montana,0.5
+29,Linaria genistifolia,0.5
+29,Luzula campestris,0.5
+29,Poa pratensis agg.,0.5
+29,Rumex acetosella,0.5
+29,Silene otites,0.1
+29,Stipa borysthenica,3
+29,Thymus serpyllum,15
+29,Verbascum phoeniceum,0.5
+30,Achillea millefolium agg.,0.5
+30,Agrostis vinealis,15
+30,Anthoxanthum odoratum,3
+30,Arabis glabra,0.5
+30,Armeria elongata subsp. elongata,3
+30,Calamagrostis epigejos,0.5
+30,Carex hirta,0.5
+30,Carex praecox,0.5
+30,Centaurea stoebe,0.5
+30,Chondrilla juncea,0.1
+30,Cirsium arvense,0.5
+30,Echium vulgare,0.5
+30,Erigeron annuus agg.,0.1
+30,Euphorbia cyparissias,0.5
+30,Festuca psammophila subsp. dominii,0.5
+30,Helichrysum arenarium,0.5
+30,Pilosella officinarum,0.5
+30,Hypericum perforatum,3
+30,Linaria genistifolia,0.5
+30,Pinus sylvestris,0.1
+30,Poa pratensis agg.,0.5
+30,Potentilla argentea,0.5
+30,Rumex acetosella,15
+30,Senecio jacobaea,0.5
+30,Seseli osseum,0.5
+30,Silene nutans,0.5
+30,Stipa borysthenica,15
+30,Thymus serpyllum,15
+30,Tragopogon dubius,0.1
+30,Verbascum phoeniceum,0.5
+32,Agrostis vinealis,0.5
+32,Calamagrostis epigejos,87.5
+32,Carex hirta,0.5
+32,Erigeron annuus agg.,0.1
+32,Hypericum perforatum,15
+32,Pinus sylvestris,0.5
+32,Poa palustris,0.5
+32,Rumex acetosella,0.5
+33,Achillea millefolium agg.,3
+33,Armeria elongata subsp. elongata,0.5
+33,Artemisia campestris,15
+33,Carex hirta,0.5
+33,Carex praecox,15
+33,Corynephorus canescens,0.1
+33,Cynodon dactylon,15
+33,Erigeron annuus agg.,0.5
+33,Eryngium campestre,15
+33,Erysimum diffusum agg.,0.5
+33,Euphorbia cyparissias,0.5
+33,Festuca psammophila subsp. dominii,37.5
+33,Helichrysum arenarium,3
+33,Pilosella officinarum,0.5
+33,Hypericum perforatum,3
+33,Hypochaeris radicata,0.5
+33,Linaria genistifolia,0.1
+33,Poa compressa,0.5
+33,Poa pratensis agg.,0.5
+33,Potentilla argentea,0.5
+33,Rumex acetosella,3
+34,Calamagrostis epigejos,37.5
+34,Carex hirta,0.5
+34,Carex praecox,15
+34,Cynoglossum officinale,0.5
+34,Festuca valesiaca s. l.,15
+34,Hypericum perforatum,15
+34,Plantago lanceolata,0.5
+34,Poa compressa,0.5
+34,Poa pratensis agg.,0.5
+34,Potentilla argentea,0.5
+34,Rumex crispus,0.5
+34,Silene latifolia subsp. alba,0.5
+36,Anchusa officinalis,0.5
+36,Arrhenatherum elatius,15
+36,Artemisia vulgaris,0.5
+36,Avenula pubescens,0.5
+36,Chondrilla juncea,0.5
+36,Cynodon dactylon,3
+36,Elymus repens,3
+36,Erysimum diffusum agg.,0.5
+36,Euphorbia esula,0.5
+36,Festuca valesiaca s. l.,15
+36,Lolium perenne,0.5
+36,Oenothera species,0.5
+36,Plantago lanceolata,0.5
+36,Poa pratensis agg.,3
+36,Rumex crispus,0.5
+36,Silene latifolia subsp. alba,0.5
+36,Silene otites,0.1
+36,Tragopogon dubius,0.5
+36,Vicia villosa subsp. villosa,15
+38,Achillea millefolium agg.,0.5
+38,Agrostis vinealis,15
+38,Anthoxanthum odoratum,15
+38,Calamagrostis epigejos,15
+38,Carex hirta,15
+38,Carex praecox,3
+38,Corynephorus canescens,15
+38,Cynodon dactylon,0.5
+38,Dianthus carthusianorum agg.,0.5
+38,Festuca valesiaca s. l.,0.5
+38,Frangula alnus,0.5
+38,Hypericum perforatum,0.5
+38,Linaria vulgaris,0.5
+38,Luzula campestris,0.5
+38,Poa pratensis agg.,0.5
+38,Rumex acetosella,15
+38,Hylotelephium maximum,0.5
+39,Anthoxanthum odoratum,15
+39,Calamagrostis epigejos,15
+39,Carex hirta,0.5
+39,Euphorbia cyparissias,3
+39,Festuca psammophila subsp. dominii,3
+39,Pilosella echioides,0.1
+39,Holcus lanatus,0.5
+39,Hypochaeris radicata,0.1
+39,Pinus sylvestris,15.085
+39,Poa pratensis agg.,3
+39,Prunus cerasifera,0.5
+39,Quercus petraea agg.,0.1
+39,Robinia pseudoacacia,0.5
+39,Rosa canina agg.,0.1
+39,Rumex acetosa,0.1
+39,Taraxacum sect. Taraxacum,0.1
+39,Thymus serpyllum,3
+40,Corynephorus canescens,15
+42,Corynephorus canescens,15
+42,Festuca psammophila subsp. dominii,3
+46,Achillea millefolium agg.,0.1
+46,Calamagrostis epigejos,3
+46,Carex hirta,0.5
+46,Corynephorus canescens,15
+46,Hypochaeris radicata,0.5
+46,Pinus sylvestris,0.1
+46,Poa pratensis agg.,0.1
+46,Rumex acetosella,15
+46,Taraxacum sect. Taraxacum,0.1
+47,Anthoxanthum odoratum,0.5
+47,Artemisia campestris,3
+47,Calamagrostis epigejos,3
+47,Carex hirta,0.5
+47,Carex stenophylla,3
+47,Centaurea stoebe,3
+47,Cynodon dactylon,0.1
+47,Equisetum ramosissimum,0.1
+47,Euphorbia cyparissias,15
+47,Festuca psammophila subsp. dominii,0.5
+47,Hypericum perforatum,0.5
+47,Luzula campestris,3
+47,Poa pratensis agg.,15
+47,Rubus caesius,0.1
+47,Rumex acetosella,15
+47,Thymus serpyllum,3
+48,Anthoxanthum odoratum,0.5
+48,Artemisia campestris,0.1
+48,Calamagrostis epigejos,3
+48,Carex stenophylla,15
+48,Centaurea stoebe,3
+48,Corynephorus canescens,3
+48,Cynodon dactylon,0.5
+48,Echium vulgare,0.1
+48,Eryngium campestre,0.1
+48,Euphorbia cyparissias,0.5
+48,Hypericum perforatum,3
+48,Myosotis species,0.1
+48,Poa pratensis agg.,3
+48,Rumex acetosella,15
+48,Agrostis vinealis,0.1
+50,Corynephorus canescens,0.5
+50,Cynodon dactylon,0.1
+50,Erodium cicutarium,0.1
+50,Poa pratensis agg.,0.1
+50,Rumex acetosella,15
+50,Silene vulgaris,0.1
+50,Verbascum lychnitis,0.5
+50,Vicia villosa subsp. villosa,0.5
+51,Achillea millefolium agg.,0.5
+51,Anthoxanthum odoratum,0.5
+51,Calamagrostis epigejos,3
+51,Carex hirta,0.5
+51,Chondrilla juncea,0.5
+51,Corynephorus canescens,3
+51,Dactylis glomerata,3
+51,Hypochaeris radicata,3
+51,Oxalis species,0.5
+51,Potentilla argentea,3
+51,Rumex acetosella,15
+51,Solidago gigantea,0.5
+51,Stipa borysthenica,0.5
+51,Taraxacum sect. Taraxacum,0.5
+51,Trifolium repens,0.5
+51,Veronica chamaedrys,0.1
+51,Vicia villosa subsp. villosa,0.5
+51,Erigeron annuus agg.,0.1
+52,Achillea millefolium agg.,0.5
+52,Avenula pubescens,0.5
+52,Carex caryophyllea,0.5
+52,Carex hirta,0.5
+52,Carex praecox,37.5
+52,Dianthus carthusianorum agg.,3
+52,Elymus repens,0.5
+52,Festuca valesiaca s. l.,3
+52,Fragaria viridis,0.5
+52,Hypochaeris radicata,0.5
+52,Koeleria macrantha,3
+52,Plantago lanceolata,0.5
+52,Potentilla argentea,0.5
+52,Veronica spicata,0.5
+52,Rumex acetosella,0.5
+52,Sedum acre,0.5
+52,Silene latifolia subsp. alba,0.1
+52,Silene otites,0.1
+52,Thymus pannonicus agg.,3
+52,Veronica prostrata,3
+52,Vicia villosa subsp. villosa,0.1
+52,Poa pratensis agg.,0.5
+52,Euphorbia cyparissias,3
+53,Ajuga genevensis,0.5
+53,Anthoxanthum odoratum,3
+53,Armeria elongata subsp. elongata,0.5
+53,Artemisia campestris,0.5
+53,Chondrilla juncea,0.1
+53,Dianthus carthusianorum agg.,3
+53,Elymus repens,0.5
+53,Erysimum diffusum agg.,0.5
+53,Euphorbia cyparissias,15
+53,Festuca valesiaca s. l.,15
+53,Iris variegata,0.1
+53,Koeleria macrantha,0.5
+53,Linaria genistifolia,0.5
+53,Phleum phleoides,0.1
+53,Plantago lanceolata,0.5
+53,Potentilla argentea,0.5
+53,Veronica spicata,0.5
+53,Rumex acetosella,0.5
+53,Scabiosa ochroleuca,0.5
+53,Silene latifolia subsp. alba,0.1
+53,Silene otites,0.5
+53,Stipa borysthenica,15
+53,Thesium ramosum,0.01
+53,Thymus pannonicus agg.,0.5
+53,Verbascum phoeniceum,3
+53,Veronica prostrata,0.1
+53,Poa pratensis agg.,0.01
+54,Achillea millefolium agg.,0.1
+54,Ajuga genevensis,3
+54,Armeria elongata subsp. elongata,0.1
+54,Arrhenatherum elatius,0.1
+54,Asparagus officinalis,0.01
+54,Avenula pubescens,3
+54,Betonica officinalis,0.1
+54,Calamagrostis epigejos,0.5
+54,Carex caryophyllea,3
+54,Carex hirta,0.1
+54,Carex praecox,15
+54,Chondrilla juncea,0.01
+54,Colchicum autumnale,0.01
+54,Dianthus carthusianorum agg.,0.5
+54,Elymus repens,3
+54,Erysimum diffusum agg.,0.1
+54,Euphorbia cyparissias,15
+54,Festuca valesiaca s. l.,15
+54,Filipendula vulgaris,0.5
+54,Fragaria viridis,0.5
+54,Galium glaucum,0.5
+54,Iris variegata,0.1
+54,Koeleria macrantha,3
+54,Lotus corniculatus,0.1
+54,Viscaria vulgaris,0.1
+54,Peucedanum oreoselinum,0.5
+54,Pimpinella saxifraga,0.1
+54,Plantago lanceolata,3
+54,Potentilla argentea,0.5
+54,Veronica spicata,0.1
+54,Rumex acetosa,0.5
+54,Rumex acetosella,0.5
+54,Salvia pratensis,0.5
+54,Scabiosa ochroleuca,0.5
+54,Silene otites,0.01
+54,Taraxacum sect. Taraxacum,0.1
+54,Thymus pannonicus agg.,15
+54,Trifolium montanum,0.5
+54,Verbascum phoeniceum,0.1
+54,Veronica prostrata,3
+54,Poa pratensis agg.,0.1
+55,Achillea millefolium agg.,0.5
+55,Anthoxanthum odoratum,15
+55,Armeria elongata subsp. elongata,0.5
+55,Avenula pubescens,0.5
+55,Bromus erectus,0.5
+55,Calamagrostis epigejos,0.5
+55,Carex hirta,0.1
+55,Carex praecox,3
+55,Cerastium arvense,3
+55,Colchicum autumnale,0.1
+55,Cruciata laevipes,0.1
+55,Cynodon dactylon,0.5
+55,Dianthus carthusianorum agg.,15
+55,Euphorbia cyparissias,15
+55,Festuca valesiaca s. l.,39.375
+55,Filipendula vulgaris,0.5
+55,Koeleria macrantha,15
+55,Luzula campestris,0.5
+55,Viscaria vulgaris,0.5
+55,Peucedanum oreoselinum,0.1
+55,Plantago lanceolata,3
+55,Potentilla argentea,3
+55,Rumex acetosella,0.5
+55,Salvia pratensis,0.5
+55,Scabiosa ochroleuca,0.5
+55,Stipa borysthenica,15
+55,Thymus pannonicus agg.,37.5
+55,Poa pratensis agg.,0.5
+55,Agrostis vinealis,0.5
+56,Calamagrostis epigejos,0.5
+56,Carex stenophylla,0.1
+56,Centaurea stoebe,0.5
+56,Corynephorus canescens,15
+56,Cynodon dactylon,0.5
+56,Festuca psammophila subsp. dominii,0.5
+56,Hypericum perforatum,0.5
+56,Hypochaeris radicata,3
+56,Petrorhagia saxifraga,0.1
+56,Poa pratensis agg.,3
+56,Rumex acetosella,3
+56,Rumex thyrsiflorus,3
+56,Silene latifolia subsp. alba,0.5
+57,Corynephorus canescens,37.5
+57,Cynodon dactylon,0.5
+57,Elymus repens,0.1
+57,Hypochaeris radicata,0.1
+57,Linaria genistifolia,0.1
+57,Pinus sylvestris,0.1
+57,Plantago lanceolata,0.1
+57,Quercus petraea agg.,0.1
+57,Rumex acetosella,0.5
+58,Calamagrostis epigejos,0.5
+58,Carex hirta,0.5
+58,Corynephorus canescens,15
+58,Cynodon dactylon,0.1
+58,Pinus sylvestris,3
+58,Rumex acetosella,3
+59,Anthoxanthum odoratum,0.5
+59,Calamagrostis epigejos,0.1
+59,Chondrilla juncea,3
+59,Corynephorus canescens,37.5
+59,Cynodon dactylon,0.1
+59,Erysimum diffusum agg.,0.01
+59,Helichrysum arenarium,0.01
+59,Hypericum perforatum,0.1
+59,Hypochaeris radicata,0.1
+59,Jasione montana,0.5
+59,Rumex acetosella,0.5
+59,Rumex thyrsiflorus,0.5
+59,Silene latifolia subsp. alba,0.1
+59,Silene otites,0.1
+59,Solidago virgaurea,0.1
+59,Festuca ovina s. l.,3
+60,Corynephorus canescens,15
+60,Pilosella echioides,0.1
+61,Calamagrostis epigejos,0.1
+61,Corynephorus canescens,15
+61,Echium vulgare,0.01
+61,Erodium cicutarium,0.1
+61,Hypochaeris radicata,0.1
+61,Jasione montana,0.5
+63,Achillea millefolium agg.,0.1
+63,Armeria elongata subsp. elongata,0.5
+63,Carex praecox,3
+63,Cynodon dactylon,0.1
+63,Elymus hispidus,3
+63,Erodium cicutarium,0.1
+63,Eryngium campestre,0.5
+63,Euphorbia cyparissias,3
+63,Festuca valesiaca s. l.,37.5
+63,Plantago lanceolata,15
+63,Poa pratensis agg.,15
+63,Potentilla argentea,0.1
+63,Rumex acetosella,3
+63,Rumex thyrsiflorus,0.1
+64,Armeria elongata subsp. elongata,0.1
+64,Asparagus officinalis,0.1
+64,Corynephorus canescens,15
+64,Elymus hispidus,0.5
+64,Erysimum diffusum agg.,0.1
+64,Euphorbia cyparissias,15
+64,Festuca valesiaca s. l.,0.1
+64,Helichrysum arenarium,0.5
+64,Linaria genistifolia,0.5
+64,Plantago lanceolata,3
+64,Poa pratensis agg.,0.5
+64,Rumex acetosella,3
+64,Silene otites,0.5
+65,Acer negundo,0.1
+65,Achillea millefolium agg.,0.1
+65,Corynephorus canescens,15
+65,Echium vulgare,0.1
+65,Erysimum diffusum agg.,0.1
+65,Jasione montana,0.5
+65,Linaria genistifolia,0.1
+65,Pinus sylvestris,0.1
+65,Potentilla verna agg.,0.5
+65,Quercus petraea agg.,0.1
+65,Rumex acetosella,0.1
+65,Thymus serpyllum,0.5
+66,Acer negundo,0.1
+66,Achillea millefolium agg.,0.1
+66,Armeria elongata subsp. elongata,0.1
+66,Arrhenatherum elatius,3
+66,Corynephorus canescens,3
+66,Crataegus species,0.1
+66,Elymus repens,0.1
+66,Erysimum diffusum agg.,0.5
+66,Euphorbia cyparissias,0.1
+66,Festuca valesiaca s. l.,15
+66,Hypochaeris radicata,0.01
+66,Jasione montana,0.1
+66,Linaria genistifolia,0.1
+66,Pinus sylvestris,0.1
+66,Quercus petraea agg.,0.1
+66,Rosa canina agg.,0.1
+66,Rumex acetosella,0.1
+66,Sedum sexangulare,15
+66,Solidago virgaurea,0.1
+66,Stipa borysthenica,3
+66,Thymus serpyllum,3
+66,Potentilla verna agg.,3
+66,Poa pratensis agg.,0.5
+67,Achillea millefolium agg.,0.1
+67,Arrhenatherum elatius,15
+67,Calamagrostis epigejos,0.5
+67,Centaurea stoebe,3
+67,Chondrilla juncea,0.5
+67,Corynephorus canescens,3
+67,Dianthus carthusianorum agg.,3
+67,Euphorbia cyparissias,0.5
+67,Festuca valesiaca s. l.,15
+67,Helichrysum arenarium,0.1
+67,Hypericum perforatum,0.5
+67,Hypochaeris radicata,0.1
+67,Jasione montana,0.1
+67,Koeleria glauca,15
+67,Linaria genistifolia,0.1
+67,Pinus sylvestris,0.01
+67,Plantago lanceolata,3
+67,Potentilla argentea,0.5
+67,Robinia pseudoacacia,0.5
+67,Rumex acetosella,0.5
+67,Silene latifolia subsp. alba,0.1
+68,Anthoxanthum odoratum,0.1
+68,Corynephorus canescens,62.5
+68,Cynodon dactylon,0.1
+68,Holcus lanatus,0.1
+68,Hypericum perforatum,0.1
+68,Rumex acetosella,3
+70,Acer pseudoplatanus,0.01
+70,Achillea millefolium agg.,3
+70,Ajuga genevensis,0.1
+70,Allium scorodoprasum,0.1
+70,Armeria elongata subsp. elongata,0.1
+70,Artemisia campestris,0.1
+70,Calamagrostis epigejos,0.1
+70,Carex hirta,0.5
+70,Carex praecox,37.5
+70,Carex supina,0.5
+70,Cruciata laevipes,0.1
+70,Cynoglossum officinale,0.5
+70,Dianthus carthusianorum agg.,3
+70,Elymus repens,0.5
+70,Euphorbia cyparissias,37.5
+70,Festuca valesiaca s. l.,3
+70,Hypericum perforatum,0.1
+70,Iris variegata,3
+70,Koeleria macrantha,0.1
+70,Phleum phleoides,0.1
+70,Plantago lanceolata,0.5
+70,Poa pratensis agg.,3
+70,Potentilla argentea,0.5
+70,Rumex acetosella,3
+70,Scabiosa ochroleuca,0.1
+70,Securigera varia,0.5
+70,Silene latifolia subsp. alba,0.5
+70,Thymus pannonicus agg.,3
+70,Tragopogon dubius,0.1
+71,Achillea millefolium agg.,0.1
+71,Anthoxanthum odoratum,0.5
+71,Carex hirta,3
+71,Carex praecox,3
+71,Dianthus carthusianorum agg.,15
+71,Elymus repens,0.1
+71,Euphorbia cyparissias,3
+71,Festuca valesiaca s. l.,15
+71,Linaria genistifolia,0.1
+71,Oxalis species,0.01
+71,Phleum phleoides,0.5
+71,Plantago lanceolata,15
+71,Potentilla argentea,0.1
+71,Rumex acetosella,3
+71,Thymus pannonicus agg.,3
+71,Poa pratensis agg.,0.5
+72,Achillea millefolium agg.,3
+72,Ajuga genevensis,0.5
+72,Armeria elongata subsp. elongata,0.5
+72,Arrhenatherum elatius,3
+72,Carex caryophyllea,3
+72,Carex hirta,0.5
+72,Carex praecox,15
+72,Dactylis glomerata,0.5
+72,Dianthus carthusianorum agg.,3
+72,Echium vulgare,0.5
+72,Euphorbia esula,0.01
+72,Festuca valesiaca s. l.,15
+72,Galium verum,0.5
+72,Knautia arvensis agg.,0.1
+72,Koeleria macrantha,3
+72,Viscaria vulgaris,0.5
+72,Malus sylvestris agg.,0.1
+72,Peucedanum oreoselinum,3
+72,Pimpinella saxifraga,0.1
+72,Plantago lanceolata,0.5
+72,Poa pratensis agg.,15
+72,Potentilla argentea,0.5
+72,Rumex acetosella,3
+72,Rumex thyrsiflorus,0.5
+72,Saxifraga bulbifera,3
+72,Stipa borysthenica,37.5
+72,Thymus pannonicus agg.,3
+72,Tragopogon dubius,0.1
+72,Veronica prostrata,0.5
+73,Achillea millefolium agg.,0.01
+73,Anthoxanthum odoratum,15
+73,Arrhenatherum elatius,3
+73,Brachypodium pinnatum,15
+73,Briza media,3
+73,Calamagrostis epigejos,3
+73,Carex caryophyllea,3
+73,Carex hirta,3
+73,Carex praecox,15
+73,Cerastium arvense,0.5
+73,Colchicum autumnale,3
+73,Convolvulus arvensis,0.01
+73,Crataegus species,0.01
+73,Dactylis glomerata,3
+73,Dianthus carthusianorum agg.,0.5
+73,Elymus repens,0.5
+73,Equisetum arvense,0.1
+73,Euphorbia cyparissias,15
+73,Festuca rubra,15
+73,Festuca valesiaca s. l.,3
+73,Fragaria viridis,15
+73,Galium album s. l.,0.1
+73,Galium verum,3
+73,Avenula pubescens,3
+73,Hypericum perforatum,0.01
+73,Lathyrus pratensis,0.1
+73,Scorzoneroides autumnalis,0.1
+73,Leontodon hispidus,0.5
+73,Lotus corniculatus,3
+73,Luzula campestris,3
+73,Lysimachia nummularia,0.01
+73,Pimpinella saxifraga,3
+73,Plantago lanceolata,0.1
+73,Poa pratensis agg.,15
+73,Ranunculus bulbosus,0.1
+73,Rumex acetosa,0.01
+73,Salvia pratensis,0.5
+73,Silene nutans,3
+73,Thymus pannonicus agg.,3
+73,Trifolium pratense,3
+73,Trifolium repens,0.5
+73,Veronica vindobonensis,0.5
+73,Viola rupestris,0.01
+73,Viscaria vulgaris,3
+73,Agrostis stolonifera,3
+74,Achillea millefolium agg.,3
+74,Agrostis vinealis,3
+74,Armeria elongata subsp. elongata,3
+74,Calamagrostis epigejos,0.1
+74,Carex caryophyllea,3
+74,Carex hirta,3
+74,Carex praecox,15
+74,Colchicum autumnale,0.5
+74,Cynodon dactylon,0.5
+74,Dianthus carthusianorum agg.,15
+74,Elymus hispidus,3
+74,Eryngium campestre,0.1
+74,Euphorbia cyparissias,3
+74,Festuca valesiaca s. l.,39.375
+74,Avenula pubescens,0.1
+74,Koeleria macrantha,15
+74,Phleum phleoides,15
+74,Plantago lanceolata,0.01
+74,Poa pratensis agg.,0.5
+74,Rumex acetosella,3
+74,Salvia pratensis,3
+74,Scabiosa ochroleuca,0.5
+74,Stipa borysthenica,15
+74,Thymus pannonicus agg.,3
+74,Veronica prostrata,0.5
+74,Viscaria vulgaris,3
+75,Achillea millefolium agg.,0.1
+75,Agrimonia eupatoria,0.5
+75,Agrostis capillaris,3
+75,Anthoxanthum odoratum,15
+75,Betonica officinalis,3
+75,Carex caryophyllea,0.5
+75,Colchicum autumnale,3
+75,Crataegus species,3
+75,Festuca rubra,3
+75,Filipendula vulgaris,15
+75,Fragaria viridis,3
+75,Galium verum,3
+75,Avenula pubescens,0.5
+75,Pilosella bauhini,3
+75,Holcus lanatus,3
+75,Hypericum perforatum,0.5
+75,Lathyrus pratensis,0.1
+75,Luzula campestris,0.5
+75,Lysimachia nummularia,0.1
+75,Potentilla heptaphylla,3
+75,Ranunculus polyanthemos,0.5
+75,Stellaria graminea,0.1
+75,Trifolium pratense,0.1
+75,Veronica officinalis,0.1
+75,Veronica vindobonensis,0.1
+75,Viola rupestris,0.1
+76,Achillea millefolium agg.,15
+76,Armeria elongata subsp. elongata,3
+76,Arrhenatherum elatius,3
+76,Calamagrostis epigejos,3
+76,Carex praecox,3
+76,Centaurea stoebe,3
+76,Cerastium arvense,0.5
+76,Chondrilla juncea,0.5
+76,Convolvulus arvensis,0.01
+76,Dianthus carthusianorum agg.,3
+76,Elymus hispidus,3
+76,Eryngium campestre,0.5
+76,Euphorbia cyparissias,3
+76,Falcaria vulgaris,0.5
+76,Festuca valesiaca s. l.,5.91
+76,Galium verum,15
+76,Avenula pubescens,0.5
+76,Koeleria macrantha,15
+76,Linaria genistifolia,0.5
+76,Pimpinella saxifraga,0.5
+76,Poa pratensis agg.,15
+76,Potentilla argentea,3
+76,Rumex acetosella,3
+76,Rumex thyrsiflorus,15
+76,Securigera varia,3
+76,Thymus pannonicus agg.,3
+76,Trifolium alpestre,0.01
+76,Verbascum phoeniceum,0.5
+76,Veronica prostrata,0.1
+77,Achillea millefolium agg.,15
+77,Armeria elongata subsp. elongata,3
+77,Arrhenatherum elatius,15
+77,Calamagrostis epigejos,15
+77,Carex praecox,15
+77,Carex supina,3
+77,Centaurea stoebe,3
+77,Chondrilla juncea,0.5
+77,Dactylis glomerata,0.5
+77,Dianthus carthusianorum agg.,3
+77,Elymus hispidus,3
+77,Elymus repens,3
+77,Eryngium campestre,3
+77,Euphorbia cyparissias,0.5
+77,Falcaria vulgaris,3
+77,Festuca valesiaca s. l.,15
+77,Fragaria viridis,3
+77,Koeleria macrantha,3
+77,Pinus sylvestris,0.01
+77,Plantago lanceolata,3
+77,Poa pratensis agg.,3
+77,Potentilla argentea,15
+77,Rosa canina agg.,3
+77,Rumex acetosella,3
+77,Rumex thyrsiflorus,15
+77,Salvia pratensis,3
+77,Scabiosa ochroleuca,0.1
+77,Securigera varia,3
+77,Silene latifolia subsp. alba,3
+77,Silene vulgaris,0.1
+77,Thymus pannonicus agg.,3
+77,Verbascum chaixii subsp. austriacum,3
+77,Verbascum phoeniceum,0.5
+77,Veronica vindobonensis,0.1
+101,Achillea millefolium agg.,0.1
+101,Arrhenatherum elatius,0.1
+101,Bromus erectus,3
+101,Centaurea stoebe,15
+101,Eryngium campestre,3
+101,Festuca valesiaca s. l.,15
+101,Fragaria viridis,15
+101,Galium verum,3
+101,Hypericum perforatum,0.1
+101,Phleum phleoides,0.1
+101,Poa pratensis agg.,62.5
+101,Rosa canina agg.,3
+101,Calamagrostis epigejos,3
+101,Potentilla argentea,0.5
+101,Dactylis glomerata,0.5
+101,Taraxacum sect. Taraxacum,0.1
+101,Erigeron annuus agg.,0.1
+101,Convolvulus arvensis,0.1
+101,Rumex thyrsiflorus,0.5
+101,Veronica chamaedrys,0.1
+101,Plantago lanceolata,0.1
+101,Festuca pratensis,3
+101,Chondrilla juncea,0.1
+101,Avenula pubescens,0.1
+101,Colchicum autumnale,0.1
+101,Alopecurus pratensis,0.5
+101,Cirsium vulgare,3
+101,Cirsium arvense,0.5
+101,Prunus cerasifera,0.1
+101,Pilosella echioides,0.1
+102,Allium flavum,0.1
+102,Bromus erectus,62.5
+102,Dorycnium germanicum,3
+102,Echium vulgare,0.1
+102,Festuca valesiaca s. l.,17.55
+102,Fragaria viridis,37.5
+102,Globularia bisnagarica,0.5
+102,Hypericum perforatum,3
+102,Koeleria macrantha,0.1
+102,Phleum phleoides,0.5
+102,Poa pratensis agg.,0.5
+102,Seseli annuum,0.1
+102,Stipa capillata,3
+102,Teucrium chamaedrys,37.5
+102,Eryngium campestre,3
+102,Pimpinella saxifraga,0.1
+102,Euphorbia cyparissias,0.1
+102,Thesium linophyllon,0.1
+102,Filipendula vulgaris,0.5
+102,Chamaecytisus austriacus,0.1
+102,Ligustrum vulgare,0.1
+102,Potentilla argentea,0.1
+102,Sanguisorba minor,0.1
+102,Calamagrostis epigejos,0.1
+102,Rosa canina agg.,0.1
+102,Galium verum,0.1
+102,Stipa pennata,0.5
+102,Pulsatilla grandis,3
+102,Potentilla verna agg.,3
+103,Asperula cynanchica,0.1
+103,Bromus erectus,62.5
+103,Carex liparocarpos,15
+103,Dorycnium germanicum,3
+103,Euphorbia cyparissias,0.5
+103,Festuca valesiaca s. l.,3
+103,Fragaria viridis,3
+103,Galium verum,3
+103,Hypericum perforatum,0.1
+103,Koeleria macrantha,0.1
+103,Ligustrum vulgare,5.91
+103,Phleum phleoides,3
+103,Pinus sylvestris,3
+103,Poa pratensis agg.,3
+103,Stipa capillata,0.5
+103,Teucrium chamaedrys,15
+103,Veronica prostrata,3
+103,Achillea millefolium agg.,0.1
+103,Eryngium campestre,0.5
+103,Stipa pennata,0.1
+103,Securigera varia,0.1
+103,Galium glaucum,0.5
+103,Robinia pseudoacacia,0.1
+103,Convolvulus arvensis,0.1
+103,Dactylis glomerata,0.1
+103,Echium vulgare,0.1
+103,Avenula pubescens,0.1
+103,Potentilla verna agg.,15
+105,Allium scorodoprasum,0.1
+105,Carex praecox,15
+105,Festuca valesiaca s. l.,0.5
+105,Plantago lanceolata,15
+105,Poa pratensis agg.,3
+105,Potentilla argentea,3
+105,Rumex acetosa,3
+105,Sedum sexangulare,3
+105,Erodium cicutarium,0.5
+105,Convolvulus arvensis,0.5
+105,Euphorbia esula,0.1
+105,Fragaria viridis,0.5
+105,Alopecurus pratensis,0.1
+105,Acer pseudoplatanus,0.1
+106,Carex praecox,3
+106,Erodium cicutarium,0.5
+106,Eryngium campestre,0.5
+106,Erysimum diffusum agg.,0.5
+106,Festuca valesiaca s. l.,3
+106,Poa pratensis agg.,0.5
+106,Potentilla argentea,0.5
+106,Rumex thyrsiflorus,0.1
+106,Thymus pannonicus agg.,0.5
+106,Euphorbia cyparissias,3
+106,Centaurea stoebe,0.1
+106,Plantago lanceolata,3
+106,Cynodon dactylon,0.5
+106,Carex supina,3
+106,Veronica prostrata,0.1
+106,Achillea millefolium agg.,0.1
+106,Falcaria vulgaris,0.1
+106,Petrorhagia saxifraga,0.5
+106,Helichrysum arenarium,0.5
+107,Achillea millefolium agg.,0.1
+107,Anthoxanthum odoratum,3
+107,Armeria elongata subsp. elongata,0.5
+107,Carex praecox,3
+107,Dactylis glomerata,0.1
+107,Dianthus carthusianorum agg.,0.5
+107,Eryngium campestre,3
+107,Euphorbia cyparissias,3
+107,Festuca valesiaca s. l.,15
+107,Fragaria viridis,0.1
+107,Luzula campestris,0.1
+107,Plantago lanceolata,0.5
+107,Poa pratensis agg.,3
+107,Potentilla argentea,3
+107,Rumex acetosa,3
+107,Thymus pannonicus agg.,3
+107,Erysimum diffusum agg.,0.1
+107,Rumex acetosella,3
+107,Centaurea stoebe,0.1
+107,Cynodon dactylon,0.1
+107,Galium verum,0.5
+107,Cruciata laevipes,0.1
+107,Carex tomentosa,0.1
+107,Pimpinella saxifraga,0.1
+107,Elymus repens,0.1
+107,Stipa pennata,0.1
+107,Helichrysum arenarium,0.1
+107,Carex caryophyllea,0.5
+108,Asparagus officinalis,0.1
+108,Bothriochloa ischaemum,0.1
+108,Dianthus carthusianorum agg.,0.1
+108,Eryngium campestre,0.1
+108,Euphorbia cyparissias,0.1
+108,Falcaria vulgaris,0.1
+108,Festuca valesiaca s. l.,15
+108,Gypsophila paniculata,3
+108,Peucedanum oreoselinum,0.5
+108,Phleum phleoides,0.5
+108,Poa pratensis agg.,3
+108,Veronica spicata,3
+108,Salvia nemorosa,3
+108,Stipa capillata,15
+108,Stipa pennata,15
+108,Thalictrum minus,15
+108,Thymus pannonicus agg.,0.5
+108,Verbascum lychnitis,0.1
+108,Vincetoxicum hirundinaria,0.1
+108,Galium verum,3
+108,Achillea millefolium agg.,3
+108,Carex humilis,15
+108,Carex supina,0.1
+108,Carex liparocarpos,0.1
+108,Cerastium holosteoides,0.1
+108,Elymus hispidus,0.1
+108,Senecio jacobaea,0.5
+108,Filipendula vulgaris,0.1
+108,Cerastium arvense,0.1
+108,Avenula pratensis,3
+108,Centaurea stoebe,0.1
+108,Koeleria macrantha,0.1
+108,Dactylis glomerata,0.5
+108,Cynoglossum officinale,0.1
+108,Rumex crispus,0.1
+108,Anchusa officinalis,0.1
+108,Silene latifolia subsp. alba,0.1
+108,Viola ambigua,0.5
+108,Potentilla verna agg.,0.1
+109,Achillea millefolium agg.,3
+109,Eryngium campestre,0.5
+109,Festuca valesiaca s. l.,3
+109,Fragaria viridis,3
+109,Galium verum,0.5
+109,Gypsophila paniculata,3
+109,Ligustrum vulgare,0.5
+109,Peucedanum oreoselinum,3
+109,Poa pratensis agg.,15
+109,Veronica spicata,0.5
+109,Stipa capillata,3
+109,Stipa pennata,3
+109,Teucrium chamaedrys,3
+109,Verbascum lychnitis,0.1
+109,Avenula pubescens,0.1
+109,Calamagrostis epigejos,15
+109,Falcaria vulgaris,0.5
+109,Koeleria macrantha,0.1
+109,Carex hirta,0.5
+109,Phleum phleoides,0.1
+109,Senecio jacobaea,0.1
+109,Silene latifolia subsp. alba,0.1
+109,Leontodon hispidus,0.1
+109,Medicago falcata,0.1
+109,Securigera varia,0.1
+109,Euphorbia cyparissias,0.5
+109,Thymus pannonicus agg.,0.1
+109,Quercus petraea agg.,3
+109,Crataegus species,0.1
+109,Carex tomentosa,0.1
+109,Carex caryophyllea,0.1
+110,Acinos arvensis,0.1
+110,Anthyllis vulneraria,0.1
+110,Bromus erectus,37.5
+110,Carex liparocarpos,3
+110,Dorycnium germanicum,0.5
+110,Festuca valesiaca s. l.,15
+110,Pilosella echioides,0.1
+110,Pilosella officinarum,0.1
+110,Koeleria macrantha,0.1
+110,Lotus corniculatus,0.1
+110,Minuartia glaucina,0.1
+110,Peucedanum oreoselinum,0.1
+110,Pimpinella saxifraga,0.1
+110,Potentilla verna agg.,0.1
+110,Senecio jacobaea,3
+110,Seseli annuum,0.1
+110,Silene otites,0.1
+110,Stipa pennata,0.1
+110,Teucrium chamaedrys,0.1
+110,Teucrium montanum,0.1
+110,Veronica prostrata,0.1
+110,Arabis hirsuta,0.1
+110,Dianthus carthusianorum agg.,0.1
+110,Veronica spicata,0.5
+110,Astragalus onobrychis,0.1
+110,Bothriochloa ischaemum,0.5
+110,Globularia bisnagarica,0.1
+110,Securigera varia,0.1
+110,Plantago media,0.1
+110,Galium verum,0.1
+110,Juniperus communis,0.1
+110,Avenula pratensis,0.1
+111,Achillea millefolium agg.,0.1
+111,Astragalus onobrychis,0.5
+111,Bothriochloa ischaemum,0.5
+111,Bromus erectus,15
+111,Dianthus carthusianorum agg.,0.1
+111,Euphorbia cyparissias,0.5
+111,Festuca valesiaca s. l.,3
+111,Pilosella echioides,0.1
+111,Knautia arvensis agg.,0.1
+111,Minuartia glaucina,0.1
+111,Peucedanum oreoselinum,0.1
+111,Potentilla verna agg.,3
+111,Sanguisorba minor,0.5
+111,Senecio jacobaea,0.1
+111,Seseli annuum,0.1
+111,Silene otites,0.1
+111,Stipa pennata,15
+111,Teucrium chamaedrys,0.5
+111,Thymus pannonicus agg.,0.1
+111,Phleum phleoides,0.1
+111,Carex liparocarpos,15
+111,Eryngium campestre,0.1
+111,Galium verum,0.1
+111,Centaurea stoebe,0.1
+111,Sedum sexangulare,0.1
+111,Koeleria macrantha,3
+111,Hypericum perforatum,0.1
+111,Arabis hirsuta,0.1
+111,Petrorhagia saxifraga,0.1
+111,Taraxacum sect. Erythrosperma,0.1
+111,Gypsophila paniculata,0.1
+111,Erysimum diffusum agg.,0.1
+111,Seseli osseum,0.1
+111,Chamaecytisus austriacus,0.1
+113,Avenula pratensis,3
+113,Bromus erectus,15
+113,Carex liparocarpos,3
+113,Centaurea scabiosa,0.1
+113,Dianthus carthusianorum agg.,0.1
+113,Euphorbia cyparissias,0.1
+113,Festuca valesiaca s. l.,3
+113,Galium verum,0.5
+113,Koeleria macrantha,3
+113,Medicago falcata,0.1
+113,Minuartia glaucina,0.5
+113,Peucedanum oreoselinum,3
+113,Phleum phleoides,0.5
+113,Potentilla verna agg.,3
+113,Stipa capillata,15
+113,Teucrium chamaedrys,0.5
+113,Pilosella echioides,0.1
+113,Euphorbia seguieriana,15
+113,Knautia arvensis agg.,0.1
+113,Senecio jacobaea,0.1
+113,Securigera varia,0.1
+113,Gypsophila paniculata,0.1
+113,Poa pratensis agg.,0.5
+113,Eryngium campestre,0.1
+113,Thesium linophyllon,0.1
+113,Artemisia campestris,3
+113,Astragalus onobrychis,0.1
+113,Falcaria vulgaris,0.1
+113,Achillea millefolium agg.,0.5
+113,Stipa borysthenica,15
+114,Achillea millefolium agg.,3
+114,Bothriochloa ischaemum,3
+114,Carex liparocarpos,15
+114,Eryngium campestre,3
+114,Festuca valesiaca s. l.,37.5
+114,Galium verum,0.5
+114,Koeleria macrantha,3
+114,Nonea pulla,0.1
+114,Phleum phleoides,3
+114,Poa pratensis agg.,3
+114,Scabiosa ochroleuca,0.5
+114,Silene otites,3
+114,Stipa capillata,15
+114,Stipa pennata,15
+114,Teucrium chamaedrys,15
+114,Tragopogon orientalis,0.1
+114,Veronica prostrata,0.1
+114,Potentilla verna agg.,3
+114,Euonymus europaeus,3
+114,Gypsophila paniculata,0.5
+114,Cynodon dactylon,0.5
+114,Petrorhagia saxifraga,0.1
+114,Avenula pubescens,0.5
+114,Bromus erectus,0.5
+114,Thymus pannonicus agg.,0.5
+114,Astragalus austriacus,0.1
+114,Equisetum ramosissimum,0.1
+114,Pimpinella saxifraga,0.1
+114,Artemisia campestris,3
+114,Plantago lanceolata,0.1
+114,Silene latifolia subsp. alba,0.1
+114,Senecio jacobaea,0.5
+114,Convolvulus arvensis,0.1
+114,Dactylis glomerata,0.1
+114,Rapistrum perenne,0.1
+114,Erysimum diffusum agg.,0.1
+114,Allium oleraceum,0.1
+115,Festuca valesiaca s. l.,46.875
+115,Gypsophila paniculata,15
+115,Securigera varia,0.5
+115,Stipa pennata,3
+115,Solidago gigantea,3
+115,Centaurea stoebe,3
+115,Koeleria macrantha,15
+115,Erysimum diffusum agg.,0.5
+115,Verbascum lychnitis,0.5
+115,Nonea pulla,0.5
+115,Carex liparocarpos,3
+115,Convolvulus arvensis,3
+115,Bromus erectus,3
+115,Chondrilla juncea,0.5
+115,Lathyrus pratensis,0.5
+115,Bothriochloa ischaemum,0.5
+115,Senecio jacobaea,0.5
+115,Phleum phleoides,3
+115,Cynoglossum officinale,0.1
+115,Equisetum ramosissimum,0.5
+115,Echium vulgare,0.1
+115,Galium verum,0.1
+115,Calamagrostis epigejos,0.1
+115,Scabiosa ochroleuca,0.1
+115,Allium oleraceum,0.1
+115,Tragopogon orientalis,0.5
+115,Euphorbia esula,0.5
+116,Anthyllis vulneraria,0.5
+116,Asperula cynanchica,0.1
+116,Bothriochloa ischaemum,3
+116,Bromus erectus,62.5
+116,Centaurea stoebe,0.5
+116,Eryngium campestre,3
+116,Festuca valesiaca s. l.,17.55
+116,Galium verum,3
+116,Petrorhagia saxifraga,0.1
+116,Pimpinella saxifraga,0.1
+116,Salvia nemorosa,0.5
+116,Sanguisorba minor,3
+116,Scabiosa ochroleuca,0.1
+116,Senecio jacobaea,0.5
+116,Stipa capillata,0.5
+116,Thymus pannonicus agg.,3
+116,Veronica prostrata,0.1
+116,Lotus corniculatus,0.5
+116,Teucrium chamaedrys,3
+116,Achillea millefolium agg.,0.5
+116,Plantago lanceolata,0.1
+116,Dactylis glomerata,0.1
+116,Koeleria macrantha,3
+116,Falcaria vulgaris,3
+116,Onobrychis arenaria,0.5
+116,Echium vulgare,0.5
+116,Medicago falcata,0.5
+116,Taraxacum sect. Erythrosperma,0.1
+116,Carex liparocarpos,15
+116,Convolvulus arvensis,0.1
+116,Cruciata laevipes,0.1
+116,Stipa pennata,3
+116,Tragopogon orientalis,0.1
+116,Sedum acre,0.1
+116,Chondrilla juncea,0.1
+116,Silene vulgaris,3
+116,Acer campestre,0.1
+116,Poa pratensis agg.,0.1
+116,Potentilla verna agg.,3
+118,Centaurea stoebe,0.1
+118,Koeleria macrantha,0.1
+118,Plantago lanceolata,0.1
+118,Stipa capillata,0.5
+118,Festuca valesiaca s. l.,37.5
+118,Potentilla argentea,0.1
+118,Eryngium campestre,0.5
+118,Artemisia campestris,37.5
+118,Phleum phleoides,3
+118,Falcaria vulgaris,0.1
+118,Euphorbia cyparissias,3
+118,Pilosella echioides,0.5
+118,Securigera varia,0.1
+118,Poa pratensis agg.,0.5
+118,Sedum acre,0.5
+118,Convolvulus arvensis,0.1
+118,Verbascum lychnitis,0.1
+120,Achillea millefolium agg.,0.1
+120,Brachypodium pinnatum,3
+120,Bromus erectus,37.5
+120,Centaurea stoebe,0.1
+120,Chamaecytisus ratisbonensis,3
+120,Dorycnium germanicum,0.5
+120,Eryngium campestre,3
+120,Festuca valesiaca s. l.,17.55
+120,Fragaria viridis,15
+120,Galium verum,0.5
+120,Ligustrum vulgare,3
+120,Phleum phleoides,3
+120,Pinus sylvestris,3
+120,Poa pratensis agg.,3
+120,Veronica spicata,3
+120,Scabiosa ochroleuca,0.5
+120,Stipa capillata,3
+120,Stipa pennata,3
+120,Dactylis glomerata,3
+120,Peucedanum oreoselinum,3
+120,Vincetoxicum hirundinaria,0.1
+120,Avenula pratensis,3
+120,Acinos arvensis,0.1
+120,Carex humilis,3
+120,Carex liparocarpos,3
+120,Teucrium chamaedrys,3
+120,Scorzonera purpurea,3
+120,Koeleria macrantha,3
+120,Medicago falcata,0.5
+120,Robinia pseudoacacia,3
+120,Arrhenatherum elatius,0.5
+120,Astragalus onobrychis,0.1
+120,Seseli annuum,0.1
+120,Carex caryophyllea,0.1
+120,Carex tomentosa,0.1
+120,Thesium ramosum,0.1
+120,Petrorhagia saxifraga,0.1
+120,Silene otites,0.1
+120,Elymus hispidus,0.5
+120,Calamagrostis epigejos,0.1
+120,Hypericum perforatum,0.1
+120,Centaurea scabiosa,0.1
+120,Potentilla verna agg.,3
+120,Allium oleraceum,0.1
+120,Thymus pannonicus agg.,0.5
+121,Avenula pratensis,3
+121,Bromus erectus,37.5
+121,Carex humilis,3
+121,Centaurea stoebe,0.1
+121,Chamaecytisus ratisbonensis,3
+121,Dactylis glomerata,3
+121,Festuca valesiaca s. l.,17.55
+121,Fragaria viridis,3
+121,Galium verum,3
+121,Koeleria macrantha,15
+121,Orchis militaris,3
+121,Petrorhagia saxifraga,0.1
+121,Pimpinella saxifraga,0.5
+121,Scorzonera purpurea,0.5
+121,Senecio jacobaea,0.5
+121,Seseli annuum,0.1
+121,Stipa pennata,3
+121,Teucrium chamaedrys,3
+121,Thymus pannonicus agg.,3
+121,Veronica prostrata,0.1
+121,Linum tenuifolium,3
+121,Dorycnium germanicum,3
+121,Medicago falcata,0.5
+121,Stipa capillata,3
+121,Phleum phleoides,0.5
+121,Veronica spicata,3
+121,Hypericum perforatum,0.1
+121,Globularia bisnagarica,0.5
+121,Daphne cneorum,3
+121,Silene otites,0.1
+121,Vincetoxicum hirundinaria,0.1
+121,Euphorbia cyparissias,0.1
+121,Pilosella officinarum,0.1
+121,Verbascum lychnitis,0.1
+121,Carex liparocarpos,0.1
+121,Astragalus onobrychis,0.1
+121,Carex caryophyllea,0.5
+121,Teucrium montanum,0.1
+121,Acinos arvensis,0.1
+121,Plantago lanceolata,0.1
+121,Seseli osseum,0.1
+121,Asperula cynanchica,0.1
+121,Knautia arvensis agg.,0.5
+121,Potentilla verna agg.,15
+121,Pilosella echioides,0.1
+122,Avenula pratensis,3
+122,Bromus erectus,62.5
+122,Carex liparocarpos,15
+122,Euphorbia cyparissias,0.5
+122,Poa pratensis agg.,0.5
+122,Stipa pennata,15
+122,Eryngium campestre,3
+122,Silene otites,0.5
+122,Erysimum diffusum agg.,0.1
+122,Teucrium chamaedrys,3
+122,Dianthus carthusianorum agg.,3
+122,Verbascum lychnitis,0.1
+122,Cruciata laevipes,0.5
+122,Viola ambigua,0.1
+122,Astragalus austriacus,3
+122,Senecio jacobaea,0.5
+122,Koeleria macrantha,3
+122,Erigeron annuus agg.,0.1
+122,Carex caryophyllea,0.5
+122,Dactylis glomerata,0.5
+122,Dorycnium germanicum,0.1
+122,Veronica prostrata,0.1
+122,Echium vulgare,3
+122,Securigera varia,0.5
+122,Carduus nutans,0.1
+122,Brachypodium pinnatum,3
+122,Plantago lanceolata,0.1
+122,Centaurea stoebe,0.1
+122,Silene latifolia subsp. alba,0.1
+122,Phleum phleoides,3
+122,Plantago media,0.1
+122,Peucedanum oreoselinum,0.1
+122,Arabis glabra,0.1
+122,Petrorhagia saxifraga,0.1
+122,Galium verum,0.5
+122,Festuca valesiaca s. l.,3
+122,Potentilla verna agg.,0.1
+123,Avenula pratensis,3
+123,Bromus erectus,37.5
+123,Calamagrostis epigejos,3
+123,Euphorbia cyparissias,0.1
+123,Festuca valesiaca s. l.,15.425
+123,Fragaria viridis,3
+123,Galium verum,0.5
+123,Hypericum perforatum,0.1
+123,Poa pratensis agg.,0.5
+123,Stipa capillata,3
+123,Stipa pennata,3
+123,Thymus pannonicus agg.,3
+123,Veronica prostrata,0.1
+123,Taraxacum sect. Erythrosperma,0.1
+123,Teucrium chamaedrys,15
+123,Eryngium campestre,3
+123,Dorycnium germanicum,15
+123,Scorzonera purpurea,0.1
+123,Globularia bisnagarica,0.5
+123,Seseli hippomarathrum,0.5
+123,Phleum phleoides,0.5
+123,Koeleria macrantha,15
+123,Carex humilis,3
+123,Bothriochloa ischaemum,0.5
+123,Onobrychis arenaria,3
+123,Chamaecytisus ratisbonensis,3
+123,Linum tenuifolium,0.1
+123,Dianthus carthusianorum agg.,0.1
+123,Senecio jacobaea,0.1
+123,Veronica spicata,3
+123,Knautia arvensis agg.,0.5
+123,Centaurea stoebe,0.1
+123,Gypsophila paniculata,0.1
+123,Pimpinella saxifraga,0.1
+123,Medicago falcata,0.5
+123,Silene otites,0.1
+123,Potentilla verna agg.,15
+124,Achillea millefolium agg.,0.1
+124,Carex liparocarpos,3
+124,Centaurea stoebe,0.5
+124,Dorycnium germanicum,3
+124,Eryngium campestre,3
+124,Festuca valesiaca s. l.,5.91
+124,Pilosella echioides,0.1
+124,Juniperus communis,3
+124,Koeleria macrantha,3
+124,Ligustrum vulgare,15
+124,Phleum phleoides,3
+124,Pimpinella saxifraga,0.1
+124,Pinus sylvestris,3
+124,Poa pratensis agg.,3
+124,Sanguisorba minor,0.1
+124,Seseli annuum,0.1
+124,Stipa pennata,15
+124,Thymus pannonicus agg.,3
+124,Veronica prostrata,0.5
+124,Vincetoxicum hirundinaria,0.1
+124,Galium verum,3
+124,Dactylis glomerata,3
+124,Bromus erectus,37.5
+124,Gypsophila paniculata,3
+124,Veronica spicata,0.5
+124,Briza media,0.5
+124,Euphorbia seguieriana,0.1
+124,Seseli hippomarathrum,0.1
+124,Fragaria viridis,0.5
+124,Plantago media,0.1
+124,Carex humilis,15
+124,Senecio jacobaea,0.1
+124,Peucedanum oreoselinum,0.1
+124,Crataegus species,3
+124,Acinos arvensis,3
+124,Securigera varia,0.1
+124,Hypericum perforatum,0.1
+124,Chamaecytisus austriacus,3
+124,Bothriochloa ischaemum,3
+124,Falcaria vulgaris,0.1
+124,Astragalus onobrychis,0.1
+124,Brachypodium pinnatum,3
+124,Centaurea scabiosa,0.1
+124,Carlina vulgaris,0.1
+124,Viola ambigua,0.1
+124,Dianthus carthusianorum agg.,0.5
+124,Potentilla verna agg.,3
+125,Artemisia campestris,3
+125,Centaurea stoebe,0.1
+125,Euphorbia cyparissias,0.5
+125,Plantago lanceolata,0.1
+125,Sanguisorba minor,0.1
+125,Festuca valesiaca s. l.,15
+125,Eryngium campestre,15
+125,Medicago falcata,0.5
+125,Bromus erectus,15
+125,Thymus pannonicus agg.,3
+125,Senecio jacobaea,0.5
+125,Petrorhagia saxifraga,3
+125,Koeleria macrantha,3
+125,Chondrilla juncea,0.1
+125,Erysimum diffusum agg.,0.1
+125,Pilosella echioides,0.1
+125,Falcaria vulgaris,0.5
+125,Linaria genistifolia,0.1
+125,Cruciata laevipes,0.1
+125,Phleum phleoides,0.5
+125,Silene latifolia subsp. alba,0.1
+125,Tragopogon dubius,0.1
+125,Potentilla verna agg.,3
+115548,Artemisia campestris,0.1
+115548,Carex hirta,0.5
+115548,Carex praecox,15
+115548,Carex supina,15
+115548,Centaurea stoebe,0.5
+115548,Cynodon dactylon,0.5
+115548,Festuca valesiaca s. l.,3
+115548,Festuca psammophila subsp. dominii,15
+115548,Helichrysum arenarium,0.5
+115548,Pilosella officinarum,0.5
+115548,Hypericum perforatum,0.5
+115548,Poa pratensis agg.,15
+115548,Potentilla argentea,0.5
+115548,Hylotelephium maximum,0.5
+115548,Seseli osseum,0.5
+115548,Stipa borysthenica,15
+115548,Thymus serpyllum,0.5
+115548,Trifolium alpestre,3
+115548,Verbascum phoeniceum,15
+115549,Carex praecox,0.5
+115549,Cynodon dactylon,3
+115549,Festuca psammophila subsp. dominii,15
+115549,Scleranthus perennis,3
+115550,Agrostis stolonifera,0.1
+115550,Agrostis vinealis,3
+115550,Artemisia campestris,0.5
+115550,Calamagrostis epigejos,37.5
+115550,Carex hirta,0.5
+115550,Cynodon dactylon,3
+115550,Erigeron annuus agg.,0.1
+115550,Eryngium campestre,0.5
+115550,Euphorbia cyparissias,0.1
+115550,Pilosella officinarum,0.5
+115550,Hypericum perforatum,0.5
+115550,Poa pratensis agg.,15
+115550,Potentilla argentea,15
+115550,Thymus serpyllum,0.1
+115550,Verbascum phlomoides,0.1
+115551,Corynephorus canescens,15
+115551,Cynodon dactylon,3
+115551,Poa pratensis agg.,0.1
+115552,Achillea millefolium agg.,3
+115552,Artemisia campestris,0.5
+115552,Calamagrostis epigejos,15
+115552,Carex hirta,0.5
+115552,Carex praecox,3
+115552,Centaurea stoebe,0.5
+115552,Chondrilla juncea,0.1
+115552,Cynodon dactylon,0.5
+115552,Eryngium campestre,0.1
+115552,Erysimum diffusum agg.,0.1
+115552,Festuca valesiaca s. l.,0.5
+115552,Hypericum perforatum,0.5
+115552,Oenothera species,0.5
+115552,Plantago lanceolata,0.5
+115552,Poa pratensis agg.,3
+115552,Potentilla argentea,15
+115552,Silene latifolia subsp. alba,0.5
+115552,Verbascum phlomoides,0.5
+115553,Achillea millefolium agg.,3
+115553,Ajuga genevensis,0.1
+115553,Anthoxanthum odoratum,0.5
+115553,Arrhenatherum elatius,3
+115553,Carex hirta,15
+115553,Cerastium arvense,0.5
+115553,Convolvulus arvensis,0.1
+115553,Dactylis glomerata,3
+115553,Elymus repens,15
+115553,Euphorbia cyparissias,0.5
+115553,Festuca brevipila,0.5
+115553,Fragaria viridis,0.5
+115553,Hypericum perforatum,0.5
+115553,Pimpinella saxifraga,0.5
+115553,Poa pratensis agg.,37.5
+115553,Potentilla argentea,0.5
+115553,Silene otites,15
+115553,Verbascum phoeniceum,3
+115554,Achillea millefolium agg.,0.5
+115554,Dactylis glomerata,0.5
+115554,Plantago lanceolata,0.5
+115554,Poa pratensis agg.,0.5
+115554,Taraxacum sect. Erythrosperma,0.5
+115554,Potentilla verna agg.,15
+115556,Achillea millefolium agg.,3
+115556,Calamagrostis epigejos,0.5
+115556,Carex praecox,0.1
+115556,Carex supina,3
+115556,Cynodon dactylon,0.5
+115556,Eryngium campestre,0.5
+115556,Euphorbia cyparissias,3
+115556,Festuca ovina s. l.,37.5
+115556,Galium verum,0.5
+115556,Helichrysum arenarium,15
+115556,Hypericum perforatum,0.5
+115556,Plantago lanceolata,0.5
+115556,Poa pratensis agg.,0.5
+115556,Rumex acetosella,3
+115556,Silene otites,0.5
+115556,Teucrium chamaedrys,0.5
+115556,Thymus serpyllum,15
+115556,Potentilla verna agg.,15
+115557,Achillea millefolium agg.,0.5
+115557,Anthoxanthum odoratum,3
+115557,Carex hirta,0.5
+115557,Carex supina,0.5
+115557,Cynodon dactylon,0.5
+115557,Eryngium campestre,0.5
+115557,Euphorbia cyparissias,0.1
+115557,Festuca ovina s. l.,15
+115557,Festuca valesiaca s. l.,3
+115557,Hypericum perforatum,0.5
+115557,Plantago lanceolata,0.1
+115557,Poa pratensis agg.,0.5
+115557,Ranunculus illyricus,3
+115557,Rumex acetosella,0.5
+115557,Silene viscosa,0.5
+115557,Teucrium chamaedrys,0.5
+115557,Thymus serpyllum,3
+115557,Verbascum phoeniceum,3
+115557,Potentilla verna agg.,0.5
+115560,Achillea millefolium agg.,3
+115560,Arrhenatherum elatius,0.5
+115560,Artemisia campestris,3
+115560,Carex hirta,0.5
+115560,Carex supina,0.5
+115560,Centaurea stoebe,0.5
+115560,Corynephorus canescens,0.5
+115560,Cynodon dactylon,0.5
+115560,Elymus hispidus,0.5
+115560,Euphorbia cyparissias,0.5
+115560,Galium verum,15
+115560,Hypericum perforatum,0.5
+115560,Linaria genistifolia,0.5
+115560,Poa pratensis agg.,0.5
+115560,Rumex acetosella,0.5
+115560,Silene otites,0.5
+115560,Verbascum phoeniceum,15
+115560,Potentilla verna agg.,0.5
+115564,Achillea millefolium agg.,0.5
+115564,Arrhenatherum elatius,37.5
+115564,Carex hirta,0.5
+115564,Centaurea stoebe,0.5
+115564,Dianthus carthusianorum agg.,0.1
+115564,Elymus repens,3
+115564,Eryngium campestre,0.5
+115564,Hypericum perforatum,0.5
+115564,Koeleria macrantha,0.5
+115564,Poa pratensis agg.,0.5
+115564,Rumex acetosa,37.5
+115564,Verbascum lychnitis,3
+115564,Potentilla verna agg.,0.5
+115567,Achillea millefolium agg.,0.5
+115567,Calamagrostis epigejos,37.5
+115567,Carex hirta,0.5
+115567,Convolvulus arvensis,0.1
+115567,Euphorbia cyparissias,0.5
+115567,Festuca brevipila,0.5
+115567,Galium verum,15
+115567,Plantago lanceolata,0.1
+115567,Poa pratensis agg.,15
+115567,Potentilla argentea,0.5
+115567,Teucrium chamaedrys,15
+115567,Thymus pulegioides,15
+115567,Veronica vindobonensis,0.5
+115573,Achillea millefolium agg.,3
+115573,Anchusa officinalis,0.5
+115573,Artemisia vulgaris,15
+115573,Calamagrostis epigejos,3
+115573,Carex hirta,0.5
+115573,Carex praecox,15
+115573,Centaurea stoebe,15
+115573,Cynodon dactylon,15
+115573,Dianthus carthusianorum agg.,0.1
+115573,Eryngium campestre,15
+115573,Festuca valesiaca s. l.,0.5
+115573,Festuca psammophila subsp. dominii,15
+115573,Galium verum,0.5
+115573,Hypericum perforatum,3
+115573,Linaria genistifolia,0.5
+115573,Poa pratensis agg.,0.5
+115573,Potentilla argentea,15
+115573,Rumex acetosella,0.1
+115574,Artemisia campestris,15
+115574,Corynephorus canescens,15
+115574,Cynodon dactylon,15
+115574,Erigeron annuus agg.,0.5
+115574,Hypericum perforatum,0.5
+115574,Pinus sylvestris,0.1
+115574,Rumex acetosella,0.5
+115574,Scleranthus perennis,0.5
+115575,Anthoxanthum odoratum,0.5
+115575,Carex hirta,0.5
+115575,Carex praecox,3
+115575,Carex supina,0.5
+115575,Centaurea stoebe,3
+115575,Chondrilla juncea,0.1
+115575,Festuca ovina s. l.,62.5
+115575,Helichrysum arenarium,0.5
+115575,Hypericum perforatum,0.5
+115575,Linaria genistifolia,0.5
+115575,Poa pratensis agg.,0.5
+115575,Rumex acetosella,0.1
+115575,Verbascum phoeniceum,0.5
+115576,Carex hirta,0.1
+115576,Corynephorus canescens,15
+115576,Pinus sylvestris,0.1
+115576,Rumex acetosella,0.5
+115577,Calamagrostis epigejos,3
+115577,Carex hirta,0.5
+115577,Carex praecox,15
+115577,Cerastium holosteoides,0.5
+115577,Cynodon dactylon,0.5
+115577,Festuca valesiaca s. l.,0.5
+115577,Fragaria viridis,0.5
+115577,Helichrysum arenarium,0.5
+115577,Hypericum perforatum,3
+115577,Linaria vulgaris,3
+115577,Poa pratensis agg.,15
+115577,Potentilla argentea,0.1
+115577,Potentilla verna agg.,3
+115585,Anthoxanthum odoratum,3
+115585,Carex hirta,0.5
+115585,Carex supina,0.5
+115585,Corynephorus canescens,15
+115585,Euphorbia cyparissias,0.5
+115585,Festuca psammophila subsp. dominii,37.5
+115585,Helichrysum arenarium,0.5
+115585,Hypericum perforatum,0.5
+115585,Jasione montana,0.5
+115585,Linaria genistifolia,0.5
+115585,Poa pratensis agg.,0.5
+115585,Rumex acetosella,0.5
+115585,Stipa borysthenica,3
+115585,Thymus serpyllum,3
+115585,Verbascum phoeniceum,0.5
+115586,Anthoxanthum odoratum,3
+115586,Carex hirta,3
+115586,Carex supina,0.5
+115586,Centaurea stoebe,0.5
+115586,Corynephorus canescens,15
+115586,Cynodon dactylon,0.1
+115586,Eryngium campestre,0.5
+115586,Euphorbia cyparissias,0.5
+115586,Festuca psammophila subsp. dominii,15
+115586,Helichrysum arenarium,0.5
+115586,Hypericum perforatum,0.5
+115586,Jasione montana,0.5
+115586,Linaria genistifolia,0.5
+115586,Poa pratensis agg.,3
+115586,Potentilla argentea,0.5
+115586,Rumex acetosella,15
+115586,Senecio jacobaea,0.5
+115586,Seseli osseum,3
+115586,Stipa borysthenica,15
+115586,Thymus serpyllum,15
+115586,Verbascum phoeniceum,3
+115605,Carex hirta,0.5
+115605,Corynephorus canescens,37.5
+115605,Cynodon dactylon,0.5
+115605,Rumex acetosella,0.5
+115606,Corynephorus canescens,0.5
+115606,Cynodon dactylon,15
+115606,Rumex acetosella,0.5
+115608,Achillea millefolium agg.,0.5
+115608,Anchusa officinalis,0.5
+115608,Carex praecox,15
+115608,Carex stenophylla,15
+115608,Chondrilla juncea,3
+115608,Corynephorus canescens,0.5
+115608,Cynodon dactylon,0.5
+115608,Eryngium campestre,0.5
+115608,Festuca valesiaca s. l.,62.5
+115608,Hypericum perforatum,0.5
+115608,Plantago lanceolata,0.5
+115608,Poa pratensis agg.,0.5
+115608,Potentilla argentea,0.5
+115608,Rumex acetosella,3
+115608,Sedum acre,0.5
+115608,Silene viscosa,0.5
+115608,Trifolium alpestre,0.5
+115608,Verbascum phoeniceum,3
+115608,Potentilla verna agg.,0.5
+115608,Thymus pannonicus agg.,0.5
+115616,Achillea millefolium agg.,0.5
+115616,Anthoxanthum odoratum,0.5
+115616,Arrhenatherum elatius,0.5
+115616,Calamagrostis epigejos,15
+115616,Carex hirta,0.5
+115616,Cerastium holosteoides,0.5
+115616,Cynodon dactylon,0.5
+115616,Dianthus carthusianorum agg.,0.5
+115616,Echium vulgare,0.5
+115616,Festuca valesiaca s. l.,15
+115616,Galium verum,0.5
+115616,Hypericum perforatum,0.5
+115616,Pimpinella saxifraga,0.5
+115616,Poa pratensis agg.,0.5
+115616,Potentilla argentea,0.5
+115616,Rumex acetosella,0.5
+115616,Teucrium chamaedrys,37.5
+115616,Verbascum phoeniceum,0.5
+115616,Thymus pannonicus agg.,0.5
+115617,Achillea millefolium agg.,15
+115617,Agrostis vinealis,0.5
+115617,Anthoxanthum odoratum,15
+115617,Carex praecox,15
+115617,Carex supina,15
+115617,Centaurea stoebe,0.5
+115617,Corynephorus canescens,0.1
+115617,Cynodon dactylon,0.5
+115617,Dianthus carthusianorum agg.,0.5
+115617,Echium vulgare,0.5
+115617,Eryngium campestre,0.1
+115617,Euphorbia cyparissias,15
+115617,Festuca valesiaca s. l.,15
+115617,Galium verum,0.5
+115617,Hypericum perforatum,0.5
+115617,Plantago lanceolata,0.5
+115617,Poa pratensis agg.,15
+115617,Potentilla argentea,0.5
+115617,Rumex acetosella,0.5
+115617,Sedum acre,15
+115617,Teucrium chamaedrys,15
+115627,Achillea millefolium agg.,0.5
+115627,Calamagrostis epigejos,37.5
+115627,Carex hirta,15
+115627,Echium vulgare,3
+115627,Elymus repens,0.5
+115627,Euphorbia cyparissias,3
+115627,Poa pratensis agg.,15
+115627,Rumex acetosella,0.5
+115627,Potentilla verna agg.,0.5
+115628,Achillea millefolium agg.,0.5
+115628,Anthoxanthum odoratum,3
+115628,Armeria elongata subsp. elongata,0.5
+115628,Carex hirta,15
+115628,Carex praecox,15
+115628,Dianthus carthusianorum agg.,0.5
+115628,Echium vulgare,0.5
+115628,Euphorbia cyparissias,3
+115628,Frangula alnus,3
+115628,Hypericum perforatum,0.5
+115628,Pimpinella saxifraga,0.5
+115628,Pinus sylvestris,3
+115628,Poa pratensis agg.,15
+115628,Rumex acetosella,0.5
+115628,Teucrium chamaedrys,0.5
+115628,Thymus pulegioides,0.5
+115628,Verbascum phoeniceum,0.5
+115628,Viola canina,0.5
+115642,Achillea millefolium agg.,0.5
+115642,Cynodon dactylon,15
+115642,Dactylis glomerata,0.5
+115642,Elymus repens,0.5
+115642,Erysimum diffusum agg.,0.5
+115642,Falcaria vulgaris,0.5
+115642,Festuca valesiaca s. l.,37.5
+115642,Plantago lanceolata,0.5
+115642,Poa pratensis agg.,0.5
+115642,Sedum acre,0.5
+115642,Silene latifolia subsp. alba,0.5
+115642,Silene otites,0.5
+115642,Vicia villosa subsp. villosa,15
+115650,Calamagrostis epigejos,37.5
+115650,Carex hirta,15
+115650,Convolvulus arvensis,0.5
+115650,Hypericum perforatum,3
+115650,Malus sylvestris agg.,3
+115650,Poa pratensis agg.,0.5
+115650,Quercus robur,0.5
+115650,Taraxacum sect. Taraxacum,0.1
+115652,Calamagrostis epigejos,37.5
+115652,Carex hirta,3
+115652,Convolvulus arvensis,0.5
+115652,Euphorbia cyparissias,0.5
+115652,Poa pratensis agg.,15
+115652,Rhamnus cathartica,0.5
+115652,Teucrium chamaedrys,3
+115653,Achillea millefolium agg.,0.5
+115653,Anthoxanthum odoratum,0.5
+115653,Armeria elongata subsp. elongata,0.5
+115653,Arrhenatherum elatius,15
+115653,Calamagrostis epigejos,0.5
+115653,Carex hirta,15
+115653,Echium vulgare,0.5
+115653,Elymus hispidus,0.1
+115653,Euphorbia cyparissias,0.5
+115653,Festuca valesiaca s. l.,15
+115653,Hypericum perforatum,0.5
+115653,Potentilla argentea,0.5
+115653,Rumex acetosella,0.5
+115657,Achillea millefolium agg.,0.5
+115657,Arrhenatherum elatius,0.5
+115657,Artemisia campestris,3
+115657,Convolvulus arvensis,0.5
+115657,Echium vulgare,15
+115657,Elymus repens,15
+115657,Euphorbia cyparissias,0.5
+115657,Euphorbia esula,0.5
+115657,Lathyrus pratensis,0.5
+115657,Plantago lanceolata,0.5
+115657,Poa pratensis agg.,15
+115657,Potentilla argentea,15
+115657,Rumex thyrsiflorus,0.5
+115657,Scabiosa ochroleuca,15
+115657,Silene latifolia subsp. alba,0.5
+115657,Silene otites,3
+115657,Vicia villosa subsp. villosa,0.5
+115658,Anthoxanthum odoratum,0.5
+115658,Carex hirta,0.5
+115658,Carex praecox,15
+115658,Corynephorus canescens,0.5
+115658,Dianthus carthusianorum agg.,0.5
+115658,Eryngium campestre,0.5
+115658,Euphorbia cyparissias,0.5
+115658,Festuca valesiaca s. l.,0.5
+115658,Hypericum perforatum,3
+115658,Jasione montana,0.5
+115658,Pinus sylvestris,0.1
+115658,Potentilla argentea,0.5
+115658,Rumex acetosella,0.5
+115658,Seseli annuum,0.5
+115658,Stipa borysthenica,15
+115658,Thymus serpyllum,0.5
+115670,Achillea millefolium agg.,3
+115670,Armeria elongata subsp. elongata,15
+115670,Arrhenatherum elatius,15
+115670,Carex hirta,15
+115670,Carex praecox,15
+115670,Convolvulus arvensis,0.5
+115670,Dianthus carthusianorum agg.,0.5
+115670,Elymus hispidus,0.5
+115670,Equisetum ramosissimum,0.5
+115670,Euphorbia cyparissias,0.5
+115670,Festuca rubra,0.5
+115670,Galium album s. l.,0.5
+115670,Poa pratensis agg.,15
+115670,Silene latifolia subsp. alba,15
+115670,Taraxacum sect. Taraxacum,0.5
+307878,Achillea millefolium agg.,0.5
+307878,Arrhenatherum elatius,3
+307878,Bromus erectus,3
+307878,Centaurea stoebe,3
+307878,Chamaecytisus austriacus,3
+307878,Dianthus carthusianorum agg.,0.5
+307878,Eryngium campestre,3
+307878,Euphorbia cyparissias,0.1
+307878,Festuca valesiaca s. l.,37.5
+307878,Fragaria viridis,15
+307878,Galium verum,0.1
+307878,Hypericum perforatum,0.5
+307878,Koeleria macrantha,0.5
+307878,Phleum phleoides,0.5
+307878,Pimpinella saxifraga,0.1
+307878,Poa pratensis agg.,15
+307878,Sanguisorba minor,0.5
+307878,Seseli annuum,0.5
+307878,Veronica prostrata,0.5
+307878,Potentilla verna agg.,3
+307885,Achillea millefolium agg.,0.5
+307885,Anthericum ramosum,3
+307885,Asperula cynanchica,0.5
+307885,Bromus erectus,62.5
+307885,Calamagrostis epigejos,0.5
+307885,Centaurea stoebe,0.5
+307885,Crataegus species,0.5
+307885,Dactylis glomerata,0.5
+307885,Dianthus carthusianorum agg.,0.5
+307885,Dorycnium germanicum,0.5
+307885,Eryngium campestre,0.5
+307885,Festuca valesiaca s. l.,3
+307885,Fragaria viridis,0.5
+307885,Galium verum,0.5
+307885,Globularia bisnagarica,0.5
+307885,Hypericum perforatum,0.5
+307885,Knautia arvensis agg.,0.5
+307885,Koeleria macrantha,0.5
+307885,Ligustrum vulgare,0.5
+307885,Onobrychis viciifolia,0.5
+307885,Phleum phleoides,3
+307885,Poa pratensis agg.,3
+307885,Veronica spicata,3
+307885,Robinia pseudoacacia,15
+307885,Seseli annuum,3
+307885,Solidago gigantea,0.5
+307885,Teucrium chamaedrys,0.5
+307885,Vincetoxicum hirundinaria,0.1
+307886,Achillea millefolium agg.,0.1
+307886,Agrimonia eupatoria,0.1
+307886,Ailanthus altissima,0.1
+307886,Asperula cynanchica,0.5
+307886,Astragalus onobrychis,0.5
+307886,Bromus erectus,37.5
+307886,Carex liparocarpos,0.5
+307886,Dianthus serotinus,3
+307886,Dorycnium germanicum,3
+307886,Festuca valesiaca s. l.,3
+307886,Fragaria viridis,0.5
+307886,Galium verum,3
+307886,Helichrysum arenarium,0.1
+307886,Hypericum perforatum,0.5
+307886,Juniperus communis,0.5
+307886,Koeleria macrantha,0.5
+307886,Ligustrum vulgare,3
+307886,Petrorhagia saxifraga,0.5
+307886,Phleum phleoides,0.5
+307886,Pinus sylvestris,3
+307886,Poa pratensis agg.,3
+307886,Veronica spicata,0.5
+307886,Robinia pseudoacacia,15
+307886,Rosa canina agg.,0.1
+307886,Salvia pratensis,0.1
+307886,Seseli annuum,0.1
+307886,Stipa capillata,0.5
+307886,Teucrium chamaedrys,0.5
+307886,Teucrium montanum,0.1
+307886,Thalictrum minus,0.1
+307886,Thymus pannonicus agg.,0.1
+307886,Tragopogon orientalis,0.1
+307886,Vincetoxicum hirundinaria,0.1
+307886,Potentilla verna agg.,0.5
+307893,Anthyllis vulneraria,0.5
+307893,Asperula cynanchica,0.5
+307893,Bothriochloa ischaemum,3
+307893,Bromus erectus,87.5
+307893,Carex supina,0.5
+307893,Centaurea scabiosa,0.1
+307893,Centaurea stoebe,0.5
+307893,Chamaecytisus ratisbonensis,0.5
+307893,Eryngium campestre,0.5
+307893,Festuca valesiaca s. l.,3
+307893,Galium verum,0.5
+307893,Pilosella officinarum,0.5
+307893,Petrorhagia saxifraga,0.5
+307893,Pimpinella saxifraga,3
+307893,Plantago media,0.5
+307893,Ranunculus bulbosus,0.1
+307893,Salvia nemorosa,0.5
+307893,Sanguisorba minor,0.5
+307893,Scabiosa ochroleuca,0.5
+307893,Senecio jacobaea,0.1
+307893,Stipa capillata,0.5
+307893,Thymus pannonicus agg.,0.5
+307893,Veronica prostrata,0.5
+307894,Achillea millefolium agg.,0.5
+307894,Asperula cynanchica,0.5
+307894,Bromus erectus,62.5
+307894,Carex liparocarpos,0.5
+307894,Centaurea scabiosa,0.5
+307894,Eryngium campestre,0.5
+307894,Euphorbia cyparissias,0.5
+307894,Falcaria vulgaris,0.1
+307894,Festuca valesiaca s. l.,15
+307894,Galium verum,0.5
+307894,Gypsophila paniculata,0.5
+307894,Knautia arvensis agg.,0.5
+307894,Medicago falcata,0.1
+307894,Nonea pulla,0.1
+307894,Onobrychis viciifolia,0.5
+307894,Orchis militaris,0.5
+307894,Peucedanum oreoselinum,3
+307894,Plantago lanceolata,0.1
+307894,Plantago media,0.5
+307894,Potentilla verna agg.,3
+307894,Ranunculus bulbosus,0.5
+307894,Teucrium chamaedrys,0.5
+307894,Veronica vindobonensis,0.5
+307896,Agrimonia eupatoria,0.1
+307896,Allium flavum,0.1
+307896,Bromus erectus,87.5
+307896,Carduus nutans,0.1
+307896,Centaurea stoebe,0.1
+307896,Dianthus carthusianorum agg.,0.5
+307896,Dorycnium germanicum,0.5
+307896,Echium vulgare,0.1
+307896,Festuca valesiaca s. l.,15
+307896,Fragaria viridis,0.5
+307896,Globularia bisnagarica,0.5
+307896,Hypericum perforatum,3
+307896,Koeleria macrantha,0.5
+307896,Phleum phleoides,3
+307896,Poa pratensis agg.,15
+307896,Seseli annuum,3
+307896,Seseli hippomarathrum,0.5
+307896,Stipa capillata,3
+307896,Teucrium chamaedrys,3
+307896,Veronica prostrata,0.5
+307896,Potentilla verna agg.,0.5
+307897,Ailanthus altissima,0.1
+307897,Asparagus officinalis,0.1
+307897,Bothriochloa ischaemum,3
+307897,Brachypodium pinnatum,3
+307897,Briza media,3
+307897,Bromus erectus,87.5
+307897,Carlina vulgaris,0.5
+307897,Centaurea scabiosa,0.1
+307897,Dactylis glomerata,0.5
+307897,Dorycnium germanicum,0.5
+307897,Eryngium campestre,0.5
+307897,Falcaria vulgaris,0.5
+307897,Festuca valesiaca s. l.,15
+307897,Galium verum,0.1
+307897,Gypsophila paniculata,0.5
+307897,Pilosella echioides,0.1
+307897,Knautia arvensis agg.,0.5
+307897,Koeleria macrantha,0.5
+307897,Orchis militaris,0.1
+307897,Peucedanum oreoselinum,3
+307897,Phleum phleoides,0.5
+307897,Pimpinella saxifraga,0.5
+307897,Pinus sylvestris,0.1
+307897,Plantago media,0.1
+307897,Poa pratensis agg.,3
+307897,Veronica spicata,0.5
+307897,Ranunculus bulbosus,0.1
+307897,Scabiosa ochroleuca,0.1
+307897,Senecio jacobaea,0.1
+307897,Stipa pennata,0.5
+307897,Taraxacum sect. Erythrosperma,0.1
+307897,Teucrium chamaedrys,0.5
+307897,Tragopogon orientalis,0.1
+307905,Avenula pratensis,3
+307905,Brachypodium pinnatum,0.5
+307905,Bromus erectus,37.5
+307905,Carex humilis,3
+307905,Centaurea stoebe,0.5
+307905,Chamaecytisus ratisbonensis,3
+307905,Cirsium vulgare,0.1
+307905,Dactylis glomerata,0.1
+307905,Eryngium campestre,0.1
+307905,Festuca valesiaca s. l.,15
+307905,Fragaria viridis,3
+307905,Galium verum,0.1
+307905,Koeleria macrantha,0.5
+307905,Orchis militaris,0.1
+307905,Petrorhagia saxifraga,0.5
+307905,Pimpinella saxifraga,0.5
+307905,Sanguisorba minor,0.5
+307905,Scabiosa ochroleuca,0.1
+307905,Scorzonera purpurea,0.5
+307905,Senecio jacobaea,0.5
+307905,Seseli annuum,0.1
+307905,Stipa pennata,37.5
+307905,Teucrium chamaedrys,0.5
+307905,Thymus pannonicus agg.,0.5
+307905,Veronica prostrata,0.5
+307905,Potentilla verna agg.,3
+307905,Taraxacum sect. Erythrosperma,0.5
+307907,Achillea millefolium agg.,0.5
+307907,Anthyllis vulneraria,0.5
+307907,Bromus erectus,3
+307907,Carex liparocarpos,0.5
+307907,Eryngium campestre,0.1
+307907,Euphorbia cyparissias,0.5
+307907,Falcaria vulgaris,0.1
+307907,Festuca valesiaca s. l.,37.5
+307907,Gypsophila paniculata,0.5
+307907,Pilosella echioides,0.5
+307907,Hypericum perforatum,0.1
+307907,Knautia arvensis agg.,0.5
+307907,Minuartia glaucina,0.5
+307907,Peucedanum oreoselinum,3
+307907,Potentilla verna agg.,15
+307907,Scabiosa ochroleuca,0.1
+307907,Stipa pennata,15
+307907,Taraxacum sect. Erythrosperma,0.5
+307907,Teucrium chamaedrys,3
+307907,Thymus pannonicus agg.,0.5
+307907,Veronica vindobonensis,0.5
+307908,Avenula pratensis,0.5
+307908,Bromus erectus,3
+307908,Carex humilis,3
+307908,Centaurea stoebe,0.5
+307908,Chamaecytisus ratisbonensis,0.5
+307908,Cirsium vulgare,0.5
+307908,Daphne cneorum,0.5
+307908,Dorycnium germanicum,0.5
+307908,Euphorbia cyparissias,3
+307908,Festuca valesiaca s. l.,3
+307908,Fragaria viridis,0.5
+307908,Globularia bisnagarica,0.5
+307908,Pilosella echioides,0.5
+307908,Petrorhagia saxifraga,0.5
+307908,Poa pratensis agg.,3
+307908,Potentilla heptaphylla,0.1
+307908,Sanguisorba minor,0.1
+307908,Scabiosa ochroleuca,0.1
+307908,Stipa pennata,62.5
+307908,Teucrium chamaedrys,15
+307908,Thymus pannonicus agg.,0.5
+307908,Veronica prostrata,0.5
+307908,Potentilla verna agg.,0.5
+307908,Taraxacum sect. Erythrosperma,0.5
+307911,Arabis hirsuta,0.1
+307911,Bromus erectus,87.5
+307911,Carlina vulgaris,0.1
+307911,Centaurea stoebe,3
+307911,Dianthus carthusianorum agg.,0.5
+307911,Echium vulgare,0.1
+307911,Eryngium campestre,0.5
+307911,Euphorbia cyparissias,0.5
+307911,Festuca valesiaca s. l.,3
+307911,Galium verum,0.5
+307911,Hypericum perforatum,3
+307911,Juniperus communis,0.5
+307911,Ligustrum vulgare,0.5
+307911,Petrorhagia saxifraga,0.1
+307911,Peucedanum oreoselinum,3
+307911,Phleum phleoides,15
+307911,Pinus sylvestris,15
+307911,Poa pratensis agg.,3
+307911,Rosa canina agg.,0.5
+307911,Scabiosa ochroleuca,0.1
+307911,Stipa capillata,0.5
+307911,Stipa pennata,3
+307911,Teucrium chamaedrys,3
+307919,Achillea millefolium agg.,0.5
+307919,Agrimonia eupatoria,0.5
+307919,Avenula pratensis,3
+307919,Brachypodium pinnatum,0.5
+307919,Carex liparocarpos,0.1
+307919,Eryngium campestre,0.5
+307919,Festuca valesiaca s. l.,15
+307919,Galium verum,0.5
+307919,Koeleria macrantha,0.5
+307919,Poa pratensis agg.,37.5
+307919,Rapistrum perenne,0.1
+307919,Seseli annuum,0.5
+307919,Stipa capillata,0.5
+307919,Stipa pennata,15
+307919,Teucrium chamaedrys,0.5
+307919,Veronica prostrata,0.1
+307926,Achillea millefolium agg.,0.5
+307926,Anchusa officinalis,0.1
+307926,Carex liparocarpos,0.1
+307926,Centaurea stoebe,0.1
+307926,Dorycnium germanicum,0.5
+307926,Eryngium campestre,3
+307926,Euphorbia cyparissias,3
+307926,Festuca valesiaca s. l.,3
+307926,Pilosella echioides,0.1
+307926,Juniperus communis,15
+307926,Koeleria macrantha,3
+307926,Ligustrum vulgare,15
+307926,Linaria genistifolia,0.5
+307926,Petrorhagia saxifraga,0.5
+307926,Phleum phleoides,15
+307926,Pimpinella saxifraga,0.5
+307926,Pinus sylvestris,3.097
+307926,Poa pratensis agg.,3
+307926,Sanguisorba minor,0.5
+307926,Scabiosa ochroleuca,0.1
+307926,Seseli annuum,15
+307926,Stipa capillata,15
+307926,Stipa pennata,37.5
+307926,Teucrium montanum,0.5
+307926,Thymus pannonicus agg.,3
+307926,Verbascum lychnitis,0.1
+307926,Veronica prostrata,0.5
+307926,Vincetoxicum hirundinaria,0.1
+307926,Potentilla verna agg.,3
+307928,Achillea millefolium agg.,3
+307928,Brachypodium pinnatum,3
+307928,Bromus erectus,0.5
+307928,Calamagrostis epigejos,0.5
+307928,Chamaecytisus supinus,0.1
+307928,Eryngium campestre,0.5
+307928,Euphorbia cyparissias,3
+307928,Festuca valesiaca s. l.,15
+307928,Fragaria viridis,0.5
+307928,Pilosella echioides,0.5
+307928,Koeleria macrantha,0.5
+307928,Ligustrum vulgare,3
+307928,Peucedanum oreoselinum,0.5
+307928,Poa pratensis agg.,87.5
+307928,Stipa capillata,3
+307928,Stipa pennata,3
+307928,Teucrium chamaedrys,15
+307928,Thalictrum minus,0.5
+307928,Thymus pannonicus agg.,0.5
+307928,Veronica prostrata,0.5
+307932,Anthericum ramosum,0.5
+307932,Asparagus officinalis,0.5
+307932,Bothriochloa ischaemum,0.5
+307932,Bromus erectus,0.5
+307932,Dianthus carthusianorum agg.,0.5
+307932,Eryngium campestre,0.5
+307932,Euphorbia cyparissias,0.1
+307932,Falcaria vulgaris,0.5
+307932,Festuca valesiaca s. l.,0.5
+307932,Gypsophila paniculata,0.5
+307932,Pilosella echioides,0.1
+307932,Peucedanum oreoselinum,3
+307932,Phleum phleoides,3
+307932,Poa pratensis agg.,3
+307932,Veronica spicata,3
+307932,Salvia nemorosa,0.1
+307932,Stipa capillata,37.5
+307932,Stipa pennata,3
+307932,Thalictrum minus,15
+307932,Thymus pannonicus agg.,0.1
+307932,Verbascum lychnitis,0.1
+307932,Vincetoxicum hirundinaria,0.1
+307932,Potentilla verna agg.,0.5
+307934,Artemisia campestris,3
+307934,Asperula cynanchica,0.5
+307934,Bothriochloa ischaemum,3
+307934,Centaurea stoebe,3
+307934,Eryngium campestre,0.5
+307934,Euphorbia cyparissias,0.5
+307934,Festuca valesiaca s. l.,15
+307934,Pilosella officinarum,0.5
+307934,Hypericum perforatum,0.5
+307934,Medicago falcata,0.5
+307934,Petrorhagia saxifraga,3
+307934,Pimpinella saxifraga,3
+307934,Potentilla heptaphylla,0.5
+307934,Sanguisorba minor,0.1
+307934,Scabiosa ochroleuca,0.1
+307934,Senecio jacobaea,0.5
+307934,Stipa capillata,15
+307934,Stipa pennata,0.5
+307934,Thymus pannonicus agg.,0.5
+307947,Achillea millefolium agg.,0.1
+307947,Arrhenatherum elatius,0.1
+307947,Artemisia campestris,15
+307947,Dactylis glomerata,0.5
+307947,Erysimum diffusum agg.,0.5
+307947,Euphorbia cyparissias,3
+307947,Festuca valesiaca s. l.,3
+307947,Pilosella echioides,3
+307947,Koeleria macrantha,0.5
+307947,Linaria genistifolia,0.5
+307947,Petrorhagia saxifraga,15
+307947,Pimpinella saxifraga,0.1
+307947,Poa pratensis agg.,0.5
+307947,Sanguisorba minor,0.1
+307947,Sedum acre,15
+307947,Thymus pannonicus agg.,0.5
+307947,Veronica prostrata,0.5
+307947,Potentilla verna agg.,3
+307951,Eryngium campestre,0.5
+307951,Festuca valesiaca s. l.,87.5
+307951,Gypsophila paniculata,0.5
+307951,Minuartia glaucina,0.5
+307951,Securigera varia,0.5
+307951,Stipa pennata,0.5
+342099,Allium scorodoprasum,15
+342099,Carex praecox,15
+342099,Festuca valesiaca s. l.,0.5
+342099,Galium verum,3
+342099,Plantago lanceolata,3
+342099,Poa pratensis agg.,15
+342099,Potentilla argentea,3
+342099,Rumex acetosa,3
+342099,Sedum sexangulare,15
+342099,Taraxacum sect. Taraxacum,0.1
+342103,Carex praecox,3
+342103,Erodium cicutarium,3
+342103,Eryngium campestre,15
+342103,Erysimum diffusum agg.,0.5
+342103,Festuca valesiaca s. l.,15
+342103,Poa pratensis agg.,3
+342103,Potentilla argentea,0.5
+342103,Rumex acetosella,0.5
+342103,Rumex thyrsiflorus,0.5
+342103,Thymus pannonicus agg.,3
+342104,Achillea millefolium agg.,3
+342104,Anthoxanthum odoratum,0.5
+342104,Armeria elongata subsp. elongata,0.5
+342104,Carex praecox,0.5
+342104,Cerastium holosteoides,0.5
+342104,Dactylis glomerata,3
+342104,Dianthus carthusianorum agg.,3
+342104,Eryngium campestre,3
+342104,Euphorbia cyparissias,15
+342104,Festuca valesiaca s. l.,15
+342104,Fragaria viridis,3
+342104,Luzula campestris,0.5
+342104,Plantago lanceolata,3
+342104,Poa pratensis agg.,15
+342104,Potentilla argentea,3
+342104,Rumex acetosa,0.5
+342104,Thymus pannonicus agg.,3
+342104,Veronica prostrata,3
+401761,Armeria elongata subsp. elongata,0.5
+401761,Asparagus officinalis,0.5
+401761,Carex hirta,3
+401761,Centaurea stoebe,0.5
+401761,Echium vulgare,0.5
+401761,Eryngium campestre,0.5
+401761,Erysimum diffusum agg.,0.5
+401761,Euphorbia cyparissias,3
+401761,Festuca valesiaca s. l.,37.5
+401761,Fragaria vesca,3
+401761,Galium verum,3
+401761,Lotus corniculatus,0.5
+401761,Peucedanum oreoselinum,0.5
+401761,Plantago lanceolata,15
+401761,Poa pratensis agg.,3
+401761,Potentilla argentea,3
+401761,Potentilla verna agg.,0.5
+401761,Ranunculus polyanthemos,0.5
+401761,Rumex acetosa,0.5
+401761,Rumex acetosella,3
+401761,Sedum sexangulare,0.5
+401761,Silene viscosa,0.5
+402435,Achillea millefolium agg.,0.5
+402435,Agrostis capillaris,15
+402435,Anthoxanthum odoratum,15
+402435,Betonica officinalis,3
+402435,Carex caryophyllea,15
+402435,Chamaecytisus supinus,3
+402435,Crataegus species,3
+402435,Festuca rubra,15
+402435,Galium verum,0.5
+402435,Pilosella bauhini,15
+402435,Pilosella officinarum,3
+402435,Holcus lanatus,0.5
+402435,Hypericum perforatum,0.5
+402435,Hypochaeris radicata,3
+402435,Luzula campestris,3
+402435,Viscaria vulgaris,3
+402435,Stellaria graminea,0.1
+402435,Veronica officinalis,0.5
+445394,Agrostis stolonifera,0.5
+445394,Anthoxanthum odoratum,15
+445394,Armeria elongata subsp. elongata,0.5
+445394,Arrhenatherum elatius,3
+445394,Avenula pubescens,3
+445394,Brachypodium pinnatum,15
+445394,Briza media,3
+445394,Calamagrostis epigejos,0.5
+445394,Carex hirta,3
+445394,Carex praecox,37.5
+445394,Colchicum autumnale,3
+445394,Crataegus species,0.1
+445394,Dactylis glomerata,0.5
+445394,Equisetum arvense,0.1
+445394,Euphorbia cyparissias,15
+445394,Festuca valesiaca s. l.,15
+445394,Fragaria viridis,15
+445394,Galium album s. l.,3
+445394,Galium verum,0.5
+445394,Lathyrus pratensis,0.5
+445394,Scorzoneroides autumnalis,0.1
+445394,Leontodon hispidus,15
+445394,Lotus corniculatus,0.5
+445394,Luzula campestris,3
+445394,Viscaria vulgaris,0.5
+445394,Phleum phleoides,0.5
+445394,Pimpinella saxifraga,3
+445394,Poa pratensis agg.,15
+445394,Ranunculus bulbosus,0.5
+445394,Rumex acetosa,0.5
+445394,Salvia pratensis,0.5
+445394,Saxifraga bulbifera,0.5
+445394,Scabiosa ochroleuca,0.5
+445394,Seseli annuum,0.5
+445394,Silene nutans,3
+445394,Thymus pannonicus agg.,0.5
+445394,Trifolium pratense,0.1
+445394,Veronica vindobonensis,0.5
+445395,Achillea millefolium agg.,0.1
+445395,Agrostis vinealis,3
+445395,Armeria elongata subsp. elongata,0.5
+445395,Calamagrostis epigejos,0.1
+445395,Carex caryophyllea,3
+445395,Carex hirta,3
+445395,Carex praecox,15
+445395,Colchicum autumnale,0.1
+445395,Dianthus carthusianorum agg.,0.5
+445395,Elymus repens,0.5
+445395,Euphorbia cyparissias,3
+445395,Festuca valesiaca s. l.,46.875
+445395,Fragaria viridis,0.5
+445395,Koeleria macrantha,15
+445395,Luzula campestris,0.5
+445395,Viscaria vulgaris,0.5
+445395,Phleum phleoides,15
+445395,Pimpinella saxifraga,0.1
+445395,Potentilla argentea,0.5
+445395,Rumex acetosella,3
+445395,Salvia pratensis,0.5
+445395,Scabiosa ochroleuca,0.5
+445395,Stipa borysthenica,3
+445395,Thymus pannonicus agg.,15
+445395,Veronica prostrata,0.5
+445410,Achillea millefolium agg.,0.5
+445410,Armeria elongata subsp. elongata,0.5
+445410,Arrhenatherum elatius,0.1
+445410,Avenula pubescens,0.5
+445410,Calamagrostis epigejos,0.5
+445410,Carex caryophyllea,3
+445410,Carex hirta,0.5
+445410,Centaurea stoebe,0.5
+445410,Dactylis glomerata,0.1
+445410,Dianthus carthusianorum agg.,0.5
+445410,Euphorbia cyparissias,0.5
+445410,Festuca valesiaca s. l.,62.5
+445410,Fragaria viridis,0.5
+445410,Galium verum,0.5
+445410,Hypericum perforatum,0.5
+445410,Luzula campestris,0.5
+445410,Viscaria vulgaris,15
+445410,Pimpinella saxifraga,0.1
+445410,Plantago lanceolata,0.1
+445410,Poa pratensis agg.,3
+445410,Potentilla argentea,3
+445410,Veronica spicata,15
+445410,Rumex acetosa,0.5
+445410,Rumex acetosella,0.5
+445410,Scabiosa ochroleuca,0.5
+445410,Seseli annuum,0.5
+445410,Silene latifolia subsp. alba,0.5
+445410,Thymus pannonicus agg.,15
+445410,Verbascum lychnitis,0.5
+445410,Veronica vindobonensis,0.5
+445416,Anthoxanthum odoratum,0.5
+445416,Armeria elongata subsp. elongata,0.5
+445416,Arrhenatherum elatius,0.5
+445416,Artemisia campestris,15
+445416,Centaurea stoebe,0.5
+445416,Dianthus carthusianorum agg.,0.5
+445416,Erysimum diffusum agg.,3
+445416,Euphorbia cyparissias,15
+445416,Festuca valesiaca s. l.,37.5
+445416,Iris variegata,0.5
+445416,Koeleria macrantha,15
+445416,Linaria genistifolia,0.5
+445416,Phleum phleoides,0.5
+445416,Plantago lanceolata,0.1
+445416,Potentilla argentea,0.5
+445416,Rumex acetosa,3
+445416,Rumex acetosella,0.5
+445416,Salvia pratensis,0.5
+445416,Silene latifolia subsp. alba,0.5
+445416,Thymus pannonicus agg.,0.5
+445416,Veronica prostrata,0.5
+445417,Ajuga genevensis,0.1
+445417,Artemisia campestris,15
+445417,Asperula cynanchica,0.1
+445417,Chondrilla juncea,0.5
+445417,Dianthus carthusianorum agg.,15
+445417,Erysimum diffusum agg.,0.5
+445417,Euphorbia cyparissias,3
+445417,Festuca valesiaca s. l.,37.5
+445417,Hypericum perforatum,0.5
+445417,Iris variegata,0.5
+445417,Koeleria macrantha,3
+445417,Phleum phleoides,0.5
+445417,Poa pratensis agg.,0.5
+445417,Potentilla argentea,0.5
+445417,Veronica spicata,0.5
+445417,Rumex acetosella,0.5
+445417,Salvia pratensis,0.5
+445417,Scabiosa ochroleuca,0.5
+445417,Silene otites,0.5
+445417,Stipa borysthenica,0.5
+445417,Thesium ramosum,0.1
+445417,Thymus pannonicus agg.,15
+445417,Verbascum lychnitis,0.5
+445417,Verbascum phoeniceum,3
+445417,Veronica prostrata,3
+445422,Achillea millefolium agg.,3.485
+445422,Ajuga genevensis,3
+445422,Anthoxanthum odoratum,0.5
+445422,Armeria elongata subsp. elongata,0.5
+445422,Avenula pubescens,3
+445422,Bromus erectus,0.5
+445422,Calamagrostis epigejos,0.5
+445422,Carex caryophyllea,0.5
+445422,Carex praecox,15
+445422,Cynodon dactylon,0.5
+445422,Dactylis glomerata,3
+445422,Dianthus carthusianorum agg.,15
+445422,Elymus repens,0.5
+445422,Eryngium campestre,0.1
+445422,Euphorbia cyparissias,3
+445422,Festuca valesiaca s. l.,39.375
+445422,Koeleria macrantha,37.5
+445422,Luzula campestris,0.5
+445422,Viscaria vulgaris,3
+445422,Peucedanum oreoselinum,3
+445422,Phleum phleoides,3
+445422,Pimpinella saxifraga,0.5
+445422,Plantago lanceolata,0.5
+445422,Poa pratensis agg.,3
+445422,Veronica spicata,0.5
+445422,Rumex acetosa,15
+445422,Rumex acetosella,3
+445422,Salvia pratensis,0.5
+445422,Scabiosa ochroleuca,0.5
+445422,Seseli annuum,0.1
+445422,Silene otites,0.1
+445422,Stipa borysthenica,0.5
+445422,Thymus pannonicus agg.,3
+445422,Trifolium montanum,0.5
+445422,Veronica prostrata,0.5
+445449,Acer campestre,0.5
+445449,Achillea millefolium agg.,3
+445449,Armeria elongata subsp. elongata,0.5
+445449,Artemisia campestris,37.5
+445449,Carex caryophyllea,3
+445449,Carex praecox,62.5
+445449,Dianthus carthusianorum agg.,3
+445449,Euphorbia cyparissias,0.5
+445449,Festuca valesiaca s. l.,15
+445449,Hypericum perforatum,0.5
+445449,Iris variegata,3
+445449,Linaria genistifolia,0.5
+445449,Phleum phleoides,0.5
+445449,Potentilla argentea,0.5
+445449,Scabiosa ochroleuca,0.5
+445449,Thesium ramosum,0.5
+445449,Thymus pannonicus agg.,0.5
+445449,Verbascum lychnitis,3
+445450,Achillea millefolium agg.,3
+445450,Anthoxanthum odoratum,0.5
+445450,Carex hirta,0.5
+445450,Dianthus carthusianorum agg.,3
+445450,Echium vulgare,0.5
+445450,Elymus repens,0.5
+445450,Euphorbia cyparissias,0.5
+445450,Festuca valesiaca s. l.,37.5
+445450,Phleum phleoides,0.5
+445450,Plantago lanceolata,15
+445450,Potentilla argentea,0.5
+445450,Veronica spicata,0.1
+445450,Rumex acetosella,3
+445450,Sedum acre,0.1
+445450,Silene otites,3
+445450,Verbascum lychnitis,0.5
+445462,Achillea millefolium agg.,15
+445462,Armeria elongata subsp. elongata,0.5
+445462,Arrhenatherum elatius,3
+445462,Carex praecox,3
+445462,Centaurea stoebe,3
+445462,Dianthus carthusianorum agg.,0.5
+445462,Elymus repens,3
+445462,Eryngium campestre,3
+445462,Euphorbia cyparissias,0.5
+445462,Falcaria vulgaris,0.5
+445462,Festuca valesiaca s. l.,39.375
+445462,Koeleria macrantha,15
+445462,Linaria genistifolia,0.5
+445462,Pimpinella saxifraga,3
+445462,Poa pratensis agg.,15
+445462,Potentilla argentea,3
+445462,Rumex thyrsiflorus,0.5
+445462,Securigera varia,3
+445462,Sedum acre,3
+445462,Thymus pannonicus agg.,15
+445462,Verbascum phoeniceum,0.5
+445462,Veronica prostrata,0.5
+445463,Achillea millefolium agg.,0.9975
+445463,Anchusa officinalis,0.1
+445463,Armeria elongata subsp. elongata,0.5
+445463,Arrhenatherum elatius,15
+445463,Carex praecox,15
+445463,Centaurea stoebe,0.5
+445463,Chondrilla juncea,0.5
+445463,Dianthus carthusianorum agg.,0.5
+445463,Eryngium campestre,0.5
+445463,Falcaria vulgaris,0.5
+445463,Festuca valesiaca s. l.,37.8125
+445463,Galium verum,0.5
+445463,Koeleria macrantha,3
+445463,Linaria genistifolia,0.5
+445463,Pimpinella saxifraga,3
+445463,Poa pratensis agg.,15
+445463,Potentilla argentea,3
+445463,Rumex thyrsiflorus,3
+445463,Salvia pratensis,15
+445463,Securigera varia,0.5
+445463,Sedum acre,0.5
+445463,Silene latifolia subsp. alba,0.5
+445463,Thymus pannonicus agg.,0.5
+445463,Verbascum chaixii subsp. austriacum,3
+445463,Verbascum phoeniceum,0.5
+445463,Veronica prostrata,0.5
+452435,Achillea millefolium agg.,15
+452435,Agrostis capillaris,15
+452435,Alopecurus pratensis,0.5
+452435,Anthoxanthum odoratum,0.5
+452435,Arrhenatherum elatius,0.5
+452435,Carex caryophyllea,0.5
+452435,Carex hirta,0.5
+452435,Carex praecox,15
+452435,Dianthus carthusianorum agg.,3
+452435,Festuca valesiaca s. l.,15
+452435,Galium verum,0.5
+452435,Hypericum perforatum,0.5
+452435,Knautia arvensis agg.,0.5
+452435,Koeleria macrantha,15
+452435,Viscaria vulgaris,0.5
+452435,Peucedanum oreoselinum,15
+452435,Phleum phleoides,0.5
+452435,Plantago lanceolata,0.5
+452435,Poa pratensis agg.,15
+452435,Potentilla argentea,0.5
+452435,Rumex acetosella,15
+452435,Rumex thyrsiflorus,3
+452435,Salvia pratensis,0.5
+452435,Stipa borysthenica,3
+452435,Thymus pannonicus agg.,0.5
+622109,Corynephorus canescens,37.5
+622109,Festuca psammophila subsp. dominii,0.5
+622109,Silene otites,0.5
+622109,Thymus serpyllum,3
+622119,Corynephorus canescens,37.5
+622119,Cynodon dactylon,3
+622119,Euphorbia seguieriana,0.5
+622119,Thymus serpyllum,15
+622121,Corynephorus canescens,15
+622121,Cynodon dactylon,3
+622121,Eryngium campestre,0.5
+622121,Euphorbia seguieriana,0.5
+622121,Helichrysum arenarium,0.5
+622121,Sedum sexangulare,0.5
+622121,Thymus serpyllum,3
+622123,Corynephorus canescens,37.5
+622123,Equisetum ramosissimum,3
+622123,Eryngium campestre,0.5
+622123,Euphorbia seguieriana,0.5
+622123,Helichrysum arenarium,0.5
+622123,Hypericum perforatum,0.5
+622123,Thymus serpyllum,3
+622127,Corynephorus canescens,37.5
+622127,Hypericum perforatum,3
+622127,Jasione montana,0.5
+622127,Petrorhagia saxifraga,3
+622127,Potentilla verna agg.,0.5
+622128,Carex hirta,0.5
+622128,Corynephorus canescens,37.5
+622128,Cynodon dactylon,3
+622128,Eryngium campestre,0.5
+622128,Jasione montana,0.5
+622128,Potentilla verna agg.,0.5
+622128,Thymus serpyllum,0.5
+622132,Calamagrostis epigejos,15
+622132,Carex hirta,37.5
+622132,Equisetum arvense,15
+622132,Oenothera species,3
+622132,Rumex acetosella,0.5
+622135,Corynephorus canescens,37.5
+622135,Euphorbia seguieriana,0.5
+622135,Thymus serpyllum,3
+622143,Carex hirta,3
+622143,Corynephorus canescens,3
+622143,Euphorbia cyparissias,3
+622143,Festuca psammophila subsp. dominii,15
+622143,Jasione montana,0.5
+624692,Achillea millefolium agg.,0.5
+624692,Carex hirta,15
+624692,Corynephorus canescens,0.5
+624692,Erigeron acris agg.,0.5
+624692,Eryngium campestre,0.5
+624692,Euphorbia cyparissias,0.5
+624692,Festuca valesiaca s. l.,37.5
+624692,Jasione montana,0.5
+624692,Potentilla verna agg.,0.5
+624692,Rumex acetosella,15
+624692,Stipa borysthenica,3
+624692,Thymus serpyllum,0.5
+624694,Carex hirta,0.5
+624694,Chondrilla juncea,0.5
+624694,Echium vulgare,0.5
+624694,Eryngium campestre,0.5
+624694,Erysimum diffusum agg.,0.5
+624694,Euphorbia cyparissias,0.5
+624694,Linaria genistifolia,0.5
+624694,Potentilla verna agg.,0.5
+624694,Rumex acetosella,37.5
+624694,Thymus serpyllum,0.5
+624697,Achillea millefolium agg.,0.5
+624697,Anchusa officinalis,0.5
+624697,Carex hirta,0.5
+624697,Corynephorus canescens,15
+624697,Elymus repens,0.5
+624697,Erysimum diffusum agg.,0.5
+624697,Euphorbia cyparissias,0.5
+624697,Potentilla verna agg.,0.5
+624697,Rumex acetosella,0.5
+624697,Thymus serpyllum,0.5
+624744,Achillea millefolium agg.,0.5
+624744,Agrostis capillaris,0.5
+624744,Armeria elongata subsp. elongata,0.5
+624744,Carex stenophylla,0.5
+624744,Corynephorus canescens,15
+624744,Cynodon dactylon,0.5
+624744,Dianthus serotinus,0.5
+624744,Echium vulgare,0.5
+624744,Equisetum ramosissimum,0.5
+624744,Eryngium campestre,0.5
+624744,Euphorbia seguieriana,0.5
+624744,Festuca psammophila subsp. dominii,37.5
+624744,Helichrysum arenarium,15
+624744,Hypericum perforatum,0.5
+624744,Jasione montana,0.5
+624744,Oenothera species,0.5
+624744,Petrorhagia saxifraga,0.5
+624744,Pinus sylvestris,0.5
+624744,Plantago lanceolata,3
+624744,Potentilla verna agg.,0.5
+624744,Sedum sexangulare,3
+624744,Thymus serpyllum,3
+624745,Carex stenophylla,0.5
+624745,Corynephorus canescens,0.5
+624745,Cynodon dactylon,15
+624745,Equisetum ramosissimum,0.5
+624745,Eryngium campestre,0.5
+624745,Festuca psammophila subsp. dominii,37.5
+624745,Hypericum perforatum,0.5
+624745,Koeleria glauca,37.5
+624745,Plantago lanceolata,0.5
+624745,Sedum sexangulare,0.5
+624745,Thymus serpyllum,3
+624750,Corynephorus canescens,62.5
+624750,Cynodon dactylon,3
+624750,Dianthus serotinus,3
+624750,Festuca psammophila subsp. dominii,3
+624750,Pinus sylvestris,0.5
+624750,Rumex acetosella,0.5
+624750,Thymus serpyllum,3
+624751,Corynephorus canescens,37.5
+624751,Cynodon dactylon,3
+624751,Equisetum ramosissimum,3
+624751,Eryngium campestre,0.5
+624751,Euphorbia cyparissias,0.5
+624751,Helichrysum arenarium,0.5
+624751,Rumex acetosella,0.5
+638289,Corynephorus canescens,0.5
+638289,Pinus sylvestris,0.1
+638316,Chondrilla juncea,0.5
+638316,Corynephorus canescens,0.5
+638316,Elymus repens,0.5
+638316,Equisetum arvense,0.5
+638316,Hypochaeris radicata,0.5
+638316,Jasione montana,0.5
+638316,Solidago virgaurea,0.5
+645703,Agrostis capillaris,15
+645703,Corynephorus canescens,15
+645703,Helichrysum arenarium,0.1
+645703,Holcus lanatus,0.1
+645703,Hypochaeris radicata,0.5
+645703,Jasione montana,15
+645703,Solidago virgaurea,0.1
