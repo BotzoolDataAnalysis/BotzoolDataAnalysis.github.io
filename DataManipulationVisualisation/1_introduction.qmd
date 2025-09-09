@@ -14,9 +14,23 @@ We will work with R using the interface called **RStudio IDE**, in short **RStud
 
 ![](images/IA_clipboard1Tidyverse.png){fig-align="center" width="755"}
 
-Tidyverse is a collection of R packages for transforming and visualizing data, which share an underlying philosophy (tidy data, tibbles, %\>%) and common interface. When you install the `tidyverse`, you get all the core packages at once, namely `dplyr`, `tibble`, `ggplot2`, `readr`,`tidyr`, `stringr`, `forcats`,`lubridate`and`purr`.
+Tidyverse is a collection of R packages for transforming and visualizing data, which share an underlying philosophy (tidy data, tibbles, %\>%) and common interface. When you install the `tidyverse`, you get all the core packages at once, namely
 
-In addition you get automatically installed also several more packages, which share the same approach, although developed later or by someone else, for example `readxl`, `magrittr`. Find more [`here`](https://www.tidyverse.org/).
+-   `readr` for data importing   
+-   `dplyr` with tools for data manipulation (e.g. select, filter, arrange, mutate...)
+-   `tidyr` with functions that help you get to tidy data and transform their format (e.g.pivot)
+-   `tibble` introducing simple dataframes called tibbles
+-   `ggplot2` package for data visualisation
+-   `stringr`for working with strings, matching defined patterns, clean unwanted parts 
+-   `forcats` which enables easier work with factors
+-   `lubridate`helping to work with date-times
+-   `purr` which offers complete and consistent set of tools for working with functions and vectors, introduces map function instead of complicated loops
+
+In addition you get automatically installed also several more packages, which share the same approach, although developed later or by someone else, for example
+-   `readxl` elegant direct import from Excel files
+-   `magrittr`package where the pipe was originally introduced, including double-sided pipe  
+
+Find more about tidyverse [`here`](https://www.tidyverse.org/) or check cheatsheets and vignettes for individual packages.
 
 Remember, that all the core packages are activated within the tidyverse library
 
@@ -80,7 +94,8 @@ data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-
   mutate(Productivity = ifelse(Biomass < 100, "low", "high")) %>%
   select(PlotID, ForestTypeName, Productivity, pH_KCl) %>%
   arrange(desc(pH_KCl)) %>%
-  slice_head(n = 20)
+  slice_head(n = 20) %>%
+  print()
 ```
 
 Note: It is even possible to overwrite original dataset with an assignment pipe %\<\>% included in `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
@@ -154,6 +169,8 @@ data <- data %>%
     "\\s", "."))) #remove spaces
 ```
 
+\- or use the function clean_names from package janitor
+
 ## 1.3 Data import
 
 import data with Tidyverse: readr, readxl (see cheatsheet)
@@ -163,13 +180,15 @@ check the folder content
 ```{r}
 list.files() #all files in the working=project directory
 list.files("data") #content of data folder
+
 list.files("data/forest_understory") #content of subfolder
+
 ```
 
 we will work with the forest dataset, try importing different data
 
 ```{r}
-data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 ```
 
 few tips how to check the structure
@@ -189,9 +208,13 @@ Knowing that I am lost in "Regular expressions" already helps to ask more specif
 
 -   Cheatsheets
 
+-   R studio help
+
+-   R studio community <https://forum.posit.co/>
+
 -   Vignettes
 
--   StackOverFlow
+-   [**Stack Overflow**](https://stackoverflow.com/). You probably already came across Stack Overflow if you were trying to Google something, as it suggests answers to coding related questions. It is a good environment to ask questions or try to find if somebody already asked the same things before. Be specific about the coding style. E.g. How to separate variable using tidyverse?
 
 -   GitHub
 
@@ -200,11 +223,19 @@ Knowing that I am lost in "Regular expressions" already helps to ask more specif
 Or just come and ask!
 
 ## 1.5 Exercises
+For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder
+[`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/a3803acec824e44acae72b4cac405d6bb538030b/DataManipulationVisualisation/data)
 
+There will be some obligatory tasks, while voluntarily tasks will be marked by *.
+
+In this chapter:
 1.  Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections.
-2.  Find cheatsheet for ReadXl and find out how to import second sheet of Excel file.
-3.  Try import of a file via Rstudio and describe pros/cons.
-4.  Check the messy data, try to fix them and import.
+2. Create another project and script, try switching between.
+3. Download data from xxx, save them into your data folder and import them to the working environment, ... 
+2. *Find a cheatsheet for readxl and find out how to import second sheet of Excel file.
+3. Try import of a file via Rstudio and describe pros/cons.
+4. Check the xxx, in the folder messy data, try to fix them and import.
+5.  \*Do you know what is reprex and how to prepare it?
 
 ## 1.6 Further reading
 
@@ -212,7 +243,7 @@ RStudio: Download and basic information <https://posit.co/download/rstudio-deskt
 
 David Zelený: Tutorial how to install R and Rstudio <https://www.davidzeleny.net/anadat-r/doku.php/en:r>
 
-Datacamp: Tutorial for R studio <https://www.datacamp.com/tutorial/r-studio-tutorial?utm_cid=19589720821&utm_aid=157156375351&utm_campaign=230119_1-ps-other~dsa~tofu_2-b2c_3-emea_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9209603-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~emea-en~dsa~tofu~tutorial-r-programming&gad_source=1&gad_campaignid=19589720821&gbraid=0AAAAADQ9WsGYLLxwdtiAlqFG_Qtdjkbvf&gclid=CjwKCAjwt-_FBhBzEiwA7QEqyP2ZGSuRbUrCK9jKWmxUdqNp8w6Lb1Ou4EAPR1-2M2VRcaX6b0UU8hoCDWcQAvD_BwE>
+Datacamp: Tutorial for R studio [`here`](https://www.datacamp.com/tutorial/r-studio-tutorial?utm_cid=19589720821&utm_aid=157156375351&utm_campaign=230119_1-ps-other~dsa~tofu_2-b2c_3-emea_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9209603-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~emea-en~dsa~tofu~tutorial-r-programming&gad_source=1&gad_campaignid=19589720821&gbraid=0AAAAADQ9WsGYLLxwdtiAlqFG_Qtdjkbvf&gclid=CjwKCAjwt-_FBhBzEiwA7QEqyP2ZGSuRbUrCK9jKWmxUdqNp8w6Lb1Ou4EAPR1-2M2VRcaX6b0UU8hoCDWcQAvD_BwE)
 
 Why to organise your work in projects <https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>
 
