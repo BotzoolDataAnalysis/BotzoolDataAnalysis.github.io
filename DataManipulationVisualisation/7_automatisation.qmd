@@ -104,7 +104,8 @@ Till now, we have written several vector functions that might be used within `dp
 spe_long <- read_csv('data/sands/sands_spe_long.csv')
 glimpse(spe_long)
 
-head <- read_csv('data/sands/sands_head.csv')
+head <- read_csv('data/sands/sands_head.csv') |> 
+  select(releve_nr, cluster)
 glimpse(head)
 ```
 
@@ -211,6 +212,7 @@ We got a list with 12 data frames. To access the first element of the list, we w
 To combine all data frames in a list, we can use `list_rbind()`:
 
 ```{r}
+#| warning: false
 gapminder_df <- map(paths, ~read_csv(.x)) |> 
   list_rbind()
 glimpse(gapminder_df)
@@ -219,6 +221,7 @@ glimpse(gapminder_df)
 But we somehow lost the information about the year. To fix it, we store the file names in the data frame. First step is to set names of the list elements of `paths`, the `basename()` function extracts just the file name from the path. Second, we save the names in a resulting data frame to a column called `year`.
 
 ```{r}
+#| warning: false
 gapminder_df <- paths |> 
   set_names(basename) |> 
   map(~read_csv(.x)) |> 
@@ -229,6 +232,7 @@ glimpse(gapminder_df)
 Still not perfect, it would be nice to extract just the year from the file name. The easiest way to do it in this case is to use the `parse_number()` function that extracts just a number from a string:
 
 ```{r}
+#| warning: false
 gapminder_df <- paths |> 
   set_names(basename) |> 
   map(~read_csv(.x)) |> 
@@ -380,7 +384,7 @@ The use of nested data frames and `broom` has great potential. Depending on the 
 
 6.  Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
 
-7.  Do the same using `purrr` functions.
+7.  \* Do the same using `purrr` functions.
 
 ## Further reading
 
