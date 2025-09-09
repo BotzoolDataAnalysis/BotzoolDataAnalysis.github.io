@@ -43,7 +43,7 @@ Find more in the R for data science book <https://r4ds.hadley.nz/>
 Tibbles are new, updated versions of base-R data frames. They are designed to work better with other tidyverse packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g. strings to factors), they never change the names of variables, and they never create row names. Example:
 
 ```{r}
-data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 tibble (data)
 ```
 
@@ -56,7 +56,7 @@ See this example of the same steps with different approaches\>
 Base R method
 
 ```{r}
-data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx")
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 # 1. Create new variable in the data
 data$Productivity <- ifelse(data$Biomass < 60, "low", "high")
 
@@ -76,7 +76,7 @@ df_top20
 Piping (the same steps, but just in one line)
 
 ```{r}
-data <- read_excel("data/Forest-understory-diversity_IA/Axmanova-Forest-understory-diversity-analyses.xlsx") %>%
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") %>%
   mutate(Productivity = ifelse(Biomass < 100, "low", "high")) %>%
   select(PlotID, ForestTypeName, Productivity, pH_KCl) %>%
   arrange(desc(pH_KCl)) %>%
@@ -163,7 +163,7 @@ check the folder content
 ```{r}
 list.files() #all files in the working=project directory
 list.files("data") #content of data folder
-list.files("data/Forest-understory-diversity_IA") #content of subfolder
+list.files("data/forest_understory") #content of subfolder
 ```
 
 we will work with the forest dataset, try importing different data

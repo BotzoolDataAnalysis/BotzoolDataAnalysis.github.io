@@ -1,0 +1,15 @@
+{
+  "hash": "62478a35c396f85eab84fb5e3a2259f5",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"1 Introduction\"\n---\n\n\n\n\n## Tidy script\n\nFew useful tips how to handle your scripts tidy:\n\n1.  **use projects**\n\n-   create directories data, results, maps, backup etc.\n\n2.  **libraries**\n\n-   list all the libraries you need at the beginning of the script\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(readxl)\n```\n:::\n\n\n\n\n3.  **remarks**\n\n-   `ctrl + shift + C` will change the text to non-active (marked with hash tags #)\n\n-   add notes to your scripts, you will be grateful later\n\n4.  **separate scripts or sections**\n\n-   `ctrl + shift + R` insert named section\n\n-   use 4x`#`\n\n-   `Alt + O` fold all\n\n-   `Shift + Alt + O` unfold all\n\n5.  **names of variables**\n\n-   short and easy to handle, without spaces, strange symbols\n\n-   rename strange names one by one\n\n-   `%>% rename (ReleveNr = \"Releve number\")`\n\n-   or change all difficult patterns at once\n\n-   RegEx Regular expression\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nenv <- env %>%\n   rename_all(~ str_replace_all(., c(\n    \"\\\\.\" = \"\",     #remove dots in the variable names\n    \"\\\\mÂ²\" = \"m2\",\n    \"\\\\Â°\" = \"deg\",\n    \"\\\\%\" = \"perc\", # remove symbol % and change it to perc\n    \"\\\\(\" = \"\",\n    \"\\\\)\" = \"\",\n    \"\\\\/\" = \"\",\n    \"\\\\?\" = \"\",\n    \"\\\\s\", \".\"))) #remove spaces\n```\n:::\n\n\n\n\n6.  **piping**\n\n-   pipe binds individual steps into a sequence\n\n-   `ctrl+shift+M` inserts a pipe `%>%` or `|>`\n\n**extra reading**\n\n<https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>\n\n<https://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
