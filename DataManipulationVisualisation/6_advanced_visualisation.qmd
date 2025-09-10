@@ -27,6 +27,7 @@ To produce any plot, `ggplot` needs **data**, **mapping** and at least one **lay
 We will again use the penguin dataset and play with the individual plot parts.
 
 ```{r}
+#| warning: false
 library(palmerpenguins)
 library(tidyverse)
 
