@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -156,32 +190,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/7_automatisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">7 Automatisation</span></a>
+  <a href="../DataManipulationVisualisation/7_8_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 + 8 Automatisation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/8_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8 Maps</span></a>
+  <a href="../DataManipulationVisualisation/9_10_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 + 10 Maps</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/9_advanced_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 Advanced maps</span></a>
+  <a href="../DataManipulationVisualisation/11_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 From a database to a plot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/10_database_to_plot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10 From a database to a plot</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/11_github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11 GitHub</span></a>
+  <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 GitHub</span></a>
   </div>
 </li>
       </ul>
@@ -208,8 +236,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises">Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  <li><a href="#faceting" id="toc-faceting" class="nav-link active" data-scroll-target="#faceting">6.1 Faceting</a></li>
+  <li><a href="#data-argument" id="toc-data-argument" class="nav-link" data-scroll-target="#data-argument">6.2 Data argument</a></li>
+  <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales">6.3 Scales</a></li>
+  <li><a href="#position-adjustments" id="toc-position-adjustments" class="nav-link" data-scroll-target="#position-adjustments">6.4 Position adjustments</a></li>
+  <li><a href="#legend-modifications" id="toc-legend-modifications" class="nav-link" data-scroll-target="#legend-modifications">6.5 Legend modifications</a></li>
+  <li><a href="#composing-plots-together" id="toc-composing-plots-together" class="nav-link" data-scroll-target="#composing-plots-together">6.6 Composing plots together</a></li>
+  <li><a href="#useful-extensions" id="toc-useful-extensions" class="nav-link" data-scroll-target="#useful-extensions">6.7 Useful extensions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">6.8 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">6.9 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -235,31 +270,193 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>You already know how to make basic plots using <code>ggplot</code> functions. We’ll now</p>
-<p>ggplot advanced</p>
-<p>data argument - highlight subset of points</p>
-<p>playing with colors, shapes, text, ggrepel, alpha, sizes, different geoms - violin, jitter, path, segment</p>
-<p>multiple layers in one plot</p>
-<p>position in barplot</p>
-<p>aesthetic specifications vignette: <a href="#0">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a></p>
-<p>faceting</p>
-<p>multiple plots together - patchwork</p>
-<p>legend position etc</p>
-<p>axis transformation, limits, spaces</p>
+<p>You already know how to make basic plots using <code>ggplot</code> functions. We’ll now dive deeper into data visualisation tools in R and again use mostly <code>ggplot2</code> package and its extensions.</p>
+<p>Every plot in <code>ggplot</code> consists of 7 parts that together serve as instructions on how to draw a plot:</p>
+<p><img src="images/clipboard-3562791479.png" class="img-fluid"></p>
+<p>To produce any plot, <code>ggplot</code> needs <strong>data</strong>, <strong>mapping</strong> and at least one <strong>layer</strong>. The other parts have some defaults, but often need adjustments for better appearance.</p>
+<ul>
+<li><p><strong>Data</strong> - preferably as a tidy tibble</p></li>
+<li><p><strong>Mapping</strong> - instructions, how the data should be displayed, usually defined using <code>aes()</code> to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot</p></li>
+<li><p><strong>Layers</strong> - graphical representation of the data, usually defined by the <code>geom</code> functions, e.g.&nbsp;<code>geom_point()</code>, <code>geom_line()</code>, <code>geom_bar()</code>, <code>geom_boxplot()</code>, note that layers are added to the plot in the order you write them in the code, so the last <code>geom</code> you added will be displayed on top</p></li>
+<li><p><strong>Scales</strong> - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes etc., to modify the defaults use <code>scale</code> functions</p></li>
+<li><p><strong>Facets</strong> - split data into smaller panels based on one or more variables</p></li>
+<li><p><strong>Coordinates</strong> - typically Cartesian coordinates, important to set for map projections or polar plots</p></li>
+<li><p><strong>Theme</strong> - controls the overall appearance of the plot not controlled by the data, can be used for customization of the legend position, background colour, sizes of axis labels and many more</p></li>
+</ul>
+<p>We will again use the penguin dataset and play with the individual plot parts.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'palmerpenguins' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+<section id="faceting" class="level2">
+<h2 class="anchored" data-anchor-id="faceting">6.1 Faceting</h2>
+<p>From Chapter 3, you already know, how to visualise the relationship between the penguin bill length and bill depth.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> species), <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)) <span class="sc">+</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Bill length (mm)'</span>, <span class="at">y =</span> <span class="st">'Bill depth (mm)'</span>, <span class="at">fill =</span> <span class="st">'Species'</span>, <span class="at">shape =</span> <span class="st">'Species'</span>) <span class="sc">+</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>But what if we now want to look at the differences between males and females? We could change the definition of the fill and colour aesthetics, so that they display sex and keep just shape for species identity:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> sex, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sex), <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)) <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Bill length (mm)'</span>, <span class="at">y =</span> <span class="st">'Bill depth (mm)'</span>, <span class="at">fill =</span> <span class="st">'Sex'</span>, <span class="at">shape =</span> <span class="st">'Species'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>But as you see, it gets a bit hard to orient in the plot. There are some NA values in the sex column, which would be better removed so that they do not add a mess to the plot. And what about splitting the plot into three smaller plots, one for each species? This is where facetting comes into play.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> sex, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sex), <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)) <span class="sc">+</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Bill length (mm)'</span>, <span class="at">y =</span> <span class="st">'Bill depth (mm)'</span>, <span class="at">fill =</span> <span class="st">'Sex'</span>, <span class="at">shape =</span> <span class="st">'Species'</span>) <span class="sc">+</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)<span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Much better, but do we really need the different shapes for different species if we have them now in different facets? It would be better to add shape differentiation to the sex variable as not everyone is able to distinguish colours. It might also help in the legend, where we now have just black dots for both levels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> sex, <span class="at">shape =</span> sex)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sex), <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)) <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Bill length (mm)'</span>, <span class="at">y =</span> <span class="st">'Bill depth (mm)'</span>, <span class="at">fill =</span> <span class="st">'Sex'</span>, <span class="at">shape =</span> <span class="st">'Sex'</span>) <span class="sc">+</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)<span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can now clearly see that for Adélie penguins, there is a positive relationship between bill length and bill depth for females, but not for males. On the other hand, for Chinstrap penguins, the relationship is stronger for males than for females.</p>
+</section>
+<section id="data-argument" class="level2">
+<h2 class="anchored" data-anchor-id="data-argument">6.2 Data argument</h2>
+<p>Till now, we have worked just with one data frame for the whole plot. You might remember that it is possible to place aesthetic mappings (<code>aes()</code>) either in the <code>ggplot()</code> call, and then it works for the whole plot, or in a <code>geom</code> function, which then overwrites the global mappings for that layer only. The same is possible for the data argument. We can define a different dataset for a certain layer to add, e.g., points from another dataset or highlight a subset of the data.</p>
+<p>As an example, we will draw a scatterplot of penguin body mass vs flipper length, where we highlight penguins from the Dream island with bigger red points:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm))<span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> penguins <span class="sc">|&gt;</span> <span class="fu">filter</span>(island <span class="sc">==</span> <span class="st">'Dream'</span>), <span class="at">colour =</span> <span class="st">'red'</span>, <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that we added specifications of the point appearance of the highlighted point in the <code>geom_point()</code> function outside the <code>aes()</code>. This means the characteristics are fixed for that layer and do not change according to the data. All the points of that layer will always be red and of size 3.</p>
+</section>
+<section id="scales" class="level2">
+<h2 class="anchored" data-anchor-id="scales">6.3 Scales</h2>
+<p>colour palettes, limits, expand, labels, axis transformation</p>
+</section>
+<section id="position-adjustments" class="level2">
+<h2 class="anchored" data-anchor-id="position-adjustments">6.4 Position adjustments</h2>
+</section>
+<section id="legend-modifications" class="level2">
+<h2 class="anchored" data-anchor-id="legend-modifications">6.5 Legend modifications</h2>
+<p>legend position</p>
+</section>
+<section id="composing-plots-together" class="level2">
+<h2 class="anchored" data-anchor-id="composing-plots-together">6.6 Composing plots together</h2>
+<p>patchwork</p>
+</section>
+<section id="useful-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="useful-extensions">6.7 Useful extensions</h2>
 <p>ggpubr</p>
 <p>ggeffects</p>
 <p>shiny trailer</p>
+</section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<h2 class="anchored" data-anchor-id="exercises">6.8 Exercises</h2>
 <ol type="1">
+<li><code>facet_wrap()</code> facets the plot according to one variable, look in the documentation, what the related function <code>facet_grid()</code> does and use it to make a plot of penguin bill length and bill depth faceted by species and island.</li>
+<li>Use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, from the <code>gapminder</code> package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. * Make the size of the points proportional to the country population size.</li>
+<li>plot xx</li>
+<li>plot yy</li>
 <li>recreate a plot</li>
+<li>Save all plots you created so far to the <code>plots</code> folder.</li>
 </ol>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">6.9 Further reading</h2>
 <p>ggplot2 vignette: <a href="https://ggplot2.tidyverse.org" class="uri">https://ggplot2.tidyverse.org</a></p>
 <p>R 4 Data Science: <a href="http://127.0.0.1:46175/#0" title="https://r4ds.hadley.nz/visualize.html">https://r4ds.hadley.nz/visualize.html</a></p>
 <p>Cheatsheet: <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html" class="uri">https://rstudio.github.io/cheatsheets/html/data-visualization.html</a></p>
+<p>Aesthetics specifications vignette: <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a></p>
 <p>ggplot2: Elegant Graphics for Data Analysis (3e): <a href="https://ggplot2-book.org" class="uri">https://ggplot2-book.org</a></p>
 <p>R Graphics Cookbook: <a href="https://r-graphics.org" class="uri">https://r-graphics.org</a></p>
 <p>ggplot Extensions: <a href="https://exts.ggplot2.tidyverse.org/gallery" class="uri">https://exts.ggplot2.tidyverse.org/gallery</a></p>

@@ -34,16 +34,14 @@ website:
             href: DataManipulationVisualisation/5_join_functions.qmd
           - text: "6 Advanced data visualisation"
             href: DataManipulationVisualisation/6_advanced_visualisation.qmd
-          - text: "7 Automatisation"
-            href: DataManipulationVisualisation/7_automatisation.qmd
-          - text: "8 Maps"
-            href: DataManipulationVisualisation/8_maps.qmd
-          - text: "9 Advanced maps"
-            href: DataManipulationVisualisation/9_advanced_maps.qmd
-          - text: "10 From a database to a plot"
-            href: DataManipulationVisualisation/10_database_to_plot.qmd
-          - text: "11 GitHub"
-            href: DataManipulationVisualisation/11_github.qmd
+          - text: "7 + 8 Automatisation"
+            href: DataManipulationVisualisation/7_8_automatisation.qmd
+          - text: "9 + 10 Maps"
+            href: DataManipulationVisualisation/9_10_maps.qmd
+          - text: "11 From a database to a plot"
+            href: DataManipulationVisualisation/11_database_to_plot.qmd
+          - text: "12 GitHub"
+            href: DataManipulationVisualisation/12_github.qmd
         
       - text: "Community Ecology"
         href: CommunityEcology/community_ecology.qmd

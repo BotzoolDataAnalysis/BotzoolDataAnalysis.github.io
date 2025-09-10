@@ -1,5 +1,0 @@
----
-title: "10 From a database to a plot"
-format: html
----
-
