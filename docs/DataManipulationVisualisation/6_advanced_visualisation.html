@@ -239,12 +239,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#faceting" id="toc-faceting" class="nav-link active" data-scroll-target="#faceting">6.1 Faceting</a></li>
   <li><a href="#data-argument" id="toc-data-argument" class="nav-link" data-scroll-target="#data-argument">6.2 Data argument</a></li>
   <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales">6.3 Scales</a></li>
-  <li><a href="#position-adjustments" id="toc-position-adjustments" class="nav-link" data-scroll-target="#position-adjustments">6.4 Position adjustments</a></li>
-  <li><a href="#legend-modifications" id="toc-legend-modifications" class="nav-link" data-scroll-target="#legend-modifications">6.5 Legend modifications</a></li>
-  <li><a href="#composing-plots-together" id="toc-composing-plots-together" class="nav-link" data-scroll-target="#composing-plots-together">6.6 Composing plots together</a></li>
-  <li><a href="#useful-extensions" id="toc-useful-extensions" class="nav-link" data-scroll-target="#useful-extensions">6.7 Useful extensions</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">6.8 Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">6.9 Further reading</a></li>
+  <li><a href="#legend-modifications" id="toc-legend-modifications" class="nav-link" data-scroll-target="#legend-modifications">6.4 Legend modifications</a></li>
+  <li><a href="#composing-plots-together" id="toc-composing-plots-together" class="nav-link" data-scroll-target="#composing-plots-together">6.5 Composing plots together</a></li>
+  <li><a href="#useful-extensions" id="toc-useful-extensions" class="nav-link" data-scroll-target="#useful-extensions">6.6 Useful extensions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">6.7 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">6.8 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -404,30 +403,269 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="scales" class="level2">
 <h2 class="anchored" data-anchor-id="scales">6.3 Scales</h2>
-<p>colour palettes, limits, expand, labels, axis transformation</p>
-</section>
-<section id="position-adjustments" class="level2">
-<h2 class="anchored" data-anchor-id="position-adjustments">6.4 Position adjustments</h2>
+<p>Scale functions always follow the pattern <code>scale_{aesthetic}_{type}</code>. We already used <code>scale_shape_manual()</code> to manually rewrite the default shapes used in the plot. We can use scales to modify values, limits, breaks or labels of any aesthetics in our plot, typically colour, fill, and shape. To define desired values on your own, you can use manual scale definition, but there are many other types, e.g.&nbsp;continuous (useful, e.g., for defining labels for continuous variables), discrete (e.g.&nbsp;labels for discrete variables), gradient (e.g.&nbsp;for defining colour gradient for continuous variables). <code>scale_x_{type}</code> and <code>scale_y_{type}</code> are useful to define axis limits, ticks and labels.</p>
+<p>We will use the example of penguin body mass vs.&nbsp;flipper length and modify different scales of this plot. First of all, we will show with different colours on which island the penguins were measured. To change the default colours, we can define our own colours using <code>scale_fill_manual()</code> and the <code>values</code> argument inside, similarly to what we did for the shape before. But we can also use a predefined colour scale, e.g.&nbsp;from <a href="https://colorbrewer2.org">colour brewer</a> using <code>scale_fill_brewer()</code>. We can also modify the labels in the legend by using the argument <code>labels</code>. Let’s say we want to add the word ‘Island’ to each label:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> island))<span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">type =</span> <span class="st">'qual'</span>, <span class="at">palette =</span> <span class="dv">7</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Dream'</span> <span class="ot">=</span> <span class="st">'Dream Island'</span>, <span class="st">'Biscoe'</span> <span class="ot">=</span> <span class="st">'Biscoe Island'</span>, <span class="st">'Torgersen'</span> <span class="ot">=</span> <span class="st">'Torgersen Island'</span>))<span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Island'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We used <code>type = 'qual'</code> inside <code>scale_color_brewer()</code> to use colours appropriate for discrete values. You can experiment with many more such colour scales that are already available.</p>
+<p>Instead of colouring the points according to the island, we can also use colours to show a numerical variable, e.g.&nbsp;year when the measurement was taken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> year))<span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that the plot automatically chooses a continuous colour scale instead of the discrete one before, and the legend now shows a range from the lowest to the highest value. But for the year, it doesn’t really make sense to show decimals. We can modify this using <code>scale_fill_continuous()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> year))<span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2007</span>, <span class="dv">2008</span>, <span class="dv">2009</span>))<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Scales are also useful to set limits, breaks or labels on the plot axes. For example, we might want to zoom only to the penguins with body mass between 3000 and 5000 g:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> year))<span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2007</span>, <span class="dv">2008</span>, <span class="dv">2009</span>))<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">5000</span>))<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 72 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that when we do this, we get a warning message, indicating how many points were not displayed because they are outside the defined range. That’s just to prevent us from accidentally missing them.</p>
+<p>It is even possible to transform the axis using the <code>transform</code> argument or shortcuts for commonly used transformations, e.g.&nbsp;<code>scale_x_log10()</code>.</p>
 </section>
 <section id="legend-modifications" class="level2">
-<h2 class="anchored" data-anchor-id="legend-modifications">6.5 Legend modifications</h2>
-<p>legend position</p>
+<h2 class="anchored" data-anchor-id="legend-modifications">6.4 Legend modifications</h2>
+<p>In all the plots we made so far, the legend was by default placed on the right side next to the plot. Sometimes it is helpful to move it somewhere else, for example, due to space constraints. Legend position might be modified inside the <code>theme()</code> function. We can move it to the bottom of the plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> island))<span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">type =</span> <span class="st">'qual'</span>, <span class="at">palette =</span> <span class="dv">7</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Dream'</span> <span class="ot">=</span> <span class="st">'Dream Island'</span>, <span class="st">'Biscoe'</span> <span class="ot">=</span> <span class="st">'Biscoe Island'</span>, <span class="st">'Torgersen'</span> <span class="ot">=</span> <span class="st">'Torgersen Island'</span>))<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)<span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Island'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sometimes, there is a space inside the plot, so it is possible to place the legend there and reduce the image size. In this case, we have to specify two arguments, <code>legend.position()</code> and <code>legend.justification()</code>. The values should indicate coordinates on the two axes and have values of 0-1, where 0 means the beginning of the axis and 1 the end. For example, 0, 0 means the bottom left corner of the plot, 1, 1 the top right corner.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, flipper_length_mm, <span class="at">fill =</span> island))<span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">type =</span> <span class="st">'qual'</span>, <span class="at">palette =</span> <span class="dv">7</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Dream'</span> <span class="ot">=</span> <span class="st">'Dream Island'</span>, <span class="st">'Biscoe'</span> <span class="ot">=</span> <span class="st">'Biscoe Island'</span>, <span class="st">'Torgersen'</span> <span class="ot">=</span> <span class="st">'Torgersen Island'</span>))<span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Body mass (g)'</span>, <span class="at">y =</span> <span class="st">'Flipper length (mm)'</span>, <span class="at">fill =</span> <span class="st">'Island'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2
+3.5.0.
+ℹ Please use the `legend.position.inside` argument of `theme()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To remove the legend completely, set <code>legend.position = 'none'</code>.</p>
+<p>The <code>theme()</code> function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to <code>element_blank()</code>, modify the text size, label angle, ticks length, background grid colour and many more. See the <a href="https://ggplot2.tidyverse.org/reference/theme.html">documentation</a> for more details.</p>
 </section>
 <section id="composing-plots-together" class="level2">
-<h2 class="anchored" data-anchor-id="composing-plots-together">6.6 Composing plots together</h2>
-<p>patchwork</p>
+<h2 class="anchored" data-anchor-id="composing-plots-together">6.5 Composing plots together</h2>
+<p>Sometimes it is useful to combine multiple plots in one figure with multiple panels. This might be easily done using the <a href="https://patchwork.data-imaginist.com/index.html"><code>patchwork</code></a> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'patchwork' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<p>(Please place this line at the top of your script.)</p>
+<p>Let’s say we want to make one figure showing the relationship between the penguin bill length and bill depth for the three penguin species and a boxplot showing the distribution of body mass for individual species next to each other.</p>
+<p>We will first create these two plots and save them to an object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> species), <span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">24</span>)) <span class="sc">+</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Bill length (mm)'</span>, <span class="at">y =</span> <span class="st">'Bill depth (mm)'</span>, <span class="at">fill =</span> <span class="st">'Species'</span>, <span class="at">shape =</span> <span class="st">'Species'</span>) <span class="sc">+</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">'Body mass (g)'</span>, <span class="at">fill =</span> <span class="st">'Species'</span>) <span class="sc">+</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And then combine the two plots together:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So easy it is. And we can play more with the plot layout. Some useful functionalities of the patchwork package are that you can add annotations to the plots to identify individual panels:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or collect all legends of the subplots and place them in one place:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">'collect'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="useful-extensions" class="level2">
-<h2 class="anchored" data-anchor-id="useful-extensions">6.7 Useful extensions</h2>
-<p>ggpubr</p>
-<p>ggeffects</p>
-<p>shiny trailer</p>
+<h2 class="anchored" data-anchor-id="useful-extensions">6.6 Useful extensions</h2>
+<p>It is possible to do almost everything you would imagine using <code>ggplot2</code> and its <a href="https://exts.ggplot2.tidyverse.org/gallery">extensions</a>. We do not have time to cover all of that during this semester, but you are very welcome to experiment and explore this world on your own.</p>
+<p>Just a few tips for packages we personally find very useful for our work:</p>
+<ul>
+<li><p><a href="https://rpkgs.datanovia.com/ggpubr"><code>ggpubr</code></a> to make publication-ready plots - some easy-to-use functions for creating and customising <code>ggplot</code> plots</p></li>
+<li><p><a href="https://strengejacke.github.io/ggeffects"><code>ggeffects</code></a> to calculate model predictions and plot them (will be replaced by <a href="https://easystats.github.io/modelbased/index.html"><code>modelbased</code></a>, but the functionality shouldn’t be lost)</p></li>
+<li><p><code>gordi</code> a ggplot-based package for making ordination plots, developed in our group (coming soon 😉)</p></li>
+<li><p><a href="https://eliocamp.github.io/ggnewscale"><code>ggnewscale</code></a> to use multiple colour or fill scales in the same plot, especially useful for maps</p></li>
+<li><p><a href="https://shiny.posit.co"><code>shiny</code></a> for creating web apps from R</p></li>
+</ul>
 </section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">6.8 Exercises</h2>
+<h2 class="anchored" data-anchor-id="exercises">6.7 Exercises</h2>
 <ol type="1">
 <li><code>facet_wrap()</code> facets the plot according to one variable, look in the documentation, what the related function <code>facet_grid()</code> does and use it to make a plot of penguin bill length and bill depth faceted by species and island.</li>
 <li>Use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, from the <code>gapminder</code> package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. * Make the size of the points proportional to the country population size.</li>
+<li>Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.</li>
+<li>Combine the two plots using <code>p1 / p2</code>. What is the difference compared to <code>p1 + p2</code>? Add annotations ‘A’ and ‘B’ to the panels. * Modify the legend so that there is only one legend with coloured points at the bottom.</li>
+<li>Use the dataset <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> and create four boxplots comparing Ellenberg-type indicator values in different forest types. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. * Turn the axis tick labels by 45°.</li>
 <li>plot xx</li>
 <li>plot yy</li>
 <li>recreate a plot</li>
@@ -435,13 +673,14 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </ol>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">6.9 Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">6.8 Further reading</h2>
 <p>ggplot2 vignette: <a href="https://ggplot2.tidyverse.org" class="uri">https://ggplot2.tidyverse.org</a></p>
 <p>R 4 Data Science: <a href="http://127.0.0.1:46175/#0" title="https://r4ds.hadley.nz/visualize.html">https://r4ds.hadley.nz/visualize.html</a></p>
 <p>Cheatsheet: <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html" class="uri">https://rstudio.github.io/cheatsheets/html/data-visualization.html</a></p>
 <p>Aesthetics specifications vignette: <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a></p>
 <p>ggplot2: Elegant Graphics for Data Analysis (3e): <a href="https://ggplot2-book.org" class="uri">https://ggplot2-book.org</a></p>
 <p>R Graphics Cookbook: <a href="https://r-graphics.org" class="uri">https://r-graphics.org</a></p>
+<p>patchwork vignette: <a href="https://patchwork.data-imaginist.com/index.html" class="uri">https://patchwork.data-imaginist.com/index.html</a></p>
 <p>ggplot Extensions: <a href="https://exts.ggplot2.tidyverse.org/gallery" class="uri">https://exts.ggplot2.tidyverse.org/gallery</a></p>
 <p>Mastering Shiny: <a href="https://mastering-shiny.org" class="uri">https://mastering-shiny.org</a></p>
 <p>Tutorial for effective visual science communication: <a href="https://ascpt.onlinelibrary.wiley.com/doi/full/10.1002/psp4.12455" class="uri">https://ascpt.onlinelibrary.wiley.com/doi/full/10.1002/psp4.12455</a></p>
