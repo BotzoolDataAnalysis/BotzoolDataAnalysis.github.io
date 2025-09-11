@@ -462,17 +462,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>- or change all difficult patterns at once, using RegEx Regular expressions</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co">#remove dots in the variable names</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">mÂ²"</span> <span class="ot">=</span> <span class="st">"m2"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">Â°"</span> <span class="ot">=</span> <span class="st">"deg"</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>, <span class="st">"."</span>))) <span class="co">#remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/messy_data/Example0.xlsx"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co">#remove dots in the variable names</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>, <span class="st">"."</span>))) <span class="co">#remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>- or use the function clean_names from package janitor</p>
 </section>
@@ -482,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>import data with Tidyverse: readr, readxl (see cheatsheet)</p>
 <p>check the folder content</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>() <span class="co">#all files in the working=project directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>() <span class="co">#all files in the working=project directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1_introduction.qmd"                  "1_introduction.rmarkdown"           
  [3] "11_database_to_plot.html"            "11_database_to_plot.qmd"            
@@ -491,18 +493,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  [9] "4_wide_vs_long.qmd"                  "5_join_functions.qmd"               
 [11] "6_advanced_visualisation.qmd"        "7_8_automatisation.qmd"             
 [13] "9_10_maps.qmd"                       "data"                               
-[15] "data_manipulation_visualisation.qmd" "exercises"                          
-[17] "images"                              "plots"                              
-[19] "results"                             "scripts"                            </code></pre>
+[15] "data_manipulation_visualisation.qmd" "images"                             
+[17] "plots"                               "scripts"                            </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>) <span class="co">#content of data folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>) <span class="co">#content of data folder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "acidophilous_grasslands" "basiphilous_grasslands" 
-[3] "forest_understory"       "gapminder"              
-[5] "gapminder_clean"         "gapminder_continent"    
-[7] "messy_data"              "sands"                  </code></pre>
+[3] "forest_understory"       "frozen_fauna"           
+[5] "gapminder"               "gapminder_clean"        
+[7] "gapminder_continent"     "messy_data"             
+[9] "sands"                  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>) <span class="co">#content of subfolder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>) <span class="co">#content of subfolder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Axmanova-Forest-env.xlsx"                             
 [2] "Axmanova-Forest-spe.xlsx"                             
@@ -514,11 +516,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>we will work with the forest dataset, try importing different data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>few tips how to check the structure</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 22
    PlotID ForestType ForestTypeName      Herbs Juveniles CoverE1 Biomass
@@ -540,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, `EIV_soil-reaction` &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;,
 #   TWI &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "PlotID"            "ForestType"        "ForestTypeName"   
  [4] "Herbs"             "Juveniles"         "CoverE1"          
@@ -551,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [19] "EIV_moisture"      "EIV_soil-reaction" "EIV_nutrients"    
 [22] "TWI"              </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 65
 Columns: 22
@@ -578,7 +580,7 @@ $ `EIV_soil-reaction` &lt;dbl&gt; 6.68, 4.67, 4.80, 5.53, 5.33, 6.75, 6.09, 5.07
 $ EIV_nutrients       &lt;dbl&gt; 4.31, 3.69, 3.55, 3.56, 3.46, 5.06, 4.33, 4.12, 3.…
 $ TWI                 &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     alluvial forest          oak forest oak hornbeam forest       ravine forest 
@@ -591,7 +593,7 @@ $ TWI                 &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.7417
 <p>Motto: <em>Majority of the problems in R can be solved if you know how to ask and where</em>.</p>
 <p>Knowing that I am lost in “Regular expressions” already helps to ask more specifically.</p>
 <ul>
-<li><p>Cheatsheets</p></li>
+<li><p><a href="https://posit.co/resources/cheatsheets/"><strong>Cheatsheets</strong></a> - the most important features of a given package summarised at two A4 pages, ready to print</p></li>
 <li><p>R studio help</p></li>
 <li><p>R studio community <a href="https://forum.posit.co/" class="uri">https://forum.posit.co/</a></p></li>
 <li><p>Vignettes</p></li>
@@ -603,9 +605,16 @@ $ TWI                 &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.7417
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">1.5 Exercises</h2>
-<p>For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/a3803acec824e44acae72b4cac405d6bb538030b/DataManipulationVisualisation/data"><code>Link to Github folder</code></a></p>
+<p>For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a></p>
 <p>There will be some obligatory tasks, while voluntarily tasks will be marked by *.</p>
-<p>In this chapter: 1. Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections. 2. Create another project and script, try switching between. 3. Download data from xxx, save them into your data folder and import them to the working environment, … 2. *Find a cheatsheet for readxl and find out how to import second sheet of Excel file. 3. Try import of a file via Rstudio and describe pros/cons. 4. Check the xxx, in the folder messy data, try to fix them and import. 5. *Do you know what is reprex and how to prepare it?</p>
+<p>In this chapter:</p>
+<p>1. Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections.</p>
+<p>2. Create another project and script, try switching between.</p>
+<p>3. Download data from xxx, save them into your data folder and import them to the working environment, …</p>
+<p>2. *Find a cheatsheet for readxl and find out how to import second sheet of Excel file.</p>
+<p>3. Try import of a file via Rstudio and describe pros/cons.</p>
+<p>4. Check the xxx, in the folder messy data, try to fix them and import.</p>
+<p>5. *Do you know what is reprex and how to prepare it?</p>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">1.6 Further reading</h2>
