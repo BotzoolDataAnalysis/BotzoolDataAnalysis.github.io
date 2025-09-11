@@ -90,7 +90,7 @@ ggplot(data = penguins,
   geom_smooth(method = 'lm')
 ```
 
-Now it is clear that species identity is really important and the relationship between the bill dimensions is in fact positive. This is a classical example of the [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) (a relationship appears in several groups of data, but disappears of reverses when the groups are combined).
+Now it is clear that species identity is really important and the relationship between the bill dimensions is in fact positive. This is a classical example of the [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) (a relationship appears in several groups of data, but disappears or reverses when the groups are combined).
 
 In addition to the colour, we can also distinguish species in the plot by adding `shape` aesthetics.
 
