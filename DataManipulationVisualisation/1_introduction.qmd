@@ -139,10 +139,10 @@ library(readxl)
 
 **names of variables**
 
-\- should be short and easy to handle, without spaces, strange symbols
-Simple variable names will save you really so much time and parentheses !
+\- should be short and easy to handle, without spaces, strange symbols Simple variable names will save you really so much time and parentheses !
 
 See this example
+
 ```{r}
 #| warning: false
 data <- read_csv("data/messy_data/Example0.csv")
@@ -150,14 +150,16 @@ names(data)
 ```
 
 You can rename strange names one by one. First use the new name and put the old one on the right like here
+
 ```{r}
 #| warning: false
 data %>% rename (Releve = "Relevé number")
 ```
 
-Or  you can change all difficult patterns at once, using RegEx Regular expressions. Import the example once again.
+Or you can change all difficult patterns at once, using RegEx Regular expressions. Import the example once again.
 
 You identify the pattern on left, starting with two backslashes and define the outcome on right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
+
 ```{r}
 #| warning: false
 data <- read_csv("data/messy_data/Example0.csv")
@@ -173,11 +175,13 @@ data %>%
     "\\?" = "",     # remove questionmark
     "\\s" = ".")))   # remove spaces
 ```
+
 Now check the names again. Did it work?
 
-\- Tip*: use the function clean_names from package janitor
+\- Tip\*: use the function clean_names from package janitor
 
 ## 1.3 Data import
+
 We will train how to import data with Tidyverse, which means `readr` or `readxl` in case of Excel files (see cheatsheet)
 
 What is useful is to check which files are stored in the folders we have. Here we list all files in the working=project directory
@@ -187,6 +191,7 @@ list.files()
 ```
 
 Or we can dive deeper in the hierarchy and check content of data folder, or specific subfolder
+
 ```{r}
 list.files("data") 
 list.files("data/forest_understory")
@@ -202,16 +207,19 @@ data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-
 We imported the data and here are a few tips how to check the structure
 
 First is the tibble, which actually appears automatically after any import using tidyverse approach - note that only ten rows and several variables are shown, if there are too many, rest is listed below.
+
 ```{r}
 tibble(data)
 ```
 
 alternative way is to use glimpse, where the variables are listed below each other, showing the first 15 values
+
 ```{r}
 glimpse(data)
 ```
 
 if you forget the names of variables or you want to copy them and store in your script, use simple names
+
 ```{r}
 names(data)
 ```
@@ -236,13 +244,13 @@ Knowing that I am lost in "Regular expressions" already helps to ask more specif
 
 -   **Vignettes** are supporting documents that are available for many packages. They give examples and explain functions available in the package. You can discover vignettes by accessing the help page for a package, or via the browseVignettes() function, which will get you to the overall list. Or you can just try by typing specific names e.g. vignette("dplyr")
 
--   [**R studio community**] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
+-   \[**R studio community**\] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
 
 -   [**Stack Overflow**](https://stackoverflow.com/). You probably already came across Stack Overflow if you were trying to Google something, as it suggests answers to coding related questions. It is a good environment to ask questions or try to find if somebody already asked the same things before. Be specific about the coding style. E.g. How to separate variable using tidyverse?
 
 -   **GitHub** is a great source - you can find there data, projects, packages, instructions. If you stay till the end of this course we will show you more.
 
--   **AI tools** are worth to ask. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit. 
+-   **AI tools** are worth to ask. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit.
 
 Or just come and ask!
 
@@ -256,11 +264,11 @@ In this chapter:
 
 1\. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and add them to your project. Import file called Axmanova-Forest-understory-diversity-analyses.xlsx into the working environment and check the structure. Prepare script with your notes, separated into sections.
 
-2\. Create another project and start a new script, try switching between the projects. Delete this project. 
+2\. Create another project and start a new script, try switching between the projects. Delete this project.
 
 3\. Find a cheatsheet for readxl. Is there anything more then data import from Excel?
 
-4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of data/frozen_fauna/metadata. Which sheets are there and can you easily check the structure? 
+4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of data/frozen_fauna/metadata. Which sheets are there and can you easily check the structure?
 
 5\. Download Example0 from data/messy_data, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. Save the tidy dataset as Example0_tidy.csv using function write_csv.
 
