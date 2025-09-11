@@ -1,0 +1,31 @@
+This dataset refers to data used in the paper Axmanová et al. 2020 
+Habitats of Pleistocene megaherbivores reconstructed from the frozen fauna remains
+https://doi.org/10.1111/ecog.04940
+
+
+We coWe compiled a dataset of palaeobotanical records from frozen individuals 
+of Pleistocene megaherbivores found in northern Siberia and Beringia and 
+dated to the period from more than 50 kyr BP to 9 kyr BP. We also compiled a 
+dataset of vegetation plots from several regions in Siberia. We analysed the 
+similarity in taxonomic composition of plants between these two datasets 
+using a novel method that accounts for variable taxonomic resolution in 
+palaeobotanical data. 
+For each frozen megaherbivore we sorted the list of habitats according to their 
+similarity/ probability.  - see "results"
+
+For most megaherbivore individuals, plant remains in their gastrointestinal 
+tracts corresponded to tundra, forest and mire vegetation, while they showed 
+low similarity to steppe. This pattern was relatively constant over time, 
+showing no remarkable differences between the Last Glacial Maximum and the 
+periods before and afterwards. This suggests that during the Upper Pleistocene, 
+a mosaic of mesic and wet vegetation types such as tundra with patches of 
+forests and mires was common in northern Siberia and Beringia. 
+In contrast, the steppe was rare to absent in the landscape or underused by 
+the megaherbivores as a pasture since they found enough food in the widespread 
+mesic and wet habitats with more productive vegetation.
+
+
+Metadata are separated on three sheets, so we will practice importing them 
+separately and joining them into one.
+Results are given as a sequence of numbers corresponding to habitats. 
+We will try a bit of filtering, pivoting and joining the habitat names for selected animals.

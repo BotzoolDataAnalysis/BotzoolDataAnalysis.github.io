@@ -78,8 +78,8 @@ df <- data[, c("PlotID", "ForestTypeName", "Productivity", "pH_KCl")]
 # 3. Order by soil pH (descending)
 df <- df[order(df$pH_KCl, decreasing = TRUE), ]
 
-# 4. Keep only the first 20 rows with highest pH
-df_top20 <- df[1:20, ]
+# 4. Keep only the first 15 rows with highest pH
+df_top20 <- df[1:15, ]
 
 # 5. Print the resulting subset to see which forest types grow in the high pH soils and if they have rather low or high productivity
 df_top20
@@ -92,7 +92,7 @@ data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-
   mutate(Productivity = ifelse(Biomass < 100, "low", "high")) %>%
   select(PlotID, ForestTypeName, Productivity, pH_KCl) %>%
   arrange(desc(pH_KCl)) %>%
-  slice_head(n = 20) %>%
+  slice_head(n = 15) %>%
   print()
 ```
 
@@ -140,67 +140,89 @@ library(readxl)
 **names of variables**
 
 \- should be short and easy to handle, without spaces, strange symbols
+Simple variable names will save you really so much time and parentheses !
 
-\- rename strange names one by one
+See this example
+```{r}
+#| warning: false
+data <- read_csv("data/messy_data/Example0.csv")
+names(data)
+```
 
-Tip: rename gives first the new name
+You can rename strange names one by one. First use the new name and put the old one on the right like here
+```{r}
+#| warning: false
+data %>% rename (Releve = "Relevé number")
+```
+
+Or  you can change all difficult patterns at once, using RegEx Regular expressions. Import the example once again.
+
+You identify the pattern on left, starting with two backslashes and define the outcome on right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
+```{r}
+#| warning: false
+data <- read_csv("data/messy_data/Example0.csv")
+names(data)
+data %>%
+  rename_all(~ str_replace_all(., c(
+    "\\." = "",     # remove dots in the variable names
+    "\\é" = "e",    # replace é by e
+    "\\%" = "perc", # remove symbol % and change it to perc
+    "\\(" = "",     # remove brackets
+    "\\)" = "",     # remove brackets
+    "\\/" = "",     # remove slash
+    "\\?" = "",     # remove questionmark
+    "\\s" = ".")))   # remove spaces
+```
+Now check the names again. Did it work?
+
+\- Tip*: use the function clean_names from package janitor
+
+## 1.3 Data import
+We will train how to import data with Tidyverse, which means `readr` or `readxl` in case of Excel files (see cheatsheet)
+
+What is useful is to check which files are stored in the folders we have. Here we list all files in the working=project directory
+
+```{r}
+list.files() 
+```
+
+Or we can dive deeper in the hierarchy and check content of data folder, or specific subfolder
+```{r}
+list.files("data") 
+list.files("data/forest_understory")
+```
+
+Let's select one of the files and import it into our working environment. Depending on the type of file I have to select the right approach. Here it is an Excel file, so I can use function read_excel. Check the cheatsheet for more tips.
 
 ```{r}
 #| warning: false
-# data %>% rename (ReleveNr = "Releve number")
-```
-
-\- or change all difficult patterns at once, using RegEx Regular expressions
-
-```{r}
-#| eval: false
-data <- read.csv("data/messy_data/Example0.xlsx")%>%
-  names(data)
-```
-
-```{r}
-#| eval: false
-data<- data %>%
-  rename_all(~ str_replace_all(., c(
-    "\\." = "",     #remove dots in the variable names
-    "\\%" = "perc", # remove symbol % and change it to perc
-    "\\(" = "",
-    "\\)" = "",
-    "\\/" = "",
-    "\\?" = "",
-    "\\s", "."))) #remove spaces
-```
-
-\- or use the function clean_names from package janitor
-
-## 1.3 Data import
-
-import data with Tidyverse: readr, readxl (see cheatsheet)
-
-check the folder content
-
-```{r}
-list.files() #all files in the working=project directory
-list.files("data") #content of data folder
-
-list.files("data/forest_understory") #content of subfolder
-
-```
-
-we will work with the forest dataset, try importing different data
-
-```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 ```
 
-few tips how to check the structure
+We imported the data and here are a few tips how to check the structure
 
+First is the tibble, which actually appears automatically after any import using tidyverse approach - note that only ten rows and several variables are shown, if there are too many, rest is listed below.
 ```{r}
 tibble(data)
-names(data)
+```
+
+alternative way is to use glimpse, where the variables are listed below each other, showing the first 15 values
+```{r}
 glimpse(data)
+```
+
+if you forget the names of variables or you want to copy them and store in your script, use simple names
+```{r}
+names(data)
+```
+
+Quite useful baseR approach function is table, which shows the counts per categories of selected variable. In tidyverse it will need more steps to be done, but we will get there next time...
+
+```{r}
 table(data$ForestTypeName)
 ```
+
+Of course, you can also view() the data or click on it in the list in the Files to open it, however, this is not recommended with huge tables, as the previews are rather memory demanding.
 
 ## 1.4 Where to find help
 
@@ -208,19 +230,19 @@ Motto: *Majority of the problems in R can be solved if you know how to ask and w
 
 Knowing that I am lost in "Regular expressions" already helps to ask more specifically.
 
+-   **R studio help** Try intergrated help in R studio, where you can find links to selected manuals, cheat sheets. It is the place where you can also find Keyboard shortcuts help to find out which combinations do what. e.g. shift+ctrl+m
+
 -   [**Cheatsheets**](https://posit.co/resources/cheatsheets/) - the most important features of a given package summarised at two A4 pages, ready to print
 
--   R studio help
+-   **Vignettes** are supporting documents that are available for many packages. They give examples and explain functions available in the package. You can discover vignettes by accessing the help page for a package, or via the browseVignettes() function, which will get you to the overall list. Or you can just try by typing specific names e.g. vignette("dplyr")
 
--   R studio community <https://forum.posit.co/>
-
--   Vignettes
+-   [**R studio community**] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
 
 -   [**Stack Overflow**](https://stackoverflow.com/). You probably already came across Stack Overflow if you were trying to Google something, as it suggests answers to coding related questions. It is a good environment to ask questions or try to find if somebody already asked the same things before. Be specific about the coding style. E.g. How to separate variable using tidyverse?
 
--   GitHub
+-   **GitHub** is a great source - you can find there data, projects, packages, instructions. If you stay till the end of this course we will show you more.
 
--   AI tools
+-   **AI tools** are worth to ask. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit. 
 
 Or just come and ask!
 
@@ -232,19 +254,21 @@ There will be some obligatory tasks, while voluntarily tasks will be marked by \
 
 In this chapter:
 
-1\. Create project for this lesson, add subfolders, namely data (download the data), and scripts. Prepare script with your notes, separated into sections.
+1\. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and add them to your project. Import file called Axmanova-Forest-understory-diversity-analyses.xlsx into the working environment and check the structure. Prepare script with your notes, separated into sections.
 
-2\. Create another project and script, try switching between.
+2\. Create another project and start a new script, try switching between the projects. Delete this project. 
 
-3\. Download data from xxx, save them into your data folder and import them to the working environment, ...
+3\. Find a cheatsheet for readxl. Is there anything more then data import from Excel?
 
-2\. \*Find a cheatsheet for readxl and find out how to import second sheet of Excel file.
+4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of data/frozen_fauna/metadata. Which sheets are there and can you easily check the structure? 
 
-3\. Try import of a file via Rstudio and describe pros/cons.
+5\. Download Example0 from data/messy_data, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. Save the tidy dataset as Example0_tidy.csv using function write_csv.
 
-4\. Check the xxx, in the folder messy data, try to fix them and import.
+6\. Try importing the same, not cleaned file via Rstudio and describe pros/cons.
 
-5\. \*Do you know what is reprex and how to prepare it?
+7\. \*Check the folder messy data, what are the problems in examples1-5? We will learn how to fix them in next chapters directly in R, but can you at least imagine how you would do it in Excel?
+
+8\. \*Do you know what is reprex and how to prepare it?
 
 ## 1.6 Further reading
 
