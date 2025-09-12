@@ -19,37 +19,78 @@ We will need following libraries
 library(tidyverse)
 library(readxl)
 ```
+and the forest dataset. Again I will import the data just once and use the pipe to test the functions/effects without actually changing the data  
+```{r}
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
+names(data)
+```
 
-## 2.2 arrange
-data %>% 
-  arrange(ForestType)
+## 2.2 select
+Select extracts columns/variables based on their names or position.
+It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset, while filter applies to rows depending on their values. 
 
-data %>% 
-  arrange(desc(Biomass))
-
-
-## 2.3 select
-It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset. 
-
-
+You can select by naming the variables. Here you would appreciate the tidy style of names! Tidy names means no need to use parentheses. 
+```{r}
 data %>% 
   select(PlotID, ForestType, ForestTypeName) 
+```
 
+You can also select by position. However, be sure it will stay the same after all the changes you might do with the data.
+```{r}
 data %>% 
   select(1:3)
-
+```
+Sometimes you decide you want to get rid of some variables. Either you can name all the others which you want to keep, or you can remove those unwanted with minus sign. If it is one variable it is easy "select(-xx)", if two or more, you have to use "select(-c(xx, xy))" 
+```{r}
 data %>% 
-  select(-c(4:22))
+  select(-c(ForestType,ForestTypeName))
+```
 
+You can also define range of variables between two of them.
+```{r}
 data %>%
   select(PlotID:ForestTypeName)
+```
 
+Or you can combine the approaches listed above
+```{r}
 data %>%
   select (PlotID, 3:6)
+```  
   
-  
-Select can be used also in combination with stringr package to identify the pattern in the names.   
-  
+Select can be also used in combination with stringr package to identify the pattern in the names.
+```{r}
+data %>%
+  select (PlotID, starts_with("EIV"))
+```  
+
+
+## 2.3 arrange
+This function keeps the same variables just reorders the rows according to the values we select. To see the changes at a first glance I will first select only few variables.
+```{r}
+data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") 
+data<- data %>% select(PlotID, ForestType, ForestTypeName, Biomass)
+```
+
+
+```{r}
+data %>% 
+  arrange(ForestType)
+```
+
+We can also decide to arrange the data from the highest value to the lowest, i.e. in descending order 
+```{r}
+data %>% 
+  arrange(desc(Biomass))
+```
+
+Or we can arrange according to more variables. Here the forest type goes first, so it is more important. I added the number of rows which should be in the preview to see more of them. 
+```{r}
+data %>% 
+  arrange(ForestTypeName, Biomass) %>% 
+  print(30)
+```
+
 
 ## 2.4 distinct
 data %>%
@@ -108,7 +149,8 @@ squirrels<- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytues
 glimpse(squirrels)
 
 
-2\. **iris dataset**
+2\. **iris dataset** select species names and variables describing length
+
 glimpse(iris)
 data<- iris
 names(data)
