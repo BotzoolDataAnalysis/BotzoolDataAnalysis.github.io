@@ -113,7 +113,95 @@
     "href": "DataManipulationVisualisation/2_data_manipulation.html",
     "title": "2 Data Manipulation",
     "section": "",
-    "text": "select, filter, mutate, arrange, slice data export (write_csv)",
+    "text": "In this chapter, we will try to explore the data, prepare subsets with only selected variables and filter them to only defined cases. We will prepare new variables and rearrange the data according to them. We will also further train importing and exporting the data.",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#introducing-dplyr",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#introducing-dplyr",
+    "title": "2 Data Manipulation",
+    "section": "2.1. Introducing dplyr",
+    "text": "2.1. Introducing dplyr\nThe term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and make better results. It just means we want to show you how to easily handle the data, prepare them in the form you need. The functions for basic data handling, namely select, filter, mutate, arrange, slice come from the tidyverse package called dplyr. Do you remember how to find out more about the package? If nothing else you can try “?dplyr” which actually gives you more hints where to look further.\n\n\n\n\n\nNote that many of these operations can be done also in some table editors (eg. Excel) before importing to R. However, the effort and time demands would be much higher and would be increasing enormously with the size of the dataset. In contrast, in R you can change and rerun the steps in one pipeline and the data will be immediately ready for next analyses.\nWe will need following libraries\n\nlibrary(tidyverse)\nlibrary(readxl)",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#arrange",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#arrange",
+    "title": "2 Data Manipulation",
+    "section": "2.2 arrange",
+    "text": "2.2 arrange\ndata %&gt;% arrange(ForestType)\ndata %&gt;% arrange(desc(Biomass))",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#select",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#select",
+    "title": "2 Data Manipulation",
+    "section": "2.3 select",
+    "text": "2.3 select\nIt is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset.\ndata %&gt;% select(PlotID, ForestType, ForestTypeName)\ndata %&gt;% select(1:3)\ndata %&gt;% select(-c(4:22))\ndata %&gt;% select(PlotID:ForestTypeName)\ndata %&gt;% select (PlotID, 3:6)\nSelect can be used also in combination with stringr package to identify the pattern in the names.",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#distinct",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#distinct",
+    "title": "2 Data Manipulation",
+    "section": "2.4 distinct",
+    "text": "2.4 distinct\ndata %&gt;% arrange(ForestType) %&gt;% select(ForestType, ForestTypeName) %&gt;% distinct() #keep only unique rows\ndata %&gt;% # same as above but shorter arrange(ForestType) %&gt;% distinct(ForestType, ForestTypeName)",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#filter-and-slice",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#filter-and-slice",
+    "title": "2 Data Manipulation",
+    "section": "2.5 filter and slice",
+    "text": "2.5 filter and slice\ndata %&gt;% filter(Biomass &gt; 80) #[g/m2]\ndata %&gt;% filter(ForestTypeName %in% c(“alluvial forest”, “ravine forest”))\ndata %&gt;% filter(plotID %in% selected$plotID) #e.g. from different analysis, stratification\ndata %&gt;% filter(!is.na(Juveniles)) %&gt;% slice_max(Juveniles, n = 3)",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#mutate",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#mutate",
+    "title": "2 Data Manipulation",
+    "section": "2.6 mutate",
+    "text": "2.6 mutate\ndata %&gt;% mutate(SpeciesRichness = Herbs + Juveniles) data %&gt;% mutate(selection = 1)\ndata %&gt;% mutate(productivity = ifelse(Biomass&lt;60,“low”,“high”)) %&gt;% select (PlotID, ForestTypeName, productivity) %&gt;% print(n=20)\ndata %&gt;% select(PlotID, Herbs, Biomass, pH_KCl) %&gt;% mutate(across(c(Herbs, Biomass, pH_KCl), round))",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#exercises",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#exercises",
+    "title": "2 Data Manipulation",
+    "section": "2.6 Exercises",
+    "text": "2.6 Exercises\n1. squirrel data Load data of squirrel observations from the Central Park Squirrel Census using this line: squirrels&lt;- read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’) glimpse(squirrels)\n2. iris dataset glimpse(iris) data&lt;- iris names(data) data %&gt;% arrange(Sepal.Length)\ndata %&gt;% arrange(Species,Sepal.Length)\n3. dune from vegan package data&lt;- data(“dune”, package = “vegan”) data&lt;- data(“dune.env”, package = “vegan”) glimpse(data)\n4. palm trees palmtrees &lt;- readr::read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv’) glimpse(palmtrees)",
+    "crumbs": [
+      "Data Manipulation and Visualization",
+      "2 Data manipulation"
+    ]
+  },
+  {
+    "objectID": "DataManipulationVisualisation/2_data_manipulation.html#further-reading",
+    "href": "DataManipulationVisualisation/2_data_manipulation.html#further-reading",
+    "title": "2 Data Manipulation",
+    "section": "2.7 Further reading",
+    "text": "2.7 Further reading\ndplyr main web page https://dplyr.tidyverse.org\nFind dplyr Cheatsheet in Posit https://posit.co/resources/cheatsheets/\nChapter devoted to Data transformation in the R for data science book https://r4ds.hadley.nz/data-transform.html",
     "crumbs": [
       "Data Manipulation and Visualization",
       "2 Data manipulation"

@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -197,8 +231,21 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introducing-dplyr" id="toc-introducing-dplyr" class="nav-link active" data-scroll-target="#introducing-dplyr">2.1. Introducing dplyr</a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange">2.2 arrange</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">2.3 select</a></li>
+  <li><a href="#distinct" id="toc-distinct" class="nav-link" data-scroll-target="#distinct">2.4 distinct</a></li>
+  <li><a href="#filter-and-slice" id="toc-filter-and-slice" class="nav-link" data-scroll-target="#filter-and-slice">2.5 filter and slice</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">2.6 mutate</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">2.6 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">2.7 Further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -222,9 +269,71 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>select, filter, mutate, arrange, slice data export (write_csv)</p>
+<p>In this chapter, we will try to explore the data, prepare subsets with only selected variables and filter them to only defined cases. We will prepare new variables and rearrange the data according to them. We will also further train importing and exporting the data.</p>
+<section id="introducing-dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-dplyr">2.1. Introducing dplyr</h2>
+<p>The term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and make better results. It just means we want to show you how to easily handle the data, prepare them in the form you need. The functions for basic data handling, namely <strong>select, filter, mutate, arrange, slice</strong> come from the tidyverse package called <code>dplyr</code>. Do you remember how to find out more about the package? If nothing else you can try “?dplyr” which actually gives you more hints where to look further.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/IA_clipboard2Dplyr.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="755"></p>
+</figure>
+</div>
+<p>Note that many of these operations can be done also in some table editors (eg. Excel) before importing to R. However, the effort and time demands would be much higher and would be increasing enormously with the size of the dataset. In contrast, in R you can change and rerun the steps in one pipeline and the data will be immediately ready for next analyses.</p>
+<p>We will need following libraries</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="arrange" class="level2">
+<h2 class="anchored" data-anchor-id="arrange">2.2 arrange</h2>
+<p>data %&gt;% arrange(ForestType)</p>
+<p>data %&gt;% arrange(desc(Biomass))</p>
+</section>
+<section id="select" class="level2">
+<h2 class="anchored" data-anchor-id="select">2.3 select</h2>
+<p>It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset.</p>
+<p>data %&gt;% select(PlotID, ForestType, ForestTypeName)</p>
+<p>data %&gt;% select(1:3)</p>
+<p>data %&gt;% select(-c(4:22))</p>
+<p>data %&gt;% select(PlotID:ForestTypeName)</p>
+<p>data %&gt;% select (PlotID, 3:6)</p>
+<p>Select can be used also in combination with stringr package to identify the pattern in the names.</p>
+</section>
+<section id="distinct" class="level2">
+<h2 class="anchored" data-anchor-id="distinct">2.4 distinct</h2>
+<p>data %&gt;% arrange(ForestType) %&gt;% select(ForestType, ForestTypeName) %&gt;% distinct() #keep only unique rows</p>
+<p>data %&gt;% # same as above but shorter arrange(ForestType) %&gt;% distinct(ForestType, ForestTypeName)</p>
+</section>
+<section id="filter-and-slice" class="level2">
+<h2 class="anchored" data-anchor-id="filter-and-slice">2.5 filter and slice</h2>
+<p>data %&gt;% filter(Biomass &gt; 80) #[g/m2]</p>
+<p>data %&gt;% filter(ForestTypeName %in% c(“alluvial forest”, “ravine forest”))</p>
+<p>data %&gt;% filter(plotID %in% selected$plotID) #e.g.&nbsp;from different analysis, stratification</p>
+<p>data %&gt;% filter(!is.na(Juveniles)) %&gt;% slice_max(Juveniles, n = 3)</p>
+</section>
+<section id="mutate" class="level2">
+<h2 class="anchored" data-anchor-id="mutate">2.6 mutate</h2>
+<p>data %&gt;% mutate(SpeciesRichness = Herbs + Juveniles) data %&gt;% mutate(selection = 1)</p>
+<p>data %&gt;% mutate(productivity = ifelse(Biomass&lt;60,“low”,“high”)) %&gt;% select (PlotID, ForestTypeName, productivity) %&gt;% print(n=20)</p>
+<p>data %&gt;% select(PlotID, Herbs, Biomass, pH_KCl) %&gt;% mutate(across(c(Herbs, Biomass, pH_KCl), round))</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">2.6 Exercises</h2>
+<p>1. <strong>squirrel data</strong> Load data of squirrel observations from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md">Central Park Squirrel Census</a> using this line: squirrels&lt;- read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’) glimpse(squirrels)</p>
+<p>2. <strong>iris dataset</strong> glimpse(iris) data&lt;- iris names(data) data %&gt;% arrange(Sepal.Length)</p>
+<p>data %&gt;% arrange(Species,Sepal.Length)</p>
+<p>3. <strong>dune from vegan package</strong> data&lt;- data(“dune”, package = “vegan”) data&lt;- data(“dune.env”, package = “vegan”) glimpse(data)</p>
+<p>4. <strong>palm trees</strong> palmtrees &lt;- readr::read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv’) glimpse(palmtrees)</p>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">2.7 Further reading</h2>
+<p>dplyr main web page <a href="https://dplyr.tidyverse.org" class="uri">https://dplyr.tidyverse.org</a></p>
+<p>Find dplyr Cheatsheet in Posit <a href="https://posit.co/resources/cheatsheets/" class="uri">https://posit.co/resources/cheatsheets/</a></p>
+<p>Chapter devoted to Data transformation in the R for data science book <a href="https://r4ds.hadley.nz/data-transform.html" class="uri">https://r4ds.hadley.nz/data-transform.html</a></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

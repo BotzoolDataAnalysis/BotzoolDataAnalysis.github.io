@@ -1,7 +1,142 @@
 ---
 title: "2 Data Manipulation"
 ---
+In this chapter, we will try to explore the data, prepare subsets with only selected variables and filter them to only defined cases. We will prepare new variables and rearrange the data according to them. We will also further train importing and exporting the data.  
 
 
-select, filter, mutate, arrange, slice
-data export (write_csv)
+## 2.1. Introducing dplyr
+The term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and make better results. It just means we want to show you how to easily handle the data, prepare them in the form you need. 
+The functions for basic data handling, namely **select, filter, mutate, arrange, slice** come from the tidyverse package called `dplyr`. Do you remember how to find out more about the package? If nothing else you can try "?dplyr" which actually gives you more hints where to look further. 
+
+
+![](images/IA_clipboard2Dplyr.png){fig-align="center" width="755"}
+
+Note that many of these operations can be done also in some table editors (eg. Excel) before importing to R. However, the effort and time demands would be much higher and would be increasing enormously with the size of the dataset. In contrast, in R you can change and rerun the steps in one pipeline and the data will be immediately ready for next analyses.   
+
+We will need following libraries
+```{r}
+#| warning: false
+library(tidyverse)
+library(readxl)
+```
+
+## 2.2 arrange
+data %>% 
+  arrange(ForestType)
+
+data %>% 
+  arrange(desc(Biomass))
+
+
+## 2.3 select
+It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset. 
+
+
+data %>% 
+  select(PlotID, ForestType, ForestTypeName) 
+
+data %>% 
+  select(1:3)
+
+data %>% 
+  select(-c(4:22))
+
+data %>%
+  select(PlotID:ForestTypeName)
+
+data %>%
+  select (PlotID, 3:6)
+  
+  
+Select can be used also in combination with stringr package to identify the pattern in the names.   
+  
+
+## 2.4 distinct
+data %>%
+  arrange(ForestType) %>%
+  select(ForestType, ForestTypeName) %>%
+  distinct() #keep only unique rows
+
+data %>%      # same as above but shorter
+  arrange(ForestType) %>%
+  distinct(ForestType, ForestTypeName)
+
+
+
+## 2.5 filter and slice
+data %>% 
+  filter(Biomass > 80) #[g/m2]
+
+data %>% 
+  filter(ForestTypeName %in% c("alluvial forest", "ravine forest"))
+
+data %>% 
+  filter(plotID %in% selected$plotID) #e.g. from different analysis, stratification
+
+data %>% 
+  filter(!is.na(Juveniles)) %>%
+  slice_max(Juveniles, n = 3) 
+
+
+
+## 2.6 mutate
+
+data %>% 
+  mutate(SpeciesRichness = Herbs + Juveniles)
+data %>% 
+  mutate(selection = 1)
+
+data %>%
+  mutate(productivity = ifelse(Biomass<60,"low","high")) %>% 
+  select (PlotID, ForestTypeName, productivity) %>%
+  print(n=20)
+
+data %>% 
+  select(PlotID, Herbs, Biomass, pH_KCl) %>% 
+  mutate(across(c(Herbs, Biomass, pH_KCl), round))
+
+
+
+
+
+
+## 2.6 Exercises
+1\. **squirrel data**
+Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) 
+using this line: 
+squirrels<- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')
+glimpse(squirrels)
+
+
+2\. **iris dataset**
+glimpse(iris)
+data<- iris
+names(data)
+data %>% 
+  arrange(Sepal.Length) 
+
+data %>% 
+  arrange(Species,Sepal.Length) 
+
+3\.  **dune from vegan package**
+data<- data("dune", package = "vegan")
+data<- data("dune.env", package = "vegan")
+glimpse(data)
+
+
+4\. **palm trees**
+palmtrees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv')
+glimpse(palmtrees)
+
+
+
+
+## 2.7 Further reading
+
+dplyr main web page <https://dplyr.tidyverse.org>
+
+Find dplyr Cheatsheet in Posit <https://posit.co/resources/cheatsheets/>
+
+Chapter devoted to Data transformation in the R for data science book <https://r4ds.hadley.nz/data-transform.html>
+
+
