@@ -188,7 +188,7 @@ Note that in the examples above you are not really rewriting the data you have i
 
 -   data %\<\>% data ... #rewriting the existing dataset by assignment pipe (magrittr)
 
--    data1 %\>% ...-\>data2 #making/testing all the steps and assigning it to new dataset as the last step
+-   data1 %\>% ...-\>data2 #making/testing all the steps and assigning it to new dataset as the last step
 
 This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.
 
