@@ -454,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [5] "Braun-Blanquet Scale (New) Code"</code></pre>
 </div>
 </div>
-<p>You can rename strange names one by one. First use the new name and put the old one on the right like here</p>
+<p>You can rename strange names one by one. First use the new name and put the old one on the right like here.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span> (<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -515,6 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now check the names again. Did it work?</p>
 <p>- Tip*: use the function clean_names from package janitor</p>
+<p>Note that in the examples above you are not really rewriting the data you have imported. Here the “data %&gt;%” means, that you are just trying how it would look like if you apply the following steps to data. To really change it you would have to assign your result into any new dataset. - - data2&lt;- data1 %&gt;% … #defining first the new dataset - data&lt;-data %&gt;% … #rewriting the dataset (the same would be done by data %&lt;&gt;% data) - data1 %&gt;% …..-&gt;data2 #making/testing all the steps and assigning it to new dataset as the last step This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.</p>
 </section>
 </section>
 <section id="data-import" class="level2">
@@ -529,9 +530,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  [5] "12_github.html"                      "12_github.qmd"                      
  [7] "2_data_manipulation.qmd"             "3_data_visualisation.qmd"           
  [9] "4_wide_vs_long.qmd"                  "5_join_functions.qmd"               
-[11] "6_advanced_visualisation.qmd"        "6_advanced_visualisation_files"     
-[13] "7_8_automatisation.qmd"              "9_10_maps.qmd"                      
-[15] "data"                                "data_manipulation_visualisation.qmd"
+[11] "6_advanced_visualisation.qmd"        "7_8_automatisation.qmd"             
+[13] "9_10_maps.qmd"                       "data"                               
+[15] "data_manipulation_visualisation.qmd" "exercisesIA"                        
 [17] "images"                              "plots"                              
 [19] "scripts"                            </code></pre>
 </div>

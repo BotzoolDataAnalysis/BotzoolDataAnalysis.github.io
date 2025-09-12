@@ -2,7 +2,7 @@
 title: "Data Manipulation and Visualisation"
 ---
 
-# Introduction
+# Osnova předmětu Manipulace a vizualizace dat
 
 V průběhu kurzu představíme pokročilé metody manipulace a vizualizace dat v programu R, zejména s využitím knihoven z kolekce tidyverse (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). Cílem předmětu je naučit studenty rutinní manipulaci s daty, tak aby si je uměli importovat, upravit, filtrovat, připojit nové informace z externích dat, vytvořit nové proměnné (např. na základě výpočtu), seskupit vzorky na základě nějaké charakteristiky/informace a pro tyto skupiny vypočítat další parametry. Dále se studenti naučí základní i pokročilé metody vizualizace dat pomocí ggplot2 a tvorbu základních map v R. Cílem předmětu je i osvojení přístupu open data science, kdy se naučí připravit skript tak, aby bylo možné ho na závěr publikovat na platformě GitHub.
 

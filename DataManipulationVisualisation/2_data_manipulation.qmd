@@ -2,3 +2,6 @@
 title: "2 Data Manipulation"
 ---
 
+
+select, filter, mutate, arrange, slice
+data export (write_csv)

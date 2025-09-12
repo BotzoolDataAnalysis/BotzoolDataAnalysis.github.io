@@ -149,8 +149,7 @@ data <- read_csv("data/messy_data/Example0.csv")
 names(data)
 ```
 
-You can rename strange names one by one. First use the new name and put the old one on the right like here
-
+You can rename strange names one by one. First use the new name and put the old one on the right like here. 
 ```{r}
 #| warning: false
 data %>% rename (Releve = "Relevé number")
@@ -179,6 +178,11 @@ data %>%
 Now check the names again. Did it work?
 
 \- Tip\*: use the function clean_names from package janitor
+
+Note that in the examples above you are not really rewriting the data you have imported. Here the "data %>%" means, that you are just trying how it would look like if you apply the following steps to data. To really change it you would have to assign your result into any new dataset. \- \- data2<- data1 %>% ... #defining first the new dataset
+\- data<-data %>% ...    #rewriting the dataset (the same would be done by data %<>% data)
+\- data1 %>% .....->data2 #making/testing all the steps and assigning it to new dataset as the last step
+This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.
 
 ## 1.3 Data import
 
