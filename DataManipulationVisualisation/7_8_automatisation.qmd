@@ -386,6 +386,8 @@ The use of nested data frames and `broom` has great potential. Depending on the 
 
 7.  \* Do the same using `purrr` functions.
 
+8.  \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save into the `plots` folder.
+
 ## Further reading
 
 R for Data Science: <https://r4ds.hadley.nz/program.html>

@@ -112,36 +112,165 @@ Note that we added specifications of the point appearance of the highlighted poi
 
 ## 6.3 Scales
 
-colour palettes, limits, expand, labels, axis transformation
+Scale functions always follow the pattern `scale_{aesthetic}_{type}`. We already used `scale_shape_manual()` to manually rewrite the default shapes used in the plot. We can use scales to modify values, limits, breaks or labels of any aesthetics in our plot, typically colour, fill, and shape. To define desired values on your own, you can use manual scale definition, but there are many other types, e.g. continuous (useful, e.g., for defining labels for continuous variables), discrete (e.g. labels for discrete variables), gradient (e.g. for defining colour gradient for continuous variables). `scale_x_{type}` and `scale_y_{type}` are useful to define axis limits, ticks and labels.
 
-## 6.4 Position adjustments
+We will use the example of penguin body mass vs. flipper length and modify different scales of this plot. First of all, we will show with different colours on which island the penguins were measured. To change the default colours, we can define our own colours using `scale_fill_manual()` and the `values` argument inside, similarly to what we did for the shape before. But we can also use a predefined colour scale, e.g. from [colour brewer](https://colorbrewer2.org) using `scale_fill_brewer()`. We can also modify the labels in the legend by using the argument `labels`. Let's say we want to add the word 'Island' to each label:
 
-## 6.5 Legend modifications
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
+  geom_point(pch = 21)+
+  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
+```
 
-legend position
+We used `type = 'qual'` inside `scale_color_brewer()` to use colours appropriate for discrete values. You can experiment with many more such colour scales that are already available.
 
-## 6.6 Composing plots together
+Instead of colouring the points according to the island, we can also use colours to show a numerical variable, e.g. year when the measurement was taken:
 
-patchwork
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
 
-## 6.7 Useful extensions
+Note that the plot automatically chooses a continuous colour scale instead of the discrete one before, and the legend now shows a range from the lowest to the highest value. But for the year, it doesn't really make sense to show decimals. We can modify this using `scale_fill_continuous()`:
 
-ggpubr
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
 
-ggeffects
+Scales are also useful to set limits, breaks or labels on the plot axes. For example, we might want to zoom only to the penguins with body mass between 3000 and 5000 g:
 
-shiny trailer
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  scale_x_continuous(limits = c(3000, 5000))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
 
-## 6.8 Exercises
+Note that when we do this, we get a warning message, indicating how many points were not displayed because they are outside the defined range. That's just to prevent us from accidentally missing them.
+
+It is even possible to transform the axis using the `transform` argument or shortcuts for commonly used transformations, e.g. `scale_x_log10()`.
+
+## 6.4 Legend modifications
+
+In all the plots we made so far, the legend was by default placed on the right side next to the plot. Sometimes it is helpful to move it somewhere else, for example, due to space constraints. Legend position might be modified inside the `theme()` function. We can move it to the bottom of the plot:
+
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
+  geom_point(pch = 21)+
+  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
+  theme_bw()+
+  theme(legend.position = 'bottom')+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
+```
+
+Sometimes, there is a space inside the plot, so it is possible to place the legend there and reduce the image size. In this case, we have to specify two arguments, `legend.position()` and `legend.justification()`. The values should indicate coordinates on the two axes and have values of 0-1, where 0 means the beginning of the axis and 1 the end. For example, 0, 0 means the bottom left corner of the plot, 1, 1 the top right corner.
+
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
+  geom_point(pch = 21)+
+  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
+  theme_bw()+
+  theme(legend.position = c(1, 0), legend.justification = c(1, 0))+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
+```
+
+To remove the legend completely, set `legend.position = 'none'`.
+
+The `theme()` function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to `element_blank()`, modify the text size, label angle, ticks length, background grid colour and many more. See the [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more details.
+
+## 6.5 Composing plots together
+
+Sometimes it is useful to combine multiple plots in one figure with multiple panels. This might be easily done using the [`patchwork`](https://patchwork.data-imaginist.com/index.html) package.
+
+```{r}
+library(patchwork)
+```
+
+(Please place this line at the top of your script.)
+
+Let's say we want to make one figure showing the relationship between the penguin bill length and bill depth for the three penguin species and a boxplot showing the distribution of body mass for individual species next to each other.
+
+We will first create these two plots and save them to an object:
+
+```{r}
+p1 <- penguins |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
+  geom_point() + 
+  geom_smooth(aes(colour = species), method = 'lm', show.legend = F) + 
+  scale_shape_manual(values = c(21, 22, 24)) + 
+  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species') + 
+  theme_bw()
+
+p2 <- ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
+  geom_boxplot() + 
+  labs(y = 'Body mass (g)', fill = 'Species') + 
+  theme_bw() + 
+  theme(axis.title.x = element_blank())
+```
+
+And then combine the two plots together:
+
+```{r}
+p1 + p2
+```
+
+So easy it is. And we can play more with the plot layout. Some useful functionalities of the patchwork package are that you can add annotations to the plots to identify individual panels:
+
+```{r}
+p1 + p2 + plot_annotation(tag_levels = 'a')
+```
+
+Or collect all legends of the subplots and place them in one place:
+
+```{r}
+p1 + p2 + plot_layout(guides = 'collect')
+```
+
+## 6.6 Useful extensions
+
+It is possible to do almost everything you would imagine using `ggplot2` and its [extensions](https://exts.ggplot2.tidyverse.org/gallery). We do not have time to cover all of that during this semester, but you are very welcome to experiment and explore this world on your own.
+
+Just a few tips for packages we personally find very useful for our work:
+
+-   [`ggpubr`](https://rpkgs.datanovia.com/ggpubr) to make publication-ready plots - some easy-to-use functions for creating and customising `ggplot` plots
+
+-   [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
+
+-   `gordi` a ggplot-based package for making ordination plots, developed in our group (coming soon 😉)
+
+-   [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
+
+-   [`shiny`](https://shiny.posit.co) for creating web apps from R
+
+## 6.7 Exercises
 
 1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island.
 2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
-3.  plot xx
-4.  plot yy
-5.  recreate a plot
-6.  Save all plots you created so far to the `plots` folder.
+3.  Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
+4.  Combine the two plots using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
+5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` and create four boxplots comparing Ellenberg-type indicator values in different forest types. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. \* Turn the axis tick labels by 45°.
+6.  plot xx
+7.  plot yy
+8.  recreate a plot
+9.  Save all plots you created so far to the `plots` folder.
 
-## 6.9 Further reading
+## 6.8 Further reading
 
 ggplot2 vignette: <https://ggplot2.tidyverse.org>
 
@@ -154,6 +283,8 @@ Aesthetics specifications vignette: <https://ggplot2.tidyverse.org/articles/ggpl
 ggplot2: Elegant Graphics for Data Analysis (3e): <https://ggplot2-book.org>
 
 R Graphics Cookbook: <https://r-graphics.org>
+
+patchwork vignette: <https://patchwork.data-imaginist.com/index.html>
 
 ggplot Extensions: <https://exts.ggplot2.tidyverse.org/gallery>
 
