@@ -114,20 +114,20 @@ Tip: get used to creating the same subfolders in each of your project: data, scr
 
 ### 1.2.2 Scripts
 
-**libraries** - list all the libraries your code need at the beginning of the script
+-   **libraries** - list all the libraries your code need at the beginning of the script
 
 ```{r}
 library(tidyverse)
 library(readxl)
 ```
 
-**remarks**
+-   **remarks**
 
 \- add notes to your scripts, you will be grateful later
 
 \- change the text to non-active (marked with hash tags #) `ctrl + shift + C`
 
-**separate scripts or sections**
+-   **separate scripts or sections**
 
 \- insert named section using `ctrl + shift + R`
 
@@ -137,7 +137,7 @@ library(readxl)
 
 \- unfold all with `Shift + Alt + O`
 
-**names of variables**
+-   **names of variables**
 
 \- should be short and easy to handle, without spaces, strange symbols Simple variable names will save you really so much time and parentheses !
 
@@ -149,7 +149,8 @@ data <- read_csv("data/messy_data/Example0.csv")
 names(data)
 ```
 
-You can rename strange names one by one. First use the new name and put the old one on the right like here. 
+You can rename strange names one by one. First use the new name and put the old one on the right like here.
+
 ```{r}
 #| warning: false
 data %>% rename (Releve = "Relevé number")
@@ -177,11 +178,18 @@ data %>%
 
 Now check the names again. Did it work?
 
-\- Tip\*: use the function clean_names from package janitor
+-   Tip: use the function clean_names from package janitor
 
-Note that in the examples above you are not really rewriting the data you have imported. Here the "data %>%" means, that you are just trying how it would look like if you apply the following steps to data. To really change it you would have to assign your result into any new dataset. \- \- data2<- data1 %>% ... #defining first the new dataset
-\- data<-data %>% ...    #rewriting the dataset (the same would be done by data %<>% data)
-\- data1 %>% .....->data2 #making/testing all the steps and assigning it to new dataset as the last step
+Note that in the examples above you are not really rewriting the data you have imported. Here the **"data %\>%" means, that you are just trying how it would look like** if you apply the following steps to data. To really change it you would have to assign your result into a new dataset, by using following options:
+
+-   data2\<- data1 %\>% ... #defining first the new dataset
+
+-   data\<-data %\>% ... #rewriting the existing dataset
+
+-   data %\<\>% data ... #rewriting the existing dataset by assignment pipe (magrittr)
+
+-    data1 %\>% ...-\>data2 #making/testing all the steps and assigning it to new dataset as the last step
+
 This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.
 
 ## 1.3 Data import

@@ -429,20 +429,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="scripts" class="level3">
 <h3 class="anchored" data-anchor-id="scripts">1.2.2 Scripts</h3>
-<p><strong>libraries</strong> - list all the libraries your code need at the beginning of the script</p>
+<ul>
+<li><strong>libraries</strong> - list all the libraries your code need at the beginning of the script</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>remarks</strong></p>
+<ul>
+<li><strong>remarks</strong></li>
+</ul>
 <p>- add notes to your scripts, you will be grateful later</p>
 <p>- change the text to non-active (marked with hash tags #) <code>ctrl + shift + C</code></p>
-<p><strong>separate scripts or sections</strong></p>
+<ul>
+<li><strong>separate scripts or sections</strong></li>
+</ul>
 <p>- insert named section using <code>ctrl + shift + R</code></p>
 <p>- or divide the code by <code>####</code></p>
 <p>- fold all sections with <code>Alt + O</code></p>
 <p>- unfold all with <code>Shift + Alt + O</code></p>
-<p><strong>names of variables</strong></p>
+<ul>
+<li><strong>names of variables</strong></li>
+</ul>
 <p>- should be short and easy to handle, without spaces, strange symbols Simple variable names will save you really so much time and parentheses !</p>
 <p>See this example</p>
 <div class="cell">
@@ -514,8 +522,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now check the names again. Did it work?</p>
-<p>- Tip*: use the function clean_names from package janitor</p>
-<p>Note that in the examples above you are not really rewriting the data you have imported. Here the “data %&gt;%” means, that you are just trying how it would look like if you apply the following steps to data. To really change it you would have to assign your result into any new dataset. - - data2&lt;- data1 %&gt;% … #defining first the new dataset - data&lt;-data %&gt;% … #rewriting the dataset (the same would be done by data %&lt;&gt;% data) - data1 %&gt;% …..-&gt;data2 #making/testing all the steps and assigning it to new dataset as the last step This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.</p>
+<ul>
+<li>Tip: use the function clean_names from package janitor</li>
+</ul>
+<p>Note that in the examples above you are not really rewriting the data you have imported. Here the <strong>“data %&gt;%” means, that you are just trying how it would look like</strong> if you apply the following steps to data. To really change it you would have to assign your result into a new dataset, by using following options:</p>
+<ul>
+<li><p>data2&lt;- data1 %&gt;% … #defining first the new dataset</p></li>
+<li><p>data&lt;-data %&gt;% … #rewriting the existing dataset</p></li>
+<li><p>data %&lt;&gt;% data … #rewriting the existing dataset by assignment pipe (magrittr)</p></li>
+<li><p>data1 %&gt;% …-&gt;data2 #making/testing all the steps and assigning it to new dataset as the last step</p></li>
+</ul>
+<p>This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.</p>
 </section>
 </section>
 <section id="data-import" class="level2">
