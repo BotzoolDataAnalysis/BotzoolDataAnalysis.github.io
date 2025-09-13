@@ -1,105 +1,165 @@
 ---
 title: "2 Data Manipulation"
+editor: 
+  markdown: 
+    wrap: 72
 ---
-In this chapter, we will try to explore the data, prepare subsets with only selected variables and filter them to only defined cases. We will prepare new variables and rearrange the data according to them. We will also further train importing and exporting the data.  
 
+In this chapter, we will try to explore the data, prepare subsets with
+only selected variables and filter them to only defined cases. We will
+prepare new variables and rearrange the data according to them. We will
+also further train importing and exporting the data.
 
 ## 2.1. Introducing dplyr
-The term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and make better results. It just means we want to show you how to easily handle the data, prepare them in the form you need. 
-The functions for basic data handling, namely **select, filter, mutate, arrange, slice** come from the tidyverse package called `dplyr`. Do you remember how to find out more about the package? If nothing else you can try "?dplyr" which actually gives you more hints where to look further. 
 
+The term data manipulation might sound a bit tricky. However, it does
+not mean we plan to show you how to cheat and make better results. It
+just means we want to show you how to easily handle the data, prepare
+them in the form you need. The functions for basic data handling, namely
+**select, filter, mutate, arrange, slice** come from the tidyverse
+package called `dplyr`. Do you remember how to find out more about the
+package? If nothing else you can try "?dplyr" which actually gives you
+more hints where to look further.
 
 ![](images/IA_clipboard2Dplyr.png){fig-align="center" width="755"}
 
-Note that many of these operations can be done also in some table editors (eg. Excel) before importing to R. However, the effort and time demands would be much higher and would be increasing enormously with the size of the dataset. In contrast, in R you can change and rerun the steps in one pipeline and the data will be immediately ready for next analyses.   
+Note that many of these operations can be done also in some table
+editors (eg. Excel) before importing to R. However, the effort and time
+demands would be much higher and would be increasing enormously with the
+size of the dataset. In contrast, in R you can change and rerun the
+steps in one pipeline and the data will be immediately ready for next
+analyses.
 
 We will need following libraries
+
 ```{r}
 #| warning: false
 library(tidyverse)
 library(readxl)
 ```
-and the forest dataset. Again I will import the data just once and use the pipe to test the functions/effects without actually changing the data  
+
+and the forest dataset. Again I will import the data just once and use
+the pipe to test the functions/effects without actually changing the
+data
+
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 names(data)
 ```
 
 ## 2.2 Select
-Select extracts columns/variables based on their names or position.
-It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset, while filter applies to rows depending on their values. 
 
-You can select by naming the variables. Here you would appreciate the tidy style of names! Tidy names means no need to use parentheses :-) 
+Select extracts columns/variables based on their names or position. It
+is important to realise the difference between select and filter. Select
+is used to select the names of variables I want to keep in the dataset,
+while filter applies to rows depending on their values.
+
+You can select by naming the variables. Here you would appreciate the
+tidy style of names! Tidy names means no need to use parentheses :-)
+
 ```{r}
 data %>% 
   select(PlotID, ForestType, ForestTypeName) 
 ```
 
-You can also select by position. However, be sure it will stay the same after all the changes you might do with the data.
+You can also select by position. However, be sure it will stay the same
+after all the changes you might do with the data.
+
 ```{r}
 data %>% 
   select(1:3)
 ```
-Sometimes you decide you want to get rid of some variables. Either you can name all the others which you want to keep, or you can remove those unwanted with minus sign. If it is one variable it is easy "select(-xx)", if two or more, you have to use "select(-c(xx, xy))" 
+
+Sometimes you decide you want to get rid of some variables. Either you
+can name all the others which you want to keep, or you can remove those
+unwanted with minus sign. If it is one variable it is easy
+"select(-xx)", if two or more, you have to use "select(-c(xx, xy))"
+
 ```{r}
 data %>% 
   select(-c(ForestType,ForestTypeName))
 ```
 
 You can also define range of variables between two of them.
+
 ```{r}
 data %>%
   select(PlotID:ForestTypeName)
 ```
 
 Or you can combine the approaches listed above
+
 ```{r}
 data %>%
   select (PlotID, 3:6)
-```  
-  
-Select can be also used in combination with stringr package to identify the pattern in the names.
+```
+
+Select can be also used in combination with stringr package to identify
+the pattern in the names.
+
 ```{r}
 data %>%
   select (PlotID, starts_with("EIV"))
-```  
+```
 
-Select can effectively help you organise the data. Imagine you have a workflow where you need only some variables, but in a certain sequence. And you import the data from different people, or years. With the use of select in your script you can order the variables always in the same way e.g. SampleID, ForestType, SpeciesNr, Productivity, even during import. And you can also rename the variables using select, to get exactly what you need. Here the new name is at the left, as in rename. 
+Select can effectively help you organise the data. Imagine you have a
+workflow where you need only some variables, but in a certain sequence.
+And you import the data from different people, or years. With the use of
+select in your script you can order the variables always in the same way
+e.g. SampleID, ForestType, SpeciesNr, Productivity, even during import.
+And you can also rename the variables using select, to get exactly what
+you need. Here the new name is at the left, as in rename.
+
 ```{r}
 data %>% 
   select(SampleID=PlotID, ForestCode=ForestType, SpeciesNr=Herbs, Productivity=Biomass) 
 ```
 
 ## 2.3 Arrange
-This function keeps the same variables just reorders the rows according to the values we select. To see the changes at a first glance I will first select only few variables.
+
+This function keeps the same variables just reorders the rows according
+to the values we select. To see the changes at a first glance I will
+first select only few variables.
+
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") 
 data<- data %>% select(PlotID, ForestType, ForestTypeName, Biomass)
 ```
 
-Now I decided to arrange the data by Forest type 
+Now I decided to arrange the data by Forest type
+
 ```{r}
 data %>% 
   arrange(ForestTypeName)
 ```
 
-We can also decide to arrange the data from the highest value to the lowest, i.e. in descending order 
+We can also decide to arrange the data from the highest value to the
+lowest, i.e. in descending order
+
 ```{r}
 data %>% 
   arrange(desc(Biomass))
 ```
 
-Or we can arrange according to more variables. Here the forest type goes first, as I decided it is the most important grouping variable. Within each type I want to see the rows/cases ordered by biomass values. 
+Or we can arrange according to more variables. Here the forest type goes
+first, as I decided it is the most important grouping variable. Within
+each type I want to see the rows/cases ordered by biomass values.
+
 ```{r}
 data %>% 
   arrange(ForestType, ForestTypeName, desc(Biomass)) %>% print(n=30)
 ```
-To see more rows of the resulting table, I specified their number using print function. 
 
+To see more rows of the resulting table, I specified their number using
+print function.
 
 ## 2.4 Distinct
-Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs, unique combinations of two categories etc.
-Here I want to prepare list of forest types codes and names.
+
+Distinct is a function that takes your data and remove all the duplicate
+rows, keeping only the unique ones. There are many cases where you will
+really appreciate this elegant and easy way. For example, I want a list
+of unique PlotIDs, unique combinations of two categories etc. Here I
+want to prepare list of forest types codes and names.
 
 ```{r}
 data %>%
@@ -108,64 +168,109 @@ data %>%
   distinct()
 ```
 
-The same can be done also if I skip the select tool, because distinct works more like select+distinct. 
+The same can be done also if I skip the select tool, because distinct
+works more like select+distinct.
+
 ```{r}
 data %>%      
   arrange(ForestType) %>%
   distinct(ForestType, ForestTypeName)
 ```
-Sometimes, distinct can be used also when importing data just to remove forgotten duplicate rows: data<- read_csv... %>% distinct().
+
+Sometimes, distinct can be used also when importing data just to remove
+forgotten duplicate rows: data\<- read_csv... %\>% distinct().
 
 ## 2.5 Filter and slice
-When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g. Forest type, soil pH...) and which values are acceptable and which are not.
 
-In this first example I use continuous variable - biomass of the herb layer measured in g/m2. Therefore I can set some threshold and say I want only those rows/cases where the biomass values are higher than 80.
+When we have a large dataset, we sometimes need to create a subset of
+the rows/cases. First we have to define upon which variable we are going
+to filter the rows (e.g. Forest type, soil pH...) and which values are
+acceptable and which are not.
+
+In this first example I use categorical variable and I want to match
+exact value, so I have to use ==
+
+```{r}
+data %>% 
+  filter(ForestTypeName =="alluvial forest")
+```
+
+Or I might define a list of values, especially for categorical
+variables. And the filter function will try to find rows with values
+exactly matching those %in% the list.
+
+```{r}
+data %>% 
+  filter(ForestTypeName %in% c("alluvial forest", "ravine forest"))
+```
+
+If I filter continuous variable, I can work with thresholds. For
+example, here the biomass of herb layer is measured in g/m2 and I want
+only those rows/cases where the biomass values are higher than 80.
+
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") 
 data %>% 
   filter(Biomass > 80) #[g/m2]
 ```
 
-Or I might define a list of values, especially for categorical variables. And the filter function will try to find rows with values exactly matching those %in% the list.
-```{r}
-data %>% 
-  filter(ForestTypeName %in% c("alluvial forest", "ravine forest"))
-```
+Sometimes you might find it useful to filter something out, rather than
+specifying what should stay. This is done by the exclamation mark as you
+can see below.
 
-Sometimes you might find it useful to filter something out, rather than specifying what should stay. This is done by the exclamation mark as you can see below.
 ```{r}
 data %>% 
   filter(!is.na(Juveniles))
 ```
 
-Specific alternative to filter is **slice** function. Let's say I want to get top 3 rows/cases/vegetation samples with the highest numbers of recorded juveniles. So I can arrange the values and find out the threshold and filter for the values above it. Or I can use slice_max to do the job for me.   
+Specific alternative to filter is **slice** function. Let's say I want
+to get top 3 rows/cases/vegetation samples with the highest numbers of
+recorded juveniles. So I can arrange the values and find out the
+threshold and filter for the values above it. Or I can use slice_max to
+do the job for me.
 
 ```{r}
 data %>% 
   filter(!is.na(Juveniles)) %>%
   slice_max(Juveniles, n = 3) 
 ```
+
 Tip: try slice_min if you need the lowest values.
 
-
 ## 2.6 Mutate
-Mutate adds new variables that are functions of existing variables. It can also overwrite the original variable e.g. round the values.
 
-For example, in the field I recorded separately juveniles of woody plants and all other herb-layer species. However, I want to sum these two values for each row/case/vegetation plot so that I can speak about overall species richness. I create new variable where I simply sum these two (note how easy it is with tidy names!). 
+Mutate adds new variables that are functions of existing variables. It
+can also overwrite the original variable e.g. round the values.
+
+For example, in the field I recorded separately juveniles of woody
+plants and all other herb-layer species. However, I want to sum these
+two values for each row/case/vegetation plot so that I can speak about
+overall species richness. I create new variable where I simply sum these
+two (note how easy it is with tidy names!).
+
 ```{r}
 data %>% 
   mutate(SpeciesRichness = Herbs+Juveniles) %>%
   select(PlotID, SpeciesRichness, Herbs, Juveniles)
 ```
 
-Sometimes you want to add variable, where all the rows/cases will get the same value. For example because you plan to join the data with other data or because it is useful for another mutate. This is also the very simple way how to change the data with abundances to presence/absence data.
+Sometimes you want to add variable, where all the rows/cases will get
+the same value. For example because you plan to join the data with other
+data or because it is useful for another mutate. This is also the very
+simple way how to change the data with abundances to presence/absence
+data.
+
 ```{r}
 data %>% 
   mutate(selection = 1)%>%
   select(PlotID, selection, ForestType, ForestTypeName)
 ```
 
-**mutate ifelse or cases when**
+You can also create a variable with more categories based on values of
+other variable using **mutate ifelse** You give the condition when it
+should be called low and what to do if the condition is not met - name
+it high.
+
 ```{r}
 data %>%
   mutate(Productivity = ifelse(Biomass<60,"low","high")) %>% 
@@ -173,47 +278,64 @@ data %>%
   print(n=20)
 ```
 
+The same can be done with similar approach using **mutate cases when**
 
-I have already said that we often use mutate to directly transform original values. For example I want to round the numbers in several variables at once, so I use **mutate across**
+```{r}
+data %>% 
+  mutate(Productivity = case_when(Biomass <= 60 ~ "low", Biomass > 60 ~ "high")) %>% 
+  select (PlotID, ForestTypeName, Productivity, Biomass) %>%
+  print(n=20)
+```
+
+I have already said that we often use mutate to directly transform
+original values. For example I want to round the numbers in several
+variables at once, so I use **mutate across**
+
 ```{r}
 data %>% 
   mutate(across(c(Biomass, pH_KCl, TransTot), round)) %>%
   select(PlotID, Biomass, pH_KCl,TransTot)
 ```
 
-
-
-
-
 ## 2.6 Exercises
-on the way, with the use of these datasets
 
-1\. **squirrel data**
-Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) 
+1\. **Forest Data** - Axmanova-Forest-understory-diversity-analyses.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
+This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what we already described above.
+
+2\. Use the Forest Data to train more. Create variable "author" which will contain name Axmanova > as we did before, create variable richness summing the herbs and juveniles > select variables plotID, author, richness, productivity (renamed biomass) and pH
+
+3\.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests. 
+
+4\. Select PlotID and all variables that are connected to transmitted light (Trans..) > round these variables. 
+
+
+5\. We will switch to another dataset, **Species Forest Data** - Axmanova-Forest-spe.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data
+This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover. 
+
+Import the data and check the structure > change it to presence absence data (abundance set to 1)
+*Alternatively prepare presence absence data without considering different layers.
+
+6\. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. 
+Import the data> sort the species data alphabetically > get the list of unique species names of the tree layer i.e. layer 1 > print, view all the species or store them as a new dataset.
+
+
+7\. **iris dataset** We will use the famous iris dataset of flower measurements. Find out more details asking R "?iris" as the dataset is integrated and ready to use.
+Check the structure of the dataset > select variables including species and those of length measurements > arrange according to Sepal.Length > and filter 15 rows with the longest sepals. Which species prevails among these top 15?  
+
+
+8\. **squirrel data** Load data of squirrel observations from the
+[Central Park Squirrel
+Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md)
 using this line: 
-squirrels<- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')
-glimpse(squirrels)
+read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')
+
+Load squirrels data, check the structure, rename variables to get tidy
+names > find out what are the possible colors of fur > select at least
+5 variables, include ID, fur color, location,.. > filter squirrels of
+one fur color, up to your preference > arrange data by location >
+print at least 30 rows
 
 
-2\. **iris dataset** 
-glimpse(iris)
-data<- iris
-names(data)
- 
-
-3\.  **dune from vegan package**
-data<- data("dune", package = "vegan")
-data<- data("dune.env", package = "vegan")
-glimpse(data)
-
-
-4\. **palm trees**
-palmtrees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv')
-glimpse(palmtrees)
-
-
-5\. ForestData
-"DataManipulationVisualisation/data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"
 
 
 ## 2.7 Further reading
@@ -222,6 +344,5 @@ dplyr main web page <https://dplyr.tidyverse.org>
 
 Find dplyr Cheatsheet in Posit <https://posit.co/resources/cheatsheets/>
 
-Chapter devoted to Data transformation in the R for data science book <https://r4ds.hadley.nz/data-transform.html>
-
-
+Chapter devoted to Data transformation in the R for data science book
+<https://r4ds.hadley.nz/data-transform.html>
