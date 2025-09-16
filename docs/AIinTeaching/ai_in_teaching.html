@@ -197,8 +197,21 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ethics" id="toc-ethics" class="nav-link active" data-scroll-target="#ethics">Ethics</a></li>
+  <li><a href="#principles-of-llms" id="toc-principles-of-llms" class="nav-link" data-scroll-target="#principles-of-llms">Principles of LLMs</a></li>
+  <li><a href="#tips-for-using-llms" id="toc-tips-for-using-llms" class="nav-link" data-scroll-target="#tips-for-using-llms">Tips for using LLMs</a>
+  <ul class="collapse">
+  <li><a href="#different-tools-are-useful-for-different-tasks" id="toc-different-tools-are-useful-for-different-tasks" class="nav-link" data-scroll-target="#different-tools-are-useful-for-different-tasks">Different tools are useful for different tasks</a></li>
+  <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general">In general</a></li>
+  <li><a href="#practical-tips-for-data-analysis-and-coding" id="toc-practical-tips-for-data-analysis-and-coding" class="nav-link" data-scroll-target="#practical-tips-for-data-analysis-and-coding">Practical tips for data analysis and coding</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -222,9 +235,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>How to use AI in data analysis?</p>
+<section id="ethics" class="level2">
+<h2 class="anchored" data-anchor-id="ethics">Ethics</h2>
+<p>AI tools, and especially LLMs (large language models) have been widely available for just a few years, basically for just a little while. However, they have managed to gain a die-hard fan base, as well as a group of people who see them nearly as a harbinger of the end of the world, or at least of the world as we know it (Kokotajlo et al.&nbsp;2025). So, everything we are trying to point out here may soon become completely irrelevant…</p>
+<p>Many people use it regularly, including the authors of this leaflet. The most common things we use it for are coding tasks (mainly script debugging), literature search, summarising long texts, explaining things or text editing. AI tools can give better search results than traditional search engines, can help with learning new analytical methods, new programming languages, and it can also make interdisciplinary research easier (RStudioDataLab 2023, Mammides &amp; Papadopoulos 2024). We want to encourage you to play, experiment with AI tools, and try to understand how they work and where the limits of their usage lie, too. But keep in mind that the content of your conversations with AI tools (i.e.&nbsp;data, information about yourself) may be used for further improvement of the model, especially in free versions. So, even if some tools (e.g.&nbsp;Chat GPT) allows you to turn off chat history or delete your conversations, think twice before you share anything and do not send sensitive data to LLMs.</p>
+<p>One of the important (and still not really resolved) issues of extensive usage for LLMs relates to copyright. If you let an LLM write a homework, an essay or even a whole article, who is actually the author of the whole thing? Is this a case of plagiarism? Isn’t it fair to acknowledge the authorship of the AI tool, too? How? Should, e.g., ChatGPT be credited as high as a co-author? Who is responsible for the correctness and accuracy of such text (The group for AI in teaching at Masaryk University 2023, Wu et al.&nbsp;2024)? It is also useful to realize that the quality of an AI-generated text originates from thousands of well-written texts by professional writers (Wu et al.&nbsp;2024) whose work is usually not credited in the AI output. When you are a researcher, such things as true authorship of ideas, text, credibility and authenticity of your outcomes will be the questions you will definitely encounter (The group for AI in teaching at Masaryk University 2023, Johnson et al.&nbsp;2024, Wu et al.&nbsp;2024). It might (or might not, who knows) also happen that large (uncredited) usage of LLMs in writing research papers can be reviewed as unacceptable in the future, and as such, it might even discredit your whole research work&nbsp; (Johnson et al.&nbsp;2024). Many journals and institutions (even MUNI, check <a href="https://www.muni.cz/en/students/daily-study/citing-sources-and-plagiarism/how-does-mu-approach-the-use-of-ai-tools">this link</a>) have prepared guidelines regarding AI usage and its reporting. Usually, usage of AI must be reported when it is used to write longer parts of text (e.g., abstract), or to analyse or visualise data. However, broader consensus on AI use reporting is still missing and therefore it is necessary to check the specific rules and conditions set by each institution, journal, or lecturer before using AI tools.</p>
+<p>Other ethical issues come up directly from the generated content. LLMs can suffer from issues such as training data poisoning or improper data sanitization, which may lead to significant biases in the outcomes (Johnson et al.&nbsp;2024, Wu et al.&nbsp;2024). LLMs are also known to hallucinate non-existent stuff, e.g.&nbsp;literature references or names of software packages. Especially in the case of software packages, this can pose a considerable security risk. Such packages can then be published by hackers with harmful code, which you then unsuspectingly run on your own computer (Mammides &amp; Papadopoulos 2024, Wu et al.&nbsp;2024, Françoisn 2025).</p>
+<p>Heavy reliance on AI tools may also prevent you from learning crucial research skills, such as formulating your own ideas, deep understanding of your topic, various analytical approaches, critical reasoning, etc. (Johnson et al.&nbsp;2024, Millard et al.&nbsp;2024). The usage of AI tools also raises equity questions, especially in regard to paid versions. Naturally, LLMs will be more important for non-native English speakers, but the access to higher-level—but often paid—tools is not available for all, especially for people from low-income countries (Campbell et al.&nbsp;2024, Wu et al.&nbsp;2024).</p>
+<p>The flip side of AI tools also includes their environmental impact. Training and tuning a single LLM produces more CO2 emissions than the average American does in his entire lifetime (Strumbell et al.&nbsp;2019). Using LLM chatbots for one year generates 25 times more CO2 emissions than training the GPT-3 model. This does not even consider the infrastructure and equipment needed, which requires a lot of water and mining of rare elements, causes contamination, and more (Chien et al.&nbsp;2023, Cooper et al.&nbsp;2024).</p>
+<p><strong>Literature</strong></p>
+<p>Campbell, H., Bluck, T., Curry, E., Harris, D., Pike, B., &amp; Wright, B. (2024). Should we still teach or learn coding? A postgraduate student perspective on the use of large language models for coding in ecology and evolution. - Methods in Ecology and Evolution, 15(10), 1767-1770. <a href="https://doi.org/10.1111/2041-210X.14396" class="uri">https://doi.org/10.1111/2041-210X.14396</a>.</p>
+<p>Chien A. A., Lin L., Nguyen H., Rao V., Sharma T. &amp; Wijayawardana R. (2023) Reducing the Carbon Impact of Generative AI Inference (today and in 2035). - In: HotCarbon ’23: Proceedings of the 2nd Workshop on Sustainable Computer Systems, p.&nbsp;1-7. <a href="https://doi.org/10.1145/3604930.3605705" class="uri">https://doi.org/10.1145/3604930.3605705</a>.</p>
+<p>Cooper N., Clark A. T., Lecomte N., Qiao H., &amp; Ellison A. M. (2024) Harnessing large language models for coding, teaching and inclusion to empower research in ecology and evolution. - Methods in Ecology and Evolution, 15(10), 1757-1763.</p>
+<p>Françoisn - <a href="mailto:f@briatte.org">f@briatte.org</a> (2025) AI-generated code comes with security risks. - Available at: <a href="https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/" class="uri">https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/</a>.</p>
+<p>Johnson, T. F., Simmons, B. I., Millard, J., Strydom, T., Danet, A., Sweeny, A. R., &amp; Evans, L. C. (2024). Pressure to publish introduces large-language model risks. - Methods in Ecology and Evolution, 15(10), 1771-1773. <a href="https://doi.org/10.1111/2041-210X.14397" class="uri">https://doi.org/10.1111/2041-210X.14397</a>.</p>
+<p>Kokotajlo D., Alexander S., Larsen Th., Lifland E. &amp; Dean R. (2025) AI 2027. - Available at: <a href="https://ai-2027.com/race#narrative-2025-08-31" class="uri">https://ai-2027.com/race#narrative-2025-08-31</a>.</p>
+<p>Mammides, C., &amp; Papadopoulos, H. (2024) The role of large language models in interdisciplinary research: Opportunities, challenges and ways forward. - Methods in Ecology and Evolution, 15(10), 1774-1776. <a href="https://doi.org/10.1111/2041-210X.14398" class="uri">https://doi.org/10.1111/2041-210X.14398</a>.</p>
+<p>Millard, J., Christie, A. P., Dicks, L. V., Isip, J. E., Johnson, T. F., Skinner, G., &amp; Spake, R. (2024). ChatGPT is likely reducing opportunity for support, friendship and learned kindness in research. - Methods in Ecology and Evolution, 15(10), 1764-1766. <a href="https://doi.org/10.1111/2041-210X.14395" class="uri">https://doi.org/10.1111/2041-210X.14395</a></p>
+<p>RStudioDataLab (2023) How to Use ChatGPT for Data Analysis in R. - Available at: <a href="https://rstudiodatalab.medium.com/how-to-use-chatgpt-for-data-analysis-in-r-891372af842" class="uri">https://rstudiodatalab.medium.com/how-to-use-chatgpt-for-data-analysis-in-r-891372af842</a>.</p>
+<p>Strumbell E., Ganesh A. &amp; McCallum A. (2019) Energy and Policy Considerations for Deep Learning in NLP. - In: Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics, p.&nbsp;3645–3650, Florence, Italy. Association for Computational Linguistics. DOI: <a href="https://doi.org/10.18653/v1/P19-1355">10.18653/v1/P19-1355</a>.</p>
+<p>The group for AI in teaching at Masaryk University (2023) Statement on the Application of Artificial Intelligence in Teaching at Masaryk University. - Available at: <a href="https://www.muni.cz/en/about-us/official-notice-board/statement-on-the-application-of-ai" class="uri">https://www.muni.cz/en/about-us/official-notice-board/statement-on-the-application-of-ai</a>.</p>
+<p>Wu, X., Duan, R., &amp; Ni, J. (2024). Unveiling security, privacy, and ethical concerns of ChatGPT. - Journal of Information and Intelligence, 2(2), 102-115.</p>
+</section>
+<section id="principles-of-llms" class="level2">
+<h2 class="anchored" data-anchor-id="principles-of-llms">Principles of LLMs</h2>
+<p>Many people often talk about LLMs as if they were real people. We all know, or perhaps even use, phrases like “ChatGPT told me…” or “He thinks that…”. Some people are used to having long conversations with them, and some even use them as psychotherapists (e.g., Lau et al.&nbsp;2025). However, the principles of how LLMs work are far from what we would consider “thinking”.</p>
+<p>The basic principle of LLMs is predicting the next word, or more precisely, the next “token”, based on the sequence of the previous ones. Each token—typically a word or part of a word—is first transformed into an array of numbers (an embedding). Then the model assigns probabilities of occurrence to each given token, based on its occurrence in other situations. Based on the probabilities, a token is selected and added to the string, and the process starts again. Interestingly, the best-fitting word is not always selected. Instead, it often samples from a distribution of more, but still highly probable options, to introduce some variability. This way, the model produces what looks like a “reasonable continuation” of a text (Stanford CS324 2022, Wolfram 2023).</p>
+<p>And this is where it gets complicated. The “reasonable continuation” means “what a human would expect a text to look like”. It is derived from billions of websites, articles, and books, which were at some point downloaded from the internet and broken into tokens. The model learns co-occurrence patterns, context and sequences of tokens, which are then turned into probabilities (Stanford CS324 2022, Wolfram 2023). To put things in some perspective, the English language corpus includes around 40,000 words. However, even though those billions of web pages may seem enough for calculating probabilities of all the tokens, for many rare tokens, it is still not enough. This is where large neural networks, machine learning, and optimization algorithms step in (Wolfram 2023).</p>
+<p>You might have heard about general linear models, which are often used in ecology. Such models typically include a few parameters, and adding new terms (and parameters) can soon make the model quite demanding for computational capacity and also for the size of the dataset. The most advanced version of the GPT-3 model (not used anymore, but the most advanced model which the number of parameters and other information is publicly available for) has 175 billion parameters, its size is about 350 GB and the required RAM capacity is ca 300-700 GB (Brown et al.&nbsp;2020) which is far beyond what a standard personal computer is able to run currently.</p>
+<p>(This part was consulted with ChatGPT for a correct description of terms and processes that I have often never heard about before and have just a very little idea how they really work.)</p>
+<p><strong>Literature</strong></p>
+<p>Brown T. B., Mann B., Ryder N., Subbiah M., Kaplan J., Dhariwal P., Neelakantan A., Shyam P., Sastry G., Askell A., Agrawal S., Herbert-Voss A., Krueger G., Henighan T., Child R., Ramesh A., Ziegler D. M., Wu J., Winter C., Hesse C., Chen M., Sigler E., Litwin M., Gray S., Chess B., Clark J., Berner C., McCandlish S., Radford A., Sutskever I. &amp; Amodei D. (2020) Language models are few-shot learners. Computation and Language: <a href="https://en.wikipedia.org/wiki/ArXiv_(identifier)">arXiv</a>:<a href="https://arxiv.org/abs/2005.14165">2005.14165</a>.</p>
+<p>Lau Y., Ang W. H. D.l, Ang W. W., Pang P. C.-I., Wong S. H. &amp; Chan K. S. (2025) Artificial Intelligence–Based Psychotherapeutic Intervention on Psychological Outcomes: A Meta-Analysis and Meta-Regression. - Depression and Anxiety, e8930012. <a href="https://doi.org/10.1155/da/8930012" class="uri">https://doi.org/10.1155/da/8930012</a>.</p>
+<p>Stanford CS324 (2022) Introduction. Available at: <a href="https://stanford-cs324.github.io/winter2022/lectures/introduction/#what-is-a-language-model" class="uri">https://stanford-cs324.github.io/winter2022/lectures/introduction/#what-is-a-language-model</a>.</p>
+<p><br>
+Wolfram S. (2023) What Is ChatGPT Doing … and Why Does It Work? Available at: <a href="https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/" class="uri">https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/</a>.</p>
+</section>
+<section id="tips-for-using-llms" class="level2">
+<h2 class="anchored" data-anchor-id="tips-for-using-llms">Tips for using LLMs</h2>
+<p>Here, we put together a list of (hopefully) useful tips for LLM (especially LLM-based chatbots, such as ChatGPT or Gemini) usage:</p>
+<section id="different-tools-are-useful-for-different-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="different-tools-are-useful-for-different-tasks">Different tools are useful for different tasks</h3>
+<p><a href="https://chatgpt.com/">ChatGPT</a>: Summaries, explanations, research, presentations, coding.</p>
+<p><a href="https://gemini.google.com">Google Gemini</a>: Helping with code, writing and research.</p>
+<p><a href="https://copilot.microsoft.com">Microsoft Copilot</a>: Writing, researching, coding, brainstorming, summarizing.</p>
+<p><a href="https://chat.mistral.ai">Le Chat Mistral</a>: Quick research, writing, brainstorming, summarizing, learning.</p>
+<p><a href="https://www.perplexity.ai">Perplexity</a>: My strengths: information retrieval, text generation, problem-solving, language understanding, multitask support, creativity.</p>
+<p><a href="https://claude.ai">Claude.ai</a>: Writing, coding, analysis, research, problem-solving.</p>
+<p>(These answers were generated by each AI tool. The prompt was: “Can you tell me what are your strengths? Like for what tasks people use you the most? Give me a 5-6 word answer.”)</p>
+<p><strong>Other AI tools without chat-like interface:</strong></p>
+<p><a href="https://www.deepl.com">DeepL</a>: translator, AI-powered text editing</p>
+<p><a href="https://quillbot.com/">QuillBot</a>: translator, grammar-checker, paraphraser</p>
+<p><a href="https://www.grammarly.com/">Grammarly</a>: text editing</p>
+<p><a href="https://elicit.com">Elicit</a>: literature search</p>
+<p><a href="https://gamma.app/">Gamma</a>: presentations</p>
+<p><strong>When you want to compare more AI tools:</strong></p>
+<p><a href="https://lmarena.ai">LMArena</a>: side by side comparison of different LLMs, up-to-date lists of best performing models in various tasks</p>
+</section>
+<section id="in-general" class="level3">
+<h3 class="anchored" data-anchor-id="in-general">In general</h3>
+<ul>
+<li><p>Describe your question like in a conversation with your coding/learning buddy. LLM can give you not only the direct answer, but it can also explain how the script/library/workflow/topic works (Campbell et al.&nbsp;2024, Ellen 2025). LLM can usually explain things in an easier language than online forums (Campbell et al.&nbsp;2024)</p></li>
+<li><p>Don’t ask everything in one prompt, split complex tasks into smaller steps (Vieira &amp; Raymond n.d., Mammides et al.&nbsp;2024, Wilson 2025a)</p></li>
+<li><p>First answer is usually not the best (Çetinkaya-Rundel 2025)</p></li>
+<li><p>Be specific in what you want it to do (Wilson 2025a)</p></li>
+<li><p>Context is king (Willson 2025a)</p></li>
+<li><p>Don’t ask about its opinion, better is to ask about consensus (in the topic you are focused on)</p></li>
+<li><p>Ask for references</p></li>
+<li><p>Ask for options (Wilson 2025a)</p></li>
+<li><p>Give examples (Wilson 2025b)</p></li>
+<li><p>Try different models to cross-check the outputs. Also, different models are good for different goals (Vieira &amp; Raymond n.d.)</p></li>
+<li><p>“Just because code looks good and runs without errors doesn’t mean it’s doing the right thing.” (Wilson 2025a)</p></li>
+<li><p>Don’t trust everything, AI tools are overconfident “yes machines” and sometimes hallucinate (Vieira &amp; Raymond n.d., Mammides et al.&nbsp;2024, Willson 2025b)</p></li>
+<li><p>Don’t become too dependent on ChatGPT. Shutdowns, price, you should still know how to do things manually (Lubiana et al.&nbsp;2023)</p></li>
+</ul>
+</section>
+<section id="practical-tips-for-data-analysis-and-coding" class="level3">
+<h3 class="anchored" data-anchor-id="practical-tips-for-data-analysis-and-coding">Practical tips for data analysis and coding</h3>
+<ul>
+<li><p>Prior knowledge of coding and statistics is necessary to provide sufficiently detailed prompt and use and interpret AI-generated code correctly (Campbell et al.&nbsp;2024)</p></li>
+<li><p>Specify the coding language, packages you want to use (e.g., tidyverse, vegan) (Vieira &amp; Raymond n.d., Cooper et al.&nbsp;2024)</p></li>
+<li><p>If you analyze the data with an LLM, always ask the LLM to generate an R script and test its functionality. Do not just pick the results and export the figures. This is essential for reproducibility and further adjustments.&nbsp;</p></li>
+<li><p>Use full sentences, with as much context as possible (Cooper et al.&nbsp;2024)</p></li>
+<li><p>If you are trying to resolve an error, copy not only the error message, but also the whole script where the error emerges from. This gives the LLM a context of the functions and libraries you used (Ellen 2025)</p></li>
+<li><p>“Effective prompts include context, specify the topic, outline the desired output, concise, focused question” (Lubiana et al.&nbsp;2023)</p></li>
+<li><p>When the conversation leads nowhere, start a new chat. Try to give the LLM a different context (Wilson 2025a)</p></li>
+<li><p>It does not always change only the part of the script you ask it to, but also other parts without warning (Çetinkaya-Rundel 2025)</p></li>
+<li><p>Always check the script you want to apply (Wilson 2025a). Clean the suggested script from unnecessary parts, try to run it line-by-line to understand what is happening (Çetinkaya-Rundel 2025)</p></li>
+<li><p>From time to time, consult also old-school browsers or StackOverflow, because LLMs can lack information about the latest updates. Also, you can find better (or different) approaches how to do certain things there (Ellen 2025, Wilson 2025a)</p></li>
+<li><p>Before you start questions (Davjekar 2024):</p>
+<ul>
+<li><p>“I’m starting a new [type of project] using [programming language/framework]. Can you suggest a basic file structure and essential dependencies I should consider?”</p></li>
+<li><p>“I want to build [brief project description]. Can you help me break this down into smaller tasks and suggest an order of implementation?”</p></li>
+</ul></li>
+<li><p>Questions to ask about the code (RStudioDataLab 2023):</p>
+<ul>
+<li><p>Why did you generate this code?</p></li>
+<li><p>What does this code do?</p></li>
+<li><p>How can I fix this error?</p></li>
+<li><p>What are the alternatives to this code?</p></li>
+<li><p>How can I improve this code?</p></li>
+</ul></li>
+<li><p>Handy prompts (Lubiana et al.&nbsp;2023):</p>
+<ul>
+<li><p>“Add explanatory comments to this code:”</p></li>
+<li><p>“Rename the variables for clarity:”</p></li>
+<li><p>“Write me a standard GitHub README file for the above code.”</p></li>
+<li><p>“Extract functions for increased clarity:”</p></li>
+<li><p>“Re-write and optimize this for-loop:”&nbsp;</p></li>
+<li><p>&nbsp;“Write me regex for R/Python/Excel with a pattern that will extract {} from {}”</p></li>
+<li><p>“Create a ggplot2 violin plot with a log10 Y axis”</p></li>
+</ul></li>
+</ul>
+<p><strong>Literature:</strong></p>
+<p>Campbell, H., Bluck, T., Curry, E., Harris, D., Pike, B., &amp; Wright, B. (2024). Should we still teach or learn coding? A postgraduate student perspective on the use of large language models for coding in ecology and evolution. - Methods in Ecology and Evolution, 15(10), 1767-1770. <a href="https://doi.org/10.1111/2041-210X.14396" class="uri">https://doi.org/10.1111/2041-210X.14396</a>.</p>
+<p>Çetinkaya-Rundel M. (2025) Learning the tidyverse with the help of AI tools. Available at: <a href="https://www.tidyverse.org/blog/2025/04/learn-tidyverse-ai/" class="uri">https://www.tidyverse.org/blog/2025/04/learn-tidyverse-ai/</a>.</p>
+<p>Cooper, N., Clark, A. T., Lecomte, N., Qiao, H., &amp; Ellison, A. M. (2024). Harnessing large language models for coding, teaching and inclusion to empower research in ecology and evolution. - Methods in Ecology and Evolution, 15(10), 1757-1763.</p>
+<p>Davjekar A. (2024) AI-Assisted Software Development: A Comprehensive Guide with Practical Prompts (Part 1/3). Available at:</p>
+<p><a href="https://aalapdavjekar.medium.com/ai-assisted-software-development-a-comprehensive-guide-with-practical-prompts-part-1-3-989a529908e0" class="uri">https://aalapdavjekar.medium.com/ai-assisted-software-development-a-comprehensive-guide-with-practical-prompts-part-1-3-989a529908e0</a>.</p>
+<p>Ellen L. (2025) How Would I Learn to Code with ChatGPT if I Had to Start Again. Available at: <a href="https://towardsdatascience.com/how-would-i-learn-to-code-with-chatgpt-if-i-had-to-start-again/" class="uri">https://towardsdatascience.com/how-would-i-learn-to-code-with-chatgpt-if-i-had-to-start-again/</a>.</p>
+<p>Lubiana T, Lopes R, Medeiros P, Silva JC, Goncalves ANA, Maracaja-Coutinho V, et al.&nbsp;(2023) Ten quick tips for harnessing the power of ChatGPT in computational biology. - PLoS Computation Biology 19(8): e1011319. <a href="https://doi.org/10.1371/journal.pcbi.1011319" class="uri">https://doi.org/10.1371/journal.pcbi.1011319</a>.</p>
+<p>Mammides, C., &amp; Papadopoulos, H. (2024). The role of large language models in interdisciplinary research: Opportunities, challenges and ways forward. - Methods in Ecology and Evolution, 15(10), 1774-1776. <a href="https://doi.org/10.1111/2041-210X.14398" class="uri">https://doi.org/10.1111/2041-210X.14398</a>.</p>
+<p>RStudioDataLab (2023) How to Use ChatGPT for Data Analysis in R. Available at: <a href="https://rstudiodatalab.medium.com/how-to-use-chatgpt-for-data-analysis-in-r-891372af842" class="uri">https://rstudiodatalab.medium.com/how-to-use-chatgpt-for-data-analysis-in-r-891372af842</a>.</p>
+<p>Vieira V. &amp; Raymond E. S. (n.d.) AI CODE GUIDE. Available at: <a href="https://github.com/automata/aicodeguide" class="uri">https://github.com/automata/aicodeguide</a>.</p>
+<p>Willison S. (2025a) Hallucinations in code. Available at: <a href="https://simonwillison.net/2025/Mar/2/hallucinations-in-code/#qa" class="uri">https://simonwillison.net/2025/Mar/2/hallucinations-in-code/#qa</a>.</p>
+<p>Willison S. (2025b) Here’s how I use LLMs to help me write code. Available at: <a href="https://simonwillison.net/2025/Mar/11/using-llms-for-code/" class="uri">https://simonwillison.net/2025/Mar/11/using-llms-for-code/</a>.&nbsp;</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

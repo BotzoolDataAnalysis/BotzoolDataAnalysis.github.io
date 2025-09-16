@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -202,7 +236,32 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link active" data-scroll-target="#further-reading">Further reading</a></li>
+  <li><a href="#git-and-github---what-is-it-and-what-is-it-good-for" id="toc-git-and-github---what-is-it-and-what-is-it-good-for" class="nav-link active" data-scroll-target="#git-and-github---what-is-it-and-what-is-it-good-for">12.1 Git and GitHub - what is it and what is it good for?</a></li>
+  <li><a href="#find-and-download-data-and-code" id="toc-find-and-download-data-and-code" class="nav-link" data-scroll-target="#find-and-download-data-and-code">12.2 Find and download data and code</a></li>
+  <li><a href="#set-up-your-own-account" id="toc-set-up-your-own-account" class="nav-link" data-scroll-target="#set-up-your-own-account">12.3 Set up your own account</a>
+  <ul class="collapse">
+  <li><a href="#create-a-github-account" id="toc-create-a-github-account" class="nav-link" data-scroll-target="#create-a-github-account">12.3.1 Create a GitHub account</a></li>
+  <li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git">12.3.2 Install Git</a></li>
+  <li><a href="#introduce-yourself-to-git" id="toc-introduce-yourself-to-git" class="nav-link" data-scroll-target="#introduce-yourself-to-git">12.3.3 Introduce yourself to Git</a></li>
+  <li><a href="#personal-access-tokens" id="toc-personal-access-tokens" class="nav-link" data-scroll-target="#personal-access-tokens">12.3.4 Personal access tokens</a></li>
+  </ul></li>
+  <li><a href="#create-a-github-repository" id="toc-create-a-github-repository" class="nav-link" data-scroll-target="#create-a-github-repository">12.4 Create a GitHub repository</a></li>
+  <li><a href="#local-changes-commit-push" id="toc-local-changes-commit-push" class="nav-link" data-scroll-target="#local-changes-commit-push">12.5 Local changes, commit, push</a></li>
+  <li><a href="#remote-changes-pull" id="toc-remote-changes-pull" class="nav-link" data-scroll-target="#remote-changes-pull">12.6 Remote changes, pull</a></li>
+  <li><a href="#gitignore" id="toc-gitignore" class="nav-link" data-scroll-target="#gitignore">12.7 .gitignore</a></li>
+  <li><a href="#collaboration-with-others" id="toc-collaboration-with-others" class="nav-link" data-scroll-target="#collaboration-with-others">12.8 Collaboration with others</a>
+  <ul class="collapse">
+  <li><a href="#add-collaborators" id="toc-add-collaborators" class="nav-link" data-scroll-target="#add-collaborators">12.8.1 Add collaborators</a></li>
+  <li><a href="#basic-workflow" id="toc-basic-workflow" class="nav-link" data-scroll-target="#basic-workflow">12.8.2 Basic workflow</a></li>
+  <li><a href="#branches" id="toc-branches" class="nav-link" data-scroll-target="#branches">12.8.3 Branches</a></li>
+  <li><a href="#pull-request" id="toc-pull-request" class="nav-link" data-scroll-target="#pull-request">12.8.4 Pull request</a></li>
+  <li><a href="#merge-conflicts" id="toc-merge-conflicts" class="nav-link" data-scroll-target="#merge-conflicts">12.8.5 Merge conflicts</a></li>
+  </ul></li>
+  <li><a href="#time-travel" id="toc-time-travel" class="nav-link" data-scroll-target="#time-travel">12.9 Time travel</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">12.10 Glossary</a></li>
+  <li><a href="#other-tips" id="toc-other-tips" class="nav-link" data-scroll-target="#other-tips">12.11 Other Tips</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">12.12 Exercises *</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">12.13 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -228,23 +287,305 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>version control and GitHub</p>
-<p>easy: how to find, download code from someone without an account (examples - maps course, published codes for articles)</p>
-<p>but much more is possible when you create your own account:</p>
-<p>install git</p>
-<p>create your own GitHub account</p>
-<p>setup connection with RStudio</p>
-<p>create your first repository (e.g.&nbsp;for your scripts from this course)</p>
-<p>settings - private repositories, colaborators</p>
-<p>code, readme, issues etc.</p>
-<p>commit, push, pull</p>
-<p>branches, pull request</p>
-<p>merge conflicts</p>
-<p>publication in a long-term repository - connection with Zenodo</p>
-<p>GitHub pages - our study materials, personal webpages (add examples)</p>
+<section id="git-and-github---what-is-it-and-what-is-it-good-for" class="level2">
+<h2 class="anchored" data-anchor-id="git-and-github---what-is-it-and-what-is-it-good-for">12.1 Git and GitHub - what is it and what is it good for?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2073092924.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="374"></p>
+</figure>
+</div>
+<p>Let’s start with Git (shortcut for Global Information Tracker). It is a <strong>version control system</strong>, which means a software tool to track, manage and organise changes to files over time. It’s like the ‘Track Changes’ mode in Microsoft Word, but more powerful and scaled up to track multiple files in a folder called a <strong>repository</strong> (repo). It tracks and records changes to a file and allows you to recall a specific version at any time later. It was originally developed and used by professional software developers, but it also provides many advantages for data science. The data science community uses it not only for tracking source code for the analysis, but also source data, results and figures.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3480044156.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="458"></p>
+</figure>
+</div>
+<p>A huge advantage comes when you start to collaborate with other people. This is where hosting services for Git-based projects come in. We already showed you a little bit of <a href="https://github.com">GitHub</a> in this course, but we will explain its functionalities more consistently and in more detail now. Git is a software that you have locally on your computer. GitHub is the host server, allowing for collaboration of multiple people on the same project. Imagine it as if you have a Word document where you work on your own, but move it to Google Docs so that more people can collaborate on a single file. But there’s much more than in Google Docs. With GitHub, you can, for example:</p>
+<ul>
+<li><p>create a repository to collaborate on a certain analysis with several people</p></li>
+<li><p>publish data and code for the analysis you did in your paper, and link the repository to <a href="https://zenodo.org">Zenodo</a> to store them permanently</p></li>
+<li><p>find and download data or code from someone else’s repository</p></li>
+<li><p>publish an R package, or download an R package published there</p></li>
+<li><p>use Issues to track problems in the code</p></li>
+<li><p>host a webpage like this one</p></li>
+</ul>
+</section>
+<section id="find-and-download-data-and-code" class="level2">
+<h2 class="anchored" data-anchor-id="find-and-download-data-and-code">12.2 Find and download data and code</h2>
+<p>how to find, download code from someone without an account (examples - maps course, published codes for articles)</p>
+</section>
+<section id="set-up-your-own-account" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-your-own-account">12.3 Set up your own account</h2>
+<p>At the beginning, this is the most demanding task - to set up your own GitHub account and connect it to your RStudio, but once it works, you’ll be able to make your own GitHub repository to share your work with others and much more. We will now go through the setup together.</p>
+<section id="create-a-github-account" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-github-account">12.3.1 Create a GitHub account</h3>
+<p>First of all, you’ll need to create your own account at <a href="https://github.com">GitHub.com</a>. It is worth paying some attention to your username, which should preferably include your name. You can change it later, but it’s better not to do it.</p>
+</section>
+<section id="install-git" class="level3">
+<h3 class="anchored" data-anchor-id="install-git">12.3.2 Install Git</h3>
+<p>Install Git if you don’t have it installed already. You will have to use the command line to interact with Git, you can find more information <a href="https://happygitwithr.com/shell">here</a>. You can launch it directly from RStudio using the Terminal window, which you will usually find next to the Console.</p>
+<p><img src="images/clipboard-752985204.png" class="img-fluid"></p>
+<p>Type <code>which git</code> to see if you have Git installed somewhere in your computer.</p>
+<pre><code>which git</code></pre>
+<p>The following line will tell you which version you are using.</p>
+<pre><code>git --version</code></pre>
+<p>If you don’t see something like here, but get a message like <code>git: command not found</code>, you’ll have to download and install Git for <a href="https://gitforwindows.org">Windows</a> or <a href="https://git-scm.com/downloads/mac">macOS.</a> Look <a href="https://happygitwithr.com/install-git">here</a> for more guidance.</p>
+</section>
+<section id="introduce-yourself-to-git" class="level3">
+<h3 class="anchored" data-anchor-id="introduce-yourself-to-git">12.3.3 Introduce yourself to Git</h3>
+<p>This is possible either using the Terminal:</p>
+<pre><code>git config --global user.name "Jane Doe"
+git config --global user.email "jane@example.com"
+git config --global --list</code></pre>
+<p>or using the <code>usethis</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.org"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Replace the example name and email with your username and email associated with your GitHub account.</p>
+</section>
+<section id="personal-access-tokens" class="level3">
+<h3 class="anchored" data-anchor-id="personal-access-tokens">12.3.4 Personal access tokens</h3>
+<p>We now have to make sure that RStudio can communicate with Git. Confirm, that Git has your username and email by running</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, generate a personal access token using</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Click ‘Generate token’ and copy the token to a safe place.</p>
+<p>Then, add the personal access token (PAT) to RStudio:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Paste the PAT in response to the dialogue in the console:</p>
+<pre><code>? Enter password or token: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+-&gt; Adding new credentials... 
+-&gt; Removing credentials from cache... 
+-&gt; Done.</code></pre>
+<p>You should now be able to work with GitHub from your RStudio. Look <a href="https://happygitwithr.com/https-pat">here</a> to read more about personal access tokens and GitHub-RStudio configuration.</p>
+</section>
+</section>
+<section id="create-a-github-repository" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-github-repository">12.4 Create a GitHub repository</h2>
+<p>Go to&nbsp;<a href="https://github.com/">https://github.com</a> and log in. You might see something like this:</p>
+<p><img src="images/clipboard-3857220433.png" class="img-fluid"></p>
+<p>Click on the green button to create a new repository. Enter the name of your first repository. You can also add a brief description. Let the repository be public and initialise a README file by clicking on the Add README button. Then click the green button ‘Create a repository’ at the bottom of the page.</p>
+<p>To link the repository to a folder in your computer, click the green button ‘&lt;&gt; Code’ and copy the URL to clipboard</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1615554532.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>In RStudio, start a new project. Instead of the usual ‘New Directory’ click on ‘Version Control’.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1040082054.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Choose ‘Git’.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4003317899.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>And enter the URL of your new repository.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2934000976.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Choose a folder where you want your project to be saved. It might be the folder you use for this course. Click ‘Create Project’. This will create an R project in your computer linked with the remote GitHub repository.</p>
+<p>Look in the file browser pane if you find a README file there and open it in RStudio.</p>
+</section>
+<section id="local-changes-commit-push" class="level2">
+<h2 class="anchored" data-anchor-id="local-changes-commit-push">12.5 Local changes, commit, push</h2>
+<p>Modify the README file, e.g.&nbsp;by adding a line ‘This is a line from RStudio’ and create a new R script with a few lines. Save your changes.</p>
+<p>Now, commit your changes to your local repo. Open the ‘Git’ tab.</p>
+<p><img src="images/clipboard-1528738548.png" class="img-fluid"></p>
+<p>Tick the ‘Staged’ boxes for the files you changed and click on ‘Commit’</p>
+<p><img src="images/clipboard-872556873.png" class="img-fluid"></p>
+<p>You will see a popup window showing the changes you made. Enter a Commit message and click ‘Commit’.</p>
+<p><img src="images/clipboard-1898766752.png" class="img-fluid"></p>
+<p>Now you have committed the changes <strong>locally</strong>. In the top left of the popup window, you will see a message, that ‘your branch is ahead of ’origin/main’ by one commit. It means you have locally committed some changes that are not synchronised with the remote counterpart yet. To send your changes to the <strong>GitHub remote repository (push)</strong>, click on the green ‘Push’ button.</p>
+<p><img src="images/clipboard-3446418907.png" class="img-fluid"></p>
+<p>If successful, your changes should now be visible in the GitHub repository. Refresh the webpage with the GitHub repo and check it.</p>
+<p>It is a good practice to provide informative commit messages. In case you need to return to a specific version later, it will be easier to find it.</p>
+</section>
+<section id="remote-changes-pull" class="level2">
+<h2 class="anchored" data-anchor-id="remote-changes-pull">12.6 Remote changes, pull</h2>
+<p>Let’s stay in the remote GitHub repository for a while and try another way to modify files in the repository. At the GitHub webpage, click on the pencil at the top of the readme file to edit it.</p>
+<p><img src="images/clipboard-4166891576.png" class="img-fluid"></p>
+<p>Add a line, e.g., ‘This is a line added remotely.’ and click on the green button ‘Commit changes…’.</p>
+<p><img src="images/clipboard-4080482150.png" class="img-fluid"></p>
+<p>Add a commit message and click on ‘Commit changes’.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3120281596.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Now return to your RStudio, which is now one commit behind its remote counterpart. To synchronise the <strong>local</strong> repository with the <strong>remote</strong>, click on the blue ‘Pull’ arrow to <strong>pull</strong> the changes to your local repository. You can do that either directly in the Git window:</p>
+<p><img src="images/clipboard-33346835.png" class="img-fluid"></p>
+<p>Or first open the Commit popup and then click on the blue arrow.</p>
+<p><img src="images/clipboard-4255669895.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1238394233.png" class="img-fluid"></p>
+<p>Both ways lead to the same result: you will see a popup window showing what changed and get all the changes made remotely to your local repository.</p>
+<p><img src="images/clipboard-2463787173.png" class="img-fluid"></p>
+<p>If you see something like this, you can just close the window. The problem is, if you get some error message that the pull was not successful, but hopefully you don’t.</p>
+<p>It is not so useful to modify files in the remote repository. Except for the readme file, we do not recommend adding or modifying files directly on the GitHub webpage. The reason is, you can do whatever you want in your local repository and then commit and push the changes, but not much is possible to modify on the webpage, and you cannot directly test if the scripts work.</p>
+<p>The ‘Pull’ button becomes much more useful when you start collaborating with others on the same repository. Each of you has a local copy of the repository, and all of you commit and push changes to the same remote repository. Once you commit your changes and push them to the remote repo, your colleague has to pull them to synchronise his/her local repository with yours via the remote.</p>
+<p><img src="images/clipboard-1358456446.png" class="img-fluid"></p>
+</section>
+<section id="gitignore" class="level2">
+<h2 class="anchored" data-anchor-id="gitignore">12.7 .gitignore</h2>
+<p>In your local repository, you can also have some files that you don’t want to be tracked. You can add to your repository file called <code>.gitignore</code> to tell Git which files should be ignored, i.e, not be tracked. For example:</p>
+<pre><code># History files
+.Rhistory
+
+# RStudio files
+testrepo.Rproj
+
+# data - ignores everything in the data folder
+data/*
+
+# figures - ignores all figures
+*.png
+*.jpg</code></pre>
+</section>
+<section id="collaboration-with-others" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration-with-others">12.8 Collaboration with others</h2>
+<section id="add-collaborators" class="level3">
+<h3 class="anchored" data-anchor-id="add-collaborators">12.8.1 Add collaborators</h3>
+<p>A huge advantage of GitHub or other hosting services is that you can collaborate with others on the same project. You can add collaborators to your repository by clicking on ‘Settings’ &gt; ‘Collaborators’ &gt; ‘Add people’.</p>
+<p><img src="images/clipboard-3720166386.png" class="img-fluid"></p>
+<p>Type the username of your colleague and click ‘Add to repository’. Your colleague will receive an email invitation and has to accept it. Now he/she can clone the repository to his/her computer and get another <strong>local</strong> repository.</p>
+</section>
+<section id="basic-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="basic-workflow">12.8.2 Basic workflow</h3>
+<p>Both of you can now make some changes, commit them and push to the remote repository. To keep updated and not overwrite changes of the other, you will need to pull changes from the remote that someone else made before you push your changes. Usually, the sequence would be: pull &gt; make some changes &gt; commit &gt; push.</p>
+<p>It is not a very good idea for two or more people to work on the same file at the same time, because you can overwrite the changes of the other person. But the project might work very well if you divide your roles somehow, for example, Alice is responsible for the data preparation, Bob for the subsequent analysis, and Cecilia for the final visualisation. Ideally, each of them has its own script and doesn’t overwrite the code of the other, although he/she uses previous steps made by someone else.</p>
+</section>
+<section id="branches" class="level3">
+<h3 class="anchored" data-anchor-id="branches">12.8.3 Branches</h3>
+<p>Branching means that you take a detour from the main stream of development and do some work in parallel, without changing the main stream. It might be useful to experiment with some idea, when you are not sure it will work. Or when working with others, you can do your own work on a branch without overwriting someone else’s work and then merge it back later on.</p>
+<p>At GitHub, if you look at the ‘Code’ and click on the button with the branch symbol on the left, you can see what branches the repository includes. You will probably see only one branch called ‘main’, which is the default.</p>
+<p><img src="images/clipboard-3329384472.png" class="img-fluid"></p>
+<p>You can create a new branch here. Type the branch name into the search box. You can add, for example, your initials to create your branch in a repo with multiple collaborators. The click on the Create branch button.</p>
+<p><img src="images/clipboard-2633195840.png" class="img-fluid"></p>
+<p>In the remote repository, you are now switched to the branch you just created. Come back to the local in your RStudio. To switch to your branch there, pull the remote changes first. Then click on the branch name in the upper right corner of the Git pane and then select your branch.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2069550038.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>You should see something like this:</p>
+<pre><code>&gt;&gt;&gt; C:/Program Files/Git/bin/git.exe checkout -b KK origin/KK
+branch 'KK' set up to track 'origin/KK'.
+Switched to a new branch 'KK'</code></pre>
+<p>Now you can make some changes (for example add a new script), commit them and push to the remote. Check the GitHub webpage, if the changes are visible there. You should see something like this:</p>
+<p><img src="images/clipboard-3553469944.png" class="img-fluid"></p>
+</section>
+<section id="pull-request" class="level3">
+<h3 class="anchored" data-anchor-id="pull-request">12.8.4 Pull request</h3>
+<p>To merge the changes back to the main branch, you can make a <strong>pull request</strong>. Click on the green button ‘Compare &amp; pull request’.</p>
+<p><img src="images/clipboard-2149795480.png" class="img-fluid"></p>
+<p>You can now change the title and add a brief description. You can also check the changes when you scroll down. Then click on the green button ’Create a pull request.</p>
+<p><img src="images/clipboard-1742273270.png" class="img-fluid"></p>
+<p>The changes you made are still not in the main branch, you just created a request to merge them into the main branch. The second step is to <strong>merge</strong> the pull request. You can either do it directly by clicking on the green button ‘Merge pull request’.</p>
+<p><img src="images/clipboard-1324013446.png" class="img-fluid"></p>
+<p>And then ‘Confirm merge’.</p>
+<p><img src="images/clipboard-3329973816.png" class="img-fluid"></p>
+<p>Or if you are collaborating with others on this project and you have someone as a project manager, you can (and probably should) leave the pull request open, so that the project manager can check which changes you made and decide to include them into the main branch or not.</p>
+<p>For now, you can merge the pull request and check if you see the changes made on your branch in the main branch.</p>
+</section>
+<section id="merge-conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="merge-conflicts">12.8.5 Merge conflicts</h3>
+<p>Most of the time, the merge will go smoothly. However, if both branches that are merging changed the same part of the same file in the meantime, you will get a merge conflict. The same happens, when you pull/push changes between local and remote in case both of them changed the same part of the same file.</p>
+<p>Do not panic when this happens. It’s usually not so difficult to resolve the merge conflict. The first step is to determine, which files are in conflict. Then open the file to see, which lines are in conflict. You will see something like this:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; KK
+
+-- This is a line from RStudio. Modified in different way.
+
+======= 
+
+This is a line from RStudio. Modified.
+
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; main </code></pre>
+<!-- ```          -->
+<!-- <<<<<<< KK -->
+<!-- This is a line from RStudio. Modified in different way. -->
+<!-- ======= -->
+<!-- This is a line from RStudio. Modified. -->
+<!-- >>>>>>> main -->
+<!-- ``` -->
+<p>Where the lines between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; KK</code> and <code>=======</code> are the content from the branch you are currently on. The lines between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</code> are from the branch we are merging. To resolve the conflict, we have to edit this section, either keep one of the two version or come with a new one. We also have to remove the conflict markers. Now we can commit the changes to finalize the merge.</p>
+<p>How to avoid merge conflicts:</p>
+<ul>
+<li><p>commit often, work in small steps</p></li>
+<li><p>push and pull regularly</p></li>
+<li><p>organise your code in multiple scripts, one for each task (e.g., data preparation, analysis, final visualisation)</p></li>
+<li><p>organise the workflow in multiple steps and divide the work on different part of the code between the collaborators, do not work on the same thing simultaneously</p></li>
+</ul>
+</section>
+</section>
+<section id="time-travel" class="level2">
+<h2 class="anchored" data-anchor-id="time-travel">12.9 Time travel</h2>
+<p>review history, go back to specific version</p>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">12.10 Glossary</h2>
+<ul>
+<li><p><strong>repository (repo)</strong> - the directory or folder for version control</p></li>
+<li><p><strong>local</strong> - the repository on your computer</p></li>
+<li><p><strong>remote</strong> - the repository on GitHub</p></li>
+<li><p><strong>clone</strong> - get some work from a remote for the first time</p></li>
+<li><p><strong>stage</strong> - choose the changes you want to record before you commit them</p></li>
+<li><p><strong>commit</strong> - a record of change. If you create or edit a file in your repository and save the changes, you need to record your changes via a commit.</p></li>
+<li><p><strong>hash</strong> - commit id</p></li>
+<li><p><strong>push</strong> - send commits from the local repo to the remote</p></li>
+<li><p><strong>pull</strong> - retrieve commits from the remote repo to the local</p></li>
+<li><p><strong>diff</strong> - differences between two commits</p></li>
+<li><p><strong>branch</strong> - a stream of work development</p></li>
+<li><p><strong>pull request</strong> - request to merge one branch to another</p></li>
+<li><p><strong>merge</strong> - combine two branches</p></li>
+<li><p><strong>merge conflict</strong> - when the same part of the same file changed in two different sources (two branches, or local and remote) and are not able to merge automatically</p></li>
+<li><p><strong>checkout</strong> - time travel to a specific commit in the past</p></li>
+</ul>
+</section>
+<section id="other-tips" class="level2">
+<h2 class="anchored" data-anchor-id="other-tips">12.11 Other Tips</h2>
+<ul>
+<li>You can change use <strong>private</strong> repositories for work in progress which includes data and scripts that are not published yet and you don’t want to make them public, e.g., before publishing a scientific paper based on the analysis.</li>
+<li>If you are a student or a university researcher, you can get access to <a href="https://github.com/education">GitHub Education</a>, which provides some benefits, such as free private repositories with more than three collaborators, access to GitHub Copilot, etc.</li>
+<li>You can use the connection between GitHub and Zenodo to publish data and scripts associated with your scientific paper and get DOI for them. Look <a href="https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content">here</a> for the instructions.</li>
+<li>It is also possible to create and host a webpage like this one through GitHub. Some researchers create their personal webpage this way. To do that you will have to learn basics of <a href="https://quarto.org">Quarto</a>, but don’t be afraid, it is not so difficult. We recommend looking <a href="https://r4ds.hadley.nz/quarto.html">here</a> for some introduction to Quarto and <a href="https://docs.github.com/en/pages">here</a> to explore more about GitHub pages.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">12.12 Exercises *</h2>
+<ol type="1">
+<li>Create a new GitHub repository, connect it with your RStudio and create a version control project on your computer. Create a usual project structure from your local repository (add folders for data, scripts, plots, etc.). Add a readme and some scripts or data from this course. Commit the changes and push them to the remote repository. Check if everything works.</li>
+<li>Add collaborators (e.g., those who sit next to you) to your repository.</li>
+<li>Make this repository private.</li>
+<li>Create a branch for each of you.</li>
+<li>Switch to your branch, make some changes, commit them and push to the remote.</li>
+<li>Create a pull request to merge your changes with the main branch.</li>
+<li>Delete the repository.</li>
+</ol>
+</section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">12.13 Further reading</h2>
 <p>Happy Git and GitHub for the useR: <a href="https://happygitwithr.com" class="uri">https://happygitwithr.com</a></p>
+<p>BioStats Version Control with Git and GitHub: <a href="https://biostats-r.github.io/biostats/github" class="uri">https://biostats-r.github.io/biostats/github</a></p>
+<p>Flight rules for Git (what to do when things go wrong): <a href="https://github.com/k88hudson/git-flight-rules" class="uri">https://github.com/k88hudson/git-flight-rules</a></p>
+<p>How to get out of terrible situations: <a href="https://ohshitgit.com" class="uri">https://ohshitgit.com</a></p>
+<p>Open source game to learn Git: <a href="https://ohmygit.org" class="uri">https://ohmygit.org</a></p>
+<p>GitHub Training Kit: <a href="https://training.github.com" class="uri">https://training.github.com</a></p>
+<p>GitHub learning sources: <a href="https://docs.github.com/en/get-started/start-your-journey/git-and-github-learning-resources" class="uri">https://docs.github.com/en/get-started/start-your-journey/git-and-github-learning-resources</a></p>
+<p>Ten simple rules for taking advantage of Git and GitHub: <a href="https://doi.org/10.1371/journal.pcbi.1007142" class="uri">https://doi.org/10.1371/journal.pcbi.1007142</a></p>
+<p>RStudio Version Control Guide: <a href="https://docs.posit.co/ide/user/ide/guide/tools/version-control.html" class="uri">https://docs.posit.co/ide/user/ide/guide/tools/version-control.html</a></p>
+<p>Pro Git: <a href="https://git-scm.com/book/en/v2" class="uri">https://git-scm.com/book/en/v2</a></p>
 
 
 </section>

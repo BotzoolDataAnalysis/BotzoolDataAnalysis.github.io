@@ -187,7 +187,7 @@ for (species_name in unique(penguins$species)) {
 }
 ```
 
-There are always multiple ways to get to the same result, and this is also true for iteration in R. The `purrr` package has powerful tools to iterate over multiple elements. But even when you choose to prefer `purrr` solutions, it is worth being familiar with for loops and their functionality, because you might see them often in the code of other people, and they are universal across programming languages.
+There are always multiple ways to get to the same result, and this is also true for iteration in R. The `purrr` package has powerful tools to iterate over multiple elements. Once the problems become more complex, it becomes more effective to use `purrr` functions in a pipeline instead of complicated nested for loops. But even when you choose to prefer `purrr` solutions, it is worth being familiar with for loops and their functionality, because you might see them often in the code of other people, and they are universal across programming languages.
 
 ## 7.3 purrr and working with nested dataframes
 
