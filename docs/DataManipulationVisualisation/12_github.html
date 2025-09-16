@@ -326,17 +326,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Install Git if you don’t have it installed already. You will have to use the command line to interact with Git, you can find more information <a href="https://happygitwithr.com/shell">here</a>. You can launch it directly from RStudio using the Terminal window, which you will usually find next to the Console.</p>
 <p><img src="images/clipboard-752985204.png" class="img-fluid"></p>
 <p>Type <code>which git</code> to see if you have Git installed somewhere in your computer.</p>
-<pre><code>which git</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The following line will tell you which version you are using.</p>
-<pre><code>git --version</code></pre>
-<p>If you don’t see something like here, but get a message like <code>git: command not found</code>, you’ll have to download and install Git for <a href="https://gitforwindows.org">Windows</a> or <a href="https://git-scm.com/downloads/mac">macOS.</a> Look <a href="https://happygitwithr.com/install-git">here</a> for more guidance.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you get a message like <code>git: command not found</code>, you’ll have to download and install Git for <a href="https://gitforwindows.org">Windows</a> or <a href="https://git-scm.com/downloads/mac">macOS.</a> Look <a href="https://happygitwithr.com/install-git">here</a> for more guidance.</p>
 </section>
 <section id="introduce-yourself-to-git" class="level3">
 <h3 class="anchored" data-anchor-id="introduce-yourself-to-git">12.3.3 Introduce yourself to Git</h3>
 <p>This is possible either using the Terminal:</p>
-<pre><code>git config --global user.name "Jane Doe"
-git config --global user.email "jane@example.com"
-git config --global --list</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Jane Doe"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"jane@example.com"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or using the <code>usethis</code> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
@@ -371,7 +371,7 @@ git config --global --list</code></pre>
 <h2 class="anchored" data-anchor-id="create-a-github-repository">12.4 Create a GitHub repository</h2>
 <p>Go to&nbsp;<a href="https://github.com/">https://github.com</a> and log in. You might see something like this:</p>
 <p><img src="images/clipboard-3857220433.png" class="img-fluid"></p>
-<p>Click on the green button to create a new repository. Enter the name of your first repository. You can also add a brief description. Let the repository be public and initialise a README file by clicking on the Add README button. Then click the green button ‘Create a repository’ at the bottom of the page.</p>
+<p>Click on the green button to create a new repository. Enter the name of your first repository. You can also add a brief description. Let the repository be public and initialise a README file by clicking on the ‘Add README’ button. Then click the green button ‘Create a repository’ at the bottom of the page.</p>
 <p>To link the repository to a folder in your computer, click the green button ‘&lt;&gt; Code’ and copy the URL to clipboard</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -505,7 +505,7 @@ Switched to a new branch 'KK'</code></pre>
 <p>Do not panic when this happens. It’s usually not so difficult to resolve the merge conflict. The first step is to determine, which files are in conflict. Then open the file to see, which lines are in conflict. You will see something like this:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; KK
 
--- This is a line from RStudio. Modified in different way.
+This is a line from RStudio. Modified in different way.
 
 ======= 
 
@@ -535,23 +535,68 @@ This is a line from RStudio. Modified.
 </section>
 <section id="glossary" class="level2">
 <h2 class="anchored" data-anchor-id="glossary">12.10 Glossary</h2>
-<ul>
-<li><p><strong>repository (repo)</strong> - the directory or folder for version control</p></li>
-<li><p><strong>local</strong> - the repository on your computer</p></li>
-<li><p><strong>remote</strong> - the repository on GitHub</p></li>
-<li><p><strong>clone</strong> - get some work from a remote for the first time</p></li>
-<li><p><strong>stage</strong> - choose the changes you want to record before you commit them</p></li>
-<li><p><strong>commit</strong> - a record of change. If you create or edit a file in your repository and save the changes, you need to record your changes via a commit.</p></li>
-<li><p><strong>hash</strong> - commit id</p></li>
-<li><p><strong>push</strong> - send commits from the local repo to the remote</p></li>
-<li><p><strong>pull</strong> - retrieve commits from the remote repo to the local</p></li>
-<li><p><strong>diff</strong> - differences between two commits</p></li>
-<li><p><strong>branch</strong> - a stream of work development</p></li>
-<li><p><strong>pull request</strong> - request to merge one branch to another</p></li>
-<li><p><strong>merge</strong> - combine two branches</p></li>
-<li><p><strong>merge conflict</strong> - when the same part of the same file changed in two different sources (two branches, or local and remote) and are not able to merge automatically</p></li>
-<li><p><strong>checkout</strong> - time travel to a specific commit in the past</p></li>
-</ul>
+<dl>
+<dt>repository (repo)</dt>
+<dd>
+the directory or folder for version control
+</dd>
+<dt>local</dt>
+<dd>
+the repository on your computer
+</dd>
+<dt>remote</dt>
+<dd>
+the repository on GitHub
+</dd>
+<dt>clone</dt>
+<dd>
+get some work from a remote for the first time
+</dd>
+<dt>stage</dt>
+<dd>
+choose the changes you want to record before you commit them
+</dd>
+<dt>commit</dt>
+<dd>
+a record of change. If you create or edit a file in your repository and save the changes, you need to record your changes via a commit.
+</dd>
+<dt>hash</dt>
+<dd>
+commit id
+</dd>
+<dt>push</dt>
+<dd>
+send commits from the local repo to the remote
+</dd>
+<dt>pull</dt>
+<dd>
+retrieve commits from the remote repo to the local
+</dd>
+<dt>diff</dt>
+<dd>
+differences between two commits
+</dd>
+<dt>branch</dt>
+<dd>
+a stream of work development
+</dd>
+<dt>pull request</dt>
+<dd>
+request to merge one branch to another
+</dd>
+<dt>merge</dt>
+<dd>
+combine two branches
+</dd>
+<dt>merge conflict</dt>
+<dd>
+when the same part of the same file changed in two different sources (two branches, or local and remote) and are not able to merge automatically
+</dd>
+<dt>checkout</dt>
+<dd>
+time travel to a specific commit in the past
+</dd>
+</dl>
 </section>
 <section id="other-tips" class="level2">
 <h2 class="anchored" data-anchor-id="other-tips">12.11 Other Tips</h2>

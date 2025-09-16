@@ -44,23 +44,23 @@ Install Git if you don't have it installed already. You will have to use the com
 
 Type `which git` to see if you have Git installed somewhere in your computer.
 
-```         
+```{.bash}
 which git
 ```
 
 The following line will tell you which version you are using.
 
-```         
+```{.bash}
 git --version
 ```
 
-If you don't see something like here, but get a message like `git: command not found`, you'll have to download and install Git for [Windows](https://gitforwindows.org) or [macOS.](https://git-scm.com/downloads/mac) Look [here](https://happygitwithr.com/install-git) for more guidance.
+If you get a message like `git: command not found`, you'll have to download and install Git for [Windows](https://gitforwindows.org) or [macOS.](https://git-scm.com/downloads/mac) Look [here](https://happygitwithr.com/install-git) for more guidance.
 
 ### 12.3.3 Introduce yourself to Git
 
 This is possible either using the Terminal:
 
-```         
+```{.bash}
 git config --global user.name "Jane Doe"
 git config --global user.email "jane@example.com"
 git config --global --list
@@ -118,7 +118,7 @@ Go to [https://github.com](https://github.com/) and log in. You might see somet
 
 ![](images/clipboard-3857220433.png)
 
-Click on the green button to create a new repository. Enter the name of your first repository. You can also add a brief description. Let the repository be public and initialise a README file by clicking on the Add README button. Then click the green button 'Create a repository' at the bottom of the page.
+Click on the green button to create a new repository. Enter the name of your first repository. You can also add a brief description. Let the repository be public and initialise a README file by clicking on the 'Add README' button. Then click the green button 'Create a repository' at the bottom of the page.
 
 To link the repository to a folder in your computer, click the green button '\<\> Code' and copy the URL to clipboard
 
@@ -294,7 +294,7 @@ Do not panic when this happens. It's usually not so difficult to resolve the mer
 ```         
 <<<<<<< KK
 
--- This is a line from RStudio. Modified in different way.
+This is a line from RStudio. Modified in different way.
 
 ======= 
 
@@ -335,35 +335,50 @@ review history, go back to specific version
 
 ## 12.10 Glossary
 
--   **repository (repo)** - the directory or folder for version control
+repository (repo)
+: the directory or folder for version control
 
--   **local** - the repository on your computer
+local
+: the repository on your computer
 
--   **remote** - the repository on GitHub
+remote
+: the repository on GitHub
 
--   **clone** - get some work from a remote for the first time
+clone
+: get some work from a remote for the first time
 
--   **stage** - choose the changes you want to record before you commit them
+stage
+: choose the changes you want to record before you commit them
 
--   **commit** - a record of change. If you create or edit a file in your repository and save the changes, you need to record your changes via a commit.
+commit
+: a record of change. If you create or edit a file in your repository and save the changes, you need to record your changes via a commit.
 
--   **hash** - commit id
+hash
+: commit id
 
--   **push** - send commits from the local repo to the remote
+push
+: send commits from the local repo to the remote
 
--   **pull** - retrieve commits from the remote repo to the local
+pull
+: retrieve commits from the remote repo to the local
 
--   **diff** - differences between two commits
+diff
+: differences between two commits
 
--   **branch** - a stream of work development
+branch
+: a stream of work development
 
--   **pull request** - request to merge one branch to another
+pull request
+: request to merge one branch to another
 
--   **merge** - combine two branches
+merge
+: combine two branches
 
--   **merge conflict** - when the same part of the same file changed in two different sources (two branches, or local and remote) and are not able to merge automatically
+merge conflict
+: when the same part of the same file changed in two different sources (two branches, or local and remote) and are not able to merge automatically
 
--   **checkout** - time travel to a specific commit in the past
+checkout
+: time travel to a specific commit in the past
 
 ## 12.11 Other Tips
 
