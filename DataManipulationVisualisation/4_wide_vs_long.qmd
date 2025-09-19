@@ -4,4 +4,4 @@ title: "4 Wide vs long format"
 
 There are two main ways how the data can be organised across rows and columns. Wide or long format.
 
-![](images/clipboard-4193271484.png)
+![](images/clipboard-1688243952.png)
