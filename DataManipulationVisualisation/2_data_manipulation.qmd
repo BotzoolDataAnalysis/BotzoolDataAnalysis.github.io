@@ -335,10 +335,10 @@ This dataset is used in the whole chapter, please use it to prepare your own scr
 
 Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in R script? Go to "Code" and tick "soft wrap long lines".
 
-2\. Directly from R studio create folder "resultsChapter2" for saving todays datasets, as we will train a bit of exporting the data. 
+2\. Directly from R studio create folder "results/Chapter2" for saving todays datasets, as we will train a bit of exporting the data. 
 
 
-3\. Use the Forest Data to train more. Create variable "author" which will contain name Axmanova > as we did before, create variable richness summing the herbs and juveniles > select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into resultsChapter2.
+3\. Use the Forest Data to train more. Create variable "author" which will contain name Axmanova > as we did before, create variable richness summing the herbs and juveniles > select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into "results/Chapter2".
 
 4\.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests. 
 
