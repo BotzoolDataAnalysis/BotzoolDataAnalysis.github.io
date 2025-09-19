@@ -297,33 +297,69 @@ data %>%
   select(PlotID, Biomass, pH_KCl,TransTot)
 ```
 
-## 2.6 Exercises
+## 2.7 Save the data
+If you decide that you already prepared the dataset in the form it should be used later, you probably need to save it and export e.g. as csv. Remember, that we were mostly trying how it would look like with the %>%, so you have to either assign the dataset to a new name, or add the write command at the end of the pipeline. See also chapter1.
+
+Here we will play a bit with tidyverse package readr.
+
+Write a comma delimited file
+```{r}
+write_csv(data, "exercisesIA/forest_selected1.csv") 
+```
+
+Write a semicolon delimited file ";"
+```{r}
+write_csv2(data, "exercisesIA/forest_selected2.csv")
+```
+or find out more in the readr cheatsheet. Note that in contrast to write.csv functions the write_csv keeps the philosophy of tidyverse, so do not expect row names in the export. 
+
+
+You can also write directly Excel file, for example, with writexl library. 
+```{r}
+library(writexl)
+write_xlsx(data, 'exercisesIA/forestEnv.xlsx')
+```
+To create an xlsx with (multiple) named sheets, you would need to provide a list of data frames.Here I specify that data1 should be saved as an Excel sheet forestEnv (environmental data) and data2 as a sheet forestSpe (species data of the same dataset).
+```{r}
+library(writexl)
+data1 <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
+data2 <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
+write_xlsx(list(forestEnv = data1,forestSpe=data2), 'exercisesIA/forest.xlsx' )
+```
+
+
+## 2.8 Exercises
 
 1\. **Forest Data** - Axmanova-Forest-understory-diversity-analyses.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
 This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what we already described above.
 
-2\. Use the Forest Data to train more. Create variable "author" which will contain name Axmanova > as we did before, create variable richness summing the herbs and juveniles > select variables plotID, author, richness, productivity (renamed biomass) and pH
+Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in R script? Go to "Code" and tick "soft wrap long lines".
 
-3\.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests. 
-
-4\. Select PlotID and all variables that are connected to transmitted light (Trans..) > round these variables. 
+2\. Directly from R studio create folder "resultsChapter2" for saving todays datasets, as we will train a bit of exporting the data. 
 
 
-5\. We will switch to another dataset, **Species Forest Data** - Axmanova-Forest-spe.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data
+3\. Use the Forest Data to train more. Create variable "author" which will contain name Axmanova > as we did before, create variable richness summing the herbs and juveniles > select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into resultsChapter2.
+
+4\.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests. 
+
+5\. Select PlotID and all variables that are connected to transmitted light (Trans..) > round these variables. 
+
+
+6\. We will switch to another dataset, **Species Forest Data** - Axmanova-Forest-spe.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data
 This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover. 
 
 Import the data and check the structure > change it to presence absence data (abundance set to 1)
 *Alternatively prepare presence absence data without considering different layers.
 
-6\. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. 
-Import the data> sort the species data alphabetically > get the list of unique species names of the tree layer i.e. layer 1 > print, view all the species or store them as a new dataset.
+7\. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. 
+Import the data> sort the species data alphabetically > get the list of unique species names of the tree layer i.e. layer 1 > print, view all the species or store them as a new dataset. Save the result into csv file.
 
 
-7\. **iris dataset** We will use the famous iris dataset of flower measurements. Find out more details asking R "?iris" as the dataset is integrated and ready to use.
+8\. **iris dataset** We will use the famous iris dataset of flower measurements. Find out more details asking R "?iris" as the dataset is integrated and ready to use.
 Check the structure of the dataset > select variables including species and those of length measurements > arrange according to Sepal.Length > and filter 15 rows with the longest sepals. Which species prevails among these top 15?  
 
 
-8\. **squirrel data** Load data of squirrel observations from the
+9\. **squirrel data** Load data of squirrel observations from the
 [Central Park Squirrel
 Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md)
 using this line: 
@@ -338,7 +374,7 @@ print at least 30 rows
 
 
 
-## 2.7 Further reading
+## 2.9 Further reading
 
 dplyr main web page <https://dplyr.tidyverse.org>
 
