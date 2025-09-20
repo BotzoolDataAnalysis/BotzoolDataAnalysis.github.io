@@ -427,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="projects">1.2.1 Projects</h3>
 <p>If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/"><code>here</code></a>). Good habit is to organize each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.</p>
 <p>R Studio easily enables creating projects and switching between them (either through File-Open/New/Recent Project or by clicking on the upper right corner icon for projects). <img src="images/IA_clipboard1Project.png" class="img-fluid quarto-figure quarto-figure-center" width="755"></p>
-<p>Tip: get used to creating the same subfolders in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure.</p>
+<p><strong>Tip</strong>: get used to creating the same <strong>subfolders</strong> in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure. If you save the data into them, you can directly import them, see them through the project in R studio.</p>
 </section>
 <section id="scripts" class="level3">
 <h3 class="anchored" data-anchor-id="scripts">1.2.2 Scripts</h3>
@@ -678,11 +678,11 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 <p>For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a></p>
 <p>There will be some obligatory tasks, while voluntarily tasks will be marked by *.</p>
 <p>In this chapter:</p>
-<p>1. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and add them to your project. Import file called Axmanova-Forest-understory-diversity-analyses.xlsx into the working environment and check the structure. Prepare script with your notes, separated into sections.</p>
+<p>1. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and store them in the folder “data” within your project. Import file called <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> into the working environment and check the structure. Prepare script with your notes, separated into sections.</p>
 <p>2. Create another project and start a new script, try switching between the projects. Delete this project.</p>
 <p>3. Find a cheatsheet for readxl. Is there anything more then data import from Excel?</p>
-<p>4. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of data/frozen_fauna/metadata. Which sheets are there and can you easily check the structure?</p>
-<p>5. Download Example0 from data/messy_data, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. Save the tidy dataset as Example0_tidy.csv using function write_csv.</p>
+<p>4. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of <code>data/frozen_fauna/metadata</code>. Which sheets are there and can you easily check the structure?</p>
+<p>5. Download <code>Example0</code> from <code>data/messy_data</code>, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. *Save the tidy dataset as Example0_tidy.csv using function write_csv.</p>
 <p>6. Try importing the same, not cleaned file via Rstudio and describe pros/cons.</p>
 <p>7. *Check the folder messy data, what are the problems in examples1-5? We will learn how to fix them in next chapters directly in R, but can you at least imagine how you would do it in Excel?</p>
 <p>8. *Do you know what is reprex and how to prepare it?</p>

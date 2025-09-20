@@ -110,7 +110,7 @@ If you start your work by setting the working directory, the reproducibility by 
 
 R Studio easily enables creating projects and switching between them (either through File-Open/New/Recent Project or by clicking on the upper right corner icon for projects). ![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
 
-Tip: get used to creating the same subfolders in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure.
+**Tip**: get used to creating the same **subfolders** in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure. If you save the data into them, you can directly import them, see them through the project in R studio.
 
 ### 1.2.2 Scripts
 
@@ -274,15 +274,15 @@ There will be some obligatory tasks, while voluntarily tasks will be marked by \
 
 In this chapter:
 
-1\. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and add them to your project. Import file called Axmanova-Forest-understory-diversity-analyses.xlsx into the working environment and check the structure. Prepare script with your notes, separated into sections.
+1\. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and store them in the folder "data" within your project. Import file called `Axmanova-Forest-understory-diversity-analyses.xlsx` into the working environment and check the structure. Prepare script with your notes, separated into sections.
 
 2\. Create another project and start a new script, try switching between the projects. Delete this project.
 
 3\. Find a cheatsheet for readxl. Is there anything more then data import from Excel?
 
-4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of data/frozen_fauna/metadata. Which sheets are there and can you easily check the structure?
+4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of `data/frozen_fauna/metadata`. Which sheets are there and can you easily check the structure?
 
-5\. Download Example0 from data/messy_data, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. Save the tidy dataset as Example0_tidy.csv using function write_csv.
+5\. Download `Example0` from `data/messy_data`, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. \*Save the tidy dataset as Example0_tidy.csv using function write_csv.
 
 6\. Try importing the same, not cleaned file via Rstudio and describe pros/cons.
 

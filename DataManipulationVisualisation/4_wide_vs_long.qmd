@@ -14,6 +14,8 @@ For the analyses you cannot keep the empty cells empty, since they are recognise
 
 Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g. *Picea_abies_1*. Can you see a conflict with the basic principles of tidyverse?
 
+![](images/clipboard-1429419654.png)
+
 **Long format** is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. But we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.
 
 We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.
