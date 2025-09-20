@@ -242,7 +242,7 @@ Quite useful baseR approach function is table, which shows the counts per catego
 table(data$ForestTypeName)
 ```
 
-Of course, you can also view() the data or click on it in the list in the Files to open it, however, this is not recommended with huge tables, as the previews are rather memory demanding.
+Of course, you can also **view()** the data or click on it in the list in the Files to open it in a table-like scrolable format, which can be useful many times. However, this is not recommended with huge tables, as the previews are rather memory demanding.
 
 ## 1.4 Where to find help
 
@@ -256,7 +256,7 @@ Knowing that I am lost in "Regular expressions" already helps to ask more specif
 
 -   **Vignettes** are supporting documents that are available for many packages. They give examples and explain functions available in the package. You can discover vignettes by accessing the help page for a package, or via the browseVignettes() function, which will get you to the overall list. Or you can just try by typing specific names e.g. vignette("dplyr")
 
--   [**R studio community**] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
+-   \[**R studio community**\] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
 
 -   [**Stack Overflow**](https://stackoverflow.com/). You probably already came across Stack Overflow if you were trying to Google something, as it suggests answers to coding related questions. It is a good environment to ask questions or try to find if somebody already asked the same things before. Be specific about the coding style. E.g. How to separate variable using tidyverse?
 

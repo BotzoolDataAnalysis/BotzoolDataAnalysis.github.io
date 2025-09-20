@@ -331,7 +331,7 @@ write_xlsx(list(forestEnv = data1,forestSpe=data2), 'exercisesIA/forest.xlsx' )
 ## 2.8 Exercises
 
 1\. **Forest Data** - Axmanova-Forest-understory-diversity-analyses.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
-This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what we already described above.
+This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what is described above.
 
 Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in R script? Go to "Code" and tick "soft wrap long lines".
 
@@ -345,11 +345,11 @@ Tip: If you copy the description and add it directly to your script, it is simpl
 5\. Select PlotID and all variables that are connected to transmitted light (Trans..) > round these variables. 
 
 
-6\. We will switch to another dataset, **Species Forest Data** - Axmanova-Forest-spe.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data
+6\. We will switch to another dataset, **Species Forest Data** - Axmanova-Forest-spe.xlsx  - download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
 This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover. 
 
 Import the data and check the structure > change it to presence absence data (abundance set to 1)
-*Alternatively prepare presence absence data without considering different layers.
+*Alternatively prepare presence absence data without considering different layers and save both lists on two different sheets of Excel file.
 
 7\. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. 
 Import the data> sort the species data alphabetically > get the list of unique species names of the tree layer i.e. layer 1 > print, view all the species or store them as a new dataset. Save the result into csv file.

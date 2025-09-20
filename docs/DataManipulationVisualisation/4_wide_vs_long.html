@@ -225,6 +225,12 @@ ul.task-list li input[type="checkbox"] {
 
 <p>There are two main ways how the data can be organised across rows and columns. Wide or long format.</p>
 <p><img src="images/clipboard-1688243952.png" class="img-fluid"></p>
+<p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
+<p>One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here <em>Trientalis europaea</em>, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. And this has to be coded within the table becoming really memory demanding.</p>
+<p>For the analyses you cannot keep the empty cells empty, since they are recognised as NAs. You have to fill them with zeros.</p>
+<p>Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
+<p><strong>Long format</strong> is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. But we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.</p>
+<p>We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.</p>
 
 
 
