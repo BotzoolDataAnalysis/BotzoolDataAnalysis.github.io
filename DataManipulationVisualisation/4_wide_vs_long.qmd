@@ -2,6 +2,8 @@
 title: "4 Wide vs long format"
 ---
 
+## 4.1 Data formats
+
 There are two main ways how the data can be organised across rows and columns. Wide or long format.
 
 ![](images/clipboard-1688243952.png)
@@ -19,3 +21,15 @@ Another disadvantage is that you cannot add easily new information. If you for e
 **Long format** is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. But we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.
 
 We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.
+
+## 4.2 From long to wide
+
+## 4.3 From wide to long
+
+## 4.4 Group by, count
+
+## 4.5 Summarise
+
+## 4.6 Exercises
+
+## 4.7 Further reading

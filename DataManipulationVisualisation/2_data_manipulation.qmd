@@ -95,7 +95,8 @@ data %>%
 ```
 
 Select can be also used in combination with stringr package to identify
-the pattern in the names.
+the pattern in the names: try several options: `starts_with`,
+`ends_with` or more general one `contains`
 
 ```{r}
 data %>%
