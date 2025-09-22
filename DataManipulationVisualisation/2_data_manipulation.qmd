@@ -412,6 +412,9 @@ names \> find out what are the possible colors of fur \> select at least
 one fur color, up to your preference \> arrange data by location \>
 print at least 30 rows
 
+10.\*get back to Forest data and using case when define three levels of
+productivity low, medium, high
+
 ## 2.9 Further reading
 
 dplyr main web page <https://dplyr.tidyverse.org>
@@ -420,3 +423,6 @@ Find dplyr Cheatsheet in Posit <https://posit.co/resources/cheatsheets/>
 
 Chapter devoted to Data transformation in the R for data science book
 <https://r4ds.hadley.nz/data-transform.html>
+
+encoding issues during import and export
+<https://irene.rbind.io/post/encoding-in-r/>
