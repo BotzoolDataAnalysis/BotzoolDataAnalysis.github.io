@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../botzool_logo.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../botzool_logo.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -198,8 +198,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-formats" id="toc-data-formats" class="nav-link active" data-scroll-target="#data-formats">4.1 Data formats</a></li>
+  <li><a href="#from-long-to-wide" id="toc-from-long-to-wide" class="nav-link" data-scroll-target="#from-long-to-wide">4.2 From long to wide</a></li>
+  <li><a href="#from-wide-to-long" id="toc-from-wide-to-long" class="nav-link" data-scroll-target="#from-wide-to-long">4.3 From wide to long</a></li>
+  <li><a href="#group-by-count" id="toc-group-by-count" class="nav-link" data-scroll-target="#group-by-count">4.4 Group by, count</a></li>
+  <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise">4.5 Summarise</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">4.6 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">4.7 Further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -223,8 +235,38 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="data-formats">4.1 Data formats</h2>
+<p>There are two main ways how the data can be organised across rows and columns. Wide or long format.</p>
+<p><img src="images/clipboard-1688243952.png" class="img-fluid"></p>
+<p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
+<p>One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here <em>Trientalis europaea</em>, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. And this has to be coded within the table becoming really memory demanding.</p>
+<p>For the analyses you cannot keep the empty cells empty, since they are recognised as NAs. You have to fill them with zeros.</p>
+<p>Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
+<p><img src="images/clipboard-1429419654.png" class="img-fluid"></p>
+<p><strong>Long format</strong> is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. But we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.</p>
+<p>We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.</p>
+</section>
+<section id="from-long-to-wide" class="level2">
+<h2 class="anchored" data-anchor-id="from-long-to-wide">4.2 From long to wide</h2>
+</section>
+<section id="from-wide-to-long" class="level2">
+<h2 class="anchored" data-anchor-id="from-wide-to-long">4.3 From wide to long</h2>
+</section>
+<section id="group-by-count" class="level2">
+<h2 class="anchored" data-anchor-id="group-by-count">4.4 Group by, count</h2>
+</section>
+<section id="summarise" class="level2">
+<h2 class="anchored" data-anchor-id="summarise">4.5 Summarise</h2>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">4.7 Further reading</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

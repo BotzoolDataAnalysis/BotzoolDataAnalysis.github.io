@@ -244,8 +244,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#distinct" id="toc-distinct" class="nav-link" data-scroll-target="#distinct">2.4 Distinct</a></li>
   <li><a href="#filter-and-slice" id="toc-filter-and-slice" class="nav-link" data-scroll-target="#filter-and-slice">2.5 Filter and slice</a></li>
   <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">2.6 Mutate</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">2.6 Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">2.7 Further reading</a></li>
+  <li><a href="#save-the-data" id="toc-save-the-data" class="nav-link" data-scroll-target="#save-the-data">2.7 Save the data</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">2.8 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">2.9 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -411,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Select can be also used in combination with stringr package to identify the pattern in the names.</p>
+<p>Select can be also used in combination with stringr package to identify the pattern in the names: try several options: <code>starts_with</code>, <code>ends_with</code> or more general one <code>contains</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (PlotID, <span class="fu">starts_with</span>(<span class="st">"EIV"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -459,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This function keeps the same variables just reorders the rows according to the values we select. To see the changes at a first glance I will first select only few variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>) </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(PlotID, ForestType, ForestTypeName, Biomass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(PlotID, ForestType, ForestTypeName, Biomass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now I decided to arrange the data by Forest type</p>
 <div class="cell">
@@ -839,24 +840,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+<section id="save-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-data">2.7 Save the data</h2>
+<p>If you decide that you already prepared the dataset in the form it should be used later, you probably need to save it and export e.g.&nbsp;as csv. Remember, that we were mostly trying how it would look like with the %&gt;%, so you have to either assign the dataset to a new name, or add the write command at the end of the pipeline. See also chapter1.</p>
+<p>Here we will play a bit with tidyverse package readr.</p>
+<p>Write a comma delimited file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data, <span class="st">"exercisesIA/forest_selected1.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Write a semicolon delimited file “;”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv2</span>(data, <span class="st">"exercisesIA/forest_selected2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or find out more in the readr cheatsheet. Note that in contrast to write.csv functions the write_csv keeps the philosophy of tidyverse, so do not expect row names in the export.</p>
+<p>You can also write directly Excel file, for example, with writexl library.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(data, <span class="st">'exercisesIA/forestEnv.xlsx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To create an xlsx with (multiple) named sheets, you would need to provide a list of data frames.Here I specify that data1 should be saved as an Excel sheet forestEnv (environmental data) and data2 as a sheet forestSpe (species data of the same dataset).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">forestEnv =</span> data1, <span class="at">forestSpe =</span> data2), <span class="st">'exercisesIA/forest.xlsx'</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">2.6 Exercises</h2>
-<p>1. <strong>Forest Data</strong> - Axmanova-Forest-understory-diversity-analyses.xlsx - download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what we already described above.</p>
-<p>2. Use the Forest Data to train more. Create variable “author” which will contain name Axmanova &gt; as we did before, create variable richness summing the herbs and juveniles &gt; select variables plotID, author, richness, productivity (renamed biomass) and pH</p>
-<p>3.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests.</p>
-<p>4. Select PlotID and all variables that are connected to transmitted light (Trans..) &gt; round these variables.</p>
-<p>5. We will switch to another dataset, <strong>Species Forest Data</strong> - Axmanova-Forest-spe.xlsx - download the data from the repository and save it into your project folder [<code>Link to Github folder</code>](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover.</p>
-<p>Import the data and check the structure &gt; change it to presence absence data (abundance set to 1) *Alternatively prepare presence absence data without considering different layers.</p>
-<p>6. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. Import the data&gt; sort the species data alphabetically &gt; get the list of unique species names of the tree layer i.e.&nbsp;layer 1 &gt; print, view all the species or store them as a new dataset.</p>
-<p>7. <strong>iris dataset</strong> We will use the famous iris dataset of flower measurements. Find out more details asking R “?iris” as the dataset is integrated and ready to use. Check the structure of the dataset &gt; select variables including species and those of length measurements &gt; arrange according to Sepal.Length &gt; and filter 15 rows with the longest sepals. Which species prevails among these top 15?</p>
-<p>8. <strong>squirrel data</strong> Load data of squirrel observations from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md">Central Park Squirrel Census</a> using this line: read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’)</p>
+<h2 class="anchored" data-anchor-id="exercises">2.8 Exercises</h2>
+<p>1. <strong>Forest Data</strong> - <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> - download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what is described above.</p>
+<p>Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in R script? Go to “Code” and tick “soft wrap long lines”.</p>
+<p>2. Directly from R studio create folder “results/chapter2” for saving todays datasets, as we will train a bit of exporting the data.</p>
+<p>3. Use the Forest Data to train more. Create variable “author” which will contain name Axmanova &gt; as we did before, create variable richness summing the herbs and juveniles &gt; select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into “results/chapter2”.</p>
+<p>4.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests.</p>
+<p>5. Select PlotID and all variables that are connected to transmitted light (Trans..) &gt; round these variables.</p>
+<p>6. We will switch to another dataset, <strong>Species Forest Data</strong> - <code>Axmanova-Forest-spe.xlsx</code> - download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover.</p>
+<p>Import the data and check the structure &gt; change it to presence absence data (abundance set to 1) *Alternatively prepare presence absence data without considering different layers and save both lists on two different sheets of Excel file.</p>
+<p>7. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. Import the data&gt; sort the species data alphabetically &gt; get the list of unique species names of the tree layer i.e.&nbsp;layer 1 &gt; print, view all the species or store them as a new dataset. Save the result into csv file.</p>
+<p>8. <strong>iris dataset</strong> We will use the famous <code>iris dataset</code> of flower measurements. Find out more details asking R “?iris” as the dataset is integrated and ready to use. Check the structure of the dataset &gt; select variables including species and those of length measurements &gt; arrange according to Sepal.Length &gt; and filter 15 rows with the longest sepals. Which species prevails among these top 15?</p>
+<p>9. <strong>squirrel data</strong> Load data of squirrel observations from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md">Central Park Squirrel Census</a> using this line: read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’)</p>
 <p>Load squirrels data, check the structure, rename variables to get tidy names &gt; find out what are the possible colors of fur &gt; select at least 5 variables, include ID, fur color, location,.. &gt; filter squirrels of one fur color, up to your preference &gt; arrange data by location &gt; print at least 30 rows</p>
+<p>10.*get back to Forest data and using case when define three levels of productivity low, medium, high</p>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">2.7 Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">2.9 Further reading</h2>
 <p>dplyr main web page <a href="https://dplyr.tidyverse.org" class="uri">https://dplyr.tidyverse.org</a></p>
 <p>Find dplyr Cheatsheet in Posit <a href="https://posit.co/resources/cheatsheets/" class="uri">https://posit.co/resources/cheatsheets/</a></p>
 <p>Chapter devoted to Data transformation in the R for data science book <a href="https://r4ds.hadley.nz/data-transform.html" class="uri">https://r4ds.hadley.nz/data-transform.html</a></p>
+<p>encoding issues during import and export <a href="https://irene.rbind.io/post/encoding-in-r/" class="uri">https://irene.rbind.io/post/encoding-in-r/</a></p>
 
 
 </section>
