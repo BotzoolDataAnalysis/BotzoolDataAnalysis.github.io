@@ -17,7 +17,7 @@ To make a plot, we first need some **data**. We will use a [dataset](https://all
 
 ![](images/clipboard-3417186760.png){fig-align="center" width="755"}
 
-To get the data, we need to load another package (if you get an error message, that there is no such package, install it first):
+To get the data, we need to load another package (if you get an error message that there is no such package, install it first):
 
 ```{r}
 #| warning: false
@@ -150,7 +150,7 @@ ggplot(data = penguins,
   geom_point() + 
   geom_smooth(aes(colour = species), method = 'lm', show.legend = F) + 
   scale_shape_manual(values = c(21, 22, 24)) + 
-  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species', colour = 'Species')
+  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species')
 ```
 
 Almost publication-ready, except the grey background is not very nice. It might be easily remove by adding a different `theme`. One of our favourites is `theme_bw(),` meaning black and white, but you can experiment with [different ones](https://ggplot2.tidyverse.org/reference/ggtheme.html) or even define your own.
@@ -162,7 +162,7 @@ ggplot(data = penguins,
   geom_point() + 
   geom_smooth(aes(colour = species), method = 'lm', show.legend = F) + 
   scale_shape_manual(values = c(21, 22, 24)) + 
-  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species', colour = 'Species') + 
+  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species') + 
   theme_bw()
 ```
 
@@ -239,6 +239,18 @@ Once you are satisfied with your plot, it is a good idea to save it as an image.
 ```{r}
 #| eval: false
 ggsave('plots/island_relative_frequency.png', width = 6, height = 4)
+```
+
+By default, this function saves the last plot you draw in the Plots pane. Another option to save a specific plot is to save the plot in an object and then save this object within `ggsave()`.
+
+```{r}
+#| eval: false
+plot1 <- ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(colour = 'black', position = 'fill') + 
+  labs(x = 'Island', y = 'Relative frequency', fill = 'Species') + 
+  theme_bw()
+
+ggsave('plots/island_relative_frequency.png', plot1, width = 6, height = 4) 
 ```
 
 ## 3.6 Exercises
