@@ -24,6 +24,81 @@ We can also add any information, describing the data, such as vegetation layers,
 
 ## 4.2 From long to wide
 
+We will first start a new script for this chapter and load the libraries. Remember to keep the script tidy and to put there remarks.
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(readxl)
+library(janitor)
+```
+
+Now, we will import the data. In the first example we will again use the `Forest understory data` from our folder: [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data) However, this time we will upload the species data saved in a long format and we will prepare a matrix in a wide format, so that it can be used in specific ecological analyses e.g. in `vegan`.
+
+```{r}
+spe <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
+tibble(spe)
+```
+
+We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we need to change the species names to be in the compact format with underscores. For this we will use **mutate** function with **gsub** (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(Species=gsub(" ", "_", Species, fixed=T))
+```
+
+\*If you want to play a bit, you can create new column (e.g. SpeciesNew) to see both the original name and changed name. Note that in the same way as above you can change different patterns, e.g. removing aggregates. There are even more complex things we can do, but we will keep it for later as it requires some knowledge of `regex` rules.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(SpeciesNew1=gsub(" agg.", "", Species, fixed=T))%>%
+  mutate(SpeciesNew2=gsub(" ", "_", Species, fixed=T))
+```
+
+We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function which takes strings from one variable and combines it with string from another variable to a new one: A+B =AB
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) 
+```
+
+At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect those not needed.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
+  select(-c(Species, Layer))
+```
+
+Now we can finaly use the **pivot wider** function to transform the data. We have to specify from where we are taking the names of new variables (**names_from**) and from where we should take the values which should appear in the table (**values_from**).
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
+  select(-c(Species, Layer)) %>%
+  pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc)
+```
+
+There are different combinations of species in each plot, some of them are present and some not. Since we changed the format, all species, even those not occurring in that particular site/plot have to get some values. In long format abundance or some other information is not stored for absent species, so they get NAs. Therefore, one more step is to fill the empty cells by zeros using **values_fill**. In this case we can do that, because we know that if the species was absent its abundance was exactly 0.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
+  select(-c(Species, Layer)) %>%
+  pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc,
+              values_fill = 0)
+```
+
 ## 4.3 From wide to long
 
 ## 4.4 Group by, count
@@ -31,5 +106,9 @@ We can also add any information, describing the data, such as vegetation layers,
 ## 4.5 Summarise
 
 ## 4.6 Exercises
+
+<!--concatenate of forest type and name and make a boxplot -->
+
+<!--add mutate ifelse with other symbols  -->
 
 ## 4.7 Further reading
