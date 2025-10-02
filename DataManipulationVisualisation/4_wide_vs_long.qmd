@@ -45,7 +45,7 @@ We can see that there are plant species names sorted by RELEVE_NR, where each nu
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(Species=gsub(" ", "_", Species, fixed=T))
+  mutate(Species = str_replace_all(Species, " ", "_"))
 ```
 
 \*If you want to play a bit, you can create new column (e.g. SpeciesNew) to see both the original name and changed name. Note that in the same way as above you can change different patterns, e.g. removing aggregates. There are even more complex things we can do, but we will keep it for later as it requires some knowledge of `regex` rules.
@@ -53,27 +53,33 @@ spe %>%
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(SpeciesNew1=gsub(" agg.", "", Species, fixed=T))%>%
-  mutate(SpeciesNew2=gsub(" ", "_", Species, fixed=T))
+  mutate(SpeciesNew1 = str_replace_all(Species, " agg.", ""))%>%
+  mutate(SpeciesNew2 = str_replace_all(Species, " ", "_"))
 ```
 
-We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function which takes strings from one variable and combines it with string from another variable to a new one: A+B =AB
+We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function from the package `tidyr` which merges strings from two or more columns into a new one: **A+B =A_B**. Default separator is again underscore, unless you specify it differently by *sep=XX* argument.
+
+![](images/clipboard-2319886629.png)
+
+<!--add new example with na.rm=F and with remove=T  -->
+
+Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example). *Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
 
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+ mutate(Species = str_replace_all(Species, " ", "_"))%>%
   unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) 
 ```
 
-At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect those not needed.
+At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect (-) those not needed.
 
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  mutate(Species = str_replace_all(Species, " ", "_"))%>%
   unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
-  select(-c(Species, Layer))
+  select(PlotID, Species, Layer)
 ```
 
 Now we can finaly use the **pivot wider** function to transform the data. We have to specify from where we are taking the names of new variables (**names_from**) and from where we should take the values which should appear in the table (**values_from**).
@@ -81,7 +87,7 @@ Now we can finaly use the **pivot wider** function to transform the data. We hav
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  mutate(Species = str_replace_all(Species, " ", "_"))%>%
   unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
   select(-c(Species, Layer)) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc)
@@ -92,7 +98,7 @@ There are different combinations of species in each plot, some of them are prese
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(Species=gsub(" ", "_", Species, fixed=T))%>%
+  mutate(Species = str_replace_all(Species, " ", "_"))%>%
   unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
   select(-c(Species, Layer)) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc,
@@ -108,6 +114,10 @@ spe %>%
 ## 4.6 Exercises
 
 <!--concatenate of forest type and name and make a boxplot -->
+
+<!--add mutate ifelse with other symbols  -->
+
+<!--unite and separate with different separator  -->
 
 <!--add mutate ifelse with other symbols  -->
 

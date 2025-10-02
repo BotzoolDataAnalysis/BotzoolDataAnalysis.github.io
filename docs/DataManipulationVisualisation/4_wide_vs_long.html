@@ -315,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 4
    PlotID Species              Layer CoverPerc
@@ -337,8 +337,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew1=</span><span class="fu">gsub</span>(<span class="st">" agg."</span>, <span class="st">""</span>, Species, <span class="at">fixed=</span>T))<span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew2=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew1 =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" agg."</span>, <span class="st">""</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew2 =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 6
    PlotID Species              Layer CoverPerc SpeciesNew1          SpeciesNew2 
@@ -356,11 +356,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,267 more rows</code></pre>
 </div>
 </div>
-<p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using <strong>unite</strong> function which takes strings from one variable and combines it with string from another variable to a new one: A+B =AB</p>
+<p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using <strong>unite</strong> function from the package <code>tidyr</code> which merges strings from two or more columns into a new one: <strong>A+B =A_B</strong>. Default separator is again underscore, unless you specify it differently by <em>sep=XX</em> argument.</p>
+<p><img src="images/clipboard-2319886629.png" class="img-fluid"></p>
+<!--add new example with na.rm=F and with remove=T  -->
+<p>Argument <em>na.rm</em> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example). <em>Remove</em> argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 5
@@ -379,27 +382,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,267 more rows</code></pre>
 </div>
 </div>
-<p>At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect those not needed.</p>
+<p>At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect (-) those not needed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Species, Layer))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Species, Layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 3
-   PlotID SpeciesLayer           CoverPerc
-    &lt;dbl&gt; &lt;chr&gt;                      &lt;dbl&gt;
- 1      1 Quercus_petraea_agg._1        63
- 2      1 Acer_campestre_1              18
- 3      1 Crataegus_laevigata_4          2
- 4      1 Cornus_mas_4                   8
- 5      1 Lonicera_xylosteum_4           3
- 6      1 Galium_sylvaticum_6            3
- 7      1 Carex_digitata_6               3
- 8      1 Melica_nutans_6                2
- 9      1 Polygonatum_odoratum_6         2
-10      1 Geum_urbanum_6                 2
+   PlotID Species              Layer
+    &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg.     1
+ 2      1 Acer_campestre           1
+ 3      1 Crataegus_laevigata      4
+ 4      1 Cornus_mas               4
+ 5      1 Lonicera_xylosteum       4
+ 6      1 Galium_sylvaticum        6
+ 7      1 Carex_digitata           6
+ 8      1 Melica_nutans            6
+ 9      1 Polygonatum_odoratum     6
+10      1 Geum_urbanum             6
 # ℹ 2,267 more rows</code></pre>
 </div>
 </div>
@@ -407,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Species, Layer)) <span class="sc">%&gt;%</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -438,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species=</span><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, Species, <span class="at">fixed=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Species, Layer)) <span class="sc">%&gt;%</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc,</span>
@@ -479,6 +482,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>
 <!--concatenate of forest type and name and make a boxplot -->
+<!--add mutate ifelse with other symbols  -->
+<!--unite and separate with different separator  -->
 <!--add mutate ifelse with other symbols  -->
 </section>
 <section id="further-reading" class="level2">
