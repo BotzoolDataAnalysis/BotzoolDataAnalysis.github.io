@@ -59,9 +59,7 @@ spe %>%
 
 We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function from the package `tidyr` which merges strings from two or more columns into a new one: **A+B =A_B**. Default separator is again underscore, unless you specify it differently by *sep=XX* argument.
 
-![](images/clipboard-2534304407.png)
-
-Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).
+![](images/clipboard-2085711370.png)Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).
 
 *Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
 
@@ -88,8 +86,7 @@ Now we can finaly use the **pivot wider** function to transform the data. We hav
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
   mutate(Species = str_replace_all(Species, " ", "_"))%>%
-  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
-  select(-c(Species, Layer)) %>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = TRUE) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc)
 ```
 
@@ -99,15 +96,34 @@ There are different combinations of species in each plot, some of them are prese
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
   mutate(Species = str_replace_all(Species, " ", "_"))%>%
-  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = FALSE) %>%
-  select(-c(Species, Layer)) %>%
+  unite("SpeciesLayer", Species,Layer, na.rm = TRUE, remove = TRUE) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc,
-              values_fill = 0)
+              values_fill = 0) -> spe_wide
 ```
 
 ## 4.3 From wide to long
 
-Sometimes it is needed to transform the data from wide to long.
+Sometimes it is needed to transform the data from wide to long. Here we need to say which column should not be changed, which is the PlotID (**cols = -PlotID**). Than we specify what to do with the column names, how they should be saved (**names_to**). And how to name the column with values (**values_to**).
+
+```{r}
+spe_wide %>% 
+  pivot_longer(cols = -PlotID, names_to = 'species', values_to = 'cover')
+```
+
+We need to remove the empty rows. Because we filled them before with zeros, we will filter out the rows with cover=0.
+
+```{r}
+spe_wide %>% 
+  pivot_longer(cols = -PlotID, names_to = 'species', values_to = 'cover')%>%
+  filter(!cover == 0)
+```
+
+Sometimes we have data with NAs (not zeros) here it is very usefull to use argument **values_drop_na** =TRUE
+
+```{r}
+spe_wide %>% 
+  pivot_longer(cols = -PlotID, names_to = 'species', values_to = 'cover', values_drop_na =TRUE)
+```
 
 ## 4.4 Group by, count
 

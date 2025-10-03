@@ -357,8 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using <strong>unite</strong> function from the package <code>tidyr</code> which merges strings from two or more columns into a new one: <strong>A+B =A_B</strong>. Default separator is again underscore, unless you specify it differently by <em>sep=XX</em> argument.</p>
-<p><img src="images/clipboard-2534304407.png" class="img-fluid"></p>
-<p>Argument <em>na.rm</em> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
+<p><img src="images/clipboard-2085711370.png" class="img-fluid">Argument <em>na.rm</em> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
 <p><em>Remove</em> argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
@@ -411,9 +410,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Species, Layer)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 370
    PlotID Quercus_petraea_agg._1 Acer_campestre_1 Crataegus_laevigata_4
@@ -442,37 +440,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Species, Layer)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 65 × 370
-   PlotID Quercus_petraea_agg._1 Acer_campestre_1 Crataegus_laevigata_4
-    &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;                 &lt;dbl&gt;
- 1      1                     63               18                     2
- 2      2                     63                0                     0
- 3      3                     63                0                     0
- 4      4                     38                0                     0
- 5      5                     63                0                     0
- 6      6                     38                0                     0
- 7      7                     63                0                     0
- 8      8                     38                0                     0
- 9      9                     38                0                     0
-10     10                     63                0                     0
-# ℹ 55 more rows
-# ℹ 366 more variables: Cornus_mas_4 &lt;dbl&gt;, Lonicera_xylosteum_4 &lt;dbl&gt;,
-#   Galium_sylvaticum_6 &lt;dbl&gt;, Carex_digitata_6 &lt;dbl&gt;, Melica_nutans_6 &lt;dbl&gt;,
-#   Polygonatum_odoratum_6 &lt;dbl&gt;, Geum_urbanum_6 &lt;dbl&gt;,
-#   Anemone_species_6 &lt;dbl&gt;, Viola_mirabilis_6 &lt;dbl&gt;,
-#   Hieracium_murorum_6 &lt;dbl&gt;, Platanthera_bifolia_6 &lt;dbl&gt;,
-#   Convallaria_majalis_6 &lt;dbl&gt;, Hepatica_nobilis_6 &lt;dbl&gt;, …</code></pre>
-</div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> spe_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="from-wide-to-long" class="level2">
 <h2 class="anchored" data-anchor-id="from-wide-to-long">4.3 From wide to long</h2>
-<p>Sometimes it is needed to transform the data from wide to long.</p>
+<p>Sometimes it is needed to transform the data from wide to long. Here we need to say which column should not be changed, which is the PlotID (<strong>cols = -PlotID</strong>). Than we specify what to do with the column names, how they should be saved (<strong>names_to</strong>). And how to name the column with values (<strong>values_to</strong>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,985 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 23,975 more rows</code></pre>
+</div>
+</div>
+<p>We need to remove the empty rows. Because we filled them before with zeros, we will filter out the rows with cover=0.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>cover <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>Sometimes we have data with NAs (not zeros) here it is very usefull to use argument <strong>values_drop_na</strong> =TRUE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>, <span class="at">values_drop_na =</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,985 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 23,975 more rows</code></pre>
+</div>
+</div>
 </section>
 <section id="group-by-count" class="level2">
 <h2 class="anchored" data-anchor-id="group-by-count">4.4 Group by, count</h2>
