@@ -10,7 +10,7 @@ There are two main ways how the data can be organised across rows and columns. W
 
 **Wide format** is more conservative and used in many older packages for ecological data analysis. This is the way you need to prepare your species matrix for ordinations in `vegan`. However, wide format has also many cons.
 
-One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here *Trientalis europaea*, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. And this has to be coded within the table becoming really memory demanding.
+One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here *Trientalis europaea*, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.
 
 For the analyses you cannot keep the empty cells empty, since they are recognised as NAs. You have to fill them with zeros.
 
@@ -18,7 +18,7 @@ Another disadvantage is that you cannot add easily new information. If you for e
 
 ![](images/clipboard-1429419654.png)
 
-**Long format** is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. But we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.
+**Long format** in contrast, is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. but we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.
 
 We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.
 
@@ -40,7 +40,7 @@ spe <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
 tibble(spe)
 ```
 
-We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we need to change the species names to be in the compact format with underscores. For this we will use **mutate** function with **gsub** (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.
+We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we need to change the species names to be in the compact format with underscores. For this we will use **mutate** function with **str_replace** (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.
 
 ```{r}
 spe %>% 
@@ -59,11 +59,11 @@ spe %>%
 
 We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function from the package `tidyr` which merges strings from two or more columns into a new one: **A+B =A_B**. Default separator is again underscore, unless you specify it differently by *sep=XX* argument.
 
-![](images/clipboard-2319886629.png)
+![](images/clipboard-2534304407.png)
 
-<!--add new example with na.rm=F and with remove=T  -->
+Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).
 
-Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example). *Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
+*Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
 
 ```{r}
 spe %>% 
@@ -106,6 +106,8 @@ spe %>%
 ```
 
 ## 4.3 From wide to long
+
+Sometimes it is needed to transform the data from wide to long.
 
 ## 4.4 Group by, count
 
