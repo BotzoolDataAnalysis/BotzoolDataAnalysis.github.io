@@ -21,3 +21,5 @@ title: "5 Join Functions"
 <!-- # numbats <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-03-07/numbats.csv') -->
 
 <!-- ADD keep all - distinct, -->
+
+<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist   -->

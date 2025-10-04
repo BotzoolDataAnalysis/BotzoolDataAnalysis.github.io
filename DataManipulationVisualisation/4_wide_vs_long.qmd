@@ -1,5 +1,5 @@
 ---
-title: "4 Wide vs long format"
+title: "4 Wide vs.long format"
 ---
 
 ## 4.1 Data formats
@@ -48,13 +48,23 @@ spe %>%
   mutate(Species = str_replace_all(Species, " ", "_"))
 ```
 
-\*If you want to play a bit, you can create new column (e.g. SpeciesNew) to see both the original name and changed name. Note that in the same way as above you can change different patterns, e.g. removing aggregates. There are even more complex things we can do, but we will keep it for later as it requires some knowledge of `regex` rules.
+\*If you want to play a bit, you can create new column (e.g. SpeciesNew) to see both the original name and changed name.
 
 ```{r}
 spe %>% 
   rename(PlotID= RELEVE_NR)%>%
-  mutate(SpeciesNew1 = str_replace_all(Species, " agg.", ""))%>%
-  mutate(SpeciesNew2 = str_replace_all(Species, " ", "_"))
+  mutate(SpeciesNew = str_replace_all(Species, " ", "_"))
+```
+
+Note that in the same way as above you can change different patterns, e.g. removing part of the strings. There are even more complex things we can do, but we will keep it for later as it requires some knowledge of `regex` rules. Here I created a new column where I removed indication that the species belongs to a complex, i.e.the part of the string saying it is an aggregate, I also prepared a column "check" where I compare if the new and old name are equal or not and filtered just those cases where they are not. This should show me exactly the changed rows. If I am happy with the result, I can then remove the lines with this check and I can even rewrite the original column.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  mutate(SpeciesNew = str_replace_all(Species, " agg.", ""))%>%
+  mutate(check=(SpeciesNew==Species))%>% 
+  filter(check == "FALSE") %>%
+  select(PlotID, Species, SpeciesNew, check) #select only relevant to see at a first glance
 ```
 
 We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using **unite** function from the package `tidyr` which merges strings from two or more columns into a new one: **A+B =A_B**. Default separator is again underscore, unless you specify it differently by *sep=XX* argument.
@@ -110,7 +120,7 @@ spe_wide %>%
   pivot_longer(cols = -PlotID, names_to = 'species', values_to = 'cover')
 ```
 
-We need to remove the empty rows. Because we filled them before with zeros, we will filter out the rows with cover=0.
+We need to remove the empty rows. Because we filled them before with zeros, we will first finish the transformation and then filter out the rows with cover equal to zero.
 
 ```{r}
 spe_wide %>% 
@@ -118,7 +128,7 @@ spe_wide %>%
   filter(!cover == 0)
 ```
 
-Sometimes we have data with NAs (not zeros) here it is very usefull to use argument **values_drop_na** =TRUE
+Sometimes we have data with NAs (not zeros) here it is very useful to use argument **values_drop_na** =TRUE
 
 ```{r}
 spe_wide %>% 
@@ -127,7 +137,66 @@ spe_wide %>%
 
 ## 4.4 Group by, count
 
+Using **group_by** we can define how the data should be arranged into groups. Then we can proceed with asking questions about these groups. Basic function how to summarise the information, is to count the number of rows.
+
+In the first example we are working with species list in a long format. We can easily calculate number of species in each plot/sample by counting corresponding number of rows. First you have to specify what is the grouping variable, here it would be PlotID. And then you can directly count.
+
+```{r}
+spe %>% 
+  rename(PlotID= RELEVE_NR)%>%
+  group_by(PlotID)%>%
+  count()
+```
+
+Count returns number of rows in a new variable called n. You can directly put extra line to your code and rename it. e.g. rename(SpeciesRichness =n). Note that in this case we simply counted all the rows. But we know some woody species might be recorded in tree vegetation layer, as shrub or as a small juvenile, so we potentially calculated such species three times. We can play a bit with distinct function and remove the layer information. Is there a difference in the resulting numbers?
+
+```{r}
+spe %>% 
+  distinct(PlotID= RELEVE_NR, Species)%>%
+  group_by(PlotID)%>%
+  count()%>%
+  rename(SpeciesRichness=n)
+```
+
+Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which a shortcut often used for environmental data file.
+
+```{r}
+env <- read_excel("data/forest_understory/Axmanova-Forest-env.xlsx")
+tibble(env)
+```
+
+And calculate the number of plots in each forest type.
+
+```{r}
+env %>% 
+  group_by(ForestTypeName)%>% 
+  count() 
+```
+
+Actually **we can even skip the group_by step** and directly specify what to count, which is very useful.
+
+```{r}
+env %>% 
+  count(ForestTypeName)
+```
+
 ## 4.5 Summarise
+
+Using **group_by** and **summarise** we can calculate e.g. mean values, or total sum of the values within the group. See more in the further reading. Here is an example of summarise for environmental data:
+
+```{r}
+env %>% 
+  group_by(ForestTypeName) %>%
+  summarise(meanBiomass= mean(Biomass))
+```
+
+Summarise is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on we can ask what is the relative share of parasites, endangered or alien species. Or we can calculate community mean of some traits, such as the mean height of the plants or their mean leaf area index. For this we would have to append new information, so we will leave it for next chapter.
+
+```{r}
+spe %>% 
+  group_by(PlotID=RELEVE_NR) %>%
+  summarise(totalCover= sum(CoverPerc))
+```
 
 ## 4.6 Exercises
 
@@ -140,3 +209,11 @@ spe_wide %>%
 <!--add mutate ifelse with other symbols  -->
 
 ## 4.7 Further reading
+
+Summarise <https://dplyr.tidyverse.org/reference/summarise.html>
+
+Summarise multiple columns <https://dplyr.tidyverse.org/reference/summarise_all.html>
+
+Data transformation in R for data science <https://r4ds.hadley.nz/data-transform.html>
+
+Data tidying including pivoting <https://r4ds.hadley.nz/data-tidy.html>
