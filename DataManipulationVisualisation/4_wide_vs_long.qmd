@@ -115,7 +115,9 @@ spe %>%
 
 ## 4.3 From wide to long
 
-Sometimes it is needed to transform the data from wide to long. Here we need to say which column should not be changed, which is the PlotID (**cols = -PlotID**). Than we specify what to do with the column names, how they should be saved (**names_to**). And how to name the column with values (**values_to**).
+Sometimes it is needed to transform the data from wide to long. Here we need to say which column should not be changed, which is the PlotID (**cols = -PlotID**). Alternatively would work also -1.
+
+Than we specify what to do with the column names, how they should be saved (**names_to**). And how to call the column with values (**values_to**).
 
 ```{r}
 spe_wide %>% 
@@ -224,17 +226,19 @@ iris%>%
 
 1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
 
-2\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot). \*you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
+2\. Use **Spruce forest data** used in the graphical example in the beginning of this chapter. Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species)
 
-3\. Train transformation of long to wide with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> prepare new variable with species name and vegetation layer \> transform the format to wide.
+3\. Train transformation of *long to wide* with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> transform the format to long, remove absences. \*Use separate_delim_wider function to separate information about species name and layer into two variables.
 
-4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of species at each site (not individuals, just unique names using presence/absence data) \> create barplot to visualise the differences.
+4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of individuals at each site \> create barplot to visualise the differences. \*for comparison you can calculate the number of species (unique names) and visualise this as well.
 
-5\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed change the format to tibble using `as_tibble` function (iris.data\<- iris %\>% as_tibble()) \> calculate median values for selected parameters within different iris species.
+5\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot). \*you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
 
-6\. “*Tidy datasets are all alike, but every messy dataset is messy in its own way.*” Hadley Wickham Import `Example4` from the **Messy data** and try to find duplicate rows.
+6\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed change the format to tibble using `as_tibble` function (iris.data\<- iris %\>% as_tibble()) \> calculate median values for selected parameters within different iris species.
 
-7\. \* Import `Example2` from the Messy data and try to make the data tidy with the use of `separate` function. This works in an opposite direction to `unite`.
+7\. “*Tidy datasets are all alike, but every messy dataset is messy in its own way.*” Hadley Wickham Import `Example4` from the **Messy data** and try to find duplicate rows.
+
+8\. \* Import `Example2` from the Messy data and try to make the data tidy with the use of `separate` function. This works in an opposite direction to `unite`.
 
 <!--add mutate ifelse with other symbols  -->
 
