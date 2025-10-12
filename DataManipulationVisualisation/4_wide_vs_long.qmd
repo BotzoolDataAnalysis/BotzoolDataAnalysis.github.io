@@ -4,19 +4,19 @@ title: "4 Wide vs.long format"
 
 ## 4.1 Data formats
 
-There are two main ways how the data can be organised across rows and columns. Wide or long format.
+There are two main ways how the data can be organised across rows and columns. Wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, just value relatively to the total area, i.e. percentage of total area). The covers of species might overlap, as they grow in different heights.
 
-![](images/clipboard-1688243952.png)
+![](images/clipboard-1036617063.png)
 
-**Wide format** is more conservative and used in many older packages for ecological data analysis. This is the way you need to prepare your species matrix for ordinations in `vegan`. However, wide format has also many cons.
+**Wide format** is more conservative and used in many older packages for ecological data analysis. In our example we list all species and the colums are used to indicate their abundance at each site. This is the way you need to prepare your species matrix for ordinations in `vegan`. However, wide format has also many cons.
 
 One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here *Trientalis europaea*, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.
 
-For the analyses you cannot keep the empty cells empty, since they are recognised as NAs. You have to fill them with zeros.
+One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do fill them with zeros.
 
 Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g. *Picea_abies_1*. Can you see a conflict with the basic principles of tidyverse?
 
-![](images/clipboard-1429419654.png)
+![](images/clipboard-2355429167.png)
 
 **Long format** in contrast, is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. but we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.
 
@@ -200,13 +200,23 @@ spe %>%
 
 ## 4.6 Exercises
 
-<!--concatenate of forest type and name and make a boxplot -->
+1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
+
+2\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot).
+
+3\. Train transformation of long to wide with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> prepare new variable with species name and vegetation layer \> transform the format to wide.
+
+4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of species at each site (not individuals, just unique names using presence/absence data) \> create barplot to visualise the differences.
+
+5\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> change the format to tibble using `as.tibble` function \> calculate median values for selected parameters within different iris species.
 
 <!--add mutate ifelse with other symbols  -->
 
 <!--unite and separate with different separator  -->
 
 <!--add mutate ifelse with other symbols  -->
+
+x\. \* Import Example2 from the Messy data and try to make the data tidy with the use of separate function.
 
 ## 4.7 Further reading
 

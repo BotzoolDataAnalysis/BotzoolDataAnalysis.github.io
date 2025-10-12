@@ -272,13 +272,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="data-formats" class="level2">
 <h2 class="anchored" data-anchor-id="data-formats">4.1 Data formats</h2>
-<p>There are two main ways how the data can be organised across rows and columns. Wide or long format.</p>
-<p><img src="images/clipboard-1688243952.png" class="img-fluid"></p>
-<p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
+<p>There are two main ways how the data can be organised across rows and columns. Wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, just value relatively to the total area, i.e.&nbsp;percentage of total area). The covers of species might overlap, as they grow in different heights.</p>
+<p><img src="images/clipboard-1036617063.png" class="img-fluid"></p>
+<p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. In our example we list all species and the colums are used to indicate their abundance at each site. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
 <p>One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here <em>Trientalis europaea</em>, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.</p>
-<p>For the analyses you cannot keep the empty cells empty, since they are recognised as NAs. You have to fill them with zeros.</p>
+<p>One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do fill them with zeros.</p>
 <p>Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
-<p><img src="images/clipboard-1429419654.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2355429167.png" class="img-fluid"></p>
 <p><strong>Long format</strong> in contrast, is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. but we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.</p>
 <p>We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.</p>
 </section>
@@ -684,10 +684,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>
-<!--concatenate of forest type and name and make a boxplot -->
+<p>1. <strong>Forest Understory Data</strong> - download the data from the repository <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a>and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: <code>Axmanova-Forest-spe.xlsx</code>, and environmental data <code>Axmanova-Forest-env.xlsx</code></p>
+<p>2. Use <strong>Forest understory environmental data</strong> <code>Axmanova-Forest-env.xlsx</code>&gt; prepare a new variable which will combine Forest type code and name (unite) &gt; calculate mean values of biomass for these forest types (group_by, summarise) &gt; prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot).</p>
+<p>3. Train transformation of long to wide with another dataset <strong>Acidophilous grasslands</strong> namely the species file called <code>SW_moravia_acidgrass_species.csv</code>. Import the data and check structure &gt; prepare new variable with species name and vegetation layer &gt; transform the format to wide.</p>
+<p>4. Work with dataset <strong>Lepidoptera</strong>, namely <code>spe_matrix_MSvejnoha</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt; transform to long format &gt; count number of species at each site (not individuals, just unique names using presence/absence data) &gt; create barplot to visualise the differences.</p>
+<p>5. We will use the <strong>iris dataset</strong> integrated in R. Use glimpse(iris) to check the structure &gt; change the format to tibble using <code>as.tibble</code> function &gt; calculate median values for selected parameters within different iris species.</p>
 <!--add mutate ifelse with other symbols  -->
 <!--unite and separate with different separator  -->
 <!--add mutate ifelse with other symbols  -->
+<p>x. * Import Example2 from the Messy data and try to make the data tidy with the use of separate function.</p>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">4.7 Further reading</h2>

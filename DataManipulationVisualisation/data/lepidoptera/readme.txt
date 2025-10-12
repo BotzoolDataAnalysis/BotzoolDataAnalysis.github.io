@@ -1,0 +1,12 @@
+
+Effect of habitat structure on moth (Lepidoptera: "Macrolepidoptera") assemblages in oak-hornbeam forests
+
+Martin Švejnoha
+
+Bachelor thesis
+
+Moths (“Macrolepidoptera”) are often used as an indicator group in ecologically or conservation-oriented studies, due to their considerable species richness, ecological diversity, and robust taxonomy. However, very little is known about the effect of environmental characteristics, particularly spatial structure of the habitat, on moth communities. In this bachelor thesis, moths were sampled on the Hády plateau, situated in the southern part of the Moravian Karst (Czech Republic). Light traps were installed at monthly intervals from March to November 2023 at 15 sampling sites, five of which were located in forests with well-developed tree and shrub layers, five in forests with a continuous tree canopy but sparse or absent shrub layer, and five in forest clearings with forest-steppe vegetation. A total of 14,513 individuals representing 279 species of Macrolepidoptera were collected. Nearly 40 % of all captured individuals belonged to the five most abundant species. The abundance as well as species richness of moths were both significantly higher in forest clearings than in the other two types of forest habitats, while the latter did not differ significantly from each other. The numbers of moth individuals and species were both negatively correlated with canopy cover, the number of moth species was positively correlated with the number of vascular plant species in the herb layer. Between the forest habitat types, the moth communities differed in some functional traits. In clearings, the moth communities had the smallest weighted mean of wing span, the highest representation of multivoltine species and the lowest share of individuals of species associated with tree and shrub layers. Forest stands with shrubs differed from the other habitat types by having a higher proportion of long-lived moths. Forest stands with continuous canopy but without shrub layer had the highest representation of monophagous moths There was no statistically significant difference in the presence of species of conservation importance among the three habitat types.
+
+
+LINK to full text
+https://is.muni.cz/th/vfoxe/BPSvejnoha12052024a.pdf
