@@ -276,8 +276,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/clipboard-1036617063.png" class="img-fluid"></p>
 <p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. In our example we list all species and the colums are used to indicate their abundance at each site. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
 <p>One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here <em>Trientalis europaea</em>, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.</p>
-<p>One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do fill them with zeros.</p>
-<p>Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
+<p>One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do another step and fill them with zeros.</p>
+<p>Another disadvantage is that you cannot add easily new information to the listed species. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
 <p><img src="images/clipboard-2355429167.png" class="img-fluid"></p>
 <p><strong>Long format</strong> in contrast, is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. but we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.</p>
 <p>We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.</p>
@@ -311,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,267 more rows</code></pre>
 </div>
 </div>
-<p>We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we need to change the species names to be in the compact format with underscores. For this we will use <strong>mutate</strong> function with <strong>str_replace</strong> (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.</p>
+<p>We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we may need to change the species names to be in the compact format, without any spaces, just underscores. For this we will use <strong>mutate</strong> function with <strong>str_replace</strong> (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
@@ -383,6 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using <strong>unite</strong> function from the package <code>tidyr</code> which merges strings from two or more columns into a new one: <strong>A+B =A_B</strong>. Default separator is again underscore, unless you specify it differently by <em>sep=XX</em> argument.</p>
 <p><img src="images/clipboard-2085711370.png" class="img-fluid">Argument <em>na.rm</em> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
 <p><em>Remove</em> argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.</p>
+<p>Note that function that works in an opposite direction is called <code>separate</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
@@ -588,7 +589,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which a shortcut often used for environmental data file.</p>
+<p>Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which is a shortcut often used for environmental data file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-env.xlsx"</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -627,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 ravine forest          10</code></pre>
 </div>
 </div>
-<p>Actually <strong>we can even skip the group_by step</strong> and directly specify what to count, which is very useful.</p>
+<p><strong>We can even skip the group_by step</strong> and directly specify what to count, which is very useful.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -641,14 +642,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 ravine forest          10</code></pre>
 </div>
 </div>
+<p>Count can be very useful to check for duplicate rows. You can ask to count for example IDs in the file where you expect unique ID at each row and filter those results that have more occurrences than 1. In the example below, each ID was used just once, so the filter returns no rows. Such a check is important especially if you need to append another information by join functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">PlotID=</span>RELEVE_NR) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: PlotID &lt;dbl&gt;, n &lt;int&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="summarise" class="level2">
 <h2 class="anchored" data-anchor-id="summarise">4.5 Summarise</h2>
 <p>Using <strong>group_by</strong> and <strong>summarise</strong> we can calculate e.g.&nbsp;mean values, or total sum of the values within the group. See more in the further reading. Here is an example of summarise for environmental data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestTypeName) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass=</span> <span class="fu">mean</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestTypeName) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass=</span> <span class="fu">mean</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   ForestTypeName      meanBiomass
@@ -661,9 +672,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Summarise is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on we can ask what is the relative share of parasites, endangered or alien species. Or we can calculate community mean of some traits, such as the mean height of the plants or their mean leaf area index. For this we would have to append new information, so we will leave it for next chapter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">PlotID=</span>RELEVE_NR) <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totalCover=</span> <span class="fu">sum</span>(CoverPerc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">PlotID=</span>RELEVE_NR) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totalCover=</span> <span class="fu">sum</span>(CoverPerc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 2
    PlotID totalCover
@@ -681,18 +692,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
+<p>We can also define more variables we want to summarise and more functions we want to apply. Try to find out more <a href="https://dplyr.tidyverse.org/reference/summarise_all.html"><code>here</code></a>. Below is an example of iris dataset, where I decided to get minimum,mean and maximum values for sepal leaves in different species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species)<span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(Sepal.Length, Sepal.Width), <span class="fu">list</span>(<span class="at">min=</span> min, <span class="at">mean =</span> mean, <span class="at">max =</span> max )))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  Species    Sepal.Length_min Sepal.Length_mean Sepal.Length_max Sepal.Width_min
+  &lt;fct&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 setosa                  4.3              5.01              5.8             2.3
+2 versicolor              4.9              5.94              7               2  
+3 virginica               4.9              6.59              7.9             2.2
+# ℹ 2 more variables: Sepal.Width_mean &lt;dbl&gt;, Sepal.Width_max &lt;dbl&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>
 <p>1. <strong>Forest Understory Data</strong> - download the data from the repository <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a>and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: <code>Axmanova-Forest-spe.xlsx</code>, and environmental data <code>Axmanova-Forest-env.xlsx</code></p>
-<p>2. Use <strong>Forest understory environmental data</strong> <code>Axmanova-Forest-env.xlsx</code>&gt; prepare a new variable which will combine Forest type code and name (unite) &gt; calculate mean values of biomass for these forest types (group_by, summarise) &gt; prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot).</p>
+<p>2. Use <strong>Forest understory environmental data</strong> <code>Axmanova-Forest-env.xlsx</code>&gt; prepare a new variable which will combine Forest type code and name (unite) &gt; calculate mean values of biomass for these forest types (group_by, summarise) &gt; prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot). *you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.</p>
 <p>3. Train transformation of long to wide with another dataset <strong>Acidophilous grasslands</strong> namely the species file called <code>SW_moravia_acidgrass_species.csv</code>. Import the data and check structure &gt; prepare new variable with species name and vegetation layer &gt; transform the format to wide.</p>
 <p>4. Work with dataset <strong>Lepidoptera</strong>, namely <code>spe_matrix_MSvejnoha</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt; transform to long format &gt; count number of species at each site (not individuals, just unique names using presence/absence data) &gt; create barplot to visualise the differences.</p>
-<p>5. We will use the <strong>iris dataset</strong> integrated in R. Use glimpse(iris) to check the structure &gt; change the format to tibble using <code>as.tibble</code> function &gt; calculate median values for selected parameters within different iris species.</p>
+<p>5. We will use the <strong>iris dataset</strong> integrated in R. Use glimpse(iris) to check the structure &gt; if needed change the format to tibble using <code>as_tibble</code> function (iris.data&lt;- iris %&gt;% as_tibble()) &gt; calculate median values for selected parameters within different iris species.</p>
+<p>6. “<em>Tidy datasets are all alike, but every messy dataset is messy in its own way.</em>” Hadley Wickham Import <code>Example4</code> from the <strong>Messy data</strong> and try to find duplicate rows.</p>
+<p>7. * Import <code>Example2</code> from the Messy data and try to make the data tidy with the use of <code>separate</code> function. This works in an opposite direction to <code>unite</code>.</p>
 <!--add mutate ifelse with other symbols  -->
 <!--unite and separate with different separator  -->
-<!--add mutate ifelse with other symbols  -->
-<p>x. * Import Example2 from the Messy data and try to make the data tidy with the use of separate function.</p>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">4.7 Further reading</h2>

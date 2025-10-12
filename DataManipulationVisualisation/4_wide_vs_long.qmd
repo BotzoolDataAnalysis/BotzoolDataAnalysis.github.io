@@ -12,9 +12,9 @@ There are two main ways how the data can be organised across rows and columns. W
 
 One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here *Trientalis europaea*, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.
 
-One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do fill them with zeros.
+One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do another step and fill them with zeros.
 
-Another disadvantage is that you cannot add easily new information. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g. *Picea_abies_1*. Can you see a conflict with the basic principles of tidyverse?
+Another disadvantage is that you cannot add easily new information to the listed species. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g. *Picea_abies_1*. Can you see a conflict with the basic principles of tidyverse?
 
 ![](images/clipboard-2355429167.png)
 
@@ -40,7 +40,7 @@ spe <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
 tibble(spe)
 ```
 
-We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we need to change the species names to be in the compact format with underscores. For this we will use **mutate** function with **str_replace** (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.
+We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we may need to change the species names to be in the compact format, without any spaces, just underscores. For this we will use **mutate** function with **str_replace** (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.
 
 ```{r}
 spe %>% 
@@ -72,6 +72,8 @@ We have the condensed name with underscores, but there are still more variables 
 ![](images/clipboard-2085711370.png)Argument *na.rm* indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).
 
 *Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
+
+Note that function that works in an opposite direction is called `separate`.
 
 ```{r}
 spe %>% 
@@ -158,7 +160,7 @@ spe %>%
   rename(SpeciesRichness=n)
 ```
 
-Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which a shortcut often used for environmental data file.
+Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which is a shortcut often used for environmental data file.
 
 ```{r}
 env <- read_excel("data/forest_understory/Axmanova-Forest-env.xlsx")
@@ -173,11 +175,19 @@ env %>%
   count() 
 ```
 
-Actually **we can even skip the group_by step** and directly specify what to count, which is very useful.
+**We can even skip the group_by step** and directly specify what to count, which is very useful.
 
 ```{r}
 env %>% 
   count(ForestTypeName)
+```
+
+Count can be very useful to check for duplicate rows. You can ask to count for example IDs in the file where you expect unique ID at each row and filter those results that have more occurrences than 1. In the example below, each ID was used just once, so the filter returns no rows. Such a check is important especially if you need to append another information by join functions.
+
+```{r}
+env %>% 
+  count(PlotID=RELEVE_NR) %>%
+  filter(n>1)
 ```
 
 ## 4.5 Summarise
@@ -198,25 +208,37 @@ spe %>%
   summarise(totalCover= sum(CoverPerc))
 ```
 
+We can also define more variables we want to summarise and more functions we want to apply. Try to find out more [`here`](https://dplyr.tidyverse.org/reference/summarise_all.html). Below is an example of iris dataset, where I decided to get minimum,mean and maximum values for sepal leaves in different species.
+
+```{r}
+glimpse(iris)
+```
+
+```{r}
+iris%>% 
+  group_by(Species)%>%
+  summarise(across(c(Sepal.Length, Sepal.Width), list(min= min, mean = mean, max = max )))
+```
+
 ## 4.6 Exercises
 
 1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
 
-2\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot).
+2\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot). \*you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
 
 3\. Train transformation of long to wide with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> prepare new variable with species name and vegetation layer \> transform the format to wide.
 
 4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of species at each site (not individuals, just unique names using presence/absence data) \> create barplot to visualise the differences.
 
-5\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> change the format to tibble using `as.tibble` function \> calculate median values for selected parameters within different iris species.
+5\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed change the format to tibble using `as_tibble` function (iris.data\<- iris %\>% as_tibble()) \> calculate median values for selected parameters within different iris species.
+
+6\. “*Tidy datasets are all alike, but every messy dataset is messy in its own way.*” Hadley Wickham Import `Example4` from the **Messy data** and try to find duplicate rows.
+
+7\. \* Import `Example2` from the Messy data and try to make the data tidy with the use of `separate` function. This works in an opposite direction to `unite`.
 
 <!--add mutate ifelse with other symbols  -->
 
 <!--unite and separate with different separator  -->
-
-<!--add mutate ifelse with other symbols  -->
-
-x\. \* Import Example2 from the Messy data and try to make the data tidy with the use of separate function.
 
 ## 4.7 Further reading
 
