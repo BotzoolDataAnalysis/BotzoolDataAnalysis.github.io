@@ -73,7 +73,7 @@ We have the condensed name with underscores, but there are still more variables 
 
 *Remove* argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.
 
-Note that function that works in an opposite direction is called `separate`.
+Note that function that works in an opposite direction is called `separate` or `separate_wider_delim`
 
 ```{r}
 spe %>% 
@@ -228,11 +228,11 @@ iris%>%
 
 2\. Use **Spruce forest data** used in the graphical example in the beginning of this chapter. *2a,* Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species). *2b,* Import also `spruce_forestLONG.xlsx` \> and transform *long to wide* format.
 
-3\. Train transformation of *wide to long* with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> transform the format to long, remove absences. \*Use separate_delim_wider function to separate information about species name and layer into two variables.
+3\. Train transformation of *wide to long* with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> transform the format to long, remove absences. \*Use `separate_wider_delim` function to separate information about species name and layer into two variables.
 
-4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of individuals at each site \> create barplot to visualise the differences. \*for comparison you can calculate the number of species (unique names) and visualise this as well.
+4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of individuals at each site \> create barplot to visualise the differences (ggplot2, geom_col). \*for comparison you can calculate the number of species (unique names) and visualise this as well.
 
-5\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot, geom_boxplot). \*you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
+5\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot2, geom_boxplot). \*you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
 
 6\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed change the format to tibble using `as_tibble` function (iris.data\<- iris %\>% as_tibble()) \> calculate median values for selected parameters within different iris species.
 
