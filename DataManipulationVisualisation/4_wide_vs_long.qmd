@@ -226,9 +226,9 @@ iris%>%
 
 1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
 
-2\. Use **Spruce forest data** used in the graphical example in the beginning of this chapter. Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species)
+2\. Use **Spruce forest data** used in the graphical example in the beginning of this chapter. *2a,* Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species). *2b,* Import also `spruce_forestLONG.xlsx` \> and transform *long to wide* format.
 
-3\. Train transformation of *long to wide* with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> transform the format to long, remove absences. \*Use separate_delim_wider function to separate information about species name and layer into two variables.
+3\. Train transformation of *wide to long* with another dataset **Acidophilous grasslands** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check structure \> transform the format to long, remove absences. \*Use separate_delim_wider function to separate information about species name and layer into two variables.
 
 4\. Work with dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of individuals at each site \> create barplot to visualise the differences. \*for comparison you can calculate the number of species (unique names) and visualise this as well.
 
