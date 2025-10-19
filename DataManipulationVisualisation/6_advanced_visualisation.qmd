@@ -2,27 +2,27 @@
 title: "6 Advanced Visualisation"
 ---
 
-You already know how to make basic plots using `ggplot` functions. We'll now dive deeper into data visualisation tools in R and again use mostly `ggplot2` package and its extensions.
+You already know how to make basic plots using `ggplot` functions. We'll now dive deeper into data visualisation using `ggplot2` package and its extensions.
 
 Every plot in `ggplot` consists of 7 parts that together serve as instructions on how to draw a plot:
 
 ![](images/clipboard-3562791479.png)
 
-To produce any plot, `ggplot` needs **data**, **mapping** and at least one **layer**. The other parts have some defaults, but often need adjustments for better appearance.
+To produce any plot, `ggplot` needs **data**, **mapping** and at least one **layer**. The other parts have some defaults, but often need adjustments for a better appearance.
 
 -   **Data** - preferably as a tidy tibble
 
 -   **Mapping** - instructions, how the data should be displayed, usually defined using `aes()` to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot
 
--   **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`, note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
+-   **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`. Note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
 
--   **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes etc., to modify the defaults use `scale` functions
+-   **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes, etc., to modify the defaults, use `scale` functions
 
 -   **Facets** - split data into smaller panels based on one or more variables
 
--   **Coordinates** - typically Cartesian coordinates, important to set for map projections or polar plots
+-   **Coordinates** - typically Cartesian coordinates (x and y axis), important to set for map projections or polar plots
 
--   **Theme** - controls the overall appearance of the plot not controlled by the data, can be used for customization of the legend position, background colour, sizes of axis labels and many more
+-   **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
 
 We will again use the penguin dataset and play with the individual plot parts.
 
@@ -36,7 +36,7 @@ glimpse(penguins)
 
 ## 6.1 Faceting
 
-From Chapter 3, you already know, how to visualise the relationship between the penguin bill length and bill depth.
+From Chapter 3, you already know how to visualise the relationship between the penguin bill length and bill depth.
 
 ```{r}
 #| warning: false
@@ -49,7 +49,7 @@ penguins |>
   theme_bw()
 ```
 
-But what if we now want to look at the differences between males and females? We could change the definition of the fill and colour aesthetics, so that they display sex and keep just shape for species identity:
+But what if we now want to look at the differences between males and females in addition? We could change the definition of the fill and colour aesthetics, so that they display sex and keep just shape for species identity:
 
 ```{r}
 #| warning: false
@@ -61,7 +61,7 @@ penguins |>
   labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Sex', shape = 'Species') 
 ```
 
-But as you see, it gets a bit hard to orient in the plot. There are some NA values in the sex column, which would be better removed so that they do not add a mess to the plot. And what about splitting the plot into three smaller plots, one for each species? This is where facetting comes into play.
+But as you see, it gets a bit hard to read the plot. There are some NA values in the sex column, which would be better removed so that they do not add a mess to the plot. And what about splitting the plot into three smaller plots, one for each species? This is where facetting comes into play.
 
 ```{r}
 #| warning: false
@@ -76,7 +76,7 @@ penguins |>
   theme_bw()
 ```
 
-Much better, but do we really need the different shapes for different species if we have them now in different facets? It would be better to add shape differentiation to the sex variable as not everyone is able to distinguish colours. It might also help in the legend, where we now have just black dots for both levels.
+Much better, but do we really need the different shapes for different species if we have them now in different facets? It would be better to add shape differentiation to the sex variable, as not everyone is able to distinguish colours. It might also help in the legend, where we now have just black dots for both levels.
 
 ```{r}
 #| warning: false
@@ -97,7 +97,7 @@ We can now clearly see that for Adélie penguins, there is a positive relationsh
 
 Till now, we have worked just with one data frame for the whole plot. You might remember that it is possible to place aesthetic mappings (`aes()`) either in the `ggplot()` call, and then it works for the whole plot, or in a `geom` function, which then overwrites the global mappings for that layer only. The same is possible for the data argument. We can define a different dataset for a certain layer to add, e.g., points from another dataset or highlight a subset of the data.
 
-As an example, we will draw a scatterplot of penguin body mass vs flipper length, where we highlight penguins from the Dream island with bigger red points:
+As an example, we will draw a scatterplot of penguin body mass vs flipper length, where we highlight penguins from the Dream Island with bigger red points:
 
 ```{r}
 penguins |> 
@@ -194,7 +194,32 @@ To remove the legend completely, set `legend.position = 'none'`.
 
 The `theme()` function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to `element_blank()`, modify the text size, label angle, ticks length, background grid colour and many more. See the [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more details.
 
-## 6.5 Composing plots together
+## 6.5 Reordering 
+
+For the final presentation of plots, it is sometimes needed to reorder the levels of the categorical variable. Let's look at the following plot, where we want to look at which penguin species has the longest bill on average.
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarise(bill_length_mean = mean(bill_length_mm, na.rm = T)) |> 
+  ggplot(aes(species, bill_length_mean)) +
+  geom_col()
+```
+
+For the final visualisation, it might be better to reorder the species from that with the longest bill to that with the shortest bill. To reorder levels of a categorical variable, we need to treat it as a factor. Then, we can reorder the levels according to the values of a given variable using a function `fct_reorder()` from the `forcats` package, which is also a part of `tidyverse`. We want to modify an existing column, so we will rewrite it in `mutate()`. Inside the `fct_reorder()` function, we specify two arguments: the first specifies which variable should be reordered, and the second specifies which values should be taken to make the order. You can imagine this as if you first arrange the table according to the bill length in descending order, and then fix the order of the categorical variable (species) from this ordered table.
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarise(bill_length_mean = mean(bill_length_mm, na.rm = T)) |> 
+  mutate(species = fct_reorder(species, desc(bill_length_mean))) |> 
+  ggplot(aes(species, bill_length_mean)) +
+  geom_col()
+```
+
+The `forcats` package contains many useful functions for working with factors. Check, for example, `fct_relevel()` for manual reordering of factor levels.
+
+## 6.6 Composing plots together
 
 Sometimes it is useful to combine multiple plots in one figure with multiple panels. This might be easily done using the [`patchwork`](https://patchwork.data-imaginist.com/index.html) package.
 
@@ -202,9 +227,9 @@ Sometimes it is useful to combine multiple plots in one figure with multiple pan
 library(patchwork)
 ```
 
-(Please place this line at the top of your script.)
+(Please place this line at the top of your script to the other `library()` calls.)
 
-Let's say we want to make one figure showing the relationship between the penguin bill length and bill depth for the three penguin species and a boxplot showing the distribution of body mass for individual species next to each other.
+Let's say we want to make one figure showing the relationship between the penguin bill length and bill depth for the three penguin species, and a boxplot showing the distribution of body mass for individual species next to each other.
 
 We will first create these two plots and save them to an object:
 
@@ -242,7 +267,7 @@ Or collect all legends of the subplots and place them in one place:
 p1 + p2 + plot_layout(guides = 'collect')
 ```
 
-## 6.6 Useful extensions
+## 6.7 Useful extensions
 
 It is possible to do almost everything you would imagine using `ggplot2` and its [extensions](https://exts.ggplot2.tidyverse.org/gallery). We do not have time to cover all of that during this semester, but you are very welcome to experiment and explore this world on your own.
 
@@ -258,17 +283,62 @@ Just a few tips for packages we personally find very useful for our work:
 
 -   [`shiny`](https://shiny.posit.co) for creating web apps from R
 
-## 6.7 Exercises
+## 6.8 Exercises
 
 1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island.
+
 2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
+
 3.  Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
-4.  Combine the two plots using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
-5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` and create four boxplots comparing Ellenberg-type indicator values in different forest types. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. \* Turn the axis tick labels by 45°.
-6.  plot xx
-7.  plot yy
-8.  recreate a plot
-9.  Save all plots you created so far to the `plots` folder.
+
+4.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
+
+5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` and create four boxplots comparing Ellenberg-type indicator values in different forest types. Order the forest types in the following order: oak forests, oak hornbeam forests, ravine forests, alluvial forests. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. \* Turn the axis tick labels by 45°.
+
+6.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
+
+7.  (Real-world example for botanists) Use the data from the folder `basiphilous_grasslands` and recreate the following plot:
+
+    ```{r}
+    #| echo: false
+    #| message: false
+
+    bas_grass_env <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv')
+
+    bas_grass_spe <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv')
+
+    bas_grass_spe_data <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species_data.csv')
+
+    spe_sum <- bas_grass_spe |> 
+      pivot_longer(cols = -Releve_number, names_to = 'SpecName_Layer', values_to = 'cover_perc') |> 
+      filter(cover_perc > 0) |> 
+      left_join(bas_grass_spe_data) |> 
+      group_by(Releve_number) |> 
+      summarise(species_number = n_distinct(Taxon), 
+                specialist_number = sum(THE_THF == T, na.rm = T)) |> 
+      left_join(bas_grass_env)
+
+    plot1 <- spe_sum |> 
+      ggplot(aes(x = as.factor(Rs_observ), y = species_number, fill = as.factor(Rs_observ))) +
+      geom_boxplot() +
+      theme_bw() +
+      theme(axis.title.x = element_blank())+
+      labs(y = 'Number of species', fill = 'Time')
+
+    plot2 <- spe_sum |> 
+      ggplot(aes(x = as.factor(Rs_observ), y = specialist_number, fill = as.factor(Rs_observ))) +
+      geom_boxplot() +
+      theme_bw() +
+      theme(axis.title.x = element_blank())+
+      labs(y = 'Number of dry grassland specialists', fill = 'Time')
+
+    plot1 + plot2 + plot_annotation(tag_levels = 'A') + 
+      plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
+    ```
+
+    Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
+
+8.  Save all plots you created so far to the `plots` folder.
 
 ## 6.8 Further reading
 
