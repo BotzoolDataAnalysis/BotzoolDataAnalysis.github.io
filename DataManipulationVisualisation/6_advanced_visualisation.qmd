@@ -299,7 +299,7 @@ Just a few tips for packages we personally find very useful for our work:
     ```{r}
     #| echo: false
     #| warning: false
-    #| fig-height: 8
+    #| fig-asp: 0.9
 
     library(janitor)
 
