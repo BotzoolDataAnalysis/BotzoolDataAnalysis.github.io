@@ -8,3 +8,44 @@ format: html
 <!-- Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s> -->
 
 <!-- AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo> -->
+
+1.  (Real-world example for botanists) Use the data from the folder `basiphilous_grasslands` and recreate the following plot:
+
+    ```{r}
+    #| echo: false
+    #| message: false
+
+    bas_grass_env <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv')
+
+    bas_grass_spe <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv')
+
+    bas_grass_spe_data <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species_data.csv')
+
+    spe_sum <- bas_grass_spe |> 
+      pivot_longer(cols = -Releve_number, names_to = 'SpecName_Layer', values_to = 'cover_perc') |> 
+      filter(cover_perc > 0) |> 
+      left_join(bas_grass_spe_data) |> 
+      group_by(Releve_number) |> 
+      summarise(species_number = n_distinct(Taxon), 
+                specialist_number = sum(THE_THF == T, na.rm = T)) |> 
+      left_join(bas_grass_env)
+
+    plot1 <- spe_sum |> 
+      ggplot(aes(x = as.factor(Rs_observ), y = species_number, fill = as.factor(Rs_observ))) +
+      geom_boxplot() +
+      theme_bw() +
+      theme(axis.title.x = element_blank())+
+      labs(y = 'Number of species', fill = 'Time')
+
+    plot2 <- spe_sum |> 
+      ggplot(aes(x = as.factor(Rs_observ), y = specialist_number, fill = as.factor(Rs_observ))) +
+      geom_boxplot() +
+      theme_bw() +
+      theme(axis.title.x = element_blank())+
+      labs(y = 'Number of dry grassland specialists', fill = 'Time')
+
+    plot1 + plot2 + plot_annotation(tag_levels = 'A') + 
+      plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
+    ```
+
+    Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
