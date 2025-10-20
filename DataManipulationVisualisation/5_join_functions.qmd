@@ -2,7 +2,7 @@
 title: "5 Join Functions"
 ---
 
-In this chapter we will train how to add the information from another dataset (*left_join, full_join*), how to filter our data according to another dataset (*semi_join, anti_join*). We will also use our skills from previous chapter to calculate different statistics about our data, like mean indicator values, community weighted means of some traits, proportion of specific plant groups (*left_join, group_by, summarise*). We will play more with the species nomenclature and learn how to fix some issues or how to merge duplicate species records across vegetation layers. We will also look at mutate with more conditions (*ifelse, case_when*).
+In this chapter we will train how to add the information from another dataset (*left_join, full_join*), how to filter our data according to another dataset (*semi_join, anti_join*). We will also use our skills from previous chapter to calculate different statistics about our data, like mean indicator values, community weighted means of some traits, proportion of specific plant groups (*left_join, group_by, summarise*). We will also look at mutate with more conditions (*ifelse, case_when*).
 
 ![](images/clipboard-3097956773.png)
 
@@ -197,9 +197,11 @@ We also used mutate to adjust more variables at once
 
 ```{r}
 #| warning: false
-env %>% mutate(across(c(Radiation,Heat), round, digits=2))%>%
+env %>% mutate(across(c(Radiation, Heat), ~ round(.x, digits = 2))) %>%
   select (PlotID=RELEVE_NR, Radiation, Heat)
 ```
+
+**.x** refers to the entire column (vector) being transformed inside a function like mutate(across(...)) or map().
 
 Alternatively if you have a large table with only measured variables you can specify what should not be used, here Species, and mutate will be applied to everything left. This is especially useful for changing formats e.g from character to numeric (function *as.numeric*)
 
@@ -298,8 +300,6 @@ data<-  read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet=1)%>%
   
 ```
 
-**.x** refers to the entire column (vector) being transformed inside a function like mutate(across(...)) or map().
-
 Summarise is often used for getting so-called **community means** or community weighted means. For example we have traits for individual species and we want to calculate a mean for each site and compare it.
 
 ```{r}
@@ -343,7 +343,7 @@ In the same way we can calculate community means across more variables. Here we 
 ```{r}
 spe %>%
   left_join(traits, by = c("Species" = "Taxon")) %>%
-  select(-Layer)%>%
+  select(-c(Layer,CoverPerc))%>%
   distinct()%>%
   summarise(across(starts_with("EIV"),mean, na.rm=T),
             .by=RELEVE_NR)
@@ -371,17 +371,25 @@ Now look at the tibble again. Since we went through the step with dataframe, eve
 
 4\. Stay with Penguins, count how many individuals are at each island and to which species they belong. \> use a ggplot to visualise this. \*Prepare a wide format matrix with islands as rows x species as names, where values will be counts of individuals.
 
-5\. Get back to **Forest understory** species file. Axmanova-Forest-spe.xlsx In the data you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover \> append it to env data \> summarise counts of plots with each of the dominant \*alternatively you can prepare a script, where all spe data handling will be a part of pipeline of env data handling
+5\. Get back to **Forest understory** species file. Axmanova-Forest-spe.xlsx In the data you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover (*for simplicity, specify in the slice_max to take just n=1, with_ties=F*) \> append it to env data \> summarise counts of plots with each of the dominant \*alternatively you can prepare a script, where all spe data handling will be a part of pipeline of env data handling
 
 6.Use forest datasets - species and traits \> calculate community mean and community weighted mean for SeedMass. \*create boxplots for these means within forest types (info about forest type is available in env file).
 
 ## 5.7 Further reading
 
-Chapter in R for data science <https://r4ds.hadley.nz/joins.html>
+Joins -chapter in R for data science <https://r4ds.hadley.nz/joins.html>
 
 Summarise <https://dplyr.tidyverse.org/reference/summarise.html>
 
 Summarise multiple columns <https://dplyr.tidyverse.org/reference/summarise_all.html>
+
+Mutate across <https://dplyr.tidyverse.org/reference/across.html>
+
+If else, case when chapter in R for data science <https://r4ds.hadley.nz/logicals.html#conditional-transformations>
+
+Case when <https://dplyr.tidyverse.org/reference/case_when.html>
+
+Case when example <https://rpubs.com/jenrichmond/case_when>
 
 <!-- frogID_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-02/frogID_data.csv') -->
 
