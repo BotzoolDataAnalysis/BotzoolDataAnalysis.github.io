@@ -286,59 +286,12 @@ Just a few tips for packages we personally find very useful for our work:
 ## 6.8 Exercises
 
 1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island.
-
 2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
-
 3.  Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
-
 4.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
-
 5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` and create four boxplots comparing Ellenberg-type indicator values in different forest types. Order the forest types in the following order: oak forests, oak hornbeam forests, ravine forests, alluvial forests. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. \* Turn the axis tick labels by 45°.
-
 6.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
-
-7.  (Real-world example for botanists) Use the data from the folder `basiphilous_grasslands` and recreate the following plot:
-
-    ```{r}
-    #| echo: false
-    #| message: false
-
-    bas_grass_env <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv')
-
-    bas_grass_spe <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv')
-
-    bas_grass_spe_data <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species_data.csv')
-
-    spe_sum <- bas_grass_spe |> 
-      pivot_longer(cols = -Releve_number, names_to = 'SpecName_Layer', values_to = 'cover_perc') |> 
-      filter(cover_perc > 0) |> 
-      left_join(bas_grass_spe_data) |> 
-      group_by(Releve_number) |> 
-      summarise(species_number = n_distinct(Taxon), 
-                specialist_number = sum(THE_THF == T, na.rm = T)) |> 
-      left_join(bas_grass_env)
-
-    plot1 <- spe_sum |> 
-      ggplot(aes(x = as.factor(Rs_observ), y = species_number, fill = as.factor(Rs_observ))) +
-      geom_boxplot() +
-      theme_bw() +
-      theme(axis.title.x = element_blank())+
-      labs(y = 'Number of species', fill = 'Time')
-
-    plot2 <- spe_sum |> 
-      ggplot(aes(x = as.factor(Rs_observ), y = specialist_number, fill = as.factor(Rs_observ))) +
-      geom_boxplot() +
-      theme_bw() +
-      theme(axis.title.x = element_blank())+
-      labs(y = 'Number of dry grassland specialists', fill = 'Time')
-
-    plot1 + plot2 + plot_annotation(tag_levels = 'A') + 
-      plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
-    ```
-
-    Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
-
-8.  Save all plots you created so far to the `plots` folder.
+7.  Save all plots you created so far to the `plots` folder.
 
 ## 6.8 Further reading
 
