@@ -691,24 +691,13 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">6.8 Exercises</h2>
 <ol type="1">
-<li><p><code>facet_wrap()</code> facets the plot according to one variable, look in the documentation, what the related function <code>facet_grid()</code> does and use it to make a plot of penguin bill length and bill depth faceted by species and island.</p></li>
-<li><p>Use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, from the <code>gapminder</code> package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. * Make the size of the points proportional to the country population size.</p></li>
-<li><p>Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.</p></li>
-<li><p>Combine the two plots from exercises 2 and 3 using <code>p1 / p2</code>. What is the difference compared to <code>p1 + p2</code>? Add annotations ‘A’ and ‘B’ to the panels. * Modify the legend so that there is only one legend with coloured points at the bottom.</p></li>
-<li><p>Use the dataset <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> and create four boxplots comparing Ellenberg-type indicator values in different forest types. Order the forest types in the following order: oak forests, oak hornbeam forests, ravine forests, alluvial forests. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. * Turn the axis tick labels by 45°.</p></li>
-<li><p>Use the Pokémon dataset (<code>read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')</code>), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. *Colour the bars according to the colour defined for each Pokémon type in the column <code>color_1</code>. Add errorbars showing the minimum and maximum for each type.</p></li>
-<li><p>(Real-world example for botanists) Use the data from the folder <code>basiphilous_grasslands</code> and recreate the following plot:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="6_advanced_visualisation_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (<code>THE_THF</code>) for each plot (Releve), join header data and transform the variable for the time of sampling (<code>Rs_observ</code>) to a character/factor).</p></li>
-<li><p>Save all plots you created so far to the <code>plots</code> folder.</p></li>
+<li><code>facet_wrap()</code> facets the plot according to one variable, look in the documentation, what the related function <code>facet_grid()</code> does and use it to make a plot of penguin bill length and bill depth faceted by species and island.</li>
+<li>Use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, from the <code>gapminder</code> package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. * Make the size of the points proportional to the country population size.</li>
+<li>Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.</li>
+<li>Combine the two plots from exercises 2 and 3 using <code>p1 / p2</code>. What is the difference compared to <code>p1 + p2</code>? Add annotations ‘A’ and ‘B’ to the panels. * Modify the legend so that there is only one legend with coloured points at the bottom.</li>
+<li>Use the dataset <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> and create four boxplots comparing Ellenberg-type indicator values in different forest types. Order the forest types in the following order: oak forests, oak hornbeam forests, ravine forests, alluvial forests. Combine all four plots together and add annotations to individual panels. Do not show any legend and remove the title for the x-axis. * Turn the axis tick labels by 45°.</li>
+<li>Use the Pokémon dataset (<code>read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')</code>), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. *Colour the bars according to the colour defined for each Pokémon type in the column <code>color_1</code>. Add errorbars showing the minimum and maximum for each type.</li>
+<li>Save all plots you created so far to the <code>plots</code> folder.</li>
 </ol>
 </section>
 <section id="further-reading" class="level2">
