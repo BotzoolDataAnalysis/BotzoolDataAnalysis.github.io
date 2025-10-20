@@ -15,6 +15,10 @@ format: html
     #| echo: false
     #| message: false
 
+    library(tidyverse)
+    library(patchwork)
+
+
     bas_grass_env <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv')
 
     bas_grass_spe <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv')
