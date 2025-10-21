@@ -1,6 +1,6 @@
 ---
 title: "Data Manipulation and Visualisation"
-author: Irena Axmanová, Klára Klinkovská
+author: Irena Axmanová, Klára Friesová
 ---
 
 # Osnova předmětu Manipulace a vizualizace dat
