@@ -345,8 +345,8 @@ spe %>%
   left_join(traits, by = c("Species" = "Taxon")) %>%
   select(-c(Layer,CoverPerc))%>%
   distinct()%>%
-  summarise(across(starts_with("EIV"),mean, na.rm=T),
-            .by=RELEVE_NR)
+  group_by(RELEVE_NR)%>%
+  summarise(across(starts_with("EIV"), ~ mean(.x, na.rm = TRUE)))
 ```
 
 ## 5.6 Exercises
