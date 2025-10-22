@@ -125,6 +125,8 @@ forest1%>%
   full_join(forest2)
 ```
 
+\*Tip if you are mergin data from different sources and you get similar mess, check function colesce <https://dplyr.tidyverse.org/reference/coalesce.html>
+
 Imagine situation when data were sampled in different years/months or by different colleagues, or in different regions separately. If these **subsets have exactly the same structure**, we may use **`bind_rows`** function to merge them together, one below each other.
 
 ```{r}
@@ -208,7 +210,7 @@ Alternatively if you have a large table with only measured variables you can spe
 ```{r}
 iris %>% 
   as_tibble() %>%  #first change from dataframe to tibble 
-  mutate(across(-Species, round))
+  mutate(across(-Species,~ round(.x, digits=1)))
 ```
 
 You can even create a list of functions which should be applied. *`relocate`* here was used to shift all the Sepal variables before the first variable / just for easier check.

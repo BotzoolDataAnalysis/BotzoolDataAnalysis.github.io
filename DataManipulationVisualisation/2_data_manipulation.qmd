@@ -270,7 +270,8 @@ data %>%
 You can also create a variable with more categories based on values of
 other variable using **mutate ifelse** You give the condition when it
 should be called low and what to do if the condition is not met - name
-it high.
+it high. **TIP\>** Inside ‘Condition’ you can use also other conditional
+operators, like AND (&), OR (\|), or EQUAL (==) .
 
 ```{r}
 data %>%
@@ -279,7 +280,10 @@ data %>%
   print(n=20)
 ```
 
-The same can be done with similar approach using **mutate cases when**
+The same can be done with similar approach using **mutate cases when.**
+Conditions are evaluated from the first (on the left) to the last (on
+the right side), so for each step you take only the rows, that are not
+yet treated by previous condition.
 
 ```{r}
 data %>% 
@@ -294,9 +298,12 @@ variables at once, so I use **mutate across**
 
 ```{r}
 data %>% 
-  mutate(across(c(Biomass, pH_KCl, TransTot), round)) %>%
+  mutate(across(c(Biomass, pH_KCl, TransTot), ~ round(.x, digits = 1))) %>%
   select(PlotID, Biomass, pH_KCl,TransTot)
 ```
+
+**.x** refers to the entire column (vector) being transformed inside a
+function like mutate(across(...)) or map().
 
 ## 2.7 Save the data
 
