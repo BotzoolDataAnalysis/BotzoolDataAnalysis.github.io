@@ -751,7 +751,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>You can also create a variable with more categories based on values of other variable using <strong>mutate ifelse</strong> You give the condition when it should be called low and what to do if the condition is not met - name it high.</p>
+<p>You can also create a variable with more categories based on values of other variable using <strong>mutate ifelse</strong> You give the condition when it should be called low and what to do if the condition is not met - name it high. <strong>TIP&gt;</strong> Inside ‘Condition’ you can use also other conditional operators, like AND (&amp;), OR (|), or EQUAL (==) .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">ifelse</span>(Biomass<span class="sc">&lt;</span><span class="dv">60</span>,<span class="st">"low"</span>,<span class="st">"high"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -784,7 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 45 more rows</code></pre>
 </div>
 </div>
-<p>The same can be done with similar approach using <strong>mutate cases when</strong></p>
+<p>The same can be done with similar approach using <strong>mutate cases when.</strong> Conditions are evaluated from the first (on the left) to the last (on the right side), so for each step you take only the rows, that are not yet treated by previous condition.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">case_when</span>(Biomass <span class="sc">&lt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"low"</span>, Biomass <span class="sc">&gt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"high"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -820,25 +820,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I have already said that we often use mutate to directly transform original values. For example I want to round the numbers in several variables at once, so I use <strong>mutate across</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Biomass, pH_KCl, TransTot), round)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Biomass, pH_KCl, TransTot), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="at">digits =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Biomass, pH_KCl,TransTot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
    PlotID Biomass pH_KCl TransTot
     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
- 1      1      13      5        7
- 2      2      10      3        7
- 3      3      15      4        7
- 4      4      16      4        6
- 5      5      21      4        7
- 6      6      46      4        7
- 7      7      49      3        7
- 8      8      49      4        7
- 9      9      14      4        7
-10     10      79      4        6
+ 1      1    12.8    5.3      6.6
+ 2      2     9.9    3.2      6.9
+ 3      3    15.2    4        7.3
+ 4      4    16      3.8      6.4
+ 5      5    20.7    3.5      6.9
+ 6      6    46.4    3.8      7  
+ 7      7    49.2    3.5      7.4
+ 8      8    48.7    3.7      7  
+ 9      9    13.8    4.2      6.5
+10     10    79.1    4        6.3
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
+<p><strong>.x</strong> refers to the entire column (vector) being transformed inside a function like mutate(across(…)) or map().</p>
 </section>
 <section id="save-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="save-the-data">2.7 Save the data</h2>

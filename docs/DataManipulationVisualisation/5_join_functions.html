@@ -502,6 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
+<p>*Tip if you are mergin data from different sources and you get similar mess, check function colesce <a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="uri">https://dplyr.tidyverse.org/reference/coalesce.html</a></p>
 <p>Imagine situation when data were sampled in different years/months or by different colleagues, or in different regions separately. If these <strong>subsets have exactly the same structure</strong>, we may use <strong><code>bind_rows</code></strong> function to merge them together, one below each other.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>forest1<span class="ot">&lt;-</span>env <span class="sc">%&gt;%</span> </span>
@@ -667,21 +668,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span>  <span class="co">#first change from dataframe to tibble </span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span>Species, round))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span>Species,<span class="sc">~</span> <span class="fu">round</span>(.x, <span class="at">digits=</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 5
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
- 1            5           4            1           0 setosa 
- 2            5           3            1           0 setosa 
- 3            5           3            1           0 setosa 
- 4            5           3            2           0 setosa 
- 5            5           4            1           0 setosa 
- 6            5           4            2           0 setosa 
- 7            5           3            1           0 setosa 
- 8            5           3            2           0 setosa 
- 9            4           3            1           0 setosa 
-10            5           3            2           0 setosa 
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
 # ℹ 140 more rows</code></pre>
 </div>
 </div>
@@ -971,22 +972,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Layer,CoverPerc))<span class="sc">%&gt;%</span></span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>),mean, <span class="at">na.rm=</span>T),</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span>RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `summarise()`.
-ℹ In argument: `across(starts_with("EIV"), mean, na.rm = T)`.
-ℹ In group 1: `RELEVE_NR = 1`.
-Caused by warning:
-! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-Supply arguments directly to `.fns` through an anonymous function instead.
-
-  # Previously
-  across(a:b, mean, na.rm = TRUE)
-
-  # Now
-  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
-</div>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 5
    RELEVE_NR EIV_Light EIV_Moisture EIV_Reaction EIV_Nutrients
@@ -1010,13 +997,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <p>1. Do a bit more with <strong>Forest understory</strong> data. Upload the env file called <code>Axmanova-Forest-env.xlsx</code> create two subsets: <em>forest1</em>, where you select PlotID=RELEVE_NR, ForestType, ForestTypeName and <em>forest2</em>, with columns ForestType, pH_KCl, Biomass &gt; Now use left_join to match forest2 to forest1. What happened? Check how many times there are rows with the same PlotID using some simple functions.</p>
 <p>2. Upload the data from <strong>Lepidoptera</strong> folder . First the env data &gt; check the structure. The structure is inverted and we will first transpose it to be able to work with it normally.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>env<span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/lepidoptera/env_char_MSVejnoha.xlsx"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># move 'Site' column to row names</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">%&gt;%</span>                               <span class="co"># transpose like Excel</span></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span>                   <span class="co"># back to data frame</span></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># make the row names a column again</span></span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()<span class="sc">%&gt;%</span> </span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">view</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>env<span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/lepidoptera/env_char_MSVejnoha.xlsx"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># move 'Site' column to row names</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">%&gt;%</span>                               <span class="co"># transpose like Excel</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span>                   <span class="co"># back to data frame</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># make the row names a column again</span></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()<span class="sc">%&gt;%</span> </span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">view</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now look at the tibble again. Since we went through the step with dataframe, everything is changed to a text. Add one more row to change everything to numeric (<em>as.numeric</em>) except for the first column called Site (ID of the site) &gt;&gt; check the histogram of the cover of trees across sites &gt;&gt; prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of tress (select the tresholds based on the histogram) &gt; filter out the group with only low cover &gt;&gt; Import the spe data and filter to have the same sites in both files</p>
 <p>3. Upload <strong>Penguins data</strong> &gt; check names (penguins) &gt; calculate mean weight and SD of weight for different penguin species &gt; visualise the results by ggplot (geom_col).</p>
