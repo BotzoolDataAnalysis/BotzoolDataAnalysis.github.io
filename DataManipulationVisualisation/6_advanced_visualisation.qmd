@@ -24,13 +24,15 @@ To produce any plot, `ggplot` needs **data**, **mapping** and at least one **lay
 
 -   **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
 
-We will again use the penguin dataset and play with the individual plot parts.
+We will again use the penguin dataset and play with the individual plot parts. In addition we will use some other packages, so please make sure you have them installed and leaded.
 
 ```{r}
 #| warning: false
 library(palmerpenguins)
+library(gapminder)
 library(readxl)
 library(tidyverse)
+library(patchwork)
 
 glimpse(penguins)
 ```
@@ -59,7 +61,8 @@ penguins |>
   geom_point() + 
   geom_smooth(aes(colour = sex), method = 'lm', show.legend = F) + 
   scale_shape_manual(values = c(21, 22, 24)) + 
-  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Sex', shape = 'Species') 
+  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Sex', shape = 'Species') +
+  theme_bw()
 ```
 
 But as you see, it gets a bit hard to read the plot. There are some NA values in the sex column, which would be better removed so that they do not add a mess to the plot. And what about splitting the plot into three smaller plots, one for each species? This is where facetting comes into play.
@@ -86,7 +89,7 @@ penguins |>
   ggplot(aes(x = bill_length_mm, y = bill_depth_mm, fill = sex, shape = sex)) +
   geom_point() + 
   geom_smooth(aes(colour = sex), method = 'lm', show.legend = F) + 
-  scale_shape_manual(values = c(21, 22, 24)) + 
+  scale_shape_manual(values = c(21, 22)) + 
   labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Sex', shape = 'Sex') + 
   facet_wrap(~species)+
   theme_bw()
@@ -187,7 +190,7 @@ penguins |>
   geom_point(pch = 21)+
   scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
   theme_bw()+
-  theme(legend.position = c(1, 0), legend.justification = c(1, 0))+
+  theme(legend.position = 'inside', legend.position.inside = c(1, 0), legend.justification.inside = c(1, 0))+
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
 ```
 
@@ -195,7 +198,7 @@ To remove the legend completely, set `legend.position = 'none'`.
 
 The `theme()` function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to `element_blank()`, modify the text size, label angle, ticks length, background grid colour and many more. See the [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more details.
 
-## 6.5 Reordering 
+## 6.5 Reordering
 
 For the final presentation of plots, it is sometimes needed to reorder the levels of the categorical variable. Let's look at the following plot, where we want to look at which penguin species has the longest bill on average.
 
@@ -278,7 +281,7 @@ Just a few tips for packages we personally find very useful for our work:
 
 -   [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
 
--   `gordi` a ggplot-based package for making ordination plots, developed in our group (coming soon 😉)
+-   [`gordi`](https://github.com/Kryshtoson/gordi/tree/main) a ggplot-based package for making ordination plots, developed in our group
 
 -   [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
 
@@ -288,13 +291,13 @@ Just a few tips for packages we personally find very useful for our work:
 
 1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island.
 
-2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package, which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
+2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package (the dataset will be loaded in the environment once you load the package), which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
 
-3.  Create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
+3.  Use the same data as in the previous exercise and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
 
 4.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
 
-5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` and recreate the following plot:
+5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
 
     ```{r}
     #| echo: false

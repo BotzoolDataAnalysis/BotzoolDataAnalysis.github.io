@@ -226,7 +226,7 @@ iris%>%
 
 ## 4.6 Exercises
 
-1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
+1\. **Forest Understory Data** - download the data from the repository [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data) and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
 
 2\. Use **Spruce forest data** used in the graphical example in the beginning of this chapter. *2a,* Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species). *2b,* Import also `spruce_forestLONG.xlsx` \> and transform *long to wide* format.
 

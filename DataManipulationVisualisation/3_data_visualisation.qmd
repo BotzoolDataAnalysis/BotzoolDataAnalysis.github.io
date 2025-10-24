@@ -255,9 +255,9 @@ ggsave('plots/island_relative_frequency.png', plot1, width = 6, height = 4)
 
 ## 3.6 Exercises
 
-1.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xslx` and visualise the relationship between species richness of forest herb layer and the tree canopy cover. Is the relationship the same in different forest types?
+1.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xslx` from the folder `forest_understory` and visualise the relationship between species richness of forest herb layer and the tree canopy cover. Is the relationship the same in different forest types?
 
-2.  Draw a boxplot showing the differences in forest herb layer species richness in different forest types. Which forest type appears to be the most species-rich? \* Would there be another way to visualise the relationship between the herb-layer species richness and forest type? Explore the [ggplot extensions gallery](https://exts.ggplot2.tidyverse.org/gallery) and find a different plot type that might be useful here.
+2.  Use the same data and draw a boxplot showing the differences in forest herb layer species richness in different forest types. Which forest type appears to be the most species-rich? \* Would there be another way to visualise the relationship between the herb-layer species richness and forest type? Explore the [ggplot extensions gallery](https://exts.ggplot2.tidyverse.org/gallery) and find a different plot type that might be useful here.
 
 3.  Load data of squirrel observations from the [Central Park Squirrel Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md) using this line: `read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')` Squirrels of which colour were the most common? Draw a barplot to visualise the differences. \* Try to find a way to colour the bars with colours resembling the squirrel colours.
 
