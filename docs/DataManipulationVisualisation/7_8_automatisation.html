@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -276,7 +296,7 @@ window.Quarto = {
   <li><a href="#for-loops" id="toc-for-loops" class="nav-link" data-scroll-target="#for-loops">7.2 For loops</a></li>
   <li><a href="#purrr-and-working-with-nested-dataframes" id="toc-purrr-and-working-with-nested-dataframes" class="nav-link" data-scroll-target="#purrr-and-working-with-nested-dataframes">7.3 purrr and working with nested dataframes</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">7.4 Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">7.5 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -1184,6 +1204,11 @@ $ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 
 </div></li>
 <li><p>Use the function to calculate the percentage of each species in the penguins dataset.</p></li>
 <li><p>Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula <span class="math inline">\(C = (F-32) *5/9\)</span>. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.</p></li>
+<li><p>Write a function to transform geographical coordinates from the format in Turboveg 2 (DDMMSS.SS) to decimal degrees. Load the basiphilous graassland data (<code>basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv</code>, <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data">Link to the Github folder</a>). Use this function to transform coordinates in the fields <code>Longitude</code> and <code>Latitude</code>.</p></li>
+<li><p>Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula <span class="citation" data-cites="mccune_equations_2002">(<a href="#ref-mccune_equations_2002" role="doc-biblioref">McCune &amp; Keon, 2002</a>)</span>:</p>
+<p><span class="math display">\[
+0.339 + 0.808 \cdot \cos\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \cos\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.196 \cdot \sin\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.482 \cdot \cos\left(\frac{\left|180 - \left|\text{aspect} - 225\right|\right| \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)
+\]</span> Use the function to calculate the heat load index for vegetation plots in basiphilous grasslands (use the same data as in the previous exercise). * Calculate species richness of the plots and plot the relationship between the heat load index and species richness. Select only plots sampled in 2022 which are more precisely located. (Use the species data <code>basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv</code>, transform them to the long format, calculate the number of species per plot and join this information to the header data before you start plotting).</p></li>
 <li><p>Write a function to calculate the logistic population growth using the formula <span class="math inline">\(N_t = \frac{K}{1 + \left( \frac{K - N_0}{N_0} \right) e^{-r t}}\)</span>, where <span class="math inline">\(N_0\)</span> is the initial population, K the carrying capacity, r an intrinsic growth rate and t time. Run the function for the values <span class="math inline">\(N_0 = 10\)</span>, K = 100, r = 0.3 and time varies from 1 to 20.</p></li>
 <li><p>* Write a function that calculates the Shannon diversity index using the formula <span class="math inline">\(H' = -∑p_i ln(p_i)\)</span>. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.</p></li>
 <li><p>Take the Pokémon dataset and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. * Try to generalize the code so that you can plot a distribution of any numerical variable.</p></li>
@@ -1193,7 +1218,7 @@ $ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 
 </ol>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">7.5 Further reading</h2>
 <p>R for Data Science: <a href="https://r4ds.hadley.nz/program.html" class="uri">https://r4ds.hadley.nz/program.html</a></p>
 <p>Hands on Programming with R: <a href="https://rstudio-education.github.io/hopr" class="uri">https://rstudio-education.github.io/hopr</a></p>
 <p>Advanced R: <a href="https://adv-r.hadley.nz" class="uri">https://adv-r.hadley.nz</a></p>
@@ -1203,9 +1228,14 @@ $ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 
 <p>Tidy modeling with R: <a href="https://www.tmwr.org" class="uri">https://www.tmwr.org</a></p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-mccune_equations_2002" class="csl-entry" role="listitem">
+McCune, B., &amp; Keon, D. (2002). Equations for potential annual direct incident radiation and heat load. <em>Journal of Vegetation Science</em>, <em>13</em>(4), 603–606. <a href="https://doi.org/10.1111/j.1654-1103.2002.tb02087.x">https://doi.org/10.1111/j.1654-1103.2002.tb02087.x</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

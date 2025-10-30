@@ -1,5 +1,9 @@
 ---
 title: "7 + 8 Automatisation"
+bibliography: references.bib
+csl: apa.csl
+link-citations: true
+format: html
 ---
 
 > "Copy-and-paste is a powerful tool, but you should avoid doing it more than twice." – Hadley Wickham, R for Data Science
@@ -378,19 +382,28 @@ The use of nested data frames and `broom` has great potential. Depending on the 
 
 3.  Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula $C = (F-32) *5/9$. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.
 
-4.  Write a function to calculate the logistic population growth using the formula $N_t = \frac{K}{1 + \left( \frac{K - N_0}{N_0} \right) e^{-r t}}$, where $N_0$ is the initial population, K the carrying capacity, r an intrinsic growth rate and t time. Run the function for the values $N_0 = 10$, K = 100, r = 0.3 and time varies from 1 to 20.
+4.  Write a function to transform geographical coordinates from the format in Turboveg 2 (DDMMSS.SS) to decimal degrees. Load the basiphilous graassland data (`basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv`, [Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)). Use this function to transform coordinates in the fields `Longitude` and `Latitude`.
 
-5.  \* Write a function that calculates the Shannon diversity index using the formula $H' = -∑p_i ln(p_i)$. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.
+5.  Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula [@mccune_equations_2002]:
 
-6.  Take the Pokémon dataset and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. \* Try to generalize the code so that you can plot a distribution of any numerical variable.
+    $$
+    0.339 + 0.808 \cdot \cos\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \cos\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.196 \cdot \sin\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.482 \cdot \cos\left(\frac{\left|180 - \left|\text{aspect} - 225\right|\right| \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)
+    $$
+    Use the function to calculate the heat load index for vegetation plots in basiphilous grasslands (use the same data as in the previous exercise). \* Calculate species richness of the plots and plot the relationship between the heat load index and species richness. Select only plots sampled in 2022 which are more precisely located. (Use the species data `basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv`, transform them to the long format, calculate the number of species per plot and join this information to the header data before you start plotting).
 
-7.  Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
+6.  Write a function to calculate the logistic population growth using the formula $N_t = \frac{K}{1 + \left( \frac{K - N_0}{N_0} \right) e^{-r t}}$, where $N_0$ is the initial population, K the carrying capacity, r an intrinsic growth rate and t time. Run the function for the values $N_0 = 10$, K = 100, r = 0.3 and time varies from 1 to 20.
 
-8.  \* Do the same using `purrr` functions.
+7.  \* Write a function that calculates the Shannon diversity index using the formula $H' = -∑p_i ln(p_i)$. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.
 
-9.  \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save them in the `plots` folder.
+8.  Take the Pokémon dataset and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. \* Try to generalize the code so that you can plot a distribution of any numerical variable.
 
-## Further reading
+9.  Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
+
+10. \* Do the same using `purrr` functions.
+
+11. \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save them in the `plots` folder.
+
+## 7.5 Further reading
 
 R for Data Science: <https://r4ds.hadley.nz/program.html>
 
