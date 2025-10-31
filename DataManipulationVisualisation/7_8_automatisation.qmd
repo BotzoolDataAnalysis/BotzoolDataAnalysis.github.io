@@ -382,7 +382,17 @@ The use of nested data frames and `broom` has great potential. Depending on the 
 
 3.  Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula $C = (F-32) *5/9$. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.
 
-4.  Write a function to transform geographical coordinates from the format in Turboveg 2 (DDMMSS.SS) to decimal degrees. Load the basiphilous graassland data (`basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv`, [Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)). Use this function to transform coordinates in the fields `Longitude` and `Latitude`.
+4.  In Turboveg 2, a programme used for storing vegetation plot data, the geographical coordinates are stored in a format DDMMSS.SS. To show the plots in the map or perform any spatial calculations, you will need to transform the coordinates to decimal degrees. That is the purpose of the following function:
+
+    ```{r}
+    #| eval: false
+
+     tv_to_degrees <- function(coord){
+      as.numeric(str_sub(coord, 1, 2)) + as.numeric(str_sub(coord, 3, 4)) / 60 + as.numeric(str_sub(coord, 5, 11)) / 3600
+    }
+    ```
+
+    Look at the function and try to explain how it works. Load the basiphilous grassland data (`basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv`, [Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and use this function to transform coordinates in the fields `Longitude` and `Latitude`.
 
 5.  Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula [@mccune_equations_2002]:
 
