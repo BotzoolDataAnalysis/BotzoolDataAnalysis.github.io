@@ -2,5 +2,1153 @@
 title: "9 + 10 Maps"
 ---
 
+In this chapter, we will learn the basics of working with spatial data in R. We will start by loading vector and raster data, creating spatial objects from CSV or XLSX files, transforming coordinate reference systems (CRS), and saving spatial data. Next, we will explore common spatial operations for both types of spatial data, such as clipping, buffering, and finding centroids. We will also learn how to calculate several terrain variables derived from a digital elevation model (DEM), including slope, aspect, the heat load index (HLI), the topographic ruggedness index (TRI), and the topographic wetness index (TWI). Finally, we will create a basic map of study area using open-source basemaps from providers such as OpenStreetMap or Esri. After that, we will create maps with visual properties such as color, size, or fill scaled according to attribute values, and we will also create grid maps.
+
+## 9.1. Introducing spatial data
+
+Spatial data, also known as geospatial data, contain information that can be mapped, such as the physical **location**, **shape**, and **spatial relationships** of objects on the Earth’s surface.
+
+Spatial data can be classified into **two main types**:
+
+1.  **Vector data** (e.g., **Shapefile**, Simple Features, KML, GeoJSON) represent geographic features as **points** (e.g., vegetation plot, town), **lines** (e.g., river, road), or **polygons** (e.g., forest, lake). These features consist of vertices and paths and are typically associated with an **attribute table** that describes their properties.
+
+2.  **Raster data** (e.g., **GeoTIFF**, ESRI Grid, IMG) consist of a matrix of **pixels** (or **grid cells**), each storing a numerical value or category representing information such as elevation, temperature, or land cover.
+
+![](images/BK_clipboard9vector_vs_raster.png){fig-align="center" width="755"}
+
+### 9.1.1. Vectors
+
+To work with vector data in R, we will use the following libraries:
+
+```{r}
+#| warning: false
+library(readxl)
+library(sf)
+library(RCzechia)
+library(tidyverse)
+```
+
+First, we will load spatial data on grasslands in South Moravia, stored in Shapefile format. The `read_sf()` function from the `sf` package imports the file as a Simple Features (sf) object, which is a standardised data structure for representing spatial data in R. An sf object combines both geometric information (such as the shape and location of each grassland polygon) and attribute data (e.g., land cover type and area). This structure allows us to easily visualise, manipulate, and analyse spatial data directly within R.
+
+```{r}
+grasslands_shp <- read_sf("data/grasslands_shp/LoukaPastvina_JMK.shp")
+grasslands_shp
+```
+
+After displaying the sf object, we can see its geometry type (in our case, multipolygon), bounding box (with coordinates in the current projection), and coordinate reference system (CRS), which for our data is S-JTSK / Krovak East North.
+
+Next, we will read an Excel file containing vegetation plots from South Moravia, which we will later convert into an sf object.
+
+```{r}
+plots_xlsx <- read_excel("data/vegetation_plots_JMK/CNFD-selection-2023-01-09-JMK.xlsx")
+head(plots_xlsx)
+```
+
+To create an sf object from an XLSX or CSV file, we first need to examine the dataset and identify the columns containing spatial information, such as longitude and latitude.
+
+In our dataset, these correspond to the columns deg_lon and deg_lat. We will also check the coordinate system used for these coordinates, which for vegetation plots is usually WGS 1984 (EPSG:4326).
+
+```{r}
+names(plots_xlsx)
+
+plots_xlsx %>%
+  select(deg_lon, deg_lat) %>%
+  tail(5)
+```
+
+Now, we will convert our data into an sf object using the WGS 1984 coordinate system. This is specified in the crs parameter by its [EPSG](https://epsg.io/ "Find EPSG") code (a unique identifier for different coordinate reference systems).
+
+```{r}
+plots_sf <- st_as_sf(plots_xlsx, 
+                     coords = c("deg_lon", "deg_lat"), 
+                     crs = 4326) 
+```
+
+From [RCzechia](https://rczechia.jla-data.net/ "RCzechia"), which provides a collection of spatial objects relevant to the Czech Republic, we can access features such as country borders (`republika()`), regions (`kraje()`), districts (`okresy()`), municipalities (`obce_body()`), rivers (`reky()`), water bodies (`plochy()`), forests (`lesy()`), and protected natural areas (`chr_uzemi()`). These objects are available in two resolutions (`"low"` and the default `"high"`).
+
+For our analysis, we will focus on polygons representing protected natural areas and regions, as well as lines representing rivers.
+
+```{r}
+protected_areas <- chr_uzemi() 
+regions <- kraje(resolution = "high")
+rivers <- reky()
+```
+
+Now, we will visualise our data using `ggplot2`. We can customize it just like any regular ggplot object, adjusting parameters such as colour, fill, line width, and shape.
+
+```{r}
+ggplot() +
+  geom_sf(data = plots_sf, shape = 21, colour = "black", fill = "white", size = 0.8)
+```
+
+Alternatively, we can visualise vegetation plots and grassland polygons together in a single plot.
+
+```{r}
+ggplot() +
+  geom_sf(data = grasslands_shp, colour = "darkgreen", fill = "lightgreen") +
+  geom_sf(data = plots_sf, shape = 21, colour = "black", fill = "white", size = 0.8)
+```
+
+To select specific features from our sf object, we will use concepts from [Chapter 2. Data Manipulation](https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html). 
+
+First, we will filter the regions to include only South Moravia, based on the NAZ_CZNUTS3 column.
+
+```{r}
+South_Moravia <- regions %>%
+  filter(NAZ_CZNUTS3 == "Jihomoravský kraj")
+```
+
+Next, from the vegetation plots, we will select only those located in forests, bushes and grasslands with an area smaller than 26 m²
+
+```{r}
+plots_sf <- plots_sf %>%
+  subset(Broad.habitat.code %in% c("L", "K", "T")) %>%
+  filter(`Releve area (m2)` < 26)
+```
+
+Finally, we can save the filtered vegetation plots as a Shapefile for later use:
+
+```{r}
+write_sf(plots_sf, "data/vegetation_plots_JMK/plots_JMK.shp")
+```
+
+### 9.1.2. Rasters
+
+To work with raster data, we will use the [`terra`](https://rspatial.github.io/terra/reference/terra-package.html "terra") package along with `tidyterra`. Our analysis will focus on a digital elevation model (DEM) for South Moravia, as well as mean annual precipitation and temperature from CHELSA.
+
+```{r}
+#| warning: false
+library(terra)
+library(tidyterra)
+library(ggspatial)
+library(paletteer)
+library(ggthemes)
+```
+
+First, we will load the DEM into R.
+
+```{r}
+dem <- rast("data/dem_JMK/dem_100.tif")
+dem
+```
+
+After displaying the raster, we can examine its **dimensions** (number of rows, columns, and layers or bands), **spatial resolution**, **extent** (in degrees and minutes, according to the raster’s coordinate system), **coordinate system**, and the **minimum and maximum values** of the raster data.
+
+Alternatively, we can explore these properties using the following functions:
+
+```{r}
+dim(dem)
+res(dem)
+ext(dem)
+crs(dem)
+```
+
+Now, we will plot the raster using `ggplot2` and `tidyterra`, using it as a basemap for our vegetation plots and grassland polygons.
+
+```{r}
+ggplot() +
+  geom_spatraster(data = dem, alpha = 0.8) +
+  scale_fill_paletteer_c("ggthemes::Red-Green-Gold Diverging", name = "elevation", direction = -1, na.value = "transparent") +
+  geom_sf(data = grasslands_shp, colour = "darkgreen", fill = "yellowgreen") +
+  geom_sf(data = plots_sf, shape = 21, colour = "black", size = 0.9, fill = "white") +
+  theme_bw()
+```
+
+In many analyses, we often work with not just a single raster layer, but multiple related layers representing different variables or time periods. These multi-layer rasters can be easily handled in R using the `terra` package. The rasters must share the same dimensions, resolution, extent, and coordinate system.
+
+Now, we will load the mean annual temperature and precipitation rasters for South Moravia:
+
+```{r}
+temp <- rast("data/climate_raster/CHELSA_CR_t.tif")
+prec <- rast("data/climate_raster/CHELSA_CR_s.tif")
+```
+
+Next, we will create a raster stack by combining the temperature and precipitation layers:
+
+```{r}
+climate_stack <- c(temp, prec)
+```
+
+We can then save the stack to a file:
+
+```{r}
+writeRaster(climate_stack, "data/climate_raster/climate_stack.tif", overwrite = TRUE)
+```
+
+A raster stack can be loaded into R in the same way as a single raster. The difference is that it contains multiple layers, which can be checked with nlyr().
+
+```{r}
+climate_stack <- rast("data/climate_raster/climate_stack.tif")
+nlyr(climate_stack)
+```
+
+Raster data can be converted to a data frame for easier manipulation or analysis. Each row in the resulting data frame corresponds to a raster cell and typically includes the cell coordinates (x and y) along with the cell value(s). Setting xy = TRUE ensures that the coordinates are included in the data frame together with the raster values.
+
+```{r}
+dem_df <- dem %>%
+  as.data.frame(xy = TRUE)
+```
+
+## 9.2. Coordinate reference systems
+
+Every spatial dataset must have a defined coordinate reference system (CRS). The CRS determines how coordinates relate to real-world locations on the Earth’s surface.
+
+1.  **Geographic CRS** - coordinates are expressed in **degrees** of latitude and longitude (e.g., WGS84 ).
+
+2.  **Projected CRS** - coordinates are expressed in **linear units**, usually metres, and are suitable for measuring distances and areas (e.g., S-JTSK / Krovak East North - the standard CRS for the Czech Republic; WGS 84 / UTM zone 33N - commonly used in the Czech Republic; WGS 84 / UTM zone 34N - used in Slovakia, ETRS89 / LAEA Europe - used for Europe).
+
+The picture below shows the differences between the most commonly used CRS in the Czech Republic.
+
+![](images/BK_clipboard9CRS.png){fig-align="center" width="755"}
+
+**Always check the CRS before performing any spatial analysis!**
+
+We can check the CRS of our sf objects as follows:
+
+```{r}
+st_crs(grasslands_shp)
+st_crs(plots_sf)
+st_crs(South_Moravia)
+st_crs(protected_areas)
+```
+
+All of our sf data are in WGS84 (EPSG: 4326), except for grasslands_shp, which uses S-JTSK / Krovak East North (EPSG: 5514).
+
+We want to project all sf objects to WGS 84 / UTM zone 33N (EPSG: 32633):
+
+```{r}
+plots_UTM33N <-  plots_sf %>%
+  st_transform(32633)
+```
+
+Alternatively, we can transform other layers to match the CRS of an already projected object (here, plots_UTM33N):
+
+```{r}
+grasslands_UTM33N <- grasslands_shp %>%
+  st_transform(st_crs(plots_UTM33N))
+
+protected_areas_UTM33N <- protected_areas %>%
+  st_transform(st_crs(plots_UTM33N))
+
+South_Moravia_UTM33N <- South_Moravia %>%
+  st_transform(st_crs(plots_UTM33N))
+
+rivers_UTM33N <- rivers %>% 
+  st_transform(st_crs(plots_UTM33N))
+```
+
+Finally, we will check the CRS of our raster layers:
+
+```{r}
+crs(dem)
+crs(climate_stack)
+```
+
+The climate rasters are already in WGS 84 / UTM zone 33N, which is the CRS we want for all our data. However, the DEM is in WGS84 (geographic), so we need to project it to match. This can be done either by specifying the EPSG code:
+
+```{r}
+dem_UTM33N <- dem %>%
+  project("EPSG:32633")
+```
+
+or by using the CRS of another raster:
+
+```{r}
+dem_UTM33N <- dem %>%
+  project(crs(climate_stack))
+
+writeRaster(dem_UTM33N, "data/dem_JMK/dem_UTM33N.tif", overwrite = T)
+```
+
+## 9.3. Spatial operations
+
+In this chapter, we will learn how to perform basic spatial operations with both vector and raster data. Spatial operations allow us to combine, compare, and analyse spatial relationships between geographic layers.
+
+### 9.3.1. Vector operations
+
+Vector spatial operations are used to analyse and modify point, line, and polygon data. The most common function for vector operations include:
+
+### st_intersection
+
+Keeps only the areas that overlap between two layers, preserving attributes from both inputs.
+
+![](images/BK_clipboard9-intersect.png){fig-align="center" width="755"}
+
+For example, we can identify the protected areas located within South Moravia:
+
+```{r}
+protect_areas_South_M_int <- protected_areas_UTM33N %>%
+  st_intersection(South_Moravia_UTM33N)
+
+ggplot() + 
+  geom_sf(data = protect_areas_South_M_int, colour = "black", fill = "indianred1") +
+  theme_bw()
+```
+
+### st_crop
+
+Crops features to the bounding box of another layer, without combining attributes. 
+
+For example, we can find the protected areas within the bounding box of the South Moravia region:
+
+```{r}
+protect_areas_South_M_crop <- protected_areas_UTM33N %>%
+  st_crop(South_Moravia_UTM33N)
+
+ggplot() + 
+  geom_sf(data = protect_areas_South_M_crop , colour = "black", fill = "indianred1") +
+  theme_bw()
+```
+
+### \*st_union
+
+Merges all geometries (or overlapping polygons) into a single combined feature.
+
+![](images/BK_clipboard9-union.png){fig-align="center" width="755"}
+
+For example, we can create a single polygon representing all grasslands, resulting in only one feature in the attribute table:
+
+```{r}
+grasslands_UTM33N_union <- st_union(grasslands_UTM33N)
+
+
+ggplot() + 
+  geom_sf(data = grasslands_UTM33N_union, fill = "lightgreen") +
+  theme_bw()
+```
+
+### \*st_difference
+
+Removes the areas of one layer that overlap with another layer, keeping only the non-overlapping parts.
+
+![](images/BK_clipboard9-difference.png){fig-align="center" width="755"}
+
+For example, we will identify areas outside the grassland polygons within South Moravia.
+
+```{r}
+grasslands_diff <- South_Moravia_UTM33N %>% 
+  st_difference(grasslands_UTM33N_union)
+
+ggplot() + 
+  geom_sf(data = grasslands_diff, fill = "orange") +
+  theme_bw()
+```
+
+### st_join
+
+Joins the attributes of one spatial object to another based on their spatial intersection, typically between points and polygons.
+
+We will demonstrate this using vegetation plots and protected areas. If left = TRUE, all features from the first layer are kept, and fields for non-matched records are filled with NA (similar to a left_join). If left = FALSE, only features that spatially overlap are returned (similar to an inner_join).
+
+Note: if a geometry in the first layer overlaps multiple geometries in the second layer, multiple rows are created (duplicates).
+
+```{r}
+plots_protect <- plots_UTM33N %>%
+  st_join(protected_areas_UTM33N, left = T)
+
+plots_protect <- plots_UTM33N %>%
+  st_join(protected_areas_UTM33N, left = F)
+
+ggplot() +
+  geom_sf(data = plots_protect, shape = 21, aes(fill = Broad.habitat.code)) +
+  theme_bw()
+```
+
+### st_buffer
+
+Creates a buffer zone around features at a specified distance (units depend on the spatial data’s CRS).
+
+For example, we will create buffer zones of 500 m around vegetation plots.
+
+```{r}
+plots_buffer <- plots_UTM33N %>%
+  st_buffer(dist = 500)
+
+ggplot() + 
+  geom_sf(data = plots_buffer, fill = "red") +
+  geom_sf(data = plots_UTM33N, size = 0.1, color = "black") +
+  theme_bw()
+```
+
+### st_centroid
+
+Calculates the geometric center of polygons (it may not lie inside the polygon)
+
+For example, we will calculate the centroids of protected areas in South Moravia:
+
+```{r}
+protected_areas_centr <- protect_areas_South_M_int %>% 
+  st_centroid()
+```
+
+### st_point_on_surface
+
+Returns a point guaranteed to lie inside the polygon.
+
+To compare st_centroid and st_point_on_surface, we will calculate points on the surface of protected areas in South Moravia and plot them:
+
+```{r}
+protected_areas_point_surface <- protect_areas_South_M_int %>% 
+  st_point_on_surface()
+
+ggplot() + 
+  geom_sf(data = protect_areas_South_M_int, color = "brown") +
+  geom_sf(data = protected_areas_centr, size = 1, color = "darkgreen") +
+  geom_sf(data = protected_areas_point_surface, size = 0.8, color = "black") +
+  theme_bw()
+```
+
+### st_distance
+
+Calculates the distances between geometries. The result is a matrix of distances in the units of the CRS (here, metres).
+
+To illustrate this function, we will calculate distances between vegetation plots.
+
+```{r}
+dist_plots <- plots_UTM33N %>%
+  st_distance()
+
+dist_plots[1:5, 1:5]
+```
+
+### st_area
+
+Calculates the area of each feature’s geometry, in the units of the coordinate reference system.
+
+For example, we will calculate the areas of the grassland polygons.
+
+```{r}
+area_grasslands <- grasslands_UTM33N %>%
+  st_area()
+```
+
+### st_length
+
+Calculates the length of lines, in the units of the coordinate reference system.
+
+For example, we will compute the lengths of rivers.
+
+```{r}
+length_rivers <- rivers_UTM33N %>% 
+  st_length()
+```
+
+### \*st intersects
+
+Determines whether features overlap. Returns a list indicating, for example, which polygons each point falls within. If a point does not fall in any polygon, the corresponding list element is empty.
+
+We will identify plots that intersect with grasslands.
+
+```{r}
+plots_intersects <- plots_UTM33N %>% 
+  st_intersects(grasslands_UTM33N)
+```
+
+### \*st_within
+
+Checks whether features are completely contained within another feature.
+
+For example, we will check which grasslands are entirely within protected areas:
+
+```{r}
+protect_grasslands <- grasslands_UTM33N %>% 
+  st_within(protect_areas_South_M_int)
+```
+
+### 9.3.2. Raster operations
+
+Raster operations are used to manipulate and analyse raster data such as digital elevation model (DEM), climate layers, or satellite imagery. Common operations include cropping, masking, resampling, and calculating derived variables like slope or aspect.
+
+### crop
+
+Crops a raster to a smaller spatial extent, usually defined by another object from which the extent can be obtained. The function crops the raster by the bounding box of that object, not exactly by the shape of the polygons.
+
+For example, we can crop a DEM using the South Moravia polygon.
+
+```{r}
+dem_S_Moravia <- dem_UTM33N %>%
+   crop(South_Moravia_UTM33N)
+
+ggplot() + 
+  geom_spatraster(data = dem_S_Moravia) +
+  scale_fill_paletteer_c("ggthemes::Red-Green-Gold Diverging", direction = -1, na.value = "transparent") +
+  theme_bw()
+```
+
+Alternatively, we can define a bounding box manually by specifying the coordinates in the order xmin, xmax, ymin, ymax, using the same CRS as the raster:
+
+```{r}
+dem_ext <- dem_UTM33N %>%
+  crop(ext(c(585411, 723539, 723539, 5599122)))
+
+ggplot() + 
+  geom_spatraster(data = dem_ext) +
+  scale_fill_paletteer_c("ggthemes::Red-Green-Gold Diverging", direction = -1, na.value = "transparent") +
+  theme_bw()
+```
+
+### mask
+
+Creates a raster in which only the cells that fall within (or overlap with) a given vector layer or another raster are retained, while all other cells are set to NA. The output raster keeps the same extent, resolution, and coordinate reference system (CRS) as the input raster.
+
+For example, we will crop and mask the DEM raster to the extent of South Moravia:
+
+```{r}
+dem_S_Moravia <- dem_UTM33N %>%
+   crop(South_Moravia_UTM33N) %>%
+   mask(South_Moravia_UTM33N)
+
+ggplot() + 
+  geom_spatraster(data = dem_S_Moravia) +
+  scale_fill_paletteer_c("ggthemes::Red-Green-Gold Diverging", direction = -1, na.value = "transparent") +
+  theme_bw()
+```
+
+### \*aggregate
+
+Changes the spatial resolution of a raster object by combining neighbouring cells into larger ones. You need to specify a function that determines how the values of the grouped cells are summarised (e.g., mean, sum, max). The cell size is adjusted by an integer factor (fact).
+
+For example, if fact = 2, each cell of the temperature raster becomes twice as large, resulting in fewer cells and a coarser resolution:
+
+```{r}
+temp_coarser <- temp %>% 
+  aggregate(fact = 2, fun = mean)
+```
+
+### \*disaggregate
+
+Performs the opposite of aggregate. It increases the spatial resolution of a raster by splitting each cell into smaller ones, as defined by the fact parameter.
+
+```{r}
+temp_finer <- temp %>% 
+  disagg(fact = 2)
+```
+
+### resample
+
+Changes the resolution, extent, or alignment of a raster so that it matches another raster. You can choose a resampling method, such as "near" (nearest neighbour), "bilinear" (bilinear interpolation), or "cubicspline" (cubic spline interpolation), depending on the data type and desired accuracy.
+
+```{r}
+temp_resampled <- temp %>% 
+  resample(dem_UTM33N, method = "bilinear")
+```
+
+### raster algebra
+
+Raster data allows us to perform mathematical operations on raster layers, either individually or in combination with other rasters (which must have the same resolution, extent, and dimensions).
+
+For example, we can multiply all values of a DEM raster by 100:
+
+```{r}
+dem_UTM33N * 100 
+```
+
+Or divide precipitation by temperature: .
+
+```{r}
+prec / temp
+```
+
+### 9.3.3. Combining vector and raster operations
+
+Vector and raster data are often used together to relate spatial features to raster layers. Typical operations include extracting raster values for vector geometries.
+
+The `extract()` function retrieves raster cell values corresponding to the locations of vector features (points, lines, or polygons). This is useful, for example, when you want to obtain the elevation for vegetation plots.
+
+```{r}
+plots_elev <- plots_UTM33N %>% 
+  mutate(elevation = terra::extract(dem_UTM33N, plots_UTM33N)[,2])
+```
+
+The resulting data frame contains the original vector data and an additional column with the extracted raster values.
+
+For polygon data, a more precise approach is provided by the `exact_extract()` function from the `exactextractr` package. It accounts for the fraction of each raster cell that overlaps with the polygon, resulting in more accurate summaries. You can compute various statistics such as mean, median, or sum of raster values.
+
+For example, we can calculate the mean temperature for each grassland polygon:
+
+```{r}
+library(exactextractr)
+
+mean_temp_grasslands <- exact_extract(temp, grasslands_UTM33N, 'mean')
+```
+
+## 9.4. Terrain derivatives from DEM
+
+From a DEM, we can calculate various terrain derivatives. Common derivatives include:
+
+### Slope
+
+The angle or steepness of a surface, usually expressed in degrees or radians:
+
+```{r}
+slope_deg <- terrain(dem_UTM33N, v = "slope", unit = "degrees")
+
+ggplot() + 
+  geom_spatraster(data = slope_deg) +
+  scale_fill_paletteer_c("grDevices::terrain.colors", na.value = "transparent", name = "Slope") +
+  theme_bw()
+```
+
+### Aspect
+
+The direction a slope faces, usually expressed in degrees or radians.
+
+```{r}
+aspect <- terrain(dem_UTM33N, v = "aspect", unit = "degrees")
+
+ggplot() + 
+  geom_spatraster(data = aspect) +
+  scale_fill_paletteer_c("grDevices::rainbow", na.value = "transparent", name = "Aspect") +
+  theme_bw()
+```
+
+### \*Heat load index
+
+Provides a refined estimate of relative slope warmth by incorporating latitude, slope, and aspect to approximate potential annual direct solar radiation (McCune and Keon, 2002). Values range from 0 (coolest) to 1 (warmest):
+
+```{r}
+library(spatialEco)
+HLI <- hli(dem_UTM33N, force.hemisphere =  "northern") 
+
+ggplot() +
+  geom_spatraster(data = HLI) +
+  scale_fill_paletteer_c("grDevices::YlOrRd", direction = -1, na.value = "transparent", name = "HLI") +
+  theme_bw()
+```
+
+### \*Topographic ruggedness index
+
+A quantitative measure of terrain heterogeneity, calculated by comparing the elevation of each DEM grid cell with its surrounding cells. Differences are squared and summed to provide a roughness value for each cell, expressed in the units of the DEM (meters).
+
+```{r}
+TRI <- terrain(dem_UTM33N, v = "TRI")
+
+ggplot() +
+  geom_spatraster(data = TRI) +
+  scale_fill_paletteer_c("grDevices::RdYlBu", direction = -1,  na.value = "transparent", name = "TRI") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+### \*Topographic wetness index
+
+TWI quantifies the effect of topography on soil moisture distribution. It combines the upslope contributing area (representing water supply) and the local slope (representing drainage potential) for each cell in a DEM. Higher TWI values indicate areas more likely to accumulate water, while lower values correspond to well-drained locations.
+
+```{r}
+library(whitebox)
+whitebox::install_whitebox()
+
+# Fill single-cell pits
+wbt_fill_single_cell_pits(dem = "data/dem_JMK/dem_UTM33N.tif", 
+                          output = 'data/dem_JMK/my_rast_filled.tif')
+
+fill <- rast("data/dem_JMK/my_rast_filled.tif")
+
+# Breach depressions using least-cost approach
+wbt_breach_depressions_least_cost(dem = "data/dem_JMK/dem_UTM33N.tif", 
+                                  output = 'data/dem_JMK/my_rast_filled_breached.tif', 
+                                  dist = 5)
+
+dep <- rast("data/dem_JMK/my_rast_filled_breached.tif")
+
+# Flow accumulation
+wbt_d8_flow_accumulation(input = 'data/dem_JMK/my_rast_filled_breached.tif', 
+                         output = 'data/dem_JMK/my_rast_d8fa.tif', 
+                         out_type = 'cells')
+
+# Compute slope in radians
+slope <- terrain(dem_UTM33N, 'slope', unit = 'radians')
+
+# Calculate TWI
+TWI <- log(rast("data/dem_JMK/my_rast_d8fa.tif")/ tan(slope))
+
+TWI[is.infinite(TWI)]<-NA
+names(TWI) <- 'TWI'
+
+ggplot() + 
+  geom_spatraster(data = TWI) +
+  scale_fill_paletteer_c("grDevices::RdBu", na.value = "transparent", name = "TWI") +
+  theme_bw()
+```
+
+## 9.5. Maps
+
+A map is a **reduced**, **generalised**, conventional representation of the **Earth’s surface**, transformed onto **a plane** using mathematically defined relationships.
+
+Important map elements include:
+
+-   map field
+
+-   legend (without the title "Legend")
+
+-   scale bar
+
+-   TITLE (in uppercase letters)
+
+-   north arrow (if the map is not oriented to the north)
+
+-   map imprint (author, projection, data source)
+
+-   marginal information (plots, images, tables, logos)
+
+![](images/BK_clipboard9-map_elements.png){fig-align="center" width="755"}
+
+For map creation, we will use the following libraries:
+
+```{r}
+#| warning: false
+library(sf)
+library(RCzechia) 
+library(dplyr)    
+library(basemaps) 
+library(tidyverse)
+library(ggspatial)
+library(tidyterra)
+library(cowplot) 
+library(ggnewscale)
+library(scatterpie)
+library(scales)
+```
+
+### 9.5.1. Basic map of study area
+
+Firstly, we will create a basic map of the study area with a basemap from online sources such as OpenStreetMap or Esri (using the `basemaps` package). The map will include the most important map elements and a small overview map of the Czech Republic highlighting the study area.
+
+From the data, we will use vegetation plots in South Moravia (CNFD-selection-2023-01-09-JMK.xlsx) read from Excel, and polygons of South Moravia and regions from the `RCzechia` package.
+
+A list of possible basemap options can be found [here](https://jakob.schwalb-willmann.de/basemaps/ "basemaps") or by using:
+
+```{r}
+get_maptypes() # Shows available map services and their corresponding map types
+```
+
+Some map services are freely available (e.g., osm, carto, esri), while others require registration and a map token in R.
+
+We first need to prepare a bounding box (xmin, ymin, xmax, ymax) around the South Moravia polygon to extract the basemap, and then create a spatial object from the bounding box. Since basemaps from ESRI, OSM, or Google are in CRS WGS 84 / Pseudo-Mercator, we need to project the bounding box accordingly:
+
+```{r}
+bb_jmk_mercator <- South_Moravia_UTM33N %>% 
+  st_bbox() %>% 
+  st_as_sfc() %>%
+  st_transform(crs = st_crs(3857))
+```
+
+Now, we can create the map of study area with vegetation plots.
+
+```{r}
+study_area <- ggplot() + 
+  basemap_gglayer(bb_jmk_mercator,     # Add a basemap layer for the bounding box
+                  map_service = 'osm',  # Use OpenStreetMap
+                  map_type = 'streets') + # Street map style      
+  scale_fill_identity() +             # Use fill colors exactly as provided        
+  geom_sf(data = South_Moravia_UTM33N, 
+          colour = 'darkred', 
+          fill = 'transparent', 
+          size = 1, # Line width of the polygon border
+          aes(shape = 'South Moravia')) + # Assign label for legend                 
+  geom_sf(data = plots_UTM33N, 
+          shape = 21, 
+          colour = 'black',
+          fill = 'white',
+          aes(size = 'vegetation plot')) +                  
+  coord_sf(crs = st_crs (3857)) +   #   Set CRS to WGS84 / Pseudo-Mercator             
+  theme_void() +  #   Remove background, grid, and axes                               
+  theme(legend.position = 'right',
+        legend.title = element_blank(), # Remove legend title
+        plot.margin = unit(c(0, 0.5, 0, 0), 'cm')) # Adjust plot margins: top, right, bottom, left
+
+study_area
+```
+
+To add a scale bar and north arrow, we use `annotation_scale()` and `annotation_north_arrow()`:
+
+```{r}
+study_area_map <- study_area + 
+  annotation_scale(location = 'bl',             # Position of the scale bar: bottom-left (other options: br, tl, tr) 
+                   pad_x = unit(0.5, 'in'),     # Horizontal padding from the edge of the plot
+                   pad_y = unit(0.5, 'in'),     # Vertical padding from the edge of the plot
+                   style = "ticks") +           # Style of the scale bar: "ticks" or "bar"
+  annotation_north_arrow(location = 'tr',       # Position of the north arrow: top-right
+                         which_north = 'true',        # Use true north
+                         height = unit(2, 'cm'),      # Height of the north arrow
+                         width = unit(2, 'cm'),       # Width of the north arrow
+                         pad_x = unit(0.2, 'in'),     # Horizontal padding from the edge of the plot
+                         pad_y = unit(0.2, 'in'),     # Vertical padding from the edge of the plot
+                         style = north_arrow_nautical) # Style of the north arrow (other options: north_arrow_orienteering, north_arrow_fancy_orienteering, north_arrow_minimal)
+
+study_area_map
+```
+
+Next, we will create a map of the Czech Republic with the study area highlighted:
+
+```{r}
+map_CR <- ggplot() + 
+           geom_sf(data = regions,        
+                   fill = '#FFFFCC') +  
+           geom_sf(data = South_Moravia_UTM33N,          
+                   color = 'darkred',       
+                   fill = '#FFCC99',    
+                   size = 0.4) +         
+           geom_sf(data = bb_jmk_mercator,   
+                   fill = NA,           
+                   color = 'black',     
+                   size = 0.8) +        
+           theme_void() 
+
+map_CR
+```
+
+Finally, we will combine the study area map and the map of the Czech Republic into a single layout using the `cowplot` package, and save it:
+
+```{r}
+final_map <-  ggdraw() +
+  draw_plot(study_area_map) + # Draw the main map
+  draw_plot(map_CR, # Draw the inset map (e.g., Czech Republic overview)
+            x = 0.78, # Horizontal position of the inset map (0 = left, 1 = right)
+            y = 0.78, # Vertical position of the inset map (0 = bottom, 1 = top)
+            width = 0.22, # Width of the inset map as a fraction of the canvas
+            height = 0.24) + # Height of the inset map as a fraction of the canvas
+  theme(plot.background = element_rect(fill = "white", colour = NA)) 
+
+final_map
+
+ggsave(plot = final_map, width = 8, height = 5 , dpi = 300, filename = "./maps/map_study_area.tiff")
+```
+
+### 9.5.2. Attribute map
+
+We will create a map with the DEM as a basemap and vegetation plots for grasslands, forests, and shrubs, using shape to represent habitat type and the fill colour of points to represent soil reaction. Because we have multiple fill scales, we need to use the `new_scale_fill` function from the `ggnewscale` package, which allows us to define custom palettes for both the DEM and soil reaction.
+
+```{r}
+palette_dem <- c("#8FCE00", "#FFE599", "#F6B26B",	"#996633", "#993300")       
+palette_reaction <- c ("#FF0000", "#FF9933", "#FFFF33", "#99FF33", "#3399FF")
+
+map_plots <- ggplot() + 
+  geom_spatraster(data = dem_S_Moravia, 
+                  alpha = 0.8) + 
+  scale_fill_gradientn(colours = palette_dem, 
+                       na.value = "transparent", 
+                       name = "Altitude", # Legend title
+                       guide = guide_colorbar(order = 3)) +   # Legend order for DEM
+  geom_sf(data = South_Moravia_UTM33N, 
+          colour = 'darkred', 
+          fill = 'transparent', 
+          size = 0.8, 
+          aes(size = "South Moravia")) + 
+  labs(shape = "") +  # Remove default shape legend title
+  new_scale_fill() +  # Allow a new fill scale for soil reaction
+  geom_sf(data = subset(plots_UTM33N, Broad.habitat.code %in% c("L", "K", "T")) |> 
+            arrange(desc(`Soil Reaction`)), # Arrange points so lower soil reaction is plotted on top
+          aes(fill = `Soil Reaction`, shape = Broad.habitat.code)) +  # Plot vegetation plots with fill and shape
+  scale_fill_viridis_b(option = "H", 
+                       direction = -1,  # Reverse the color scale  
+                       name = "Soil reaction",
+                       guide = guide_colorbar(order = 2) ) + # Legend order for soil reaction
+ 
+  scale_shape_manual(name = "Habitat type", 
+                     values = c("K" = 21, "L" = 22, "T" = 24), 
+                     labels = c("K" = "Shrub", "L" = "Forest", "T" = "Grassland"),
+                     guide = guide_legend(order = 1)) +    # Legend order for habitat type
+  theme_void() +
+  annotation_scale(location = 'bl',
+                   pad_x = unit(0.5, 'in'),
+                   pad_y = unit (0.5,'in')) +
+  annotation_north_arrow(location = 'tl', 
+                         which_north = 'true', 
+                         height = unit(2, 'cm'), 
+                         width = unit(2, "cm"), 
+                         pad_x = unit(0.2, 'in'), 
+                         pad_y = unit(0.2, 'in'), 
+                         style = north_arrow_fancy_orienteering (text_size = 10, # N label size  
+                                                                 line_col = "black", # Arrow outline color
+                                                                 fill = c("white", "black"))) + # Arrow fill colors 
+  theme(legend.position = 'right',
+        plot.background = element_rect(fill = "white", colour = NA),
+        plot.margin = unit(c(0, 0.2, 0, 0), 'cm'))
+
+map_plots
+
+ggsave(plot = map_plots, width = 8, height = 6 , dpi = 300, filename = "./maps/map_plots.tiff")
+```
+
+We can also scale polygons. For this map, we will also use regions from the `RCzechia` package, and their fill will represent the population of each region. We will join the Excel table (sheet1) to the regions’ sf object using the KOD_CZNUTS column.
+
+```{r}
+regions_population <- read_excel("data/regions/regions_data.xlsx", sheet = 1)
+
+regions_population_sf <- regions %>%
+  left_join(regions_population, by = "KOD_CZNUTS3")
+
+map_regions_population <- ggplot() + 
+  geom_sf(data = regions_population_sf,
+          aes(fill = `2020`),
+          colour = "black",
+          size = 0.1) + 
+  scale_fill_viridis_b(name = "Population in 2020",
+                       n.breaks = 5, # Number of breaks in color scale
+                       labels = comma) + # Format numeric labels in the legend using commas
+  labs(title = "POPULATION IN CZECH REGIONS IN 2020") + 
+  theme_void() +                                 
+  annotation_scale(location = 'br',
+                   pad_x = unit(0.2, 'in'),
+                   pad_y = unit (0.1,'in')) +    
+  annotation_north_arrow (location = 'tr',
+                          which_north = 'true',
+                          height = unit(2, 'cm'),
+                          width = unit(2, "cm"), 
+                          pad_x = unit(0.2, 'in'),
+                          pad_y = unit(0.2, 'in'), 
+                          style = ggspatial::north_arrow_nautical) +  
+  theme(legend.position = 'right',
+        plot.background = element_rect(fill = "white", colour = NA),
+        plot.margin = unit(c(0, 0.2, 0, 0), 'cm'),
+        plot.title = element_text(size = 16, hjust = 0.5, vjust = 2))
+
+map_regions_population
+
+ggsave(plot = map_regions_population, width = 7, height = 4, dpi = 300, filename = "./maps/map_regions_population.tiff")
+```
+
+We can add labels to the regions using `geom_sf_text`:
+
+```{r}
+regions_population_centroids <- st_centroid(regions_population_sf) # Create centroids for regions
+
+map_regions_population +
+   geom_sf_text(data = regions_population_centroids,
+               aes(label = NAZ_CZNUTS3), # Column used for labels
+               size = 2, 
+               color = "black") 
+
+```
+
+Or add frames around the labels using `geom_sf_label`:
+
+```{r}
+map_regions_population + 
+  geom_sf_label(data = regions_population_centroids,
+    aes(label = NAZ_CZNUTS3),
+    size = 2,
+    color = "black",
+    fill = "white")  # Fill of the frame
+```
+
+Alternatively, if overlapping is an issue, we can use `geom_text_repel` from package `ggrepel`:
+
+```{r}
+library(ggrepel)
+
+map_regions_population +
+    geom_text_repel(data = regions_population_centroids,
+    aes(x = st_coordinates(geometry)[,1],
+        y = st_coordinates(geometry)[,2],
+        label = NAZ_CZNUTS3),
+    size = 2,
+    color = "black")
+```
+
+### 9.5.3. Faceted maps
+
+In this section, we create faceted maps, which are particularly useful for visualising the same variable across different time periods, categories, or scenarios without having to manually create multiple plots. This approach also eliminates the need to write loops to generate separate maps for each year or group.
+
+We will again work with Czech regions and examine differences in mean age across regions for the period 2000–2024. First, we need to reshape our data into a long format, where each row corresponds to a single region and year, and the column Mean_age stores the mean age values.
+
+```{r}
+regions_age <- read_excel("data/regions/regions_data.xlsx", sheet = 2)
+
+regions_age_long <- regions %>%
+  left_join(regions_age, by = "KOD_CZNUTS3") %>%
+  pivot_longer(
+    cols = c(`2000`, `2005`, `2010`,`2015`,`2020`, `2024`),
+    names_to = "year",
+    values_to = "Mean_age") %>%
+  select(KOD_CZNUTS3, year, Mean_age)
+
+maps_age <- ggplot() + 
+  geom_sf(data = regions_age_long,
+          aes(fill = Mean_age)) +                   
+  scale_fill_fermenter(name = "Mean age",
+                       palette = "RdYlGn", # Red-yellow-green palette
+                       direction = 1, # Keep palette ascending
+                       limits = c(37, 45), # Set min and max values for fill
+                       breaks = seq(37, 45, 2)) +   # Define legend breaks              
+  facet_wrap(. ~ year, # Create separate facet for each year  
+             scales = "fixed") +                   
+  annotation_scale(location = "bl",     
+                   pad_x = unit(0.0, "in"), 
+                   pad_y = unit(0.0, "in"),                
+                   width_hint = 0.2) + 
+  theme_void() + 
+  theme(legend.position = 'right',
+        plot.background = element_rect(fill = "white", colour = NA),
+        plot.margin = unit(c(0, 0.2, 0, 0.2), 'cm'))
+
+maps_age
+
+ggsave(plot = maps_age, width = 10, height = 4, dpi = 300, filename = "./maps/map_regions_population_age.tiff")
+```
+
+### \*9.5.4. Scatterpie in maps
+
+In this section, we use the `scatterpie` package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions. 
+
+We will work with Czech regions and illustrate the distribution of different land-use types in the year 2024. First, we calculate the centroids of the regions to position the pie charts accurately.
+
+```{r}
+regions_land_use <- read_excel("data/regions/regions_data.xlsx", sheet = 4)
+
+regions_land_use_sf <- regions %>%
+  left_join(regions_land_use, by = "KOD_CZNUTS3")
+
+regions_centroids <- regions_land_use_sf %>% 
+  st_point_on_surface %>% # Ensures the point lies within each polygon
+  st_coordinates() %>% # Extract X and Y coordinates
+  as.data.frame() %>% # Convert to data frame
+  bind_cols(regions_land_use_sf) # Attach spatial and attribute data back together
+
+landuse_colors <- c("Agricultural land" = "#E6B800",
+                    "Arable land" = "#FFD966",
+                    "Permanent grassland" = "#6AA84F",
+                    "Barren land" = "#B7B7B7",
+                    "Forest land" = "#38761D",
+                    "Water body area" = "#3C78D8",
+                    "Built-up area and courtyard" = "#A61C00")
+
+map_landuse <- ggplot() +
+  geom_sf(data = regions_land_use_sf, 
+          fill = "#FFF5EE",
+          color = "black",
+          size = 0.4) +
+  geom_scatterpie(data = regions_centroids, # Add pie charts
+                  aes(x = X, y = Y), 
+                  cols = names(landuse_colors), # Columns with land-use types
+                  color = "grey20", 
+                  pie_scale = 1.5) + # Pie size
+  coord_sf() +  # Ensure consistent coordinate system
+  scale_fill_manual(values = landuse_colors,
+                    name = "land use type") +
+  annotation_scale(location = "br", 
+                   pad_x = unit(0.2, "in"), 
+                   pad_y = unit(0, "in"),
+                   width_hint = 0.22) +
+  labs(title = "LAND USE PROPORTIONS BY REGION FOR YEAR 2024",
+       caption = "Source: Czech Statistical Office") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        plot.caption = element_text(size = 7, hjust = 1.1, vjust = 0),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 7),
+        panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.title = element_text(size = 10, hjust = 0.5),
+        plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), 'cm'))
+
+map_landuse
+
+ggsave(plot = map_landuse, width = 6, height = 4, dpi = 300, filename = "maps/map_regions_scatterpie.tiff")
+
+```
+
+### 9.5.5. Grid mapping
+
+In this section, we create grid-based maps, which are useful for visualising spatial variables across a regular grid. Grids represent polygons of equal size and shape, allowing them to be processed in the same way as other polygon layers (e.g., administrative boundaries).
+
+We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database.
+
+```{r}
+pladias <- read_sf("data/Pladias_data/kvadranty_Pladias.shp")
+data_pladias <- read_excel("data/Pladias_data/Pladias_variables.xlsx")
+
+pladias_var <- pladias %>%
+  left_join(data_pladias, by = "code")
+
+
+ggplot() + 
+  geom_sf(data = pladias_var,
+          aes(fill = cmi)) +
+  scale_fill_gradientn(colours = c("#d73027", "#fee08b", "#d9ef8b", "#1a9850", "#4575b4"),
+    name = "Climatic Moisture Index (CMI)",
+    limits = range(pladias_var$cmi, na.rm = TRUE)) +
+  annotation_scale(
+    location = "bl",                     
+    pad_x = unit(0.0, "in"), 
+    pad_y = unit(0.0, "in"),                
+    width_hint = 0.2) + 
+   annotation_north_arrow (location = 'tr',
+                           which_north = 'true',
+                           height = unit(1, 'cm'), 
+                           width = unit(0.8, "cm"), 
+                           pad_x = unit(0.2, 'in'), 
+                           pad_y = unit(0.2, 'in'), 
+                           style = north_arrow_orienteering) +
+  theme_void() + 
+  theme(legend.position = 'right',
+        plot.background = element_rect(fill = "white", colour = NA),
+        plot.margin = unit(c(0, 0.2, 0, 0.2), 'cm'))
+```
+
+Grid mapping can also be used to visualise species occurrences, such as the presence of Lilium martagon within grid cells:
+
+```{r}
+pladias <- read_sf("data/Pladias_data/kvadranty_Pladias.shp")
+Lilium_martagon <- read.csv("data/Pladias_data/Lilium_martagon.csv", 
+                            header = TRUE,                        
+                            sep = ";")
+
+pladias_Lilium_martagon <- pladias %>%
+  left_join(Lilium_martagon, by = "code")
+
+
+ggplot() + 
+  geom_sf(data = pladias_Lilium_martagon,
+          aes(fill = presence )) +                        
+  scale_fill_manual(expression(italic("Lilium martagon")), 
+                    values = c("yes" = "black", "no" = "white"),
+                    labels = c("yes" = "presence", "no" = "absence")) +
+  labs(title = expression("DISTRIBUTION OF " * italic("LILIUM MARTAGON")),
+  caption = "Source: Pladias Database of the Czech Flora") +
+  annotation_north_arrow (location = 'tr',
+                          which_north = 'true',
+                          height = unit(1.1, 'cm'), 
+                          width = unit(0.8, "cm"), 
+                          pad_x = unit(0.2, 'in'), 
+                          pad_y = unit(0.2, 'in'), 
+                          style = north_arrow_orienteering) +
+  annotation_scale(location = "bl",
+                   style = "ticks",
+                   pad_x = unit(0.0, "in"), 
+                   pad_y = unit(0.0, "in"),
+                   width_hint = 0.2) +
+  theme_void() + 
+  theme(legend.position = 'right',
+        plot.title = element_text(hjust = 0.5), # Align the map title to the center
+        plot.caption = element_text(hjust = 1), # Align the map source to the right
+        plot.background = element_rect(fill = "white", colour = NA),
+        plot.margin = unit(c(0, 0.2, 0, 0.2), 'cm'))
+```
+
+## 9.6. Exercises
+
+1.  Load the soil pH raster (pH_LUCAS_CR.tif) from the folder soil_pH_LUCAS. Determine its spatial resolution and coordinate reference system (CRS). If it uses a geographic CRS (WGS84), reproject it to a metric CRS suitable for the Czech Republic. Crop and mask the raster to the extent of South Moravia. Load the vegetation plots for South Moravia from the CNFD dataset (CNFD-selection-2023-01-09-JMK.xlsx) as simple feature objects, and plot them using the soil pH raster as the basemap. \* Find the soil pH value for the vegetation plot with the Relevé number 100344. (Note: The vegetation plots must be in the same CRS as the raster.)
+
+2.  Create a raster showing the temperature difference between January 2013 (data/climate_raster/CHELSA_tmean_2013_01_CR) and January 1979 (data/climate_raster/CHELSA_tmean_1979_01_CR). Plot it with a legend, scale bar, and north arrow. Save the map as a TIFF file with a resolution of 300 dpi.
+
+3.  Create a map of the Pálava area (select the Pálava polygon from the protected areas in RCzechia). Use orthophoto imagery as the basemap and overlay the CHKO boundary. Display only the vegetation plots located within Pálava (from CNFD-selection-2023-01-09-JMK.xlsx). Insert an inset map of the Czech Republic showing the location of Pálava (as a point — centroid of the polygon). \* Scale the fill of the points according to the number of species — plots with more species should be displayed on top. Add standard map elements: a legend, scale bar, title, and optionally a north arrow if the map is not oriented northwards. Save the map as a TIFF file with 300 dpi.
+
+4.  Calculate the area (in square meters) of the Pálava polygon.
+
+5.  \* Select all vegetation plots located within Pálava and within a 5 km buffer zone around it. Determine how many plots there are and calculate their average number of species.
+
+## 9.7. Further reading
+
+Spatial data science (with applications in R) - online book: <https://r-spatial.org/book/>
+
+R as GIS for Economists: <https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/>
+
+Colour palettes in R: <https://r-charts.com/color-palettes/>
 
 <!-- frogID_data <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-02/frogID_data.csv') -->
