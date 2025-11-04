@@ -89,7 +89,7 @@ ggplot() +
   geom_sf(data = plots_sf, shape = 21, colour = "black", fill = "white", size = 0.8)
 ```
 
-To select specific features from our sf object, we will use concepts from [Chapter 2. Data Manipulation](https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html). 
+To select specific features from our sf object, we will use concepts from [Chapter 2. Data Manipulation](https://botzooldataanalysis.github.io/DataManipulationVisualisation/2_data_manipulation.html).
 
 First, we will filter the regions to include only South Moravia, based on the NAZ_CZNUTS3 column.
 
@@ -287,7 +287,7 @@ ggplot() +
 
 ### st_crop
 
-Crops features to the bounding box of another layer, without combining attributes. 
+Crops features to the bounding box of another layer, without combining attributes.
 
 For example, we can find the protected areas within the bounding box of the South Moravia region:
 
@@ -990,7 +990,7 @@ ggsave(plot = maps_age, width = 10, height = 4, dpi = 300, filename = "./maps/ma
 
 ### \*9.5.4. Scatterpie in maps
 
-In this section, we use the `scatterpie` package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions. 
+In this section, we use the `scatterpie` package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions.
 
 We will work with Czech regions and illustrate the distribution of different land-use types in the year 2024. First, we calculate the centroids of the regions to position the pie charts accurately.
 
@@ -1014,42 +1014,42 @@ landuse_colors <- c("Agricultural land" = "#E6B800",
                     "Water body area" = "#3C78D8",
                     "Built-up area and courtyard" = "#A61C00")
 
-map_landuse <- ggplot() +
-  geom_sf(data = regions_land_use_sf, 
-          fill = "#FFF5EE",
-          color = "black",
-          size = 0.4) +
-  geom_scatterpie(data = regions_centroids, # Add pie charts
-                  aes(x = X, y = Y), 
-                  cols = names(landuse_colors), # Columns with land-use types
-                  color = "grey20", 
-                  pie_scale = 1.5) + # Pie size
-  coord_sf() +  # Ensure consistent coordinate system
-  scale_fill_manual(values = landuse_colors,
-                    name = "land use type") +
-  annotation_scale(location = "br", 
-                   pad_x = unit(0.2, "in"), 
-                   pad_y = unit(0, "in"),
-                   width_hint = 0.22) +
-  labs(title = "LAND USE PROPORTIONS BY REGION FOR YEAR 2024",
-       caption = "Source: Czech Statistical Office") +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        legend.direction = "horizontal",
-        plot.caption = element_text(size = 7, hjust = 1.1, vjust = 0),
-        legend.title = element_text(size = 8),
-        legend.text = element_text(size = 7),
-        panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        plot.title = element_text(size = 10, hjust = 0.5),
-        plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), 'cm'))
-
-map_landuse
-
-ggsave(plot = map_landuse, width = 6, height = 4, dpi = 300, filename = "maps/map_regions_scatterpie.tiff")
+# map_landuse <- ggplot() +
+#   geom_sf(data = regions_land_use_sf, 
+#           fill = "#FFF5EE",
+#           color = "black",
+#           size = 0.4) +
+#   geom_scatterpie(data = regions_centroids, # Add pie charts
+#                   aes(x = X, y = Y), 
+#                   cols = names(landuse_colors), # Columns with land-use types
+#                   color = "grey20", 
+#                   pie_scale = 1.5) + # Pie size
+#   coord_sf() +  # Ensure consistent coordinate system
+#   scale_fill_manual(values = landuse_colors,
+#                     name = "land use type") +
+#   annotation_scale(location = "br", 
+#                    pad_x = unit(0.2, "in"), 
+#                    pad_y = unit(0, "in"),
+#                    width_hint = 0.22) +
+#   labs(title = "LAND USE PROPORTIONS BY REGION FOR YEAR 2024",
+#        caption = "Source: Czech Statistical Office") +
+#   theme_bw() +
+#   theme(legend.position = "bottom",
+#         legend.direction = "horizontal",
+#         plot.caption = element_text(size = 7, hjust = 1.1, vjust = 0),
+#         legend.title = element_text(size = 8),
+#         legend.text = element_text(size = 7),
+#         panel.grid = element_blank(),
+#         panel.border = element_blank(),
+#         axis.title = element_blank(),
+#         axis.text = element_blank(),
+#         axis.ticks = element_blank(),
+#         plot.title = element_text(size = 10, hjust = 0.5),
+#         plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), 'cm'))
+# 
+# map_landuse
+# 
+# ggsave(plot = map_landuse, width = 6, height = 4, dpi = 300, filename = "maps/map_regions_scatterpie.tiff")
 
 ```
 
