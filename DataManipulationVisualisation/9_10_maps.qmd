@@ -186,7 +186,8 @@ Raster data can be converted to a data frame for easier manipulation or analysis
 
 ```{r}
 dem_df <- dem %>%
-  as.data.frame(xy = TRUE)
+  as.data.frame(xy = TRUE) #|> 
+  #as_tibble()
 ```
 
 ## 9.2. Coordinate reference systems
@@ -567,10 +568,25 @@ For polygon data, a more precise approach is provided by the `exact_extract()` f
 For example, we can calculate the mean temperature for each grassland polygon:
 
 ```{r}
+#| echo: false
+#| include: false
+
 library(exactextractr)
 
 mean_temp_grasslands <- exact_extract(temp, grasslands_UTM33N, 'mean')
+
 ```
+
+```{r}
+#| eval: false
+
+library(exactextractr)
+
+mean_temp_grasslands <- exact_extract(temp, grasslands_UTM33N, 'mean')
+
+
+```
+
 
 ## 9.4. Terrain derivatives from DEM
 
@@ -1014,42 +1030,42 @@ landuse_colors <- c("Agricultural land" = "#E6B800",
                     "Water body area" = "#3C78D8",
                     "Built-up area and courtyard" = "#A61C00")
 
-# map_landuse <- ggplot() +
-#   geom_sf(data = regions_land_use_sf, 
-#           fill = "#FFF5EE",
-#           color = "black",
-#           size = 0.4) +
-#   geom_scatterpie(data = regions_centroids, # Add pie charts
-#                   aes(x = X, y = Y), 
-#                   cols = names(landuse_colors), # Columns with land-use types
-#                   color = "grey20", 
-#                   pie_scale = 1.5) + # Pie size
-#   coord_sf() +  # Ensure consistent coordinate system
-#   scale_fill_manual(values = landuse_colors,
-#                     name = "land use type") +
-#   annotation_scale(location = "br", 
-#                    pad_x = unit(0.2, "in"), 
-#                    pad_y = unit(0, "in"),
-#                    width_hint = 0.22) +
-#   labs(title = "LAND USE PROPORTIONS BY REGION FOR YEAR 2024",
-#        caption = "Source: Czech Statistical Office") +
-#   theme_bw() +
-#   theme(legend.position = "bottom",
-#         legend.direction = "horizontal",
-#         plot.caption = element_text(size = 7, hjust = 1.1, vjust = 0),
-#         legend.title = element_text(size = 8),
-#         legend.text = element_text(size = 7),
-#         panel.grid = element_blank(),
-#         panel.border = element_blank(),
-#         axis.title = element_blank(),
-#         axis.text = element_blank(),
-#         axis.ticks = element_blank(),
-#         plot.title = element_text(size = 10, hjust = 0.5),
-#         plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), 'cm'))
-# 
-# map_landuse
-# 
-# ggsave(plot = map_landuse, width = 6, height = 4, dpi = 300, filename = "maps/map_regions_scatterpie.tiff")
+map_landuse <- ggplot() +
+  geom_sf(data = regions_land_use_sf,
+          fill = "#FFF5EE",
+          color = "black",
+          size = 0.4) +
+  geom_scatterpie(data = regions_centroids, # Add pie charts
+                  aes(x = X, y = Y),
+                  cols = names(landuse_colors), # Columns with land-use types
+                  color = "grey20",
+                  pie_scale = 1.5) + # Pie size
+  coord_sf() +  # Ensure consistent coordinate system
+  scale_fill_manual(values = landuse_colors,
+                    name = "land use type") +
+  annotation_scale(location = "br",
+                   pad_x = unit(0.2, "in"),
+                   pad_y = unit(0, "in"),
+                   width_hint = 0.22) +
+  labs(title = "LAND USE PROPORTIONS BY REGION FOR YEAR 2024",
+       caption = "Source: Czech Statistical Office") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        plot.caption = element_text(size = 7, hjust = 1.1, vjust = 0),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 7),
+        panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.title = element_text(size = 10, hjust = 0.5),
+        plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), 'cm'))
+
+map_landuse
+
+ggsave(plot = map_landuse, width = 6, height = 4, dpi = 300, filename = "maps/map_regions_scatterpie.tiff")
 
 ```
 
