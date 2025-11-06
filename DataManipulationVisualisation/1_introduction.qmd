@@ -1,5 +1,6 @@
 ---
 title: "1 Introduction"
+author: 'Irena Axmanová'
 ---
 
 In this chapter, we will train how to get ready for analyses in R. Preparing the project, starting a script, importing data and their first exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.

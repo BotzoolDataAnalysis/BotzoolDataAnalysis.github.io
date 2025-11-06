@@ -1,5 +1,6 @@
 ---
 title: "7 + 8 Automatisation"
+author: "Klára Friesová"
 bibliography: references.bib
 csl: apa.csl
 link-citations: true
@@ -196,6 +197,21 @@ There are always multiple ways to get to the same result, and this is also true 
 ## 7.3 purrr and working with nested dataframes
 
 We already went through most of the `tidyverse` packages, but we didn't talk about the `purrr` package yet. `purrr` provides powerful tools for automatisation of tasks that need to be repeated multiple times, e.g. for each file in a directory, each element of a list, each dataframe... They allow you to replace for loops with `map()` functions, which might be more powerful, readable and consistent with the rest of `tidyverse`.
+
+The `map()` function works similarly to `across()`, but instead of doing something to each column in a data frame or tibble, it does something to each element of a vector. It is an analogy of a for loop, the function takes each element of a sequence and applies a function to it. Let's look at the difference between the for loop and `map()` in the following example:
+
+```{r}
+# for loop
+for (i in 1:5) {
+  print(i)
+}
+```
+
+```{r}
+map(1:5, ~.x)
+```
+
+The structure of the `map()` function might be already familiar to you, because it resembles that of `across()`. Note the difference between the output of the for loop and `map()`. In the output of the for loop, we see `[1] 1`, whereas `map()` returns `[[1]] [1] 1`. This is because the `map()` function returns a **list**.
 
 Let's start with the task of reading multiple files at once. Imagine you have multiple files that are of the same structure, but for some reason, they are stored in multiple files. As example data, we will use the [gapminder](https://www.gapminder.org/data) dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the `gapminder` folder is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the `read_csv()` function twelve times, but there is a more elegant way. Let's list the files first:
 

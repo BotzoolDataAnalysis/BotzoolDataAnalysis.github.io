@@ -1,5 +1,6 @@
 ---
 title: "5 Join Functions"
+author: "Irena Axmanová"
 ---
 
 In this chapter we will train how to add the information from another dataset (*left_join, full_join*), how to filter our data according to another dataset (*semi_join, anti_join*). We will also use our skills from previous chapter to calculate different statistics about our data, like mean indicator values, community weighted means of some traits, proportion of specific plant groups (*left_join, group_by, summarise*). We will also look at mutate with more conditions (*ifelse, case_when*).

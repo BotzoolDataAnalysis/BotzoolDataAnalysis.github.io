@@ -1,5 +1,6 @@
 ---
 title: "6 Advanced Visualisation"
+author: "Klára Friesová"
 ---
 
 You already know how to make basic plots using `ggplot` functions. We'll now dive deeper into data visualisation using `ggplot2` package and its extensions.

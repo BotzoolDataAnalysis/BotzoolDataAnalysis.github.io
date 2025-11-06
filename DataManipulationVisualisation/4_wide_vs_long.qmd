@@ -1,5 +1,6 @@
 ---
 title: "4 Wide vs.long format"
+author: "Irena Axmanová"
 ---
 
 In this chapter we will look at different data formats and how to change one to another. We will define groups within the data and calculate several statistics for them using summarise functions.

@@ -1,8 +1,22 @@
 ---
 title: "9 + 10 Maps"
+author: "Barbora Klímová"
 ---
 
-In this chapter, we will learn the basics of working with spatial data in R. We will start by loading vector and raster data, creating spatial objects from CSV or XLSX files, transforming coordinate reference systems (CRS), and saving spatial data. Next, we will explore common spatial operations for both types of spatial data, such as clipping, buffering, and finding centroids. We will also learn how to calculate several terrain variables derived from a digital elevation model (DEM), including slope, aspect, the heat load index (HLI), the topographic ruggedness index (TRI), and the topographic wetness index (TWI). Finally, we will create a basic map of study area using open-source basemaps from providers such as OpenStreetMap or Esri. After that, we will create maps with visual properties such as color, size, or fill scaled according to attribute values, and we will also create grid maps.
+In this chapter, we will learn the basics of working with spatial data in R. Although we have specialised software for spatial calculations and creating maps (e.g. ArcGIS or QGIS), sometimes it might be helpful to do it R. For example, when we want to draw a big number of maps with small changes at the same time. 
+
+We will start by loading vector and raster data, creating spatial objects from CSV or XLSX files, transforming coordinate reference systems (CRS), and saving spatial data. Next, we will explore common spatial operations for both types of spatial data, such as clipping, buffering, and finding centroids. We will also learn how to calculate several terrain variables derived from a digital elevation model (DEM), including slope, aspect, the heat load index (HLI), the topographic ruggedness index (TRI), and the topographic wetness index (TWI). Finally, we will create a basic map of study area using open-source basemaps from providers such as OpenStreetMap or Esri. After that, we will create maps with visual properties such as color, size, or fill scaled according to attribute values, and we will also create grid maps.
+
+We will use functions from the following packages:
+
+```{r}
+#| warning: false
+library(readxl)
+library(sf)
+library(RCzechia)
+library(tidyverse)
+```
+
 
 ## 9.1. Introducing spatial data
 
@@ -69,12 +83,13 @@ From [RCzechia](https://rczechia.jla-data.net/ "RCzechia"), which provides a col
 For our analysis, we will focus on polygons representing protected natural areas and regions, as well as lines representing rivers.
 
 ```{r}
+#| warning: false
 protected_areas <- chr_uzemi() 
 regions <- kraje(resolution = "high")
 rivers <- reky()
 ```
 
-Now, we will visualise our data using `ggplot2`. We can customize it just like any regular ggplot object, adjusting parameters such as colour, fill, line width, and shape.
+Now, we will visualise our data using `ggplot2`. We can customize it just like any regular ggplot object, adjusting parameters such as colour, fill, line width, and shape. For this, we use the `geom_sf()` functions, which is designed to draw spatial features (points, polygons, lines). In each `geom_sf()`, we have to specify the data with the spatial features.
 
 ```{r}
 ggplot() +
@@ -102,19 +117,19 @@ Next, from the vegetation plots, we will select only those located in forests, b
 
 ```{r}
 plots_sf <- plots_sf %>%
-  subset(Broad.habitat.code %in% c("L", "K", "T")) %>%
-  filter(`Releve area (m2)` < 26)
+  filter(Broad.habitat.code %in% c("L", "K", "T") & `Releve area (m2)` < 26)
 ```
 
 Finally, we can save the filtered vegetation plots as a Shapefile for later use:
 
 ```{r}
+#| warning: false
 write_sf(plots_sf, "data/vegetation_plots_JMK/plots_JMK.shp")
 ```
 
 ### 9.1.2. Rasters
 
-To work with raster data, we will use the [`terra`](https://rspatial.github.io/terra/reference/terra-package.html "terra") package along with `tidyterra`. Our analysis will focus on a digital elevation model (DEM) for South Moravia, as well as mean annual precipitation and temperature from CHELSA.
+To work with raster data, we will use the [`terra`](https://rspatial.github.io/terra/reference/terra-package.html "terra") package along with [`tidyterra`](https://dieghernan.github.io/tidyterra). Our analysis will focus on a digital elevation model (DEM) for South Moravia, as well as mean annual precipitation and temperature from CHELSA.
 
 ```{r}
 #| warning: false
@@ -136,13 +151,28 @@ After displaying the raster, we can examine its **dimensions** (number of rows, 
 
 Alternatively, we can explore these properties using the following functions:
 
+`dim()` - returns the dimensions of the raster (number of rows, columns, and layers).
+
 ```{r}
 dim(dem)
+```
+`res()` - provides the spatial resolution of the raster (size of each cell in the x and y directions).
+
+```{r}
 res(dem)
-ext(dem)
-crs(dem)
 ```
 
+`ext()` - gives the extent of the raster (the minimum and maximum coordinates in the x and y directions).
+
+```{r}
+ext(dem)
+```
+
+`crs()` - returns the coordinate reference system of the raster.
+
+```{r}
+crs(dem)
+```
 Now, we will plot the raster using `ggplot2` and `tidyterra`, using it as a basemap for our vegetation plots and grassland polygons.
 
 ```{r}
@@ -175,19 +205,19 @@ We can then save the stack to a file:
 writeRaster(climate_stack, "data/climate_raster/climate_stack.tif", overwrite = TRUE)
 ```
 
-A raster stack can be loaded into R in the same way as a single raster. The difference is that it contains multiple layers, which can be checked with nlyr().
+A raster stack can be loaded into R in the same way as a single raster. The difference is that it contains multiple layers. The number of layers can be checked with `nlyr()`.
 
 ```{r}
 climate_stack <- rast("data/climate_raster/climate_stack.tif")
 nlyr(climate_stack)
 ```
 
-Raster data can be converted to a data frame for easier manipulation or analysis. Each row in the resulting data frame corresponds to a raster cell and typically includes the cell coordinates (x and y) along with the cell value(s). Setting xy = TRUE ensures that the coordinates are included in the data frame together with the raster values.
+Raster data can be converted to a data frame for easier manipulation or analysis. Each row in the resulting data frame corresponds to a raster cell and typically includes the cell coordinates (x and y) along with the cell value(s). Setting xy = TRUE ensures that the coordinates are included in the data frame together with the raster values. To convert the data into a tibble, we have to go through data frame.
 
 ```{r}
 dem_df <- dem %>%
-  as.data.frame(xy = TRUE) #|> 
-  #as_tibble()
+  as.data.frame(xy = TRUE) %>%
+  as_tibble()
 ```
 
 ## 9.2. Coordinate reference systems
@@ -434,7 +464,7 @@ length_rivers <- rivers_UTM33N %>%
   st_length()
 ```
 
-### \*st intersects
+### \*st_intersects
 
 Determines whether features overlap. Returns a list indicating, for example, which polygons each point falls within. If a point does not fall in any polygon, the corresponding list element is empty.
 
@@ -1111,9 +1141,7 @@ Grid mapping can also be used to visualise species occurrences, such as the pres
 
 ```{r}
 pladias <- read_sf("data/Pladias_data/kvadranty_Pladias.shp")
-Lilium_martagon <- read.csv("data/Pladias_data/Lilium_martagon.csv", 
-                            header = TRUE,                        
-                            sep = ";")
+Lilium_martagon <- read_csv2("data/Pladias_data/Lilium_martagon.csv")
 
 pladias_Lilium_martagon <- pladias %>%
   left_join(Lilium_martagon, by = "code")
@@ -1153,7 +1181,7 @@ ggplot() +
 
 2.  Create a raster showing the temperature difference between January 2013 (data/climate_raster/CHELSA_tmean_2013_01_CR) and January 1979 (data/climate_raster/CHELSA_tmean_1979_01_CR). Plot it with a legend, scale bar, and north arrow. Save the map as a TIFF file with a resolution of 300 dpi.
 
-3.  Create a map of the Pálava area (select the Pálava polygon from the protected areas in RCzechia). Use orthophoto imagery as the basemap and overlay the CHKO boundary. Display only the vegetation plots located within Pálava (from CNFD-selection-2023-01-09-JMK.xlsx). Insert an inset map of the Czech Republic showing the location of Pálava (as a point — centroid of the polygon). \* Scale the fill of the points according to the number of species — plots with more species should be displayed on top. Add standard map elements: a legend, scale bar, title, and optionally a north arrow if the map is not oriented northwards. Save the map as a TIFF file with 300 dpi.
+3.  Create a map of the Pálava protected landscape area (select the Pálava polygon from the protected areas in RCzechia). Use orthophoto imagery as the basemap and overlay the PLA boundary. Display only the vegetation plots located within Pálava (from CNFD-selection-2023-01-09-JMK.xlsx). Insert an inset map of the Czech Republic showing the location of Pálava (as a point — centroid of the polygon). \* Scale the fill of the points according to the number of species — plots with more species should be displayed on top. Add standard map elements: a legend, scale bar, title, and optionally a north arrow if the map is not oriented northwards. Save the map as a TIFF file with 300 dpi.
 
 4.  Calculate the area (in square meters) of the Pálava polygon.
 

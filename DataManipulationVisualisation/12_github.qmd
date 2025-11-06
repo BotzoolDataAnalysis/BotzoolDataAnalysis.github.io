@@ -1,5 +1,6 @@
 ---
 title: "12 GitHub"
+author: "Klára Friesová"
 ---
 
 ## 12.1 Git and GitHub - what is it and what is it good for?
