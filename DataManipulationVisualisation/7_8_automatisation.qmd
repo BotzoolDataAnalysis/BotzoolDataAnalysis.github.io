@@ -269,8 +269,6 @@ We can also rewrite our for loop used for creating plots of the relationship bet
 map(unique(penguins$species), ~plot_species(penguins, .x))
 ```
 
-The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.
-
 `map2()` takes two vectors or lists of the same length and iterates over them in pairs. We can illustrate this on the following example, where we will combine two lists with character strings in a single one:
 
 ```{r}
@@ -289,6 +287,8 @@ map2_chr(genus, species, ~str_c(.x, .y, sep = ' '))
 ```
 
 ### 7.3.2 Loading multiple files
+
+The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.
 
 Let's begin with the task of reading multiple files simultaneously. Imagine you have multiple files with the same structure, but for some reason, they are stored in separate files. As example data, we will use the [gapminder](https://www.gapminder.org/data) dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the `gapminder` folder ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the `read_csv()` function twelve times, but there is a more elegant way. Let's list the files first:
 
@@ -409,6 +409,12 @@ by_country <- gapminder_df |>
 by_country
 ```
 
+In the data column we now have a tibble with 12 rows and 5 columns for each country. We can access one of them, for example, Austria, using the `[[]]`.
+
+```{r}
+by_country$data[[7]]
+```
+
 To calculate a linear model for data from each country, we will iterate over the `data` column and save the resulting model to a new column. This might be done with `map()` within the `mutate()` call.
 
 ```{r}
@@ -421,13 +427,13 @@ by_country
 The column `m` we just created is again a list and contains the results of linear models for the relationship between life expectancy and time for all countries. With each one of them, we can do whatever is possible with a model result:
 
 ```{r}
-summary(by_country$m[[1]])
+summary(by_country$m[[7]])
 ```
 
 To easily extract the estimates from the model, we will use `tidy()` function from the `broom` package. `broom` is not part of the `tidyverse`, but it is a related package, which becomes very helpful when working with models within the `tidyverse` workflow, because it provides tools to convert statistical objects into tidy tibbles. The `tidy()` function summarises information about the model components:
 
 ```{r}
-tidy(by_country$m[[1]])
+tidy(by_country$m[[7]])
 ```
 
 And we can again use it to iterate over all models to get these summaries for all countries.

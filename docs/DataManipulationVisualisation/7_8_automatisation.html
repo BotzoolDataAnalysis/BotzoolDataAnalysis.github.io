@@ -799,7 +799,6 @@ $ cluster   &lt;chr&gt; "Corynephorion", "Armerion", "Corynephorion", "Corynepho
 </div>
 </div>
 </div>
-<p>The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.</p>
 <p><code>map2()</code> takes two vectors or lists of the same length and iterates over them in pairs. We can illustrate this on the following example, where we will combine two lists with character strings in a single one:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>genus <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">'Acer'</span>, <span class="st">'Quercus'</span>, <span class="st">'Tilia'</span>, <span class="st">'Fagus'</span>)</span>
@@ -831,6 +830,7 @@ $ cluster   &lt;chr&gt; "Corynephorion", "Armerion", "Corynephorion", "Corynepho
 </section>
 <section id="loading-multiple-files" class="level3">
 <h3 class="anchored" data-anchor-id="loading-multiple-files">7.3.2 Loading multiple files</h3>
+<p>The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.</p>
 <p>Let’s begin with the task of reading multiple files simultaneously. Imagine you have multiple files with the same structure, but for some reason, they are stored in separate files. As example data, we will use the <a href="https://www.gapminder.org/data">gapminder</a> dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the <code>gapminder</code> folder (<a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data">Link to the Github folder</a>) is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the <code>read_csv()</code> function twelve times, but there is a more elegant way. Let’s list the files first:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">'data/gapminder/'</span>, <span class="at">pattern =</span> <span class="st">'.csv'</span>, <span class="at">full.names =</span> T)</span>
@@ -1322,12 +1322,33 @@ $ path      &lt;chr&gt; "data/gapminder_continent/gapminder_Asia.csv", "data/gap
 # ℹ 132 more rows</code></pre>
 </div>
 </div>
+<p>In the data column we now have a tibble with 12 rows and 5 columns for each country. We can access one of them, for example, Austria, using the <code>[[]]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>by_country<span class="sc">$</span>data[[<span class="dv">7</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 5
+    year continent lifeExp     pop gdpPercap
+   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1  1952 Europe       66.8 6927772     6137.
+ 2  1957 Europe       67.5 6965860     8843.
+ 3  1962 Europe       69.5 7129864    10751.
+ 4  1967 Europe       70.1 7376998    12835.
+ 5  1972 Europe       70.6 7544201    16662.
+ 6  1977 Europe       72.2 7568430    19749.
+ 7  1982 Europe       73.2 7574613    21597.
+ 8  1987 Europe       74.9 7578903    23688.
+ 9  1992 Europe       76.0 7914969    27042.
+10  1997 Europe       77.5 8069876    29096.
+11  2002 Europe       79.0 8148312    32418.
+12  2007 Europe       79.8 8199783    36126.</code></pre>
+</div>
+</div>
 <p>To calculate a linear model for data from each country, we will iterate over the <code>data</code> column and save the resulting model to a new column. This might be done with <code>map()</code> within the <code>mutate()</code> call.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)))</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>by_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)))</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>by_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 142 × 3
    country     data              m     
@@ -1347,47 +1368,47 @@ $ path      &lt;chr&gt; "data/gapminder_continent/gapminder_Asia.csv", "data/gap
 </div>
 <p>The column <code>m</code> we just created is again a list and contains the results of linear models for the relationship between life expectancy and time for all countries. With each one of them, we can do whatever is possible with a model result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(by_country<span class="sc">$</span>m[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(by_country<span class="sc">$</span>m[[<span class="dv">7</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = lifeExp ~ year, data = .x)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--1.5447 -0.9905 -0.2757  0.8847  1.6868 
+     Min       1Q   Median       3Q      Max 
+-0.65831 -0.21588  0.04173  0.21680  0.67162 
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -507.53427   40.48416  -12.54 1.93e-07 ***
-year           0.27533    0.02045   13.46 9.84e-08 ***
+(Intercept) -4.059e+02  1.349e+01  -30.09 3.84e-11 ***
+year         2.420e-01  6.814e-03   35.52 7.44e-12 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1.223 on 10 degrees of freedom
-Multiple R-squared:  0.9477,    Adjusted R-squared:  0.9425 
-F-statistic: 181.2 on 1 and 10 DF,  p-value: 9.835e-08</code></pre>
+Residual standard error: 0.4074 on 10 degrees of freedom
+Multiple R-squared:  0.9921,    Adjusted R-squared:  0.9913 
+F-statistic:  1261 on 1 and 10 DF,  p-value: 7.435e-12</code></pre>
 </div>
 </div>
 <p>To easily extract the estimates from the model, we will use <code>tidy()</code> function from the <code>broom</code> package. <code>broom</code> is not part of the <code>tidyverse</code>, but it is a related package, which becomes very helpful when working with models within the <code>tidyverse</code> workflow, because it provides tools to convert statistical objects into tidy tibbles. The <code>tidy()</code> function summarises information about the model components:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(by_country<span class="sc">$</span>m[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(by_country<span class="sc">$</span>m[[<span class="dv">7</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  term        estimate std.error statistic      p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-1 (Intercept) -508.      40.5        -12.5 0.000000193 
-2 year           0.275    0.0205      13.5 0.0000000984</code></pre>
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept) -406.     13.5         -30.1 3.84e-11
+2 year           0.242   0.00681      35.5 7.44e-12</code></pre>
 </div>
 </div>
 <p>And we can again use it to iterate over all models to get these summaries for all countries.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x)))</span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x)))</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 142
 Columns: 4
@@ -1399,13 +1420,13 @@ $ m_tidy  &lt;list&gt; [&lt;tbl_df[2 x 5]&gt;], [&lt;tbl_df[2 x 5]&gt;], [&lt;tb
 </div>
 <p>The summary is now in a tibble, but there is still a list of tibbles in the <code>m_tidy</code> column. To get the results to a data frame where we can sort the values and filter across all values, we need to <code>unnest()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy)</span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy)</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 284
 Columns: 8
@@ -1421,15 +1442,15 @@ $ p.value   &lt;dbl&gt; 1.934055e-07, 9.835213e-08, 3.943337e-06, 1.462763e-06, 
 </div>
 <p>We now have one column for each column originally included in the tibbles inside <code>m_tidy</code>. The list-columns we did not unnest still remain list-columns. There are now two rows for each country, one for each model coefficient - the intercept and the year. We are not interested in model intercepts now, so we can filter them out. To see in which countries has the life expectancy risen the most over time, we can arrange the dataset according to the model estimate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
-<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy) <span class="sc">|&gt;</span> </span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'year'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(estimate))</span>
-<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) <span class="sc">|&gt;</span> </span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> .x)), </span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_tidy =</span> <span class="fu">map</span>(m, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(m_tidy) <span class="sc">|&gt;</span> </span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'year'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(estimate))</span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(by_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 142
 Columns: 8
@@ -1445,7 +1466,7 @@ $ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 
 </div>
 <p>Or we can just print out the top 10 countries:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(estimate, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(estimate, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 8
    country            data     m     term  estimate std.error statistic  p.value
@@ -1468,10 +1489,10 @@ $ p.value   &lt;dbl&gt; 2.530346e-09, 3.289412e-11, 4.221338e-09, 4.931386e-14, 
 <h3 class="anchored" data-anchor-id="debugging">7.3.5 Debugging</h3>
 <p>It is possible that the code may not work initially. To simplify iteration within <code>map()</code>, it is often helpful to perform the calculation for a single element of the list and try to identify the error there. We can do this by replacing <code>.x</code> by one element of our nested tibble.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) </span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> by_country<span class="sc">$</span>data[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>by_country <span class="ot">&lt;-</span> gapminder_df <span class="sc">|&gt;</span> </span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> country) </span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(lifeExp<span class="sc">~</span>year, <span class="at">data =</span> by_country<span class="sc">$</span>data[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1489,17 +1510,17 @@ Coefficients:
 <ol type="1">
 <li><p>Rewrite the following code as a function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>z <span class="sc">/</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>z <span class="sc">/</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> T)<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Use the function to calculate the percentage of each species in the penguins dataset.</p></li>
 <li><p>Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula <span class="math inline">\(C = (F-32) *5/9\)</span>. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.</p></li>
 <li><p>In Turboveg 2, a programme used for storing vegetation plot data, the geographical coordinates are stored in a format DDMMSS.SS. To show the plots in the map or perform any spatial calculations, you will need to transform the coordinates to decimal degrees. That is the purpose of the following function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a> tv_to_degrees <span class="ot">&lt;-</span> <span class="cf">function</span>(coord){</span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="sc">/</span> <span class="dv">60</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">5</span>, <span class="dv">11</span>)) <span class="sc">/</span> <span class="dv">3600</span></span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a> tv_to_degrees <span class="ot">&lt;-</span> <span class="cf">function</span>(coord){</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">3</span>, <span class="dv">4</span>)) <span class="sc">/</span> <span class="dv">60</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(coord, <span class="dv">5</span>, <span class="dv">11</span>)) <span class="sc">/</span> <span class="dv">3600</span></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Look at the function and try to explain how it works. Load the basiphilous grassland data (<code>basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv</code>, <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data">Link to the Github folder</a>) and use this function to transform coordinates in the fields <code>Longitude</code> and <code>Latitude</code>.</p></li>
 <li><p>Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula <span class="citation" data-cites="mccune_equations_2002">(<a href="#ref-mccune_equations_2002" role="doc-biblioref">McCune &amp; Keon, 2002</a>)</span>:</p>
