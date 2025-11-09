@@ -1,13 +1,250 @@
 ---
 title: "11 From a database to a plot"
 format: html
+author: Irena Axmanová
 ---
 
-<!-- A couple of tidyverse songs as a bonus that you stayed with us and learned many new things: -->
+Aim of this tutorial is to repeat what we have learned so far. We will step by step show you how to import the data from a database to R, prepare it for further analyses and prepare some basic summary of the data and plot answers to our questions. At the end of this chapter, you will find the final exercises that we want you to do and hand in. The script will be than considered as your final project of this course.
 
-<!-- Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s> -->
+## 11.1 Example of database format data / Turboveg
 
-<!-- AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo> -->
+Turboveg for Windows is a program designed for the storage, selection, and export of vegetation plot data (relevés).The information is divided among several files that are matched by either species ID or releve ID. Within the Turboveg interface, you do not see this structure directly, but you can find it if you look in the *Turbowin* folder, subfolder *data* and particular database (see example below).
+
+![](images/clipboard-4016531900.png)
+
+At some point you need to export the data and process them further. To get Turboveg data to R, you first need to **export the Turboveg database** to a folder where you want to process the data. This step requires **selection of all the plots** you want to export. Alternatively you can access the files directly in the main file in Turbowin, but just to warn you, if you do something wrong here, you might completely loose your data.
+
+## 11.2 Load libraries
+
+```{r}
+#| warning: false
+library(tidyverse) 
+library(readxl)    
+library(janitor)  
+```
+
+## 11.3 Import env file = headers
+
+One option is to check the exported database manually, open the file called *tvhabita.dbf* in Excel and save it as *tvhabita.xlsx* or *tvhabita.csv* (UTF 8 encoded) file into your *data* folder. Although it includes one more step outside R, it is still rather straightforward and it saves you troubles with different formats in Turboveg and in R (encoding issues). Other option is to open the dbf files directly, for example with the `foreign` package.
+
+You can then import the file as csv file
+
+```{r}
+env <- read_csv("data/turboveg_to_R/tvhabita.csv")
+```
+
+If you check the imported names, they are rather difficult to handle.
+
+```{r}
+names(env)
+```
+
+Therefore we will directly change them to tidy names with the `clean_names` function from package `janitor`. Alternative is to rename one by one using e.g. `rename`, but here we want to save time and effort.
+
+```{r}
+env <- read_csv("data/turboveg_to_R/tvhabita.csv")%>% 
+  clean_names() 
+
+tibble(env)
+```
+
+```{r}
+names(env)
+```
+
+I will prepare a selection of the variables I want to keep and rewrite the file. Always keep releve_nr and coverscale, as you will need them later on.
+
+```{r}
+env <- env %>% 
+  select(releve_nr, coverscale,field_nr, country, author, date, syntaxon, 
+         altitude, exposition, inclinatio, 
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
+         latitude, longitude, precision, bias_min, bias_gps, locality )
+```
+
+Or I can add all the steps I did so far into one pipeline and check the resulting dataset
+
+```{r}
+env <- read_csv("data/turboveg_to_R/tvhabita.csv")%>% 
+  clean_names() %>% 
+  select(releve_nr, coverscale, field_nr, country, author, date, syntaxon, 
+         altitude, exposition, inclinatio, 
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
+         latitude, longitude, precision, bias_min, bias_gps, locality ) %>% 
+  glimpse()
+```
+
+And save it for easier access.
+
+```{r}
+
+write.csv(env, "data/turboveg_to_R/env.csv")
+```
+
+## 11.4 Import spe file = species file in a long format
+
+Again, we will open the *tvabund.dbf* in Excel and save it as *tvabund.csv*. And import it to our environment in R. Again, I will use the clean_names function during import, so that we have the same style of the variable names.
+
+```{r}
+tvabund <- read_csv("data/turboveg_to_R/tvabund.csv") %>% 
+  clean_names()
+```
+
+```{r}
+glimpse(tvabund)
+```
+
+Now we will check the data again and we see, that there are no species names, just numbers. Also the cover is given in the original codes and not in percentages. See the scheme below to understand where each piece of the information is stored.
+
+![](images/clipboard-3501705845.png)
+
+We have to prepare these different files we need, import them and merge them.
+
+### 11.4.1 Nomenclature
+
+In the abund file, species numbers refer to the codes in the checklist used in the Turboveg database. To translate them into species names you will need a translation table with the original number in the database, original name in the database and the name you want to use in the analyses.
+
+We will now import the nomenclature file that is already adapted for Czech flora.
+
+```{r}
+nomenclature <- read_csv("data/turboveg_to_R/nomenclature_20251108.csv") %>%
+  clean_names()  
+
+tibble(nomenclature)
+```
+
+There are several advantages about this approach. First, you can adjust the nomenclature to the newest source/regional checklist etc. In our example the name in Turboveg is translated to the nomenclature presented in the recent Key of the Czech Flora, and it is named after the main editor Kaplan.
+
+Second, I can add a concept that groups several taxa into higher units, e.g. taxa that are not easy to recognise in the field are assigned into aggregates. This is exactly the same approach as you do when you create an expert system file. Here it is even more easy to understand and much easier to change the translation when you need to fix something. The name in this file is called ESy.
+
+Last but not least. I can directly add much more information into such table. For example status, growth form or anything else. Here we have indication if the species is nonvascular.
+
+I might want to check how the species are translated with the use of my translation file and select just these matching rows. Either create a variable called selection indicating if the species is in the subset or not
+
+```{r}
+nomenclature_check<- nomenclature %>% 
+  left_join(tvabund %>% 
+              distinct(species_nr)%>%
+              mutate(selection=1)) 
+```
+
+or I can even add the frequency, how many times it appears in the records of the dataset
+
+```{r}
+nomenclature_check<- nomenclature %>% 
+  left_join(tvabund %>% 
+              count(species_nr)) 
+```
+
+I can then write the file, make adjustments e.g. in Excel and upload it newly. Great thing is that I have indication of which species are in the dataset and I do not have to pay attention to the other rows.
+
+```{r}
+#| eval: false
+write.csv(nomenclature_check, "data/turboveg_to_R/nomenclature_check.csv")
+```
+
+upload the new, adjusted file
+
+```{r}
+#| eval: false
+nomenclature <- read_csv("data/turboveg_to_R/nomenclature_check.csv") %>%
+  clean_names()  
+```
+
+### 11.4.2 Cover
+
+We have translation table for nomenclature, but we still need to translate cover codes to percentages. For cover translation we need to use information about cover scale (stored in the header data / tvhabita / env file) and information how to translate the values in that particular scale to percentages. The file here was prepared based on the translation of cover values in different scales to percentages following the EVA database approach. One more column was added to enable different adjustments, for example change the values for rare species etc. For any project I suggest to open the file and check if the scales you are using are there and if you agree with the translation.
+
+```{r}
+cover <- read_csv("data/turboveg_to_R/cover_20230402.csv") %>% clean_names()  
+
+tibble(cover)
+```
+
+The file here was prepared based on the translation of cover values in different scales to percentages following the EVA database approach. One more column was added to enable different adjustments, for example change the values for rare species etc. For any project I suggest to open the file and check if the scales you are using are there and if you agree with the translation.
+
+Here I can check the different scale names included in the file
+
+```{r}
+cover %>% distinct(cover_scale_name) 
+```
+
+And I can also filter the rows of the specified scales. E.g. here I am looking for all those that start with a specific pattern "Braun"
+
+```{r}
+cover %>% 
+  filter(str_starts(cover_scale_name, "Braun")) %>% 
+  print(n=20)
+```
+
+### 11.4.3 Merging all files together into complete spe file
+
+Finally, I have translation to nomenclature, to cover, so I need to put everything together.
+
+```{r}
+tvabund %>% 
+  left_join(nomenclature %>% 
+              select(species_nr, kaplan, expert_system, nonvascular)) %>% 
+  left_join(env %>% select(releve_nr, coverscale)) %>% 
+  left_join(cover %>% select(coverscale,cover_code,cover_perc))
+```
+
+The output contains these variables
+
+```         
+ "releve_nr"     "species_nr"    "cover_code"    "layer"         "orig_name"     "kaplan"        "expert_system" "nonvascular"   "coverscale"    "cover_perc"   
+```
+
+If I am satisfied with the result I assign the pipeline into the *spe* file and add one more line to select just needed variables, here I decided to use just the *expert_system name* and I renamed it directly in the `select` function
+
+```{r}
+spe<- tvabund %>% 
+  left_join(nomenclature %>% 
+              select(species_nr, kaplan, expert_system, nonvascular)) %>% 
+  left_join(env %>% select(releve_nr, coverscale)) %>% 
+  left_join(cover %>% select(coverscale,cover_code,cover_perc)) %>%
+  # filter (!nonvascular=1) %>% # optional to remove nonvasculars
+  select(releve_nr, species= expert_system, nonvascular, layer, cover_perc)
+```
+
+To see the result we will use view
+
+```{r}
+view(spe)
+```
+
+We can again save the final file, to be easily accessible for later
+
+```{r}
+#| eval: false
+write.csv(spe, "data/turboveg_to_R/spe.csv")
+```
+
+## 11.5 Merging of species covers across layers
+
+Will be added
+
+## 11.6 Joining information about traits
+
+Will be added
+
+## 11.7 Summary statistics
+
+Will be added
+
+## 11.8 Graphical outputs
+
+Will be added
+
+**Almost at the end of this course!**
+
+A couple of tidyverse songs as a bonus that you stayed with us and learned many new things:
+
+Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s>
+
+AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo>
+
+## 11.9 Exercises / these should be handed in for successful finishing of this course
 
 1.  (Real-world example for botanists) Use the data from the folder `basiphilous_grasslands` and recreate the following plot:
 
@@ -53,3 +290,5 @@ format: html
     ```
 
     Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
+
+2.  will be added
