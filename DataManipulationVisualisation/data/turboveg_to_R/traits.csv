@@ -1,0 +1,317 @@
+﻿Taxon,Height,SeedMass,EIV_Light,EIV_Moisture,EIV_Reaction,EIV_Nutrients
+Quercus petraea agg.,25,974.7,6,5,5,4
+Acer campestre,7.5,54.34828235,5,5,7,6
+Crataegus laevigata,5.5,275.9989,5,5,7,5
+Cornus mas,4,487.5333333,6,4,8,5
+Lonicera xylosteum,2,164.07,4,5,7,6
+Galium sylvaticum,0.85,1.102666667,5,5,6,5
+Carex digitata,0.2,1.445,4,5,6,6
+Melica nutans,0.45,2.492059259,4,5,6,4
+Polygonatum odoratum,0.45,264.3043333,6,3,7,3
+Geum urbanum,0.55,2.047383333,5,5,6,7
+Anemone species,,,,,,
+Viola mirabilis,0.2,1.7,4,5,8,5
+Hieracium murorum,0.4,0.4,5,5,5,4
+Platanthera bifolia,0.35,,6,5,6,4
+Convallaria majalis,0.2,133.758175,4,5,5,4
+Hepatica nobilis,0.1,2.31525,4,5,7,5
+Carex montana,0.25,0.65,5,4,7,4
+Poa nemoralis,0.55,0.181745455,5,5,6,5
+Sanicula europaea,0.3,2.873210714,3,5,7,6
+Viola reichenbachiana,0.15,2.0248,3,5,7,6
+Pulmonaria mollis,0.35,,6,4,8,5
+Rubus fruticosus agg.,0.4,,6,5,6,5
+Primula veris,0.12,0.803173333,7,4,7,4
+Cephalanthera damasonium,0.4,0.005,5,4,7,4
+Hieracium lachenalii,0.6,0.44,5,5,4,3
+Geranium robertianum,0.3,1.453258333,5,6,6,7
+Bromus benekenii,1.15,5.7818,5,5,7,6
+Fragaria moschata,0.225,,6,5,6,6
+Maianthemum bifolium,0.15,15.04444444,4,5,4,4
+Carex michelii,0.3,3.86,6,3,7,4
+Vincetoxicum hirundinaria,0.7,7.423333333,6,3,7,3
+Viola hirta,0.15,3.09404,6,3,8,3
+Euonymus verrucosus,2.5,,5,4,7,6
+Fraxinus excelsior,27.5,58.4213475,4,6,7,7
+Crataegus species,,,,,,
+Ligustrum vulgare,3.5,35.438425,6,4,7,5
+Rosa species,,,,,,
+Prunus avium,19,390.0449714,6,5,7,5
+Acer platanoides,25,100.828,4,5,7,6
+Carpinus betulus,18,41.81531429,4,5,6,5
+Corylus avellana,4,805.65,6,5,6,6
+Rhamnus cathartica,2.75,26.09664,7,4,8,5
+Luzula luzuloides,0.5,0.356666667,5,5,3,4
+Veronica officinalis,0.075,0.122816667,5,4,4,4
+Melampyrum pratense,0.275,5.66542,5,5,3,2
+Festuca ovina,0.4,0.435720879,7,4,3,2
+Hypericum perforatum,0.65,0.118575,7,4,6,4
+Melica uniflora,0.4,2.899963636,3,5,6,6
+Hieracium sabaudum,1,0.4701,5,5,4,4
+Galium rotundifolium,0.25,0.955333333,2,5,5,6
+Galium odoratum,0.25,6.761222222,3,5,6,6
+Galium pumilum agg.,0.325,0.429,7,4,4,3
+Senecio nemorensis agg.,1,,5,5,5,6
+Campanula persicifolia,0.65,0.0706,5,4,7,5
+Veronica chamaedrys agg.,0.225,,6,5,7,6
+Hypericum montanum,0.55,0.064584615,5,4,7,4
+Anthericum ramosum,0.55,4.244,7,3,7,3
+Genista tinctoria,0.65,3.571542857,7,4,6,3
+Dryopteris filix-mas,0.8,,3,5,5,6
+Impatiens parviflora,0.55,6.892666667,4,5,7,7
+Hylotelephium telephium agg.,0.6,0.04064,7,4,5,4
+Fagus sylvatica,37.5,177.0824,3,5,6,5
+Cytisus nigricans,1.15,4.966666667,6,4,6,3
+Melittis melissophyllum,0.4,5.39,6,4,7,4
+Calamagrostis arundinacea,1.05,0.085,5,5,4,5
+Fallopia dumetorum,1.25,3.3956,6,5,7,7
+Ajuga genevensis,0.2,1.754,7,4,7,3
+Agrostis capillaris,0.45,0.0641,7,4,4,4
+Carex humilis,0.125,1.64416,7,2,8,3
+Alliaria petiolata,0.55,2.348,5,5,7,8
+Viola collina,0.125,1.9,6,3,8,3
+Glechoma hederacea,0.275,0.6684,5,6,6,7
+Allium oleraceum,0.525,11.36966667,6,4,7,4
+Myosotis sylvatica,0.4,0.53825,6,5,6,7
+Carex muricata agg.,0.65,1.906498698,5,5,6,5
+Lapsana communis,0.7,1.0212,5,5,6,7
+Urtica dioica,1.45,0.179769231,5,6,7,9
+Moehringia trinervia,0.2,0.21,4,5,6,7
+Tilia platyphyllos,27.5,146.54,4,5,7,7
+Calamagrostis epigejos,1.05,0.079733333,7,5,6,6
+Poa angustifolia,0.5,0.209347887,7,4,6,4
+Tilia cordata,25,50.55,4,5,6,5
+Lathyrus vernus,0.325,16.258,4,5,7,5
+Scrophularia nodosa,0.65,0.0952,4,6,6,7
+Festuca heterophylla,0.85,1.322,4,4,5,4
+Vicia sepium,0.5,22.7702,6,5,6,6
+Galium album subsp. pycnotrichum,0.85,0.526,7,4,6,6
+Asplenium trichomanes,0.135,,5,4,6,3
+Polypodium vulgare,0.2,,5,4,5,3
+Stellaria holostea,0.2,2.72845,5,5,6,5
+Tanacetum corymbosum,0.8,0.51,6,4,7,4
+Brachypodium pinnatum,0.7,3.485333333,6,4,7,4
+Euphorbia cyparissias,0.225,1.9624,8,3,6,3
+Verbascum chaixii subsp. austriacum,0.95,,7,3,7,5
+Trifolium alpestre,0.35,3.106666667,7,3,7,3
+Digitalis grandiflora,0.7,0.166,6,5,6,5
+Mycelis muralis,0.55,0.31632,4,5,6,6
+Pinus sylvestris,22.5,7.572,6,5,5,2
+Epilobium montanum,0.6,0.1267,5,5,6,6
+Fragaria vesca,0.15,19.87672667,6,5,6,5
+Campanula rotundifolia agg.,0.375,0.064435714,7,4,5,3
+Arabidopsis arenosa,0.275,0.109,7,4,6,3
+Prunus species,,,,,,
+Viscaria vulgaris,0.5,0.079363636,7,3,4,3
+Sorbus aucuparia,8,121.4390444,6,5,4,4
+Silene nutans,0.35,0.322707692,6,3,6,3
+Genista germanica,0.4,2.878,7,4,3,2
+Astragalus glycyphyllos,1.05,5.150033333,6,4,7,4
+Galium mollugo agg.,1,0.732290909,7,6,6,6
+Hedera helix,11,73.695175,4,5,6,6
+Asarum europaeum,0.075,3.442222222,3,5,7,6
+Cyclamen purpurascens,0.085,,4,5,7,5
+Campanula rapunculoides,0.55,0.173114286,6,5,7,6
+Galium aparine,1.3,9.445486667,6,5,6,8
+Clinopodium vulgare,0.45,0.425483333,6,4,7,4
+Carex pilulifera,0.25,1.226612903,6,5,3,3
+Avenella flexuosa,0.5,0.311700901,6,5,2,3
+Picea abies,25.5,6.663666667,5,6,4,4
+Viscum album subsp. album,0.7,130.4073333,8,3,0,0
+Quercus robur,30,3487.466667,6,6,6,5
+Acer pseudoplatanus,30,69.2004,4,6,6,7
+Deschampsia cespitosa,1.05,0.211112281,6,7,5,5
+Luzula pilosa,0.225,0.9704,3,5,4,4
+Knautia drymeia,0.6,2.6,5,5,6,5
+Carex pallescens,0.35,1.252583333,7,6,4,4
+Dryopteris dilatata,0.7,,4,6,4,6
+Galeobdolon luteum s.lat.,0.175,,3,6,6,7
+Ajuga reptans,0.165,1.46519,5,6,6,6
+Milium effusum,0.85,1.137,4,6,6,6
+Carex pilosa,0.4,3.32,3,5,7,6
+Lathyrus niger,0.65,18.786,5,4,7,4
+Dactylis polygama,0.85,,5,5,6,5
+Orobanche species,,,,,,
+Euphorbia amygdaloides,0.35,4.18776,4,5,7,5
+Pulmonaria officinalis s.lat.,0.225,3.64,4,5,7,6
+Luzula campestris agg.,0.25,0.386598894,7,4,3,3
+Calluna vulgaris,0.325,0.029111111,8,5,1,1
+Allium senescens subsp. montanum,0.25,1.68,8,2,6,3
+Frangula alnus,2.5,125.9291429,6,7,4,4
+Hieracium maculatum,0.55,0.4856,5,4,5,4
+Senecio viscosus,0.4,0.537166667,8,3,6,4
+Scleranthus perennis,0.115,1.38335,8,2,4,2
+Allium flavum,0.4,1.357,8,2,7,2
+Veronica dillenii,0.175,,8,2,4,2
+Galeopsis species,,,,,,
+Thymus pulegioides,0.225,0.152106667,7,4,6,3
+Trifolium arvense,0.2,0.328710833,8,3,4,2
+Genista pilosa,0.225,2.669,7,3,4,2
+Pilosella officinarum,0.175,0.244666667,7,4,5,2
+Arabidopsis thaliana,0.175,0.02088,7,4,4,4
+Koeleria macrantha,0.4,0.274142857,8,3,8,2
+Sedum reflexum,0.175,,8,2,5,2
+Achillea millefolium agg.,0.55,0.145791667,7,5,6,5
+Asplenium septentrionale,0.1,,8,2,2,2
+Myosotis ramosissima,0.25,0.20185,9,3,6,3
+Carex praecox,0.225,,8,4,6,4
+Sorbus torminalis,15,119.0188,4,4,7,4
+Epilobium species,,,,,,
+Fallopia convolvulus,0.25,4.038,7,5,6,6
+Polygonatum multiflorum,0.5,94.42268571,3,5,6,5
+Hieracium schmidtii,0.275,0.633,8,4,4,1
+Cardamine impatiens,0.45,0.278133333,4,6,7,7
+Vaccinium myrtillus,0.375,40.80735556,5,5,2,3
+Galeopsis tetrahit s.lat.,0.65,4.347911111,6,5,5,7
+Brachypodium sylvaticum,0.9,2.785254545,4,5,6,7
+Carex otomana,0.75,,5,5,6,6
+Chenopodium polyspermum,0.35,0.265,7,6,6,8
+Chenopodium album agg.,0.95,0.53846,7,5,6,7
+Symphytum tuberosum,0.35,6.2392857,4,5,7,6
+Chaerophyllum temulum,0.6,2.737578947,5,5,7,8
+Euphorbia dulcis,0.35,2.121,4,5,7,6
+Vicia pisiformis,1.4,38.44,6,4,8,4
+Galeopsis pubescens,0.35,4.409,6,5,6,7
+Prunus spinosa,1.75,448.2353556,7,4,7,5
+Ribes uva-crispa,1,3.1306,4,6,6,6
+Melampyrum arvense,0.35,14.0926,7,3,8,4
+Secale cereale,1.1,,,,,
+Alnus glutinosa,22.5,2.3111,5,9,6,7
+Ulmus glabra,25,11.48855,4,6,7,7
+Populus x canadensis,,,6,6,7,7
+Viburnum opulus,3,145.1769429,6,6,7,6
+Euonymus europaeus,3.5,52.1392,5,5,7,6
+Aegopodium podagraria,0.75,1.680933333,6,6,7,8
+Vicia sylvatica,1.25,21.90166667,6,5,7,5
+Mercurialis perennis,0.25,5.551428571,3,5,7,7
+Equisetum arvense,0.4,,6,6,5,5
+Anemone nemorosa,0.175,2.1444,4,5,6,5
+Heracleum sphondylium,1.15,5.91216,7,5,6,8
+Lysimachia nummularia,0.055,0.5,5,7,6,6
+Ranunculus acris,0.75,1.72743,7,6,6,5
+Sambucus nigra,4.25,40.9057,6,6,6,8
+Campanula trachelium,0.6,0.231155556,4,6,7,7
+Crataegus monogyna s.lat.,6,167.573325,6,4,7,5
+Galium palustre agg.,0.4,0.9095,6,9,6,6
+Caltha palustris,0.45,1.025254545,6,9,5,6
+Sonchus oleraceus,0.55,0.325,7,5,7,8
+Lysimachia vulgaris,0.85,0.3224,6,8,5,6
+Solanum dulcamara,1.65,29.89211029,6,9,6,8
+Lycopus europaeus,0.5,0.233163636,6,9,7,7
+Carex acutiformis,0.8,0.864166667,6,9,7,5
+Berula erecta,0.6,0.69945,7,10,8,6
+Iris pseudacorus,0.9,46.86421111,6,9,6,8
+Solidago canadensis,1.15,0.0668125,7,5,6,6
+Bidens frondosa,1,,7,9,7,8
+Ranunculus repens,0.25,2.24169697,6,7,7,7
+Poa palustris,0.65,0.15525,6,8,6,7
+Agrostis stolonifera,0.65,0.047775,7,7,6,5
+Ficaria verna,0.1,1.938133333,4,6,7,7
+Poa trivialis,0.65,0.164933333,6,7,6,7
+Myosoton aquaticum,0.7,0.20395,6,8,7,8
+Myosotis palustris subsp. laxiflora,0.65,0.3013,6,8,5,6
+Mentha aquatica,0.975,0.12832381,7,9,7,7
+Veronica beccabunga,0.125,0.425233333,6,9,7,7
+Phalaris arundinacea,1.65,0.652637037,7,8,7,7
+Symphytum officinale,0.8,8.3244,7,7,7,8
+Ranunculus auricomus agg.,0.425,,5,6,6,6
+Lactuca serriola,0.85,0.5437,8,4,6,6
+Rumex obtusifolius,0.85,1.155,7,6,6,8
+Calystegia sepium,2,30.272,7,7,7,8
+Ribes rubrum,1.25,9.162,4,7,6,6
+Arctium lappa,1.9,13.02328,8,5,7,8
+Scirpus sylvaticus,0.65,0.124723077,6,8,5,5
+Clematis vitalba,8.5,2.610676543,7,5,7,7
+Angelica sylvestris,1.05,2.421444444,6,8,6,6
+Cirsium oleraceum,1.1,2.088666667,6,8,7,7
+Mentha longifolia,0.9,0.064,7,8,8,7
+Lamium maculatum,0.35,1.608533333,4,6,7,8
+Impatiens noli-tangere,0.65,6.169974359,4,7,7,7
+Oxalis acetosella,0.085,0.961,2,6,4,6
+Stachys sylvatica,0.75,1.4016,4,7,7,7
+Adoxa moschatellina,0.125,0.629,3,6,7,8
+Silene latifolia subsp. alba,0.525,0.964555556,7,4,7,7
+Viola riviniana,0.225,1.200266667,4,5,6,6
+Circaea lutetiana,0.5,1.795490909,4,6,7,7
+Festuca gigantea,1,2.8575,4,7,6,7
+Paris quadrifolia,0.25,119.6368,3,6,7,7
+Cystopteris fragilis,0.165,,5,6,6,5
+Dentaria bulbifera,0.45,20.036,3,5,6,6
+Epilobium adenocaulon,0.7,0.084,7,6,5,7
+Actaea spicata,0.5,119.9452,3,5,6,7
+Salix euxina,10.5,0.117,6,8,6,7
+Prunus insititia,6.5,,6,5,7,5
+Salix alba,22.5,0.12,5,8,7,7
+Chaerophyllum bulbosum,1.4,2.133333333,7,7,7,8
+Arctium tomentosum,1.4,13.5575,7,5,8,8
+Elymus caninus,0.75,4.462388889,5,6,7,7
+Humulus lupulus,6,4.112583333,6,7,6,8
+Allium ursinum,0.275,5.3948,3,6,7,8
+Anthriscus sylvestris,1,4.304266667,7,5,7,8
+Lilium martagon,0.95,5.935,4,5,7,6
+Glechoma hirsuta,0.375,,5,5,7,6
+Crepis paludosa,0.65,0.6532,5,8,6,6
+Geranium phaeum,0.5,,5,6,6,7
+Ranunculus lanuginosus,0.6,1.3,3,6,7,7
+Primula elatior,0.165,0.452,5,6,7,6
+Carex sylvatica,0.65,1.663953846,3,6,6,6
+Pimpinella major,0.8,2.072397576,7,5,7,6
+Phyteuma spicatum,0.5,0.1496,6,5,6,5
+Prunus padus,6.25,137.5,5,8,7,6
+Salix triandra,4,0.02,7,8,7,6
+Cornus sanguinea,3.5,79.5914,6,5,7,5
+Rubus caesius,0.4,3.7628451,6,6,7,7
+Rumex sanguineus,0.85,1.06821,4,7,7,7
+Carex remota,0.35,0.371945455,3,8,6,7
+Filipendula ulmaria,1.25,0.749785714,6,8,6,5
+Scrophularia umbrosa,0.7,0.084966667,6,9,7,7
+Staphylea pinnata,3.25,484.4,5,5,8,5
+Athyrium filix-femina,0.75,,3,6,5,6
+Bupleurum falcatum,0.75,2.570794444,6,3,8,3
+Poa pratensis,0.75,0.272595238,6,5,6,6
+Securigera varia,0.75,5.344666667,7,4,7,4
+Arabis pauciflora,0.625,,,,,
+Peucedanum cervaria,0.8,4.994,7,3,7,3
+Ranunculus bulbosus,0.275,2.867753968,8,4,7,3
+Taraxacum sect. Taraxacum,0.3,0.655541667,7,5,7,7
+Melampyrum nemorosum,0.4,5.81,5,4,6,4
+Teucrium chamaedrys,0.25,1.22,7,3,8,3
+Daphne mezereum,0.65,43.9,4,5,7,6
+Cephalanthera longifolia,0.35,,5,5,6,5
+Neottia nidus-avis,0.275,0.005,3,5,7,5
+Populus tremula,20,0.1,6,5,5,5
+Chaerophyllum aromaticum,1.15,7.958666667,7,7,6,8
+Cephalanthera rubra,0.5,,4,4,8,4
+Lunaria rediviva,0.85,26,4,6,7,8
+Aconitum lycoctonum,0.85,3.208833333,4,7,7,7
+Epipactis species,,,,,,
+Omphalodes scorpioides,0.25,,4,6,7,7
+Abies alba,40,79.2,3,6,5,6
+Geranium palustre,0.5,4.31,7,7,7,7
+Circaea x intermedia,,,3,7,7,6
+Eupatorium cannabinum,1.05,0.32999,7,7,7,7
+Juncus effusus,0.75,0.018607407,7,8,5,4
+Chrysosplenium alternifolium,0.15,0.0544,3,8,7,7
+Aesculus hippocastanum,20,7708.65,4,5,6,7
+Epilobium roseum,0.55,0.09084,7,8,7,8
+Galeopsis speciosa,1.05,3.321866667,7,5,6,7
+Chaerophyllum hirsutum,0.85,2.917333333,6,8,6,7
+Chelidonium majus,0.6,0.74,6,5,7,8
+Sambucus racemosa,2,32.5,6,5,5,7
+Alnus incana,13,0.55,5,7,6,6
+Equisetum sylvaticum,0.35,,4,7,4,4
+Valeriana dioica,0.275,0.79918,7,8,6,3
+Rubus idaeus,1.25,95.70412222,6,5,5,6
+Cirsium palustre,1.6,1.562142857,7,8,4,5
+Carduus crispus,1.3,1.5565,6,6,6,9
+Ficaria calthifolia,0.1,,6,4,7,5
+Stellaria alsine,0.2,0.068925,5,8,4,4
+Scutellaria galericulata,0.45,0.689433333,6,9,6,6
+Taraxacum sect. Palustria,0.225,0.61,8,8,8,3
+Salix caprea,7.5,0.0968,7,6,6,6
+Lythrum salicaria,1.05,0.085928,7,9,6,6
+Alchemilla vulgaris s.lat.,0.25,0.633333333,6,5,6,6
+Cardamine amara,0.35,0.258,5,9,6,6
+Glyceria fluitans,0.8,1.1985,6,10,5,6
+Persicaria lapathifolia,0.475,2.25,6,7,6,8
+Persicaria mitis,0.375,1.391,7,8,6,7

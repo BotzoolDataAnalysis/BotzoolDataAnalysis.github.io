@@ -1,0 +1,327 @@
+﻿ID,CoverScaleName,COVERSCALE,COVER_CODE,CoverPercEVA,CoverPerc
+1,Percetage %,00,0.1,0.1,0.1
+2,Percetage %,00,0.2,0.2,0.2
+3,Percetage %,00,0.3,0.3,0.3
+4,Percetage %,00,0.4,0.4,0.4
+5,Percetage %,00,0.5,0.5,0.5
+6,Percetage %,00,0.6,0.6,0.6
+7,Percetage %,00,0.7,0.7,0.7
+8,Percetage %,00,0.8,0.8,0.8
+9,Percetage %,00,0.9,0.9,0.9
+10,Percetage %,00,1,1,1
+11,Percetage %,00,2,2,2
+12,Percetage %,00,3,3,3
+13,Percetage %,00,4,4,4
+14,Percetage %,00,5,5,5
+15,Percetage %,00,6,6,6
+16,Percetage %,00,7,7,7
+17,Percetage %,00,8,8,8
+18,Percetage %,00,9,9,9
+19,Percetage %,00,10,10,10
+20,Percetage %,00,11,11,11
+21,Percetage %,00,12,12,12
+22,Percetage %,00,13,13,13
+23,Percetage %,00,14,14,14
+24,Percetage %,00,15,15,15
+25,Percetage %,00,16,16,16
+26,Percetage %,00,17,17,17
+27,Percetage %,00,18,18,18
+28,Percetage %,00,19,19,19
+29,Percetage %,00,20,20,20
+30,Percetage %,00,21,21,21
+31,Percetage %,00,22,22,22
+32,Percetage %,00,23,23,23
+33,Percetage %,00,24,24,24
+34,Percetage %,00,25,25,25
+35,Percetage %,00,26,26,26
+36,Percetage %,00,27,27,27
+37,Percetage %,00,28,28,28
+38,Percetage %,00,29,29,29
+39,Percetage %,00,30,30,30
+40,Percetage %,00,31,31,31
+41,Percetage %,00,32,32,32
+42,Percetage %,00,33,33,33
+43,Percetage %,00,34,34,34
+44,Percetage %,00,35,35,35
+45,Percetage %,00,36,36,36
+46,Percetage %,00,37,37,37
+47,Percetage %,00,38,38,38
+48,Percetage %,00,39,39,39
+49,Percetage %,00,40,40,40
+50,Percetage %,00,41,41,41
+51,Percetage %,00,42,42,42
+52,Percetage %,00,43,43,43
+53,Percetage %,00,44,44,44
+54,Percetage %,00,45,45,45
+55,Percetage %,00,46,46,46
+56,Percetage %,00,47,47,47
+57,Percetage %,00,48,48,48
+58,Percetage %,00,49,49,49
+59,Percetage %,00,50,50,50
+60,Percetage %,00,51,51,51
+61,Percetage %,00,52,52,52
+62,Percetage %,00,53,53,53
+63,Percetage %,00,54,54,54
+64,Percetage %,00,55,55,55
+65,Percetage %,00,56,56,56
+66,Percetage %,00,57,57,57
+67,Percetage %,00,58,58,58
+68,Percetage %,00,59,59,59
+69,Percetage %,00,60,60,60
+70,Percetage %,00,61,61,61
+71,Percetage %,00,62,62,62
+72,Percetage %,00,63,63,63
+73,Percetage %,00,64,64,64
+74,Percetage %,00,65,65,65
+75,Percetage %,00,66,66,66
+76,Percetage %,00,67,67,67
+77,Percetage %,00,68,68,68
+78,Percetage %,00,69,69,69
+79,Percetage %,00,70,70,70
+80,Percetage %,00,71,71,71
+81,Percetage %,00,72,72,72
+82,Percetage %,00,73,73,73
+83,Percetage %,00,74,74,74
+84,Percetage %,00,75,75,75
+85,Percetage %,00,76,76,76
+86,Percetage %,00,77,77,77
+87,Percetage %,00,78,78,78
+88,Percetage %,00,79,79,79
+89,Percetage %,00,80,80,80
+90,Percetage %,00,81,81,81
+91,Percetage %,00,82,82,82
+92,Percetage %,00,83,83,83
+93,Percetage %,00,84,84,84
+94,Percetage %,00,85,85,85
+95,Percetage %,00,86,86,86
+96,Percetage %,00,87,87,87
+97,Percetage %,00,88,88,88
+98,Percetage %,00,89,89,89
+99,Percetage %,00,90,90,90
+100,Percetage %,00,91,91,91
+101,Percetage %,00,92,92,92
+102,Percetage %,00,93,93,93
+103,Percetage %,00,94,94,94
+104,Percetage %,00,95,95,95
+105,Percetage %,00,96,96,96
+106,Percetage %,00,97,97,97
+107,Percetage %,00,98,98,98
+108,Percetage %,00,99,99,99
+109,Percetage %,00,9X,100,100
+110,Braun/Blanquet (old),01,r,1,1
+111,Braun/Blanquet (old),01,+,2,2
+112,Braun/Blanquet (old),01,1,3,3
+113,Braun/Blanquet (old),01,2,13,13
+114,Braun/Blanquet (old),01,3,38,38
+115,Braun/Blanquet (old),01,4,63,63
+116,Braun/Blanquet (old),01,5,88,88
+117,Braun/Blanquet (new),02,r,1,0.1
+118,Braun/Blanquet (new),02,+,2,0.5
+119,Braun/Blanquet (new),02,1,3,3
+120,Braun/Blanquet (new),02,2m,4,4
+121,Braun/Blanquet (new),02,2a,8,10
+122,Braun/Blanquet (new),02,2b,18,20
+123,Braun/Blanquet (new),02,3,38,37.5
+124,Braun/Blanquet (new),02,4,63,62.5
+125,Braun/Blanquet (new),02,5,88,87.5
+126,Londo,03,r1,1,1
+127,Londo,03,p1,1,1
+128,Londo,03,a1,1,1
+129,Londo,03,m1,1,1
+130,Londo,03,r2,2,2
+131,Londo,03,p2,2,2
+132,Londo,03,a2,2,2
+133,Londo,03,m2,2,2
+134,Londo,03,r4,4,4
+135,Londo,03,p4,4,4
+136,Londo,03,a4,4,4
+137,Londo,03,m4,4,4
+138,Londo,03,1,10,10
+139,Londo,03,2,20,20
+140,Londo,03,3,30,30
+141,Londo,03,4,40,40
+142,Londo,03,5-,47,47
+143,Londo,03,5+,52,52
+144,Londo,03,6,60,60
+145,Londo,03,7,70,70
+146,Londo,03,8,80,80
+147,Londo,03,9,90,90
+148,Londo,03,10,97,97
+149,Londo,03,1-,7,7
+150,Londo,03,1+,12,12
+151,Londo,03,2-,17,17
+152,Londo,03,2+,22,22
+153,Londo,03,3-,27,27
+154,Londo,03,3+,32,32
+155,Londo,03,4-,37,37
+156,Londo,03,4+,42,42
+157,Londo,03,5,50,50
+158,Londo,03,6-,57,57
+159,Londo,03,6+,62,62
+160,Londo,03,7-,67,67
+161,Londo,03,7+,72,72
+162,Londo,03,8-,77,77
+163,Londo,03,8+,82,82
+164,Londo,03,9-,87,87
+165,Londo,03,9+,92,92
+166,Presence/Absence,04,x,1,1
+167,Ordinale scale (1-9),05,1,1,1
+168,Ordinale scale (1-9),05,2,2,2
+169,Ordinale scale (1-9),05,3,3,3
+170,Ordinale scale (1-9),05,4,4,4
+171,Ordinale scale (1-9),05,5,8,8
+172,Ordinale scale (1-9),05,6,18,18
+173,Ordinale scale (1-9),05,7,38,38
+174,Ordinale scale (1-9),05,8,68,68
+175,Ordinale scale (1-9),05,9,88,88
+176,"Barkman, Doing & Segal",06,r,1,1
+177,"Barkman, Doing & Segal",06,+r,1,1
+178,"Barkman, Doing & Segal",06,#NÁZEV?,1,1
+179,"Barkman, Doing & Segal",06,#NÁZEV?,1,1
+180,"Barkman, Doing & Segal",06,#NÁZEV?,2,2
+181,"Barkman, Doing & Segal",06,1p,1,1
+182,"Barkman, Doing & Segal",06,1a,2,2
+183,"Barkman, Doing & Segal",06,1b,3,3
+184,"Barkman, Doing & Segal",06,2m,4,4
+185,"Barkman, Doing & Segal",06,2a,8,8
+186,"Barkman, Doing & Segal",06,2b,18,18
+187,"Barkman, Doing & Segal",06,3a,31,31
+188,"Barkman, Doing & Segal",06,3b,43,43
+189,"Barkman, Doing & Segal",06,4a,56,56
+190,"Barkman, Doing & Segal",06,4b,68,68
+191,"Barkman, Doing & Segal",06,5a,81,81
+192,"Barkman, Doing & Segal",06,5b,93,93
+193,Doing,07,r,1,1
+194,Doing,07,p,1,1
+195,Doing,07,a,2,2
+196,Doing,07,m,4,4
+197,Doing,07,01,10,10
+198,Doing,07,02,20,20
+199,Doing,07,03,30,30
+200,Doing,07,04,40,40
+201,Doing,07,05,50,50
+202,Doing,07,06,60,60
+203,Doing,07,07,70,70
+204,Doing,07,08,80,80
+205,Doing,07,09,90,90
+206,Doing,07,10,97,97
+207,Domin,08,+,1,1
+208,Domin,08,1,2,2
+209,Domin,08,2,3,3
+210,Domin,08,3,4,4
+211,Domin,08,4,13,13
+212,Domin,08,5,23,23
+213,Domin,08,6,29,29
+214,Domin,08,7,42,42
+215,Domin,08,8,63,63
+216,Domin,08,9,88,88
+217,Domin,08,10,99,99
+218,Sedlakova,09,1,25,25
+219,Sedlakova,09,2,75,75
+220,Zlatnˇk,10,-,1,1
+221,Zlatnˇk,10,+,2,2
+222,Zlatnˇk,10,1,3,3
+223,Zlatnˇk,10,-2,10,10
+224,Zlatnˇk,10,2,20,20
+225,Zlatnˇk,10,-3,31,31
+226,Zlatnˇk,10,3,44,44
+227,Zlatnˇk,10,-4,56,56
+228,Zlatnˇk,10,4,69,69
+229,Zlatnˇk,10,-5,81,81
+230,Zlatnˇk,10,5,94,94
+231,Percentual scale,12,1,1,1
+232,Percentual scale,12,2,2,2
+233,Percentual scale,12,3,3,3
+234,Percentual scale,12,4,4,4
+235,Percentual scale,12,5,5,5
+236,Percentual scale,12,6,6,6
+237,Percentual scale,12,7,7,7
+238,Percentual scale,12,8,8,8
+239,Percentual scale,12,9,9,9
+240,Percentual scale,12,10,10,10
+241,Percentual scale,12,15,15,15
+242,Percentual scale,12,20,20,20
+243,Percentual scale,12,25,25,25
+244,Percentual scale,12,30,30,30
+245,Percentual scale,12,35,35,35
+246,Percentual scale,12,40,40,40
+247,Percentual scale,12,45,45,45
+248,Percentual scale,12,50,50,50
+249,Percentual scale,12,55,55,55
+250,Percentual scale,12,60,60,60
+251,Percentual scale,12,65,65,65
+252,Percentual scale,12,70,70,70
+253,Percentual scale,12,75,75,75
+254,Percentual scale,12,80,80,80
+255,Percentual scale,12,85,85,85
+256,Percentual scale,12,90,90,90
+257,Percentual scale,12,95,95,95
+258,Percentual scale,12,99,99,99
+259,Hedl,11,r,1,1
+260,Hedl,11,+,2,2
+261,Hedl,11,1a,3,3
+262,Hedl,11,2a,8,8
+263,Hedl,11,2b,13,13
+264,Hedl,11,2c,20,20
+265,Hedl,11,3a,30,30
+266,Hedl,11,3b,43,43
+267,Hedl,11,4,68,68
+268,Hedl,11,5,88,88
+269,Hedl,11,1b,5,5
+270,Kuźera,13,r,1,1
+271,Kuźera,13,+,2,2
+272,Kuźera,13,1,3,3
+273,Kuźera,13,2a,10,10
+274,Kuźera,13,2b,20,20
+275,Kuźera,13,3,38,38
+276,Kuźera,13,4,68.7,68.7
+277,Kuźera,13,5,88,88
+278,Domin (uprava Hadac),14,+,0.5,0.5
+279,Domin (uprava Hadac),14,1,1,1
+280,Domin (uprava Hadac),14,2,2,2
+281,Domin (uprava Hadac),14,3,4,4
+282,Domin (uprava Hadac),14,4,10,10
+283,Domin (uprava Hadac),14,5,20,20
+284,Domin (uprava Hadac),14,6,29,29
+285,Domin (uprava Hadac),14,7,42,42
+286,Domin (uprava Hadac),14,8,63,63
+287,Domin (uprava Hadac),14,9,85,85
+288,Domin (uprava Hadac),14,10,98,98
+289,"Percentual (r, +)",15,r,0.1,0.1
+290,"Percentual (r, +)",15,+,0.5,0.5
+291,"Percentual (r, +)",15,1,1,1
+292,"Percentual (r, +)",15,2,2,2
+293,"Percentual (r, +)",15,3,3,3
+294,"Percentual (r, +)",15,4,4,4
+295,"Percentual (r, +)",15,5,5,5
+296,"Percentual (r, +)",15,6,6,6
+297,"Percentual (r, +)",15,7,7,7
+298,"Percentual (r, +)",15,8,8,8
+299,"Percentual (r, +)",15,9,9,9
+300,"Percentual (r, +)",15,10,10,10
+301,"Percentual (r, +)",15,11,11,11
+302,"Percentual (r, +)",15,12,12,12
+303,"Percentual (r, +)",15,13,13,13
+304,"Percentual (r, +)",15,14,14,14
+305,"Percentual (r, +)",15,15,15,15
+306,"Percentual (r, +)",15,16,16,16
+307,"Percentual (r, +)",15,17,17,17
+308,"Percentual (r, +)",15,18,18,18
+309,"Percentual (r, +)",15,19,19,19
+310,"Percentual (r, +)",15,20,20,20
+311,"Percentual (r, +)",15,25,25,25
+312,"Percentual (r, +)",15,30,30,30
+313,"Percentual (r, +)",15,35,35,35
+314,"Percentual (r, +)",15,40,40,40
+315,"Percentual (r, +)",15,45,45,45
+316,"Percentual (r, +)",15,50,50,50
+317,"Percentual (r, +)",15,55,55,55
+318,"Percentual (r, +)",15,60,60,60
+319,"Percentual (r, +)",15,65,65,65
+320,"Percentual (r, +)",15,70,70,70
+321,"Percentual (r, +)",15,75,75,75
+322,"Percentual (r, +)",15,80,80,80
+323,"Percentual (r, +)",15,85,85,85
+324,"Percentual (r, +)",15,90,90,90
+325,"Percentual (r, +)",15,95,95,95
+326,"Percentual (r, +)",15,99,99,99
