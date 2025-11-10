@@ -219,7 +219,7 @@ The structure of the `map()` function may already be familiar to you, as it rese
 map_out <- map(1:5, ~.x)
 ```
 
-In the environment, you will see it is a list, we can also explore the structure using `View()`. The individual values inside the list are called using double square brackets e.g., `map_out[[1]]`. This might be helpful to remember for further work with lists and `map()` functions.
+In the environment, you will see it is a **list**, we can also explore the structure using `View()`. The individual values inside the list are called using double square brackets e.g., `map_out[[1]]`. This might be helpful to remember for further work with lists and `map()` functions.
 
 ```{r}
 map_out[[1]]
@@ -251,7 +251,7 @@ test_list <- list(2, 4, 6, 8, 10)
 map(test_list, ~sqrt(.x))
 ```
 
-To get a numeric vector output, we can use the `map_dbl()` function.
+To get a **numeric vector** output, we can use the `map_dbl()` function.
 
 ```{r}
 map_dbl(test_list, ~sqrt(.x))
@@ -263,7 +263,7 @@ And we can also write it with the pipe:
 test_list |> map_dbl(~sqrt(.x))
 ```
 
-We can also rewrite our for loop used for creating plots of the relationship between penguin bill length and bill depth separately using a map function:
+We can also rewrite our for loop used for creating plots of the relationship between penguin bill length and bill depth separately using the function from 7.1.3 in a `map()` function:
 
 ```{r}
 map(unique(penguins$species), ~plot_species(penguins, .x))
@@ -278,9 +278,13 @@ species <- list('platanoides', 'petraea', 'cordata', 'sylvatica')
 map2(genus, species, ~str_c(.x, .y, sep = ' '))
 ```
 
-The `str_c()` function from the `stringr` package combines two or more character strings in one, we specify the elements that should be combined and the separator that should be placed in between. Note that we now have two arguments to iterate over, and thus we must use two placeholders, `.x` and `.y`, where `.x` represents the first argument of `map2()` and `.y` represents the second.
+The `str_c()` function from the `stringr` package combines two or more character strings in one, we specify the elements that should be combined and the separator that should be placed in between. Note that we now have two arguments to iterate over, and thus we must use two placeholders, `.x` and `.y`, where `.x` represents the first argument of `map2()` and `.y` represents the second. Similarly to `map()`, `map2()` also creates a **list**. We can add `<-` assignment and store the result in the environment and explore the structure.
 
-We can also use the relatives `map2_dbl()`, `map2_chr()` etc., to create a single vector. In the case of the species names the result is a character, so we will use `map2_chr()`.
+```{r}
+genus_species <- map2(genus, species, ~str_c(.x, .y, sep = ' '))
+```
+
+We can also use the relatives `map2_dbl()`, `map2_chr()` etc., to create a **single vector**. In the case of the species names the result is a character, so we will use `map2_chr()`.
 
 ```{r}
 map2_chr(genus, species, ~str_c(.x, .y, sep = ' '))
@@ -290,7 +294,13 @@ map2_chr(genus, species, ~str_c(.x, .y, sep = ' '))
 
 The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.
 
-Let's begin with the task of reading multiple files simultaneously. Imagine you have multiple files with the same structure, but for some reason, they are stored in separate files. As example data, we will use the [gapminder](https://www.gapminder.org/data) dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the `gapminder` folder ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) is divided by year, and we now want to load them all and combine them into a single tibble. We could do that by copy-pasting the `read_csv()` function twelve times, but there is a more elegant way. Let's list the files first:
+Let's begin with the task of reading multiple files simultaneously. Imagine you have multiple files with the same structure, but for some reason, they are stored in separate files. As example data, we will use the [gapminder](https://www.gapminder.org/data) dataset, which provides values for life expectancy, GDP per capita, and population size. The data we have in the `gapminder` folder ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) is divided by year
+
+```{r}
+list.files('data/gapminder/')
+```
+
+We now want to load them all and combine them into a single tibble. We could do that by copy-pasting the `read_csv()` function twelve times, but there is a more elegant way. First, we will have to create a vector of paths to the individual files. In addition to what we know already, we added two more arguments to `list.files()`. `pattern` specifies a common pattern of the files we want to list, in our case `.csv` to ensure we will load only csv files in case there is some other file, e.g. a readme, in the folder. `full.names = T` returns a full path to the file from the project directory needed to read the file.
 
 ```{r}
 paths <- list.files('data/gapminder/', pattern = '.csv', full.names = T)
@@ -301,6 +311,11 @@ Now we can use the `map()` function to load all these datasets from a single lin
 
 ```{r}
 files <- map(paths, ~read_csv(.x))
+```
+
+We can now check the structure of object we just created:
+
+```{r}
 str(files)
 ```
 
@@ -551,7 +566,7 @@ lm(lifeExp~year, data = by_country$data[[1]])
 
 16. Save the frog data as separate csv files by territory, where the observations were made in a folder `frogs_territory`.
 
-17. Use the Pokémon dataset, nest it by Pokémon type and calculate linear models for the relationship between defense and attack power (`lm(defense ~ attack)`) of each Pokémon type using a `map()` function within `mutate()`. Use the `tidy()` function to extract coefficients and p-values from the model. Unnest the list column where you saved the results of `tidy()`. For each Pokémon type, filter only statistics for the attack coefficient, keep only significant results (p \< 0.05) and arrange the dataset according to the coefficient from the linear model from Pokémon types where the relationship between defence and attack power is the strongest to those with the weakest relationship.
+17. \* Use the Pokémon dataset, nest it by Pokémon type and calculate linear models for the relationship between defense and attack power (`lm(defense ~ attack)`) of each Pokémon type using a `map()` function within `mutate()`. Use the `tidy()` function to extract coefficients and p-values from the model. Unnest the list column where you saved the results of `tidy()`. For each Pokémon type, filter only statistics for the attack coefficient, keep only significant results (p \< 0.05) and arrange the dataset according to the coefficient from the linear model from Pokémon types where the relationship between defence and attack power is the strongest to those with the weakest relationship.
 
 18. \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save them in the `plots` folder.
 
