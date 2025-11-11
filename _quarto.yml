@@ -46,8 +46,11 @@ website:
           - text: "12 GitHub"
             href: DataManipulationVisualisation/12_github.qmd
         
-      - text: "Community Ecology"
+      - section: "Community Ecology"
         href: CommunityEcology/community_ecology.qmd
+        contents:
+          - text: 'gordi'
+            href: CommunityEcology/gordi_vignette.qmd
         
       - text: "AI in Data Analysis"
         href: AIinTeaching/ai_in_teaching.qmd

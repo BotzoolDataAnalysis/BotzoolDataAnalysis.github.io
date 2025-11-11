@@ -282,7 +282,7 @@ Just a few tips for packages we personally find very useful for our work:
 
 -   [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
 
--   [`gordi`](https://github.com/Kryshtoson/gordi/tree/main) a ggplot-based package for making ordination plots, developed in our group
+-   [`gordi`](CommunityEcology/gordi_vignette.qmd) a ggplot-based package for making ordination plots, developed in our group
 
 -   [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
 
