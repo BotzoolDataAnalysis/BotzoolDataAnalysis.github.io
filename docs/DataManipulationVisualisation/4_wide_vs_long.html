@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Irena Axmanová">
+
+<title>4 Wide vs.long format – Botzool Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/data_manipulation_visualisation.html">Data Manipulation and Visualization</a></li><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/4_wide_vs_long.html">4 Wide vs.&nbsp;long format</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Manipulation and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/2_data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/3_data_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/4_wide_vs_long.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">4 Wide vs.&nbsp;long format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/5_join_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Join functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/6_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 Advanced data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/7_8_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 + 8 Automatisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/9_10_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 + 10 Maps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/11_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 From a database to a plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../CommunityEcology/community_ecology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Community Ecology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CommunityEcology/gordi_vignette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">gordi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../AIinTeaching/ai_in_teaching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI in Data Analysis</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-formats" id="toc-data-formats" class="nav-link active" data-scroll-target="#data-formats">4.1 Data formats</a></li>
+  <li><a href="#from-long-to-wide" id="toc-from-long-to-wide" class="nav-link" data-scroll-target="#from-long-to-wide">4.2 From long to wide</a></li>
+  <li><a href="#from-wide-to-long" id="toc-from-wide-to-long" class="nav-link" data-scroll-target="#from-wide-to-long">4.3 From wide to long</a></li>
+  <li><a href="#group-by-count" id="toc-group-by-count" class="nav-link" data-scroll-target="#group-by-count">4.4 Group by, count</a></li>
+  <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise">4.5 Summarise</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">4.6 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">4.7 Further reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/data_manipulation_visualisation.html">Data Manipulation and Visualization</a></li><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/4_wide_vs_long.html">4 Wide vs.&nbsp;long format</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">4 Wide vs.long format</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Irena Axmanová </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter we will look at different data formats and how to change one to another. We will define groups within the data and calculate several statistics for them using summarise functions.</p>
+<section id="data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="data-formats">4.1 Data formats</h2>
+<p>There are two main ways how the data can be organised across rows and columns. Wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, just value relatively to the total area, i.e.&nbsp;percentage of total area). The covers of species might overlap, as they grow in different heights.</p>
+<p><img src="images/clipboard-1036617063.png" class="img-fluid"></p>
+<p><strong>Wide format</strong> is more conservative and used in many older packages for ecological data analysis. In our example we list all species and the colums are used to indicate their abundance at each site. This is the way you need to prepare your species matrix for ordinations in <code>vegan</code>. However, wide format has also many cons.</p>
+<p>One of them is the size of the file. In the example above, there are abundance of given plants in each of the site. When the species is present in just one site, here <em>Trientalis europaea</em>, it is still keeping space across the whole table, where there can be hundreds or thousands of sites. The table code is then of course memory demanding.</p>
+<p>One more point. For many ecological analyses you cannot keep the empty cells empty, since they are recognised as NAs. So you have to do another step and fill them with zeros.</p>
+<p>Another disadvantage is that you cannot add easily new information to the listed species. If you for example want to separate species that are in a tree vegetation layer (recognised in vegetation ecology as 1), herb layer (6) and moss layer (9), you would have to add this information to the name of the species e.g.&nbsp;<em>Picea_abies_1</em>. Can you see a conflict with the basic principles of tidyverse?</p>
+<p><img src="images/clipboard-2355429167.png" class="img-fluid"></p>
+<p><strong>Long format</strong> in contrast, is great for handling large datasets. Imagine we have more sites than those shown in the example above. In this format, we list all the species for Site1, then for Site2 etc. but we list only the species that are really present! By simple count of the rows belonging to each site you have the information about overall species richness.</p>
+<p>We can also add any information, describing the data, such as vegetation layers, growth forms, native/alien status etc. After that we can very simply filter, summarise and calculate further statistics.</p>
+</section>
+<section id="from-long-to-wide" class="level2">
+<h2 class="anchored" data-anchor-id="from-long-to-wide">4.2 From long to wide</h2>
+<p>We will first start a new script for this chapter and load the libraries. Remember to keep the script tidy and to put there remarks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we will import the data. In the first example we will again use the <code>Forest understory data</code> from our folder: <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> However, this time we will upload the species data saved in a long format and we will prepare a matrix in a wide format, so that it can be used in specific ecological analyses e.g.&nbsp;in <code>vegan</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 4
+   RELEVE_NR Species              Layer CoverPerc
+       &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+ 1         1 Quercus petraea agg.     1        63
+ 2         1 Acer campestre           1        18
+ 3         1 Crataegus laevigata      4         2
+ 4         1 Cornus mas               4         8
+ 5         1 Lonicera xylosteum       4         3
+ 6         1 Galium sylvaticum        6         3
+ 7         1 Carex digitata           6         3
+ 8         1 Melica nutans            6         2
+ 9         1 Polygonatum odoratum     6         2
+10         1 Geum urbanum             6         2
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>We can see that there are plant species names sorted by RELEVE_NR, where each number indicates a vegetation record from one specific site (can be also called vegetation plot or sample). We will rename this name to make it easier for us as PlotID. Further we may need to change the species names to be in the compact format, without any spaces, just underscores. For this we will use <strong>mutate</strong> function with <strong>str_replace</strong> (for string specification) indicating that each space should be changed to underscore and we will directly apply it to the original column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 4
+   PlotID Species              Layer CoverPerc
+    &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg.     1        63
+ 2      1 Acer_campestre           1        18
+ 3      1 Crataegus_laevigata      4         2
+ 4      1 Cornus_mas               4         8
+ 5      1 Lonicera_xylosteum       4         3
+ 6      1 Galium_sylvaticum        6         3
+ 7      1 Carex_digitata           6         3
+ 8      1 Melica_nutans            6         2
+ 9      1 Polygonatum_odoratum     6         2
+10      1 Geum_urbanum             6         2
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>*If you want to play a bit, you can create new column (e.g.&nbsp;SpeciesNew) to see both the original name and changed name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 5
+   PlotID Species              Layer CoverPerc SpeciesNew          
+    &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               
+ 1      1 Quercus petraea agg.     1        63 Quercus_petraea_agg.
+ 2      1 Acer campestre           1        18 Acer_campestre      
+ 3      1 Crataegus laevigata      4         2 Crataegus_laevigata 
+ 4      1 Cornus mas               4         8 Cornus_mas          
+ 5      1 Lonicera xylosteum       4         3 Lonicera_xylosteum  
+ 6      1 Galium sylvaticum        6         3 Galium_sylvaticum   
+ 7      1 Carex digitata           6         3 Carex_digitata      
+ 8      1 Melica nutans            6         2 Melica_nutans       
+ 9      1 Polygonatum odoratum     6         2 Polygonatum_odoratum
+10      1 Geum urbanum             6         2 Geum_urbanum        
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>Note that in the same way as above you can change different patterns, e.g.&nbsp;removing part of the strings. There are even more complex things we can do, but we will keep it for later as it requires some knowledge of <code>regex</code> rules. Here I created a new column where I removed indication that the species belongs to a complex, i.e.the part of the string saying it is an aggregate, I also prepared a column “check” where I compare if the new and old name are equal or not and filtered just those cases where they are not. This should show me exactly the changed rows. If I am happy with the result, I can then remove the lines with this check and I can even rewrite the original column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesNew =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" agg."</span>, <span class="st">""</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">check=</span>(SpeciesNew<span class="sc">==</span>Species))<span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(check <span class="sc">==</span> <span class="st">"FALSE"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Species, SpeciesNew, check) <span class="co">#select only relevant to see at a first glance</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 159 × 4
+   PlotID Species                  SpeciesNew          check
+    &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;               &lt;lgl&gt;
+ 1      1 Quercus petraea agg.     Quercus petraea     FALSE
+ 2      1 Rubus fruticosus agg.    Rubus fruticosus    FALSE
+ 3      1 Quercus petraea agg.     Quercus petraea     FALSE
+ 4      2 Quercus petraea agg.     Quercus petraea     FALSE
+ 5      2 Quercus petraea agg.     Quercus petraea     FALSE
+ 6      3 Quercus petraea agg.     Quercus petraea     FALSE
+ 7      3 Quercus petraea agg.     Quercus petraea     FALSE
+ 8      3 Galium pumilum agg.      Galium pumilum      FALSE
+ 9      3 Senecio nemorensis agg.  Senecio nemorensis  FALSE
+10      3 Veronica chamaedrys agg. Veronica chamaedrys FALSE
+# ℹ 149 more rows</code></pre>
+</div>
+</div>
+<p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here we will go a bit against tidy rules and add the information about the vegetation layer directly to the variable Species using <strong>unite</strong> function from the package <code>tidyr</code> which merges strings from two or more columns into a new one: <strong>A+B =A_B</strong>. Default separator is again underscore, unless you specify it differently by <em>sep=XX</em> argument.</p>
+<p><img src="images/clipboard-2085711370.png" class="img-fluid">Argument <em>na.rm</em> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE it can happen that in some data the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
+<p><em>Remove</em> argument set to TRUE will remove the original columns which we used to combine the new one (in the example above you will have only z). In our case we will keep original columns for visual checking and we will use select function in the next step to remove them.</p>
+<p>Note that function that works in an opposite direction is called <code>separate</code> or <code>separate_wider_delim</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 5
+   PlotID SpeciesLayer           Species              Layer CoverPerc
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1 Quercus_petraea_agg.     1        63
+ 2      1 Acer_campestre_1       Acer_campestre           1        18
+ 3      1 Crataegus_laevigata_4  Crataegus_laevigata      4         2
+ 4      1 Cornus_mas_4           Cornus_mas               4         8
+ 5      1 Lonicera_xylosteum_4   Lonicera_xylosteum       4         3
+ 6      1 Galium_sylvaticum_6    Galium_sylvaticum        6         3
+ 7      1 Carex_digitata_6       Carex_digitata           6         3
+ 8      1 Melica_nutans_6        Melica_nutans            6         2
+ 9      1 Polygonatum_odoratum_6 Polygonatum_odoratum     6         2
+10      1 Geum_urbanum_6         Geum_urbanum             6         2
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>At this point we have everything we need to use it as input for the wide format table: PlotID, SpeciesLayer and values of the abundance saved as CoverPerc. One more step is to select only these or to deselect (-) those not needed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Species, Layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 3
+   PlotID Species              Layer
+    &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg.     1
+ 2      1 Acer_campestre           1
+ 3      1 Crataegus_laevigata      4
+ 4      1 Cornus_mas               4
+ 5      1 Lonicera_xylosteum       4
+ 6      1 Galium_sylvaticum        6
+ 7      1 Carex_digitata           6
+ 8      1 Melica_nutans            6
+ 9      1 Polygonatum_odoratum     6
+10      1 Geum_urbanum             6
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>Now we can finaly use the <strong>pivot wider</strong> function to transform the data. We have to specify from where we are taking the names of new variables (<strong>names_from</strong>) and from where we should take the values which should appear in the table (<strong>values_from</strong>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 370
+   PlotID Quercus_petraea_agg._1 Acer_campestre_1 Crataegus_laevigata_4
+    &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;                 &lt;dbl&gt;
+ 1      1                     63               18                     2
+ 2      2                     63               NA                    NA
+ 3      3                     63               NA                    NA
+ 4      4                     38               NA                    NA
+ 5      5                     63               NA                    NA
+ 6      6                     38               NA                    NA
+ 7      7                     63               NA                    NA
+ 8      8                     38               NA                    NA
+ 9      9                     38               NA                    NA
+10     10                     63               NA                    NA
+# ℹ 55 more rows
+# ℹ 366 more variables: Cornus_mas_4 &lt;dbl&gt;, Lonicera_xylosteum_4 &lt;dbl&gt;,
+#   Galium_sylvaticum_6 &lt;dbl&gt;, Carex_digitata_6 &lt;dbl&gt;, Melica_nutans_6 &lt;dbl&gt;,
+#   Polygonatum_odoratum_6 &lt;dbl&gt;, Geum_urbanum_6 &lt;dbl&gt;,
+#   Anemone_species_6 &lt;dbl&gt;, Viola_mirabilis_6 &lt;dbl&gt;,
+#   Hieracium_murorum_6 &lt;dbl&gt;, Platanthera_bifolia_6 &lt;dbl&gt;,
+#   Convallaria_majalis_6 &lt;dbl&gt;, Hepatica_nobilis_6 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>There are different combinations of species in each plot, some of them are present and some not. Since we changed the format, all species, even those not occurring in that particular site/plot have to get some values. In long format abundance or some other information is not stored for absent species, so they get NAs. Therefore, one more step is to fill the empty cells by zeros using <strong>values_fill</strong>. In this case we can do that, because we know that if the species was absent its abundance was exactly 0.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">str_replace_all</span>(Species, <span class="st">" "</span>, <span class="st">"_"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SpeciesLayer"</span>, Species,Layer, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">remove =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> SpeciesLayer, <span class="at">values_from =</span> CoverPerc,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> spe_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="from-wide-to-long" class="level2">
+<h2 class="anchored" data-anchor-id="from-wide-to-long">4.3 From wide to long</h2>
+<p>Sometimes it is needed to transform the data from wide to long. Here we need to say which column should not be changed, which is the PlotID (<strong>cols = -PlotID</strong>). Alternatively would work also -1.</p>
+<p>Than we specify what to do with the column names, how they should be saved (<strong>names_to</strong>). And how to call the column with values (<strong>values_to</strong>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,985 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 23,975 more rows</code></pre>
+</div>
+</div>
+<p>We need to remove the empty rows. Because we filled them before with zeros, we will first finish the transformation and then filter out the rows with cover equal to zero.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>cover <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,277 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 2,267 more rows</code></pre>
+</div>
+</div>
+<p>Sometimes we have data with NAs (not zeros) here it is very useful to use argument <strong>values_drop_na</strong> =TRUE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, <span class="at">names_to =</span> <span class="st">'species'</span>, <span class="at">values_to =</span> <span class="st">'cover'</span>, <span class="at">values_drop_na =</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,985 × 3
+   PlotID species                cover
+    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1      1 Quercus_petraea_agg._1    63
+ 2      1 Acer_campestre_1          18
+ 3      1 Crataegus_laevigata_4      2
+ 4      1 Cornus_mas_4               8
+ 5      1 Lonicera_xylosteum_4       3
+ 6      1 Galium_sylvaticum_6        3
+ 7      1 Carex_digitata_6           3
+ 8      1 Melica_nutans_6            2
+ 9      1 Polygonatum_odoratum_6     2
+10      1 Geum_urbanum_6             2
+# ℹ 23,975 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="group-by-count" class="level2">
+<h2 class="anchored" data-anchor-id="group-by-count">4.4 Group by, count</h2>
+<p>Using <strong>group_by</strong> we can define how the data should be arranged into groups. Then we can proceed with asking questions about these groups. Basic function how to summarise the information, is to count the number of rows.</p>
+<p>In the first example we are working with species list in a long format. We can easily calculate number of species in each plot/sample by counting corresponding number of rows. First you have to specify what is the grouping variable, here it would be PlotID. And then you can directly count.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PlotID=</span> RELEVE_NR)<span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PlotID)<span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 2
+# Groups:   PlotID [65]
+   PlotID     n
+    &lt;dbl&gt; &lt;int&gt;
+ 1      1    44
+ 2      2    17
+ 3      3    16
+ 4      4    22
+ 5      5    15
+ 6      6    22
+ 7      7    23
+ 8      8    24
+ 9      9    28
+10     10    19
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>Count returns number of rows in a new variable called n.&nbsp;You can directly put extra line to your code and rename it. e.g.&nbsp;rename(SpeciesRichness =n). Note that in this case we simply counted all the rows. But we know some woody species might be recorded in tree vegetation layer, as shrub or as a small juvenile, so we potentially calculated such species three times. We can play a bit with distinct function and remove the layer information. Is there a difference in the resulting numbers?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(<span class="at">PlotID=</span> RELEVE_NR, Species)<span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PlotID)<span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">SpeciesRichness=</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 2
+# Groups:   PlotID [65]
+   PlotID SpeciesRichness
+    &lt;dbl&gt;           &lt;int&gt;
+ 1      1              42
+ 2      2              16
+ 3      3              15
+ 4      4              20
+ 5      5              14
+ 6      6              19
+ 7      7              22
+ 8      8              23
+ 9      9              22
+10     10              18
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>Count can be used also for other cases. For example I am interested in how many rows/plots/samples in the table are assigned to vegetation types. I will upload the table with descriptive characteristics for each forest plot, named as env, which is a shortcut often used for environmental data file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-env.xlsx"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 13
+   RELEVE_NR ForestType ForestTypeName  Biomass pH_KCl Canopy_E3 Radiation  Heat
+       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1         1          2 oak hornbeam f…    12.8   5.28        80     0.881 0.857
+ 2         2          1 oak forest          9.9   3.24        80     0.933 0.814
+ 3         3          1 oak forest         15.2   4.01        80     0.916 0.850
+ 4         4          1 oak forest         16     3.76        75     0.930 0.948
+ 5         5          1 oak forest         20.7   3.50        70     0.869 0.869
+ 6         6          1 oak forest         46.4   3.8         65     0.918 0.883
+ 7         7          1 oak forest         49.2   3.48        65     0.829 0.803
+ 8         8          2 oak hornbeam f…    48.7   3.68        85     0.869 0.869
+ 9         9          2 oak hornbeam f…    13.8   4.24        80     0.614 0.423
+10        10          1 oak forest         79.1   4.00        70     0.905 0.930
+# ℹ 55 more rows
+# ℹ 5 more variables: TWI &lt;dbl&gt;, Longitude &lt;dbl&gt;, Latitude &lt;dbl&gt;,
+#   deg_lon &lt;dbl&gt;, deg_lat &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>And calculate the number of plots in each forest type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestTypeName)<span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+# Groups:   ForestTypeName [4]
+  ForestTypeName          n
+  &lt;chr&gt;               &lt;int&gt;
+1 alluvial forest        11
+2 oak forest             16
+3 oak hornbeam forest    28
+4 ravine forest          10</code></pre>
+</div>
+</div>
+<p><strong>We can even skip the group_by step</strong> and directly specify what to count, which is very useful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  ForestTypeName          n
+  &lt;chr&gt;               &lt;int&gt;
+1 alluvial forest        11
+2 oak forest             16
+3 oak hornbeam forest    28
+4 ravine forest          10</code></pre>
+</div>
+</div>
+<p>Count can be very useful to check for duplicate rows. You can ask to count for example IDs in the file where you expect unique ID at each row and filter those results that have more occurrences than 1. In the example below, each ID was used just once, so the filter returns no rows. Such a check is important especially if you need to append another information by join functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">PlotID=</span>RELEVE_NR) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: PlotID &lt;dbl&gt;, n &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="summarise" class="level2">
+<h2 class="anchored" data-anchor-id="summarise">4.5 Summarise</h2>
+<p>Using <strong>group_by</strong> and <strong>summarise</strong> we can calculate e.g.&nbsp;mean values, or total sum of the values within the group. See more in the further reading. Here is an example of summarise for environmental data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestTypeName) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass=</span> <span class="fu">mean</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  ForestTypeName      meanBiomass
+  &lt;chr&gt;                     &lt;dbl&gt;
+1 alluvial forest           148. 
+2 oak forest                 26.7
+3 oak hornbeam forest        44.4
+4 ravine forest              79.1</code></pre>
+</div>
+</div>
+<p>Summarise is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on we can ask what is the relative share of parasites, endangered or alien species. Or we can calculate community mean of some traits, such as the mean height of the plants or their mean leaf area index. For this we would have to append new information, so we will leave it for next chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">PlotID=</span>RELEVE_NR) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totalCover=</span> <span class="fu">sum</span>(CoverPerc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 2
+   PlotID totalCover
+    &lt;dbl&gt;      &lt;dbl&gt;
+ 1      1        164
+ 2      2        115
+ 3      3        101
+ 4      4         96
+ 5      5        109
+ 6      6        121
+ 7      7        147
+ 8      8        185
+ 9      9        128
+10     10        174
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>We can also define more variables we want to summarise and more functions we want to apply. Try to find out more <a href="https://dplyr.tidyverse.org/reference/summarise_all.html"><code>here</code></a>. Below is an example of iris dataset, where I decided to get minimum,mean and maximum values for sepal leaves in different species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species)<span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(Sepal.Length, Sepal.Width), <span class="fu">list</span>(<span class="at">min=</span> min, <span class="at">mean =</span> mean, <span class="at">max =</span> max )))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  Species    Sepal.Length_min Sepal.Length_mean Sepal.Length_max Sepal.Width_min
+  &lt;fct&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 setosa                  4.3              5.01              5.8             2.3
+2 versicolor              4.9              5.94              7               2  
+3 virginica               4.9              6.59              7.9             2.2
+# ℹ 2 more variables: Sepal.Width_mean &lt;dbl&gt;, Sepal.Width_max &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>
+<p>1. <strong>Forest Understory Data</strong> - download the data from the repository <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> and save it into your project folder. This dataset is used above in the chapter, please use it to prepare your own script with remarks, copy and train what is described above. Note that you will use species data in long format: <code>Axmanova-Forest-spe.xlsx</code>, and environmental data <code>Axmanova-Forest-env.xlsx</code></p>
+<p>2. Use <strong>Spruce forest data</strong> used in the graphical example in the beginning of this chapter. <em>2a,</em> Import <code>spruce_forestWIDE.xlsx</code> &gt; transform <em>wide to long</em> format &gt; keep only true presences &gt; calculate species richness for each site (count of number of species). <em>2b,</em> Import also <code>spruce_forestLONG.xlsx</code> &gt; and transform <em>long to wide</em> format.</p>
+<p>3. Train transformation of <em>wide to long</em> with another dataset <strong>Acidophilous grasslands</strong> namely the species file called <code>SW_moravia_acidgrass_species.csv</code>. Import the data and check structure &gt; transform the format to long, remove absences. *Use <code>separate_wider_delim</code> function to separate information about species name and layer into two variables.</p>
+<p>4. Work with dataset <strong>Lepidoptera</strong>, namely <code>spe_matrix_MSvejnoha</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt; transform to long format &gt; count number of individuals at each site &gt; create barplot to visualise the differences (ggplot2, geom_col). *for comparison you can calculate the number of species (unique names) and visualise this as well.</p>
+<p>5. Use <strong>Forest understory environmental data</strong> <code>Axmanova-Forest-env.xlsx</code>&gt; prepare a new variable which will combine Forest type code and name (unite) &gt; calculate mean values of biomass for these forest types (group_by, summarise) &gt; prepare a graph with boxplots of forest type and biomass (ggplot2, geom_boxplot). *you can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.</p>
+<p>6. We will use the <strong>iris dataset</strong> integrated in R. Use glimpse(iris) to check the structure &gt; if needed change the format to tibble using <code>as_tibble</code> function (iris.data&lt;- iris %&gt;% as_tibble()) &gt; calculate median values for selected parameters within different iris species.</p>
+<p>7. “<em>Tidy datasets are all alike, but every messy dataset is messy in its own way.</em>” Hadley Wickham Import <code>Example4</code> from the <strong>Messy data</strong> and try to find duplicate rows.</p>
+<p>8. * Import <code>Example2</code> from the Messy data and try to make the data tidy with the use of <code>separate</code> function. This works in an opposite direction to <code>unite</code>.</p>
+<!--add mutate ifelse with other symbols  -->
+<!--unite and separate with different separator  -->
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">4.7 Further reading</h2>
+<p>Summarise <a href="https://dplyr.tidyverse.org/reference/summarise.html" class="uri">https://dplyr.tidyverse.org/reference/summarise.html</a></p>
+<p>Summarise multiple columns <a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="uri">https://dplyr.tidyverse.org/reference/summarise_all.html</a></p>
+<p>Data transformation in R for data science <a href="https://r4ds.hadley.nz/data-transform.html" class="uri">https://r4ds.hadley.nz/data-transform.html</a></p>
+<p>Data tidying including pivoting <a href="https://r4ds.hadley.nz/data-tidy.html" class="uri">https://r4ds.hadley.nz/data-tidy.html</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
