@@ -195,7 +195,7 @@ The output contains these variables
  "releve_nr"     "species_nr"    "cover_code"    "layer"         "orig_name"     "kaplan"        "expert_system" "nonvascular"   "coverscale"    "cover_perc"   
 ```
 
-If I am satisfied with the result I assign the pipeline into the *spe* file and add one more line to select just needed variables, here I decided to use just the *expert_system name* and I renamed it directly in the `select` function
+If I am satisfied with the result I assign the pipeline into the *spe* file. I still want to add one more line to remove nonvasculars (mosses) and add one more line to select just needed variables. I decided to follow the concept saved in the *expert_system name* and I renamed it directly in the `select` function
 
 ```{r}
 spe<- tvabund %>% 
@@ -203,8 +203,8 @@ spe<- tvabund %>%
               select(species_nr, kaplan, expert_system, nonvascular)) %>% 
   left_join(env %>% select(releve_nr, coverscale)) %>% 
   left_join(cover %>% select(coverscale,cover_code,cover_perc)) %>%
-  # filter (!nonvascular=1) %>% # optional to remove nonvasculars
-  select(releve_nr, species= expert_system, nonvascular, layer, cover_perc)
+  filter (!nonvascular==1) %>%
+  select(releve_nr, species= expert_system, layer, cover_perc)
 ```
 
 To see the result we will use view
@@ -220,9 +220,165 @@ We can again save the final file, to be easily accessible for later
 write.csv(spe, "data/turboveg_to_R/spe.csv")
 ```
 
-## 11.5 Merging of species covers across layers
+## 11.5 Merging of species covers
 
-Will be added
+#### 11.5.1 Duplicate species records
+
+What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.
+
+![](images/clipboard-2098568998.png)
+
+**A**\> In the first case, duplicate within one layer, I can fix the problem by summing the values for the same species in the same layer to get distinct species-layer combinations per plot. This is something we need to do. Otherwise our data would go against tidy approach and we will experience issues in joins, summarisation etc.
+
+**B**\> In the other case, duplicate across layers, the data are OK, because there is one more variable that makes it unique record (layer). But if we want to look at the whole community and e.g. calculate share of some life forms weighted by cover, etc. we again need to sum the values across layers and put all the species as they were in the same layer (this is then usually marked as 0).
+
+#### 11.5.2 Duplicates checking
+
+We recommend to always do the following check of the data. Simply group species by releves/plots and count if some of the species are at more rows.
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species, layer) %>% 
+  count() %>%
+  filter(n>1)
+  
+```
+
+We can see that in two releves/plots there is a conflict in the species *Galium palustre* agg. Most probably we separated two species in the field that we later on decided to group into this aggregate. We can go back and check where exactly this happened, by exactly specifying where to look.
+
+```{r}
+tvabund %>% 
+  select(releve_nr, species_nr)%>%
+  left_join(nomenclature %>% 
+              select(species_nr, turboveg= turboveg_czechia_slovakia, 
+                     species=expert_system)) %>%
+  filter(releve_nr %in% c(132, 183182) & species =="Galium palustre agg.")
+  
+```
+
+Alternatively, I can save the first output and use semi-join function, which is very useful if there are more rows I want to check and I do not need to specify multiple conditions in the filter.
+
+```{r}
+
+test<-spe %>% 
+  group_by(releve_nr, species, layer) %>% 
+  count() %>%
+  filter(n>1)
+
+
+tvabund %>% 
+  select(releve_nr, species_nr)%>%
+  left_join(nomenclature %>% 
+              select(species_nr, turboveg= turboveg_czechia_slovakia, 
+                     species=expert_system)) %>%
+  semi_join(test)
+```
+
+OK, I understand why it happened and I have to fix it now. But we continue checking. Now we will check if there is also problem with species across layers (B). I will simply change the grouping conditions, to the higher hierarchy.
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species) %>% 
+  count() %>%
+  filter(n>1)
+```
+
+We got lot of duplicates, right? But it is understandable in the vegetation type we have. So keep it in mind for later analyses.
+
+Sometimes it is actually good to take some extra time and just look at what is inside. Are there just trees recorded also as shrubs and juveniles or are there some herbs by mistake included in tree layer? Use view to see the whole list.
+
+```{r}
+spe %>% 
+  distinct(species,layer)%>%
+  group_by(species) %>% 
+  count() %>%
+  filter(n>1) 
+```
+
+#### 11.5.3 Fixing duplicate rows
+
+Now finally the fixing. For some questions the most easiest thing how to resolve duplicate rows is to select only the relevant variables and groups and use distinct function. E.g. for species richness this would be enough. BUT we will lose information about the abundance, in our case percentage cover of each species.
+
+```{r}
+spe %>% 
+  distinct(releve_nr, species,layer)
+```
+
+The percentage cover is estimated visually relative to the total area. In the field it is estimated indepently of other plants, because we know that the plants overlap within vertical space. If we use normal sum function, we can easily get total cover per plot above 100%. Although we can separate the information into vegetation layers, it is still rather coarse division. Especially in grasslands where the main diversity is in just one, often very dense, layer.
+
+Therefore we will use the approach suggested by H.S. Fischer in the paper *On combination of species from different vegetation layers* (AVS 2014), where he suggested summing up covers considering overlap among species, so that the overall maximum value is 100 and all the values are adjusted relative to this treshold. We will prepare function called `combine_cover`
+
+```{r}
+combine_cover <- function(x){
+  while (length(x)>1){
+    x[2] <- x[1]+(100-x[1])*x[2]/100
+    x <- x[-1]
+  }
+  return(x)
+}
+```
+
+**A,** Now let's check how it works. We will first fix the issue with duplicates within the same layer (A)
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species, layer) %>% 
+  summarise(cover_perc_new = combine_cover(cover_perc)) 
+```
+
+and we will add the pipelines for checking if there are still some duplicate rows. Note `summarise` finished the `group_by` function, so I have to specify the grouping again in the `count` (or add the group_by before count again).
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species, layer) %>% 
+  summarize(cover_perc_new = combine_cover(cover_perc))%>%
+  count(releve_nr, species, layer) %>%
+  filter(n>1)
+```
+
+When the output have no rows, it means our attempt solved the issue.
+
+If I am happy, I overwrite cover directly, save the output for easier access (next time you can start with reloading this file) or I will assign the whole pipeline into a new object e.g. -\>*spe_merged*
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species, layer) %>% 
+  summarize(cover_perc = combine_cover(cover_perc))%>%
+  write_csv("data/turboveg_to_R/spe_merged_covers.csv")
+
+```
+
+**B,** We want to also remove information about layer and work at whole community level. This means we will do the same, we will just not add the layer into grouping, as we do not want to pay attention to it anymore.
+
+```{r}
+spe %>% 
+  group_by(releve_nr, species) %>% 
+  summarize(cover_perc = combine_cover(cover_perc))%>%
+  write_csv("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
+```
+
+#### 11.5.4 Total cover of all species in the plot
+
+The same approach as we did for merging covers can be used also for calculating total cover in the plot. Here you can see the comparison of total cover calculated as ordinary sum and total cover calculated with considering the overlaps.
+
+```{r}
+spe %>% 
+  group_by(releve_nr) %>% 
+  summarize(covertotal_sum = sum(cover_perc), 
+            covertotal_overlap = combine_cover(cover_perc)) %>%
+  select(releve_nr, covertotal_sum, covertotal_overlap)%>%
+  arrange(desc(covertotal_sum))
+```
+
+The same with respect to layers
+
+```{r}
+spe %>% 
+  group_by(releve_nr, layer) %>% 
+  summarize(covertotal_sum = sum(cover_perc), 
+            covertotal_overlap = combine_cover(cover_perc)) %>%
+  select(releve_nr, layer, covertotal_sum, covertotal_overlap)
+```
 
 ## 11.6 Joining information about traits
 

@@ -716,6 +716,7 @@ GEOGCRS["WGS 84",
         MEMBER["World Geodetic System 1984 (G1674)"],
         MEMBER["World Geodetic System 1984 (G1762)"],
         MEMBER["World Geodetic System 1984 (G2139)"],
+        MEMBER["World Geodetic System 1984 (G2296)"],
         ELLIPSOID["WGS 84",6378137,298.257223563,
             LENGTHUNIT["metre",1]],
         ENSEMBLEACCURACY[2.0]],
@@ -739,16 +740,33 @@ GEOGCRS["WGS 84",
 <pre><code>Coordinate Reference System:
   User input: EPSG:4326 
   wkt:
-GEOGCS["WGS 84",
-    DATUM["WGS_1984",
-        SPHEROID["WGS 84",6378137,298.257223563,
-            AUTHORITY["EPSG","7030"]],
-        AUTHORITY["EPSG","6326"]],
+GEOGCRS["WGS 84",
+    ENSEMBLE["World Geodetic System 1984 ensemble",
+        MEMBER["World Geodetic System 1984 (Transit)"],
+        MEMBER["World Geodetic System 1984 (G730)"],
+        MEMBER["World Geodetic System 1984 (G873)"],
+        MEMBER["World Geodetic System 1984 (G1150)"],
+        MEMBER["World Geodetic System 1984 (G1674)"],
+        MEMBER["World Geodetic System 1984 (G1762)"],
+        MEMBER["World Geodetic System 1984 (G2139)"],
+        MEMBER["World Geodetic System 1984 (G2296)"],
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]],
+        ENSEMBLEACCURACY[2.0]],
     PRIMEM["Greenwich",0,
-        AUTHORITY["EPSG","8901"]],
-    UNIT["degree",0.0174532925199433,
-        AUTHORITY["EPSG","9122"]],
-    AUTHORITY["EPSG","4326"]]</code></pre>
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["Horizontal component of 3D system."],
+        AREA["World."],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]</code></pre>
 </div>
 </div>
 <p>All of our sf data are in WGS84 (EPSG: 4326), except for grasslands_shp, which uses S-JTSK / Krovak East North (EPSG: 5514).</p>
@@ -1313,7 +1331,7 @@ Attaching package: 'spatialEco'</code></pre>
 <pre><code>Performing one-time download of WhiteboxTools binary from
      https://www.whiteboxgeo.com/WBT_Windows/WhiteboxTools_win_amd64.zip 
 (This could take a few minutes, please be patient...)
-WhiteboxTools binary is located here:  C:/Users/klara/AppData/Roaming/R/data/R/whitebox/WBT/whitebox_tools.exe 
+WhiteboxTools binary is located here:  C:/Users/user/AppData/Roaming/R/data/R/whitebox/WBT/whitebox_tools.exe 
 You can now start using whitebox
     library(whitebox)
     wbt_version()</code></pre>
@@ -1494,7 +1512,13 @@ $maptiler
 <div class="cell-output cell-output-stdout">
 <pre><code>Loading basemap 'streets' from map service 'osm'...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>study_area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `lift()` was deprecated in purrr 1.0.0.
+ℹ The deprecated feature was likely used in the slippymath package.
+  Please report the issue at
+  &lt;https://www.github.com/milesmcbain/slippymath/issues&gt;.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>study_area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using size for a discrete variable is not advised.</code></pre>
 </div>
@@ -1508,20 +1532,20 @@ $maptiler
 </div>
 <p>To add a scale bar and north arrow, we use <code>annotation_scale()</code> and <code>annotation_north_arrow()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>study_area_map <span class="ot">&lt;-</span> study_area <span class="sc">+</span> </span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'bl'</span>,             <span class="co"># Position of the scale bar: bottom-left (other options: br, tl, tr) </span></span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),     <span class="co"># Horizontal padding from the edge of the plot</span></span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),     <span class="co"># Vertical padding from the edge of the plot</span></span>
-<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">style =</span> <span class="st">"ticks"</span>) <span class="sc">+</span>           <span class="co"># Style of the scale bar: "ticks" or "bar"</span></span>
-<span id="cb117-6"><a href="#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">'tr'</span>,       <span class="co"># Position of the north arrow: top-right</span></span>
-<span id="cb117-7"><a href="#cb117-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">which_north =</span> <span class="st">'true'</span>,        <span class="co"># Use true north</span></span>
-<span id="cb117-8"><a href="#cb117-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),      <span class="co"># Height of the north arrow</span></span>
-<span id="cb117-9"><a href="#cb117-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),       <span class="co"># Width of the north arrow</span></span>
-<span id="cb117-10"><a href="#cb117-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),     <span class="co"># Horizontal padding from the edge of the plot</span></span>
-<span id="cb117-11"><a href="#cb117-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),     <span class="co"># Vertical padding from the edge of the plot</span></span>
-<span id="cb117-12"><a href="#cb117-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">style =</span> north_arrow_nautical) <span class="co"># Style of the north arrow (other options: north_arrow_orienteering, north_arrow_fancy_orienteering, north_arrow_minimal)</span></span>
-<span id="cb117-13"><a href="#cb117-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-14"><a href="#cb117-14" aria-hidden="true" tabindex="-1"></a>study_area_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>study_area_map <span class="ot">&lt;-</span> study_area <span class="sc">+</span> </span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'bl'</span>,             <span class="co"># Position of the scale bar: bottom-left (other options: br, tl, tr) </span></span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),     <span class="co"># Horizontal padding from the edge of the plot</span></span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),     <span class="co"># Vertical padding from the edge of the plot</span></span>
+<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">style =</span> <span class="st">"ticks"</span>) <span class="sc">+</span>           <span class="co"># Style of the scale bar: "ticks" or "bar"</span></span>
+<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">'tr'</span>,       <span class="co"># Position of the north arrow: top-right</span></span>
+<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">which_north =</span> <span class="st">'true'</span>,        <span class="co"># Use true north</span></span>
+<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),      <span class="co"># Height of the north arrow</span></span>
+<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),       <span class="co"># Width of the north arrow</span></span>
+<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),     <span class="co"># Horizontal padding from the edge of the plot</span></span>
+<span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),     <span class="co"># Vertical padding from the edge of the plot</span></span>
+<span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">style =</span> north_arrow_nautical) <span class="co"># Style of the north arrow (other options: north_arrow_orienteering, north_arrow_fancy_orienteering, north_arrow_minimal)</span></span>
+<span id="cb118-13"><a href="#cb118-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-14"><a href="#cb118-14" aria-hidden="true" tabindex="-1"></a>study_area_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using size for a discrete variable is not advised.</code></pre>
 </div>
@@ -1535,20 +1559,20 @@ $maptiler
 </div>
 <p>Next, we will create a map of the Czech Republic with the study area highlighted:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>map_CR <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> regions,        </span>
-<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">'#FFFFCC'</span>) <span class="sc">+</span>  </span>
-<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> South_Moravia_UTM33N,          </span>
-<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">'darkred'</span>,       </span>
-<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">'#FFCC99'</span>,    </span>
-<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span>         </span>
-<span id="cb119-8"><a href="#cb119-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> bb_jmk_mercator,   </span>
-<span id="cb119-9"><a href="#cb119-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="cn">NA</span>,           </span>
-<span id="cb119-10"><a href="#cb119-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">'black'</span>,     </span>
-<span id="cb119-11"><a href="#cb119-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span>        </span>
-<span id="cb119-12"><a href="#cb119-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">theme_void</span>() </span>
-<span id="cb119-13"><a href="#cb119-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb119-14"><a href="#cb119-14" aria-hidden="true" tabindex="-1"></a>map_CR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>map_CR <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> regions,        </span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">'#FFFFCC'</span>) <span class="sc">+</span>  </span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> South_Moravia_UTM33N,          </span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">'darkred'</span>,       </span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">'#FFCC99'</span>,    </span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span>         </span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_sf</span>(<span class="at">data =</span> bb_jmk_mercator,   </span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="cn">NA</span>,           </span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">'black'</span>,     </span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span>        </span>
+<span id="cb120-12"><a href="#cb120-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">theme_void</span>() </span>
+<span id="cb120-13"><a href="#cb120-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-14"><a href="#cb120-14" aria-hidden="true" tabindex="-1"></a>map_CR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1559,18 +1583,18 @@ $maptiler
 </div>
 <p>Finally, we will combine the study area map and the map of the Czech Republic into a single layout using the <code>cowplot</code> package, and save it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>final_map <span class="ot">&lt;-</span>  <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">draw_plot</span>(study_area_map) <span class="sc">+</span> <span class="co"># Draw the main map</span></span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">draw_plot</span>(map_CR, <span class="co"># Draw the inset map (e.g., Czech Republic overview)</span></span>
-<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.78</span>, <span class="co"># Horizontal position of the inset map (0 = left, 1 = right)</span></span>
-<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fl">0.78</span>, <span class="co"># Vertical position of the inset map (0 = bottom, 1 = top)</span></span>
-<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="fl">0.22</span>, <span class="co"># Width of the inset map as a fraction of the canvas</span></span>
-<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">height =</span> <span class="fl">0.24</span>) <span class="sc">+</span> <span class="co"># Height of the inset map as a fraction of the canvas</span></span>
-<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>final_map <span class="ot">&lt;-</span>  <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">draw_plot</span>(study_area_map) <span class="sc">+</span> <span class="co"># Draw the main map</span></span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">draw_plot</span>(map_CR, <span class="co"># Draw the inset map (e.g., Czech Republic overview)</span></span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.78</span>, <span class="co"># Horizontal position of the inset map (0 = left, 1 = right)</span></span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fl">0.78</span>, <span class="co"># Vertical position of the inset map (0 = bottom, 1 = top)</span></span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="fl">0.22</span>, <span class="co"># Width of the inset map as a fraction of the canvas</span></span>
+<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">height =</span> <span class="fl">0.24</span>) <span class="sc">+</span> <span class="co"># Height of the inset map as a fraction of the canvas</span></span>
+<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using size for a discrete variable is not advised.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>final_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>final_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1578,62 +1602,62 @@ $maptiler
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> final_map, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span> , <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_study_area.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> final_map, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">5</span> , <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_study_area.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="attribute-map" class="level3">
 <h3 class="anchored" data-anchor-id="attribute-map">9.5.2. Attribute map</h3>
 <p>We will create a map with the DEM as a basemap and vegetation plots for grasslands, forests, and shrubs, using shape to represent habitat type and the fill colour of points to represent soil reaction. Because we have multiple fill scales, we need to use the <code>new_scale_fill</code> function from the <code>ggnewscale</code> package, which allows us to define custom palettes for both the DEM and soil reaction.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>palette_dem <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#8FCE00"</span>, <span class="st">"#FFE599"</span>, <span class="st">"#F6B26B"</span>,   <span class="st">"#996633"</span>, <span class="st">"#993300"</span>)       </span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>palette_reaction <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">"#FF0000"</span>, <span class="st">"#FF9933"</span>, <span class="st">"#FFFF33"</span>, <span class="st">"#99FF33"</span>, <span class="st">"#3399FF"</span>)</span>
-<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>map_plots <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster</span>(<span class="at">data =</span> dem_S_Moravia, </span>
-<span id="cb124-6"><a href="#cb124-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> palette_dem, </span>
-<span id="cb124-8"><a href="#cb124-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"transparent"</span>, </span>
-<span id="cb124-9"><a href="#cb124-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"Altitude"</span>, <span class="co"># Legend title</span></span>
-<span id="cb124-10"><a href="#cb124-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(<span class="at">order =</span> <span class="dv">3</span>)) <span class="sc">+</span>   <span class="co"># Legend order for DEM</span></span>
-<span id="cb124-11"><a href="#cb124-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> South_Moravia_UTM33N, </span>
-<span id="cb124-12"><a href="#cb124-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">'darkred'</span>, </span>
-<span id="cb124-13"><a href="#cb124-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">'transparent'</span>, </span>
-<span id="cb124-14"><a href="#cb124-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.8</span>, </span>
-<span id="cb124-15"><a href="#cb124-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> <span class="st">"South Moravia"</span>)) <span class="sc">+</span> </span>
-<span id="cb124-16"><a href="#cb124-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">shape =</span> <span class="st">""</span>) <span class="sc">+</span>  <span class="co"># Remove default shape legend title</span></span>
-<span id="cb124-17"><a href="#cb124-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">new_scale_fill</span>() <span class="sc">+</span>  <span class="co"># Allow a new fill scale for soil reaction</span></span>
-<span id="cb124-18"><a href="#cb124-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">subset</span>(plots_UTM33N, Broad.habitat.code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"L"</span>, <span class="st">"K"</span>, <span class="st">"T"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb124-19"><a href="#cb124-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Soil Reaction</span><span class="st">`</span>)), <span class="co"># Arrange points so lower soil reaction is plotted on top</span></span>
-<span id="cb124-20"><a href="#cb124-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Soil Reaction</span><span class="st">`</span>, <span class="at">shape =</span> Broad.habitat.code)) <span class="sc">+</span>  <span class="co"># Plot vegetation plots with fill and shape</span></span>
-<span id="cb124-21"><a href="#cb124-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">option =</span> <span class="st">"H"</span>, </span>
-<span id="cb124-22"><a href="#cb124-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,  <span class="co"># Reverse the color scale  </span></span>
-<span id="cb124-23"><a href="#cb124-23" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"Soil reaction"</span>,</span>
-<span id="cb124-24"><a href="#cb124-24" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(<span class="at">order =</span> <span class="dv">2</span>) ) <span class="sc">+</span> <span class="co"># Legend order for soil reaction</span></span>
-<span id="cb124-25"><a href="#cb124-25" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb124-26"><a href="#cb124-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">"Habitat type"</span>, </span>
-<span id="cb124-27"><a href="#cb124-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"K"</span> <span class="ot">=</span> <span class="dv">21</span>, <span class="st">"L"</span> <span class="ot">=</span> <span class="dv">22</span>, <span class="st">"T"</span> <span class="ot">=</span> <span class="dv">24</span>), </span>
-<span id="cb124-28"><a href="#cb124-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"K"</span> <span class="ot">=</span> <span class="st">"Shrub"</span>, <span class="st">"L"</span> <span class="ot">=</span> <span class="st">"Forest"</span>, <span class="st">"T"</span> <span class="ot">=</span> <span class="st">"Grassland"</span>),</span>
-<span id="cb124-29"><a href="#cb124-29" aria-hidden="true" tabindex="-1"></a>                     <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>)) <span class="sc">+</span>    <span class="co"># Legend order for habitat type</span></span>
-<span id="cb124-30"><a href="#cb124-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb124-31"><a href="#cb124-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'bl'</span>,</span>
-<span id="cb124-32"><a href="#cb124-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),</span>
-<span id="cb124-33"><a href="#cb124-33" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span> (<span class="fl">0.5</span>,<span class="st">'in'</span>)) <span class="sc">+</span></span>
-<span id="cb124-34"><a href="#cb124-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">'tl'</span>, </span>
-<span id="cb124-35"><a href="#cb124-35" aria-hidden="true" tabindex="-1"></a>                         <span class="at">which_north =</span> <span class="st">'true'</span>, </span>
-<span id="cb124-36"><a href="#cb124-36" aria-hidden="true" tabindex="-1"></a>                         <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>), </span>
-<span id="cb124-37"><a href="#cb124-37" aria-hidden="true" tabindex="-1"></a>                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"cm"</span>), </span>
-<span id="cb124-38"><a href="#cb124-38" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb124-39"><a href="#cb124-39" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb124-40"><a href="#cb124-40" aria-hidden="true" tabindex="-1"></a>                         <span class="at">style =</span> <span class="fu">north_arrow_fancy_orienteering</span> (<span class="at">text_size =</span> <span class="dv">10</span>, <span class="co"># N label size  </span></span>
-<span id="cb124-41"><a href="#cb124-41" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="at">line_col =</span> <span class="st">"black"</span>, <span class="co"># Arrow outline color</span></span>
-<span id="cb124-42"><a href="#cb124-42" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"black"</span>))) <span class="sc">+</span> <span class="co"># Arrow fill colors </span></span>
-<span id="cb124-43"><a href="#cb124-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
-<span id="cb124-44"><a href="#cb124-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
-<span id="cb124-45"><a href="#cb124-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>palette_dem <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#8FCE00"</span>, <span class="st">"#FFE599"</span>, <span class="st">"#F6B26B"</span>,   <span class="st">"#996633"</span>, <span class="st">"#993300"</span>)       </span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>palette_reaction <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">"#FF0000"</span>, <span class="st">"#FF9933"</span>, <span class="st">"#FFFF33"</span>, <span class="st">"#99FF33"</span>, <span class="st">"#3399FF"</span>)</span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>map_plots <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster</span>(<span class="at">data =</span> dem_S_Moravia, </span>
+<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> palette_dem, </span>
+<span id="cb125-8"><a href="#cb125-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"transparent"</span>, </span>
+<span id="cb125-9"><a href="#cb125-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"Altitude"</span>, <span class="co"># Legend title</span></span>
+<span id="cb125-10"><a href="#cb125-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(<span class="at">order =</span> <span class="dv">3</span>)) <span class="sc">+</span>   <span class="co"># Legend order for DEM</span></span>
+<span id="cb125-11"><a href="#cb125-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> South_Moravia_UTM33N, </span>
+<span id="cb125-12"><a href="#cb125-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">'darkred'</span>, </span>
+<span id="cb125-13"><a href="#cb125-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">'transparent'</span>, </span>
+<span id="cb125-14"><a href="#cb125-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.8</span>, </span>
+<span id="cb125-15"><a href="#cb125-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> <span class="st">"South Moravia"</span>)) <span class="sc">+</span> </span>
+<span id="cb125-16"><a href="#cb125-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">shape =</span> <span class="st">""</span>) <span class="sc">+</span>  <span class="co"># Remove default shape legend title</span></span>
+<span id="cb125-17"><a href="#cb125-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">new_scale_fill</span>() <span class="sc">+</span>  <span class="co"># Allow a new fill scale for soil reaction</span></span>
+<span id="cb125-18"><a href="#cb125-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">subset</span>(plots_UTM33N, Broad.habitat.code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"L"</span>, <span class="st">"K"</span>, <span class="st">"T"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb125-19"><a href="#cb125-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Soil Reaction</span><span class="st">`</span>)), <span class="co"># Arrange points so lower soil reaction is plotted on top</span></span>
+<span id="cb125-20"><a href="#cb125-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Soil Reaction</span><span class="st">`</span>, <span class="at">shape =</span> Broad.habitat.code)) <span class="sc">+</span>  <span class="co"># Plot vegetation plots with fill and shape</span></span>
+<span id="cb125-21"><a href="#cb125-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">option =</span> <span class="st">"H"</span>, </span>
+<span id="cb125-22"><a href="#cb125-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>,  <span class="co"># Reverse the color scale  </span></span>
+<span id="cb125-23"><a href="#cb125-23" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"Soil reaction"</span>,</span>
+<span id="cb125-24"><a href="#cb125-24" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(<span class="at">order =</span> <span class="dv">2</span>) ) <span class="sc">+</span> <span class="co"># Legend order for soil reaction</span></span>
+<span id="cb125-25"><a href="#cb125-25" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb125-26"><a href="#cb125-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">"Habitat type"</span>, </span>
+<span id="cb125-27"><a href="#cb125-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"K"</span> <span class="ot">=</span> <span class="dv">21</span>, <span class="st">"L"</span> <span class="ot">=</span> <span class="dv">22</span>, <span class="st">"T"</span> <span class="ot">=</span> <span class="dv">24</span>), </span>
+<span id="cb125-28"><a href="#cb125-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"K"</span> <span class="ot">=</span> <span class="st">"Shrub"</span>, <span class="st">"L"</span> <span class="ot">=</span> <span class="st">"Forest"</span>, <span class="st">"T"</span> <span class="ot">=</span> <span class="st">"Grassland"</span>),</span>
+<span id="cb125-29"><a href="#cb125-29" aria-hidden="true" tabindex="-1"></a>                     <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>)) <span class="sc">+</span>    <span class="co"># Legend order for habitat type</span></span>
+<span id="cb125-30"><a href="#cb125-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb125-31"><a href="#cb125-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'bl'</span>,</span>
+<span id="cb125-32"><a href="#cb125-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">'in'</span>),</span>
+<span id="cb125-33"><a href="#cb125-33" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span> (<span class="fl">0.5</span>,<span class="st">'in'</span>)) <span class="sc">+</span></span>
+<span id="cb125-34"><a href="#cb125-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">'tl'</span>, </span>
+<span id="cb125-35"><a href="#cb125-35" aria-hidden="true" tabindex="-1"></a>                         <span class="at">which_north =</span> <span class="st">'true'</span>, </span>
+<span id="cb125-36"><a href="#cb125-36" aria-hidden="true" tabindex="-1"></a>                         <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>), </span>
+<span id="cb125-37"><a href="#cb125-37" aria-hidden="true" tabindex="-1"></a>                         <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"cm"</span>), </span>
+<span id="cb125-38"><a href="#cb125-38" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb125-39"><a href="#cb125-39" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb125-40"><a href="#cb125-40" aria-hidden="true" tabindex="-1"></a>                         <span class="at">style =</span> <span class="fu">north_arrow_fancy_orienteering</span> (<span class="at">text_size =</span> <span class="dv">10</span>, <span class="co"># N label size  </span></span>
+<span id="cb125-41"><a href="#cb125-41" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="at">line_col =</span> <span class="st">"black"</span>, <span class="co"># Arrow outline color</span></span>
+<span id="cb125-42"><a href="#cb125-42" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"black"</span>))) <span class="sc">+</span> <span class="co"># Arrow fill colors </span></span>
+<span id="cb125-43"><a href="#cb125-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb125-44"><a href="#cb125-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb125-45"><a href="#cb125-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>&lt;SpatRaster&gt; resampled to 500716 cells.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>map_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>map_plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1641,41 +1665,41 @@ $maptiler
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_plots, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span> , <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_plots.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_plots, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span> , <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_plots.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also scale polygons. For this map, we will also use regions from the <code>RCzechia</code> package, and their fill will represent the population of each region. We will join the Excel table (sheet1) to the regions’ sf object using the KOD_CZNUTS column.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>regions_population <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>regions_population_sf <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
-<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_population, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>)</span>
-<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_population_sf,</span>
-<span id="cb128-8"><a href="#cb128-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">2020</span><span class="st">`</span>),</span>
-<span id="cb128-9"><a href="#cb128-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"black"</span>,</span>
-<span id="cb128-10"><a href="#cb128-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb128-11"><a href="#cb128-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">name =</span> <span class="st">"Population in 2020"</span>,</span>
-<span id="cb128-12"><a href="#cb128-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n.breaks =</span> <span class="dv">5</span>, <span class="co"># Number of breaks in color scale</span></span>
-<span id="cb128-13"><a href="#cb128-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> comma) <span class="sc">+</span> <span class="co"># Format numeric labels in the legend using commas</span></span>
-<span id="cb128-14"><a href="#cb128-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"POPULATION IN CZECH REGIONS IN 2020"</span>) <span class="sc">+</span> </span>
-<span id="cb128-15"><a href="#cb128-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span>                                 </span>
-<span id="cb128-16"><a href="#cb128-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'br'</span>,</span>
-<span id="cb128-17"><a href="#cb128-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),</span>
-<span id="cb128-18"><a href="#cb128-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span> (<span class="fl">0.1</span>,<span class="st">'in'</span>)) <span class="sc">+</span>    </span>
-<span id="cb128-19"><a href="#cb128-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
-<span id="cb128-20"><a href="#cb128-20" aria-hidden="true" tabindex="-1"></a>                          <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
-<span id="cb128-21"><a href="#cb128-21" aria-hidden="true" tabindex="-1"></a>                          <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),</span>
-<span id="cb128-22"><a href="#cb128-22" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"cm"</span>), </span>
-<span id="cb128-23"><a href="#cb128-23" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),</span>
-<span id="cb128-24"><a href="#cb128-24" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb128-25"><a href="#cb128-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">style =</span> ggspatial<span class="sc">::</span>north_arrow_nautical) <span class="sc">+</span>  </span>
-<span id="cb128-26"><a href="#cb128-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
-<span id="cb128-27"><a href="#cb128-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
-<span id="cb128-28"><a href="#cb128-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="st">'cm'</span>),</span>
-<span id="cb128-29"><a href="#cb128-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="dv">2</span>))</span>
-<span id="cb128-30"><a href="#cb128-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-31"><a href="#cb128-31" aria-hidden="true" tabindex="-1"></a>map_regions_population</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>regions_population <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>regions_population_sf <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
+<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_population, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>)</span>
+<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb129-7"><a href="#cb129-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_population_sf,</span>
+<span id="cb129-8"><a href="#cb129-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">2020</span><span class="st">`</span>),</span>
+<span id="cb129-9"><a href="#cb129-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"black"</span>,</span>
+<span id="cb129-10"><a href="#cb129-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb129-11"><a href="#cb129-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_b</span>(<span class="at">name =</span> <span class="st">"Population in 2020"</span>,</span>
+<span id="cb129-12"><a href="#cb129-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n.breaks =</span> <span class="dv">5</span>, <span class="co"># Number of breaks in color scale</span></span>
+<span id="cb129-13"><a href="#cb129-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> comma) <span class="sc">+</span> <span class="co"># Format numeric labels in the legend using commas</span></span>
+<span id="cb129-14"><a href="#cb129-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"POPULATION IN CZECH REGIONS IN 2020"</span>) <span class="sc">+</span> </span>
+<span id="cb129-15"><a href="#cb129-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span>                                 </span>
+<span id="cb129-16"><a href="#cb129-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">'br'</span>,</span>
+<span id="cb129-17"><a href="#cb129-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),</span>
+<span id="cb129-18"><a href="#cb129-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span> (<span class="fl">0.1</span>,<span class="st">'in'</span>)) <span class="sc">+</span>    </span>
+<span id="cb129-19"><a href="#cb129-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
+<span id="cb129-20"><a href="#cb129-20" aria-hidden="true" tabindex="-1"></a>                          <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
+<span id="cb129-21"><a href="#cb129-21" aria-hidden="true" tabindex="-1"></a>                          <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">'cm'</span>),</span>
+<span id="cb129-22"><a href="#cb129-22" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"cm"</span>), </span>
+<span id="cb129-23"><a href="#cb129-23" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>),</span>
+<span id="cb129-24"><a href="#cb129-24" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb129-25"><a href="#cb129-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">style =</span> ggspatial<span class="sc">::</span>north_arrow_nautical) <span class="sc">+</span>  </span>
+<span id="cb129-26"><a href="#cb129-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb129-27"><a href="#cb129-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb129-28"><a href="#cb129-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="st">'cm'</span>),</span>
+<span id="cb129-29"><a href="#cb129-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="dv">2</span>))</span>
+<span id="cb129-30"><a href="#cb129-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-31"><a href="#cb129-31" aria-hidden="true" tabindex="-1"></a>map_regions_population</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1683,19 +1707,19 @@ $maptiler
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_regions_population, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_regions_population.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_regions_population, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_regions_population.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can add labels to the regions using <code>geom_sf_text</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>regions_population_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(regions_population_sf) <span class="co"># Create centroids for regions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>regions_population_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(regions_population_sf) <span class="co"># Create centroids for regions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span></span>
-<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf_text</span>(<span class="at">data =</span> regions_population_centroids,</span>
-<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> NAZ_CZNUTS3), <span class="co"># Column used for labels</span></span>
-<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">2</span>, </span>
-<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span></span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_sf_text</span>(<span class="at">data =</span> regions_population_centroids,</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">label =</span> NAZ_CZNUTS3), <span class="co"># Column used for labels</span></span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">2</span>, </span>
+<span id="cb133-5"><a href="#cb133-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not
 give correct results for longitude/latitude data</code></pre>
@@ -1710,12 +1734,12 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 <p>Or add frames around the labels using <code>geom_sf_label</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span> </span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data =</span> regions_population_centroids,</span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> NAZ_CZNUTS3),</span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>,</span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"white"</span>)  <span class="co"># Fill of the frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span> </span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data =</span> regions_population_centroids,</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> NAZ_CZNUTS3),</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"white"</span>)  <span class="co"># Fill of the frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not
 give correct results for longitude/latitude data</code></pre>
@@ -1730,15 +1754,15 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 <p>Alternatively, if overlapping is an issue, we can use <code>geom_text_repel</code> from package <code>ggrepel</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span></span>
-<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text_repel</span>(<span class="at">data =</span> regions_population_centroids,</span>
-<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">st_coordinates</span>(geometry)[,<span class="dv">1</span>],</span>
-<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">st_coordinates</span>(geometry)[,<span class="dv">2</span>],</span>
-<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> NAZ_CZNUTS3),</span>
-<span id="cb136-8"><a href="#cb136-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>,</span>
-<span id="cb136-9"><a href="#cb136-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>map_regions_population <span class="sc">+</span></span>
+<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text_repel</span>(<span class="at">data =</span> regions_population_centroids,</span>
+<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">st_coordinates</span>(geometry)[,<span class="dv">1</span>],</span>
+<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">st_coordinates</span>(geometry)[,<span class="dv">2</span>],</span>
+<span id="cb137-7"><a href="#cb137-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> NAZ_CZNUTS3),</span>
+<span id="cb137-8"><a href="#cb137-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb137-9"><a href="#cb137-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1753,36 +1777,36 @@ give correct results for longitude/latitude data</code></pre>
 <p>In this section, we create faceted maps, which are particularly useful for visualising the same variable across different time periods, categories, or scenarios without having to manually create multiple plots. This approach also eliminates the need to write loops to generate separate maps for each year or group.</p>
 <p>We will again work with Czech regions and examine differences in mean age across regions for the period 2000–2024. First, we need to reshape our data into a long format, where each row corresponds to a single region and year, and the column Mean_age stores the mean age values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>regions_age <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">2</span>)</span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>regions_age_long <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
-<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_age, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="st">`</span><span class="at">2005</span><span class="st">`</span>, <span class="st">`</span><span class="at">2010</span><span class="st">`</span>,<span class="st">`</span><span class="at">2015</span><span class="st">`</span>,<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2024</span><span class="st">`</span>),</span>
-<span id="cb137-7"><a href="#cb137-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
-<span id="cb137-8"><a href="#cb137-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Mean_age"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb137-9"><a href="#cb137-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KOD_CZNUTS3, year, Mean_age)</span>
-<span id="cb137-10"><a href="#cb137-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-11"><a href="#cb137-11" aria-hidden="true" tabindex="-1"></a>maps_age <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb137-12"><a href="#cb137-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_age_long,</span>
-<span id="cb137-13"><a href="#cb137-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> Mean_age)) <span class="sc">+</span>                   </span>
-<span id="cb137-14"><a href="#cb137-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_fermenter</span>(<span class="at">name =</span> <span class="st">"Mean age"</span>,</span>
-<span id="cb137-15"><a href="#cb137-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">palette =</span> <span class="st">"RdYlGn"</span>, <span class="co"># Red-yellow-green palette</span></span>
-<span id="cb137-16"><a href="#cb137-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="dv">1</span>, <span class="co"># Keep palette ascending</span></span>
-<span id="cb137-17"><a href="#cb137-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">45</span>), <span class="co"># Set min and max values for fill</span></span>
-<span id="cb137-18"><a href="#cb137-18" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">37</span>, <span class="dv">45</span>, <span class="dv">2</span>)) <span class="sc">+</span>   <span class="co"># Define legend breaks              </span></span>
-<span id="cb137-19"><a href="#cb137-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(. <span class="sc">~</span> year, <span class="co"># Create separate facet for each year  </span></span>
-<span id="cb137-20"><a href="#cb137-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">"fixed"</span>) <span class="sc">+</span>                   </span>
-<span id="cb137-21"><a href="#cb137-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>,     </span>
-<span id="cb137-22"><a href="#cb137-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
-<span id="cb137-23"><a href="#cb137-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),                </span>
-<span id="cb137-24"><a href="#cb137-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb137-25"><a href="#cb137-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
-<span id="cb137-26"><a href="#cb137-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
-<span id="cb137-27"><a href="#cb137-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
-<span id="cb137-28"><a href="#cb137-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span>
-<span id="cb137-29"><a href="#cb137-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-30"><a href="#cb137-30" aria-hidden="true" tabindex="-1"></a>maps_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>regions_age <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">2</span>)</span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>regions_age_long <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_age, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="st">`</span><span class="at">2005</span><span class="st">`</span>, <span class="st">`</span><span class="at">2010</span><span class="st">`</span>,<span class="st">`</span><span class="at">2015</span><span class="st">`</span>,<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2024</span><span class="st">`</span>),</span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Mean_age"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-9"><a href="#cb138-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(KOD_CZNUTS3, year, Mean_age)</span>
+<span id="cb138-10"><a href="#cb138-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-11"><a href="#cb138-11" aria-hidden="true" tabindex="-1"></a>maps_age <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb138-12"><a href="#cb138-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_age_long,</span>
+<span id="cb138-13"><a href="#cb138-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> Mean_age)) <span class="sc">+</span>                   </span>
+<span id="cb138-14"><a href="#cb138-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_fermenter</span>(<span class="at">name =</span> <span class="st">"Mean age"</span>,</span>
+<span id="cb138-15"><a href="#cb138-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">palette =</span> <span class="st">"RdYlGn"</span>, <span class="co"># Red-yellow-green palette</span></span>
+<span id="cb138-16"><a href="#cb138-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="dv">1</span>, <span class="co"># Keep palette ascending</span></span>
+<span id="cb138-17"><a href="#cb138-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">45</span>), <span class="co"># Set min and max values for fill</span></span>
+<span id="cb138-18"><a href="#cb138-18" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">37</span>, <span class="dv">45</span>, <span class="dv">2</span>)) <span class="sc">+</span>   <span class="co"># Define legend breaks              </span></span>
+<span id="cb138-19"><a href="#cb138-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(. <span class="sc">~</span> year, <span class="co"># Create separate facet for each year  </span></span>
+<span id="cb138-20"><a href="#cb138-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">"fixed"</span>) <span class="sc">+</span>                   </span>
+<span id="cb138-21"><a href="#cb138-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>,     </span>
+<span id="cb138-22"><a href="#cb138-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
+<span id="cb138-23"><a href="#cb138-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),                </span>
+<span id="cb138-24"><a href="#cb138-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb138-25"><a href="#cb138-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb138-26"><a href="#cb138-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb138-27"><a href="#cb138-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb138-28"><a href="#cb138-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span>
+<span id="cb138-29"><a href="#cb138-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-30"><a href="#cb138-30" aria-hidden="true" tabindex="-1"></a>maps_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1790,7 +1814,7 @@ give correct results for longitude/latitude data</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> maps_age, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_regions_population_age.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> maps_age, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"./maps/map_regions_population_age.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="scatterpie-in-maps" class="level3">
@@ -1798,16 +1822,16 @@ give correct results for longitude/latitude data</code></pre>
 <p>In this section, we use the <code>scatterpie</code> package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions.</p>
 <p>We will work with Czech regions and illustrate the distribution of different land-use types in the year 2024. First, we calculate the centroids of the regions to position the pie charts accurately.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>regions_land_use <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">4</span>)</span>
-<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>regions_land_use_sf <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
-<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_land_use, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>)</span>
-<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>regions_centroids <span class="ot">&lt;-</span> regions_land_use_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>  st_point_on_surface <span class="sc">%&gt;%</span> <span class="co"># Ensures the point lies within each polygon</span></span>
-<span id="cb139-8"><a href="#cb139-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_coordinates</span>() <span class="sc">%&gt;%</span> <span class="co"># Extract X and Y coordinates</span></span>
-<span id="cb139-9"><a href="#cb139-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> <span class="co"># Convert to data frame</span></span>
-<span id="cb139-10"><a href="#cb139-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(regions_land_use_sf) <span class="co"># Attach spatial and attribute data back together</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>regions_land_use <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/regions/regions_data.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">4</span>)</span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>regions_land_use_sf <span class="ot">&lt;-</span> regions <span class="sc">%&gt;%</span></span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(regions_land_use, <span class="at">by =</span> <span class="st">"KOD_CZNUTS3"</span>)</span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>regions_centroids <span class="ot">&lt;-</span> regions_land_use_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a>  st_point_on_surface <span class="sc">%&gt;%</span> <span class="co"># Ensures the point lies within each polygon</span></span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_coordinates</span>() <span class="sc">%&gt;%</span> <span class="co"># Extract X and Y coordinates</span></span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> <span class="co"># Convert to data frame</span></span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(regions_land_use_sf) <span class="co"># Attach spatial and attribute data back together</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: st_point_on_surface assumes attributes are constant over geometries</code></pre>
 </div>
@@ -1815,48 +1839,48 @@ give correct results for longitude/latitude data</code></pre>
 <pre><code>Warning in st_point_on_surface.sfc(st_geometry(x)): st_point_on_surface may not
 give correct results for longitude/latitude data</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>landuse_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Agricultural land"</span> <span class="ot">=</span> <span class="st">"#E6B800"</span>,</span>
-<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Arable land"</span> <span class="ot">=</span> <span class="st">"#FFD966"</span>,</span>
-<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Permanent grassland"</span> <span class="ot">=</span> <span class="st">"#6AA84F"</span>,</span>
-<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Barren land"</span> <span class="ot">=</span> <span class="st">"#B7B7B7"</span>,</span>
-<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Forest land"</span> <span class="ot">=</span> <span class="st">"#38761D"</span>,</span>
-<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Water body area"</span> <span class="ot">=</span> <span class="st">"#3C78D8"</span>,</span>
-<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Built-up area and courtyard"</span> <span class="ot">=</span> <span class="st">"#A61C00"</span>)</span>
-<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>map_landuse <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_land_use_sf,</span>
-<span id="cb142-11"><a href="#cb142-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"#FFF5EE"</span>,</span>
-<span id="cb142-12"><a href="#cb142-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb142-13"><a href="#cb142-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb142-14"><a href="#cb142-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_scatterpie</span>(<span class="at">data =</span> regions_centroids, <span class="co"># Add pie charts</span></span>
-<span id="cb142-15"><a href="#cb142-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y),</span>
-<span id="cb142-16"><a href="#cb142-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cols =</span> <span class="fu">names</span>(landuse_colors), <span class="co"># Columns with land-use types</span></span>
-<span id="cb142-17"><a href="#cb142-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">"grey20"</span>,</span>
-<span id="cb142-18"><a href="#cb142-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pie_scale =</span> <span class="fl">1.5</span>) <span class="sc">+</span> <span class="co"># Pie size</span></span>
-<span id="cb142-19"><a href="#cb142-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span>  <span class="co"># Ensure consistent coordinate system</span></span>
-<span id="cb142-20"><a href="#cb142-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> landuse_colors,</span>
-<span id="cb142-21"><a href="#cb142-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="st">"land use type"</span>) <span class="sc">+</span></span>
-<span id="cb142-22"><a href="#cb142-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"br"</span>,</span>
-<span id="cb142-23"><a href="#cb142-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"in"</span>),</span>
-<span id="cb142-24"><a href="#cb142-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"in"</span>),</span>
-<span id="cb142-25"><a href="#cb142-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.22</span>) <span class="sc">+</span></span>
-<span id="cb142-26"><a href="#cb142-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"LAND USE PROPORTIONS BY REGION FOR YEAR 2024"</span>,</span>
-<span id="cb142-27"><a href="#cb142-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: Czech Statistical Office"</span>) <span class="sc">+</span></span>
-<span id="cb142-28"><a href="#cb142-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb142-29"><a href="#cb142-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb142-30"><a href="#cb142-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
-<span id="cb142-31"><a href="#cb142-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>, <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
-<span id="cb142-32"><a href="#cb142-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb142-33"><a href="#cb142-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>),</span>
-<span id="cb142-34"><a href="#cb142-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb142-35"><a href="#cb142-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb142-36"><a href="#cb142-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb142-37"><a href="#cb142-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb142-38"><a href="#cb142-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb142-39"><a href="#cb142-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb142-40"><a href="#cb142-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="st">'cm'</span>))</span>
-<span id="cb142-41"><a href="#cb142-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-42"><a href="#cb142-42" aria-hidden="true" tabindex="-1"></a>map_landuse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>landuse_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Agricultural land"</span> <span class="ot">=</span> <span class="st">"#E6B800"</span>,</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Arable land"</span> <span class="ot">=</span> <span class="st">"#FFD966"</span>,</span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Permanent grassland"</span> <span class="ot">=</span> <span class="st">"#6AA84F"</span>,</span>
+<span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Barren land"</span> <span class="ot">=</span> <span class="st">"#B7B7B7"</span>,</span>
+<span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Forest land"</span> <span class="ot">=</span> <span class="st">"#38761D"</span>,</span>
+<span id="cb143-6"><a href="#cb143-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Water body area"</span> <span class="ot">=</span> <span class="st">"#3C78D8"</span>,</span>
+<span id="cb143-7"><a href="#cb143-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Built-up area and courtyard"</span> <span class="ot">=</span> <span class="st">"#A61C00"</span>)</span>
+<span id="cb143-8"><a href="#cb143-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-9"><a href="#cb143-9" aria-hidden="true" tabindex="-1"></a>map_landuse <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb143-10"><a href="#cb143-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions_land_use_sf,</span>
+<span id="cb143-11"><a href="#cb143-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"#FFF5EE"</span>,</span>
+<span id="cb143-12"><a href="#cb143-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb143-13"><a href="#cb143-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb143-14"><a href="#cb143-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_scatterpie</span>(<span class="at">data =</span> regions_centroids, <span class="co"># Add pie charts</span></span>
+<span id="cb143-15"><a href="#cb143-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y),</span>
+<span id="cb143-16"><a href="#cb143-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cols =</span> <span class="fu">names</span>(landuse_colors), <span class="co"># Columns with land-use types</span></span>
+<span id="cb143-17"><a href="#cb143-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb143-18"><a href="#cb143-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pie_scale =</span> <span class="fl">1.5</span>) <span class="sc">+</span> <span class="co"># Pie size</span></span>
+<span id="cb143-19"><a href="#cb143-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span>  <span class="co"># Ensure consistent coordinate system</span></span>
+<span id="cb143-20"><a href="#cb143-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> landuse_colors,</span>
+<span id="cb143-21"><a href="#cb143-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="st">"land use type"</span>) <span class="sc">+</span></span>
+<span id="cb143-22"><a href="#cb143-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"br"</span>,</span>
+<span id="cb143-23"><a href="#cb143-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"in"</span>),</span>
+<span id="cb143-24"><a href="#cb143-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"in"</span>),</span>
+<span id="cb143-25"><a href="#cb143-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.22</span>) <span class="sc">+</span></span>
+<span id="cb143-26"><a href="#cb143-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"LAND USE PROPORTIONS BY REGION FOR YEAR 2024"</span>,</span>
+<span id="cb143-27"><a href="#cb143-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: Czech Statistical Office"</span>) <span class="sc">+</span></span>
+<span id="cb143-28"><a href="#cb143-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb143-29"><a href="#cb143-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb143-30"><a href="#cb143-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb143-31"><a href="#cb143-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>, <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb143-32"><a href="#cb143-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb143-33"><a href="#cb143-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb143-34"><a href="#cb143-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb143-35"><a href="#cb143-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb143-36"><a href="#cb143-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb143-37"><a href="#cb143-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb143-38"><a href="#cb143-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb143-39"><a href="#cb143-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb143-40"><a href="#cb143-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="st">'cm'</span>))</span>
+<span id="cb143-41"><a href="#cb143-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-42"><a href="#cb143-42" aria-hidden="true" tabindex="-1"></a>map_landuse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1864,7 +1888,7 @@ give correct results for longitude/latitude data</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_landuse, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"maps/map_regions_scatterpie.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> map_landuse, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">filename =</span> <span class="st">"maps/map_regions_scatterpie.tiff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="grid-mapping" class="level3">
@@ -1872,35 +1896,35 @@ give correct results for longitude/latitude data</code></pre>
 <p>In this section, we create grid-based maps, which are useful for visualising spatial variables across a regular grid. Grids represent polygons of equal size and shape, allowing them to be processed in the same way as other polygon layers (e.g., administrative boundaries).</p>
 <p>We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>pladias <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/Pladias_data/kvadranty_Pladias.shp"</span>)</span>
-<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>data_pladias <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/Pladias_data/Pladias_variables.xlsx"</span>)</span>
-<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>pladias_var <span class="ot">&lt;-</span> pladias <span class="sc">%&gt;%</span></span>
-<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(data_pladias, <span class="at">by =</span> <span class="st">"code"</span>)</span>
-<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb144-9"><a href="#cb144-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> pladias_var,</span>
-<span id="cb144-10"><a href="#cb144-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> cmi)) <span class="sc">+</span></span>
-<span id="cb144-11"><a href="#cb144-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> <span class="fu">c</span>(<span class="st">"#d73027"</span>, <span class="st">"#fee08b"</span>, <span class="st">"#d9ef8b"</span>, <span class="st">"#1a9850"</span>, <span class="st">"#4575b4"</span>),</span>
-<span id="cb144-12"><a href="#cb144-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Climatic Moisture Index (CMI)"</span>,</span>
-<span id="cb144-13"><a href="#cb144-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">range</span>(pladias_var<span class="sc">$</span>cmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
-<span id="cb144-14"><a href="#cb144-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(</span>
-<span id="cb144-15"><a href="#cb144-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">"bl"</span>,                     </span>
-<span id="cb144-16"><a href="#cb144-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
-<span id="cb144-17"><a href="#cb144-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),                </span>
-<span id="cb144-18"><a href="#cb144-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb144-19"><a href="#cb144-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
-<span id="cb144-20"><a href="#cb144-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
-<span id="cb144-21"><a href="#cb144-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>), </span>
-<span id="cb144-22"><a href="#cb144-22" aria-hidden="true" tabindex="-1"></a>                           <span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.8</span>, <span class="st">"cm"</span>), </span>
-<span id="cb144-23"><a href="#cb144-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb144-24"><a href="#cb144-24" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb144-25"><a href="#cb144-25" aria-hidden="true" tabindex="-1"></a>                           <span class="at">style =</span> north_arrow_orienteering) <span class="sc">+</span></span>
-<span id="cb144-26"><a href="#cb144-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
-<span id="cb144-27"><a href="#cb144-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
-<span id="cb144-28"><a href="#cb144-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
-<span id="cb144-29"><a href="#cb144-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>pladias <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/Pladias_data/kvadranty_Pladias.shp"</span>)</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>data_pladias <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/Pladias_data/Pladias_variables.xlsx"</span>)</span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>pladias_var <span class="ot">&lt;-</span> pladias <span class="sc">%&gt;%</span></span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(data_pladias, <span class="at">by =</span> <span class="st">"code"</span>)</span>
+<span id="cb145-6"><a href="#cb145-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-7"><a href="#cb145-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-8"><a href="#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb145-9"><a href="#cb145-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> pladias_var,</span>
+<span id="cb145-10"><a href="#cb145-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> cmi)) <span class="sc">+</span></span>
+<span id="cb145-11"><a href="#cb145-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> <span class="fu">c</span>(<span class="st">"#d73027"</span>, <span class="st">"#fee08b"</span>, <span class="st">"#d9ef8b"</span>, <span class="st">"#1a9850"</span>, <span class="st">"#4575b4"</span>),</span>
+<span id="cb145-12"><a href="#cb145-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Climatic Moisture Index (CMI)"</span>,</span>
+<span id="cb145-13"><a href="#cb145-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">range</span>(pladias_var<span class="sc">$</span>cmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb145-14"><a href="#cb145-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(</span>
+<span id="cb145-15"><a href="#cb145-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">"bl"</span>,                     </span>
+<span id="cb145-16"><a href="#cb145-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
+<span id="cb145-17"><a href="#cb145-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),                </span>
+<span id="cb145-18"><a href="#cb145-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb145-19"><a href="#cb145-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
+<span id="cb145-20"><a href="#cb145-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
+<span id="cb145-21"><a href="#cb145-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">height =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">'cm'</span>), </span>
+<span id="cb145-22"><a href="#cb145-22" aria-hidden="true" tabindex="-1"></a>                           <span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.8</span>, <span class="st">"cm"</span>), </span>
+<span id="cb145-23"><a href="#cb145-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb145-24"><a href="#cb145-24" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb145-25"><a href="#cb145-25" aria-hidden="true" tabindex="-1"></a>                           <span class="at">style =</span> north_arrow_orienteering) <span class="sc">+</span></span>
+<span id="cb145-26"><a href="#cb145-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb145-27"><a href="#cb145-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb145-28"><a href="#cb145-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb145-29"><a href="#cb145-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1911,8 +1935,8 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 <p>Grid mapping can also be used to visualise species occurrences, such as the presence of Lilium martagon within grid cells:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>pladias <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/Pladias_data/kvadranty_Pladias.shp"</span>)</span>
-<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>Lilium_martagon <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/Pladias_data/Lilium_martagon.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>pladias <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/Pladias_data/kvadranty_Pladias.shp"</span>)</span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>Lilium_martagon <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/Pladias_data/Lilium_martagon.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
 </div>
@@ -1925,36 +1949,36 @@ chr (2): code, presence
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>pladias_Lilium_martagon <span class="ot">&lt;-</span> pladias <span class="sc">%&gt;%</span></span>
-<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Lilium_martagon, <span class="at">by =</span> <span class="st">"code"</span>)</span>
-<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> pladias_Lilium_martagon,</span>
-<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> presence )) <span class="sc">+</span>                        </span>
-<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Lilium martagon"</span>)), </span>
-<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"yes"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"no"</span> <span class="ot">=</span> <span class="st">"white"</span>),</span>
-<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"yes"</span> <span class="ot">=</span> <span class="st">"presence"</span>, <span class="st">"no"</span> <span class="ot">=</span> <span class="st">"absence"</span>)) <span class="sc">+</span></span>
-<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"DISTRIBUTION OF "</span> <span class="sc">*</span> <span class="fu">italic</span>(<span class="st">"LILIUM MARTAGON"</span>)),</span>
-<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Source: Pladias Database of the Czech Flora"</span>) <span class="sc">+</span></span>
-<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
-<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
-<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>                          <span class="at">height =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">'cm'</span>), </span>
-<span id="cb148-16"><a href="#cb148-16" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.8</span>, <span class="st">"cm"</span>), </span>
-<span id="cb148-17"><a href="#cb148-17" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb148-18"><a href="#cb148-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
-<span id="cb148-19"><a href="#cb148-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">style =</span> north_arrow_orienteering) <span class="sc">+</span></span>
-<span id="cb148-20"><a href="#cb148-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>,</span>
-<span id="cb148-21"><a href="#cb148-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">style =</span> <span class="st">"ticks"</span>,</span>
-<span id="cb148-22"><a href="#cb148-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
-<span id="cb148-23"><a href="#cb148-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),</span>
-<span id="cb148-24"><a href="#cb148-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb148-25"><a href="#cb148-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
-<span id="cb148-26"><a href="#cb148-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
-<span id="cb148-27"><a href="#cb148-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), <span class="co"># Align the map title to the center</span></span>
-<span id="cb148-28"><a href="#cb148-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>), <span class="co"># Align the map source to the right</span></span>
-<span id="cb148-29"><a href="#cb148-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
-<span id="cb148-30"><a href="#cb148-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>pladias_Lilium_martagon <span class="ot">&lt;-</span> pladias <span class="sc">%&gt;%</span></span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Lilium_martagon, <span class="at">by =</span> <span class="st">"code"</span>)</span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> pladias_Lilium_martagon,</span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> presence )) <span class="sc">+</span>                        </span>
+<span id="cb149-8"><a href="#cb149-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">"Lilium martagon"</span>)), </span>
+<span id="cb149-9"><a href="#cb149-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"yes"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"no"</span> <span class="ot">=</span> <span class="st">"white"</span>),</span>
+<span id="cb149-10"><a href="#cb149-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"yes"</span> <span class="ot">=</span> <span class="st">"presence"</span>, <span class="st">"no"</span> <span class="ot">=</span> <span class="st">"absence"</span>)) <span class="sc">+</span></span>
+<span id="cb149-11"><a href="#cb149-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"DISTRIBUTION OF "</span> <span class="sc">*</span> <span class="fu">italic</span>(<span class="st">"LILIUM MARTAGON"</span>)),</span>
+<span id="cb149-12"><a href="#cb149-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Source: Pladias Database of the Czech Flora"</span>) <span class="sc">+</span></span>
+<span id="cb149-13"><a href="#cb149-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span> (<span class="at">location =</span> <span class="st">'tr'</span>,</span>
+<span id="cb149-14"><a href="#cb149-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">which_north =</span> <span class="st">'true'</span>,</span>
+<span id="cb149-15"><a href="#cb149-15" aria-hidden="true" tabindex="-1"></a>                          <span class="at">height =</span> <span class="fu">unit</span>(<span class="fl">1.1</span>, <span class="st">'cm'</span>), </span>
+<span id="cb149-16"><a href="#cb149-16" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="fu">unit</span>(<span class="fl">0.8</span>, <span class="st">"cm"</span>), </span>
+<span id="cb149-17"><a href="#cb149-17" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb149-18"><a href="#cb149-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">'in'</span>), </span>
+<span id="cb149-19"><a href="#cb149-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">style =</span> north_arrow_orienteering) <span class="sc">+</span></span>
+<span id="cb149-20"><a href="#cb149-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>,</span>
+<span id="cb149-21"><a href="#cb149-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">style =</span> <span class="st">"ticks"</span>,</span>
+<span id="cb149-22"><a href="#cb149-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>), </span>
+<span id="cb149-23"><a href="#cb149-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.0</span>, <span class="st">"in"</span>),</span>
+<span id="cb149-24"><a href="#cb149-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">width_hint =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb149-25"><a href="#cb149-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb149-26"><a href="#cb149-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb149-27"><a href="#cb149-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), <span class="co"># Align the map title to the center</span></span>
+<span id="cb149-28"><a href="#cb149-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>), <span class="co"># Align the map source to the right</span></span>
+<span id="cb149-29"><a href="#cb149-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="cn">NA</span>),</span>
+<span id="cb149-30"><a href="#cb149-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">0.2</span>), <span class="st">'cm'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

@@ -10,7 +10,6 @@ author: 'Štěpánka Pustková, Branislav Kopčan'
 #|   %\VignetteEncoding{UTF-8}
 ```
 
-
 ```{r}
 #| include: false
 knitr::opts_chunk$set(
