@@ -10,19 +10,7 @@ author: 'Štěpánka Pustková, Branislav Kopčan'
 #|   %\VignetteEncoding{UTF-8}
 ```
 
-```{r}
-#| include: false
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.width = 8,
-  fig.height = 6,
-  dpi = 300,
-  out.width = "100%"
-)
-```
-
-![](images/clipboard-2676004164.png)
+![](images/clipboard-727467331.png)
 
 ```{r setup}
 #| warning: false

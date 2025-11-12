@@ -259,7 +259,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#cover" id="toc-cover" class="nav-link" data-scroll-target="#cover">11.4.2 Cover</a></li>
   <li><a href="#merging-all-files-together-into-complete-spe-file" id="toc-merging-all-files-together-into-complete-spe-file" class="nav-link" data-scroll-target="#merging-all-files-together-into-complete-spe-file">11.4.3 Merging all files together into complete spe file</a></li>
   </ul></li>
-  <li><a href="#merging-of-species-covers" id="toc-merging-of-species-covers" class="nav-link" data-scroll-target="#merging-of-species-covers">11.5 Merging of species covers</a></li>
+  <li><a href="#merging-of-species-covers" id="toc-merging-of-species-covers" class="nav-link" data-scroll-target="#merging-of-species-covers">11.5 Merging of species covers</a>
+  <ul class="collapse">
+  <li><a href="#duplicate-species-records" id="toc-duplicate-species-records" class="nav-link" data-scroll-target="#duplicate-species-records">11.5.1 Duplicate species records</a></li>
+  <li><a href="#duplicates-checking" id="toc-duplicates-checking" class="nav-link" data-scroll-target="#duplicates-checking">11.5.2 Duplicates checking</a></li>
+  <li><a href="#fixing-duplicate-rows" id="toc-fixing-duplicate-rows" class="nav-link" data-scroll-target="#fixing-duplicate-rows">11.5.3 Fixing duplicate rows</a></li>
+  <li><a href="#total-cover-of-all-species-in-the-plot" id="toc-total-cover-of-all-species-in-the-plot" class="nav-link" data-scroll-target="#total-cover-of-all-species-in-the-plot">11.5.4 Total cover of all species in the plot</a></li>
+  </ul></li>
   <li><a href="#joining-information-about-traits" id="toc-joining-information-about-traits" class="nav-link" data-scroll-target="#joining-information-about-traits">11.6 Joining information about traits</a></li>
   <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">11.7 Summary statistics</a></li>
   <li><a href="#graphical-outputs" id="toc-graphical-outputs" class="nav-link" data-scroll-target="#graphical-outputs">11.8 Graphical outputs</a></li>
@@ -720,15 +726,15 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 </section>
 <section id="merging-of-species-covers" class="level2">
 <h2 class="anchored" data-anchor-id="merging-of-species-covers">11.5 Merging of species covers</h2>
-<section id="duplicate-species-records" class="level4">
-<h4 class="anchored" data-anchor-id="duplicate-species-records">11.5.1 Duplicate species records</h4>
+<section id="duplicate-species-records" class="level3">
+<h3 class="anchored" data-anchor-id="duplicate-species-records">11.5.1 Duplicate species records</h3>
 <p>What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.</p>
 <p><img src="images/clipboard-2098568998.png" class="img-fluid"></p>
 <p><strong>A</strong>&gt; In the first case, duplicate within one layer, I can fix the problem by summing the values for the same species in the same layer to get distinct species-layer combinations per plot. This is something we need to do. Otherwise our data would go against tidy approach and we will experience issues in joins, summarisation etc.</p>
 <p><strong>B</strong>&gt; In the other case, duplicate across layers, the data are OK, because there is one more variable that makes it unique record (layer). But if we want to look at the whole community and e.g.&nbsp;calculate share of some life forms weighted by cover, etc. we again need to sum the values across layers and put all the species as they were in the same layer (this is then usually marked as 0).</p>
 </section>
-<section id="duplicates-checking" class="level4">
-<h4 class="anchored" data-anchor-id="duplicates-checking">11.5.2 Duplicates checking</h4>
+<section id="duplicates-checking" class="level3">
+<h3 class="anchored" data-anchor-id="duplicates-checking">11.5.2 Duplicates checking</h3>
 <p>We recommend to always do the following check of the data. Simply group species by releves/plots and count if some of the species are at more rows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
@@ -844,8 +850,8 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 </div>
 </div>
 </section>
-<section id="fixing-duplicate-rows" class="level4">
-<h4 class="anchored" data-anchor-id="fixing-duplicate-rows">11.5.3 Fixing duplicate rows</h4>
+<section id="fixing-duplicate-rows" class="level3">
+<h3 class="anchored" data-anchor-id="fixing-duplicate-rows">11.5.3 Fixing duplicate rows</h3>
 <p>Now finally the fixing. For some questions the most easiest thing how to resolve duplicate rows is to select only the relevant variables and groups and use distinct function. E.g. for species richness this would be enough. BUT we will lose information about the abundance, in our case percentage cover of each species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
@@ -912,10 +918,6 @@ using the `.groups` argument.</code></pre>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc_new =</span> <span class="fu">combine_cover</span>(cover_perc))<span class="sc">%&gt;%</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'releve_nr', 'species'. You can override
-using the `.groups` argument.</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 4
 # Groups:   releve_nr, species [0]
@@ -925,37 +927,29 @@ using the `.groups` argument.</code></pre>
 <p>When the output have no rows, it means our attempt solved the issue.</p>
 <p>If I am happy, I overwrite cover directly, save the output for easier access (next time you can start with reloading this file) or I will assign the whole pipeline into a new object e.g.&nbsp;-&gt;<em>spe_merged</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc))<span class="sc">%&gt;%</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'releve_nr', 'species'. You can override
-using the `.groups` argument.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc))<span class="sc">%&gt;%</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>B,</strong> We want to also remove information about layer and work at whole community level. This means we will do the same, we will just not add the layer into grouping, as we do not want to pay attention to it anymore.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc))<span class="sc">%&gt;%</span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers_across_layers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'releve_nr'. You can override using the
-`.groups` argument.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc))<span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers_across_layers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="total-cover-of-all-species-in-the-plot" class="level4">
-<h4 class="anchored" data-anchor-id="total-cover-of-all-species-in-the-plot">11.5.4 Total cover of all species in the plot</h4>
+<section id="total-cover-of-all-species-in-the-plot" class="level3">
+<h3 class="anchored" data-anchor-id="total-cover-of-all-species-in-the-plot">11.5.4 Total cover of all species in the plot</h3>
 <p>The same approach as we did for merging covers can be used also for calculating total cover in the plot. Here you can see the comparison of total cover calculated as ordinary sum and total cover calculated with considering the overlaps.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span> </span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, covertotal_sum, covertotal_overlap)<span class="sc">%&gt;%</span></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(covertotal_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, covertotal_sum, covertotal_overlap)<span class="sc">%&gt;%</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(covertotal_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 137 × 3
    releve_nr covertotal_sum covertotal_overlap
@@ -975,15 +969,11 @@ using the `.groups` argument.</code></pre>
 </div>
 <p>The same with respect to layers</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, layer, covertotal_sum, covertotal_overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'releve_nr'. You can override using the
-`.groups` argument.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, layer) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, layer, covertotal_sum, covertotal_overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 497 × 4
 # Groups:   releve_nr [137]

@@ -222,7 +222,7 @@ write.csv(spe, "data/turboveg_to_R/spe.csv")
 
 ## 11.5 Merging of species covers
 
-#### 11.5.1 Duplicate species records
+### 11.5.1 Duplicate species records
 
 What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.
 
@@ -232,7 +232,7 @@ What is the problem? Sometimes we have some species names listed more than once 
 
 **B**\> In the other case, duplicate across layers, the data are OK, because there is one more variable that makes it unique record (layer). But if we want to look at the whole community and e.g. calculate share of some life forms weighted by cover, etc. we again need to sum the values across layers and put all the species as they were in the same layer (this is then usually marked as 0).
 
-#### 11.5.2 Duplicates checking
+### 11.5.2 Duplicates checking
 
 We recommend to always do the following check of the data. Simply group species by releves/plots and count if some of the species are at more rows.
 
@@ -295,7 +295,7 @@ spe %>%
   filter(n>1) 
 ```
 
-#### 11.5.3 Fixing duplicate rows
+### 11.5.3 Fixing duplicate rows
 
 Now finally the fixing. For some questions the most easiest thing how to resolve duplicate rows is to select only the relevant variables and groups and use distinct function. E.g. for species richness this would be enough. BUT we will lose information about the abundance, in our case percentage cover of each species.
 
@@ -329,6 +329,7 @@ spe %>%
 and we will add the pipelines for checking if there are still some duplicate rows. Note `summarise` finished the `group_by` function, so I have to specify the grouping again in the `count` (or add the group_by before count again).
 
 ```{r}
+#| warning: false
 spe %>% 
   group_by(releve_nr, species, layer) %>% 
   summarize(cover_perc_new = combine_cover(cover_perc))%>%
@@ -341,6 +342,7 @@ When the output have no rows, it means our attempt solved the issue.
 If I am happy, I overwrite cover directly, save the output for easier access (next time you can start with reloading this file) or I will assign the whole pipeline into a new object e.g. -\>*spe_merged*
 
 ```{r}
+#| warning: false
 spe %>% 
   group_by(releve_nr, species, layer) %>% 
   summarize(cover_perc = combine_cover(cover_perc))%>%
@@ -351,17 +353,19 @@ spe %>%
 **B,** We want to also remove information about layer and work at whole community level. This means we will do the same, we will just not add the layer into grouping, as we do not want to pay attention to it anymore.
 
 ```{r}
+#| warning: false
 spe %>% 
   group_by(releve_nr, species) %>% 
   summarize(cover_perc = combine_cover(cover_perc))%>%
   write_csv("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
 ```
 
-#### 11.5.4 Total cover of all species in the plot
+### 11.5.4 Total cover of all species in the plot
 
 The same approach as we did for merging covers can be used also for calculating total cover in the plot. Here you can see the comparison of total cover calculated as ordinary sum and total cover calculated with considering the overlaps.
 
 ```{r}
+#| warning: false
 spe %>% 
   group_by(releve_nr) %>% 
   summarize(covertotal_sum = sum(cover_perc), 
@@ -373,6 +377,7 @@ spe %>%
 The same with respect to layers
 
 ```{r}
+#| warning: false
 spe %>% 
   group_by(releve_nr, layer) %>% 
   summarize(covertotal_sum = sum(cover_perc), 
