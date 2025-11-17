@@ -67,10 +67,10 @@ Or I can add all the steps I did so far into one pipeline and check the resultin
 ```{r}
 env <- read_csv("data/turboveg_to_R/tvhabita.csv")%>% 
   clean_names() %>% 
-  select(releve_nr, coverscale, field_nr, country, author, date, syntaxon, 
-         altitude, exposition, inclinatio, 
-         cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
-         latitude, longitude, precision, bias_min, bias_gps, locality ) %>% 
+  select(releve_nr, coverscale, field_nr, country, author, date, syntaxon,
+         altitude, exposition, inclinatio,
+         cov_trees, cov_shrubs, cov_herbs, cov_mosses,
+         latitude, longitude, precision, bias_min, bias_gps, locality ) %>%
   glimpse()
 ```
 
@@ -226,7 +226,7 @@ write.csv(spe, "data/turboveg_to_R/spe.csv")
 
 What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.
 
-![](images/clipboard-2098568998.png)
+![](images/clipboard-509340872.png)
 
 **A**\> In the first case, duplicate within one layer, I can fix the problem by summing the values for the same species in the same layer to get distinct species-layer combinations per plot. This is something we need to do. Otherwise our data would go against tidy approach and we will experience issues in joins, summarisation etc.
 
@@ -385,19 +385,99 @@ spe %>%
   select(releve_nr, layer, covertotal_sum, covertotal_overlap)
 ```
 
-## 11.6 Joining information about traits
+## 11.6 Joining information about traits and other variables
 
-Will be added
+We will first read the data newly, to be sure we know what we are working with. At this point we can actually clean the environment, remove everything.
 
-## 11.7 Summary statistics
+### 11.6.1 spe dataset
 
-Will be added
+In this case I want to work with the **spe dataset**, were all records of individual species are merged across layers.
 
-## 11.8 Graphical outputs
+```{r}
+spe <- read_csv ("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
+```
 
-Will be added
+### 11.6.2 traits
 
-**Almost at the end of this course!**
+I also want to add some information about traits. So I will check what is available in my folder
+
+```{r}
+list.files("data/turboveg_to_R")
+```
+
+First we will import the file downloaded from the Pladias database, with information about status. The file itseslf is in Czech and it needs some fixing to make it tidy. Below, you can already find one suggestion how to import this file, but we will check together how to read it and how it works step by step.
+
+```{r}
+status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>% 
+  clean_names()%>% 
+  select(species=vedecke_jmeno, origin=puvodnost_v_cr, 
+         redlist=cerveny_seznam_2017_narodni_kategorie_ohrozeni)%>%
+  mutate(origin = case_when(
+    origin == "původní" ~ "native",
+    origin %in% c("archaeofyt/neofyt", "archaeofyt") ~ "arch",
+    origin == "neofyt" ~ "neo",
+    TRUE ~ NA_character_))%>% 
+  mutate(redlist = case_when(redlist== "taxon není zařazen do Červeného seznamu" ~ NA))
+```
+
+Now we will import data about plant height, again there are few issues, so we will fix it and calculate the mean height.
+
+```{r}
+plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>% 
+  clean_names() %>% 
+  select(species=taxon, height_min=min, height_max=max)%>% 
+  mutate(across(c(height_min, height_max), ~ as.numeric(.x)))%>%
+  mutate(mean_height = ((height_min+height_max)/2))
+```
+
+And Ellenberg indicator values
+
+```{r}
+#| warning: false
+indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.xlsx") %>% 
+  clean_names() %>% 
+  select(species=name, 
+         eiv_light=l_cz, eiv_temperature=t_cz, 
+         eiv_moisture=m_cz, eiv_reaction=r_cz, 
+         eiv_nutrients= n_cz, eiv_salinity=s_cz)%>%
+  mutate(across(-species, ~ as.numeric(.x)))
+```
+
+### 11.6.3 env dataset
+
+For **env dataset** I want to import the clean version which was saved in this script
+
+```{r}
+env<- read_csv("data/turboveg_to_R/env.csv")
+```
+
+and I want to add some more variables that were measured separately.
+
+```{r}
+env_extra <- read_csv("data/turboveg_to_R/axmanova_forest_env_extra.csv")
+```
+
+## 11.7 Summary statistics and graphical outputs
+
+table with min, mean, max plant height, biomass per veg type
+
+boxplots of ellenberg-type indicator values
+
+two in one\> soil ph against species richness, different coulours for different forest typesbiomass against species richness, different coulours for different forest types
+
+\% of redlist species, alien species in veg type
+
+```{r}
+# statistics <- spe %>% 
+#   group_by(releve_nr) %>% 
+#   summarize(covertotal_overlap = combine_cover(cover_perc)) %>%
+#   left_join(status) %>% 
+#   filter(!is.na(redlist))%>%
+#   group_by(releve_nr)%>%
+#   summarise(cover_perc)
+```
+
+## Almost at the end of this course!
 
 A couple of tidyverse songs as a bonus that you stayed with us and learned many new things:
 
