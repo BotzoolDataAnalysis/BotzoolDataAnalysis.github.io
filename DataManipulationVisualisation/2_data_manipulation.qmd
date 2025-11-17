@@ -216,7 +216,10 @@ data %>%
   filter(Biomass > 80) #[g/m2]
 ```
 
-You can also filter plots in a specified range of some value and use multiple conditions. Here I want to keep only plots that have biomass in the range 40-80 g/m2 but if there are any plots without any value (NA), I want to keep them as well. 
+You can also filter plots in a specified range of some value and use
+multiple conditions. Here I want to keep only plots that have biomass in
+the range 40-80 g/m2 but if there are any plots without any value (NA),
+I want to keep them as well.
 
 ```{r}
 data %>% 
@@ -224,13 +227,16 @@ data %>%
 
 ```
 
-Example of multiple conditions in one filter line. Here we select all plots from the specified to types and from the others we take just those that have higher biomass because we used OR (|) between the two conditions. 
+Example of multiple conditions in one filter line. Here we select all
+plots from the specified to types and from the others we take just those
+that have higher biomass because we used OR (\|) between the two
+conditions.
+
 ```{r}
 data %>% 
   filter((ForestTypeName %in% c("alluvial forest", "ravine forest") |
     (Biomass >= 80)))
 ```
-
 
 Sometimes you might find it useful to filter something out, rather than
 specifying what should stay. This is done by the exclamation mark as you
@@ -321,10 +327,6 @@ data %>%
 
 **.x** refers to the entire column (vector) being transformed inside a
 function like mutate(across(...)) or map().
-
-
-
-
 
 ## 2.7 Save the data
 

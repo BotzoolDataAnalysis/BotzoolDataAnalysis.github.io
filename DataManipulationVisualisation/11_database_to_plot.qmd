@@ -389,15 +389,35 @@ spe %>%
 
 We will first read the data newly, to be sure we know what we are working with. At this point we can actually clean the environment, remove everything.
 
-### 11.6.1 spe dataset
+### 11.6.1 env dataset
 
-In this case I want to work with the **spe dataset**, were all records of individual species are merged across layers.
+First I want to add some more variables that were measured separately. In addition this file is already filtered to a subset I want to use.
 
 ```{r}
-spe <- read_csv ("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
+env_extra<- read_csv("data/turboveg_to_R/axmanova_forest_env_extra.csv")%>%
+  clean_names()
 ```
 
-### 11.6.2 traits
+For **env dataset** I want to import the clean version which was saved in this script, but I will directly filter it to the same subset as above. I can do it with semi_join. But I decided to merge both datasets at this point - to keep only the matching rows but all information I want.
+
+```{r}
+env<- read_csv("data/turboveg_to_R/env.csv") %>% 
+  inner_join(env_extra %>% 
+               select (releve_nr, forest_type, forest_type_name,
+                       soil_ph=p_h_k_cl, biomass)%>% 
+               unite(forest, forest_type, forest_type_name))
+```
+
+### 11.6.2 spe dataset
+
+I want to work with the **spe dataset**, and I want to keep information about layers, as I want to focus on the herb-layer.
+
+```{r}
+spe <- read_csv ("data/turboveg_to_R/spe_merged_covers.csv")%>% 
+  semi_join(env)
+```
+
+### 11.6.3 traits
 
 I also want to add some information about traits. So I will check what is available in my folder
 
@@ -427,7 +447,7 @@ plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>%
   clean_names() %>% 
   select(species=taxon, height_min=min, height_max=max)%>% 
   mutate(across(c(height_min, height_max), ~ as.numeric(.x)))%>%
-  mutate(mean_height = ((height_min+height_max)/2))
+  mutate(height_mean = ((height_min+height_max)/2))
 ```
 
 And Ellenberg indicator values
@@ -443,31 +463,64 @@ indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.
   mutate(across(-species, ~ as.numeric(.x)))
 ```
 
-### 11.6.3 env dataset
-
-For **env dataset** I want to import the clean version which was saved in this script
-
-```{r}
-env<- read_csv("data/turboveg_to_R/env.csv")
-```
-
-and I want to add some more variables that were measured separately.
-
-```{r}
-env_extra <- read_csv("data/turboveg_to_R/axmanova_forest_env_extra.csv")
-```
-
 ## 11.7 Summary statistics and graphical outputs
 
-table with min, mean, max plant height, biomass per veg type
-
-boxplots of ellenberg-type indicator values
-
-two in one\> soil ph against species richness, different coulours for different forest typesbiomass against species richness, different coulours for different forest types
-
-\% of redlist species, alien species in veg type
+First I want to produce a table with **summary statistics** like min, mean, max for two variables plant height, and biomass per forest type. The first one is a trait, so we need to append it to species file and calculate community means, while the other is a variable measured in each plot.
 
 ```{r}
+statistics <- spe %>% 
+  filter(layer == "6") %>%
+  left_join(plant_height %>% 
+              select(species, height = height_mean)) %>%
+  left_join(env) %>%
+  arrange(forest) %>%
+  summarise(across(c(height,cov_herbs, biomass, cov_trees,soil_ph ),
+      list(
+        min  = ~min(.x, na.rm = TRUE),
+        mean = ~mean(.x, na.rm = TRUE),
+        max  = ~max(.x, na.rm = TRUE))),.by = forest)
+```
+
+Or I can create **boxplots** for these, one by one or with the use of function (see chapter 7+8).
+
+```{r}
+env %>%
+  ggplot(aes(forest, biomass)) +
+  geom_boxplot()+
+  theme_bw()
+```
+
+Alternatively I can also do it like this, that I save the values to long format and use facet_wrap to create more boxplots at once:
+
+```{r}
+env %>%
+  arrange(forest) %>%
+  select(forest, cover_herbs=cov_herbs, biomass, cover_trees =cov_trees, soil_ph) %>%
+  tidyr::pivot_longer(
+    cols = c(cover_herbs, biomass, cover_trees, soil_ph),
+    names_to = "variable",
+    values_to = "value")%>% 
+  ggplot(aes(x = forest, y = value, fill=forest)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = 'none')+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = NULL) +
+  labs (y = NULL)
+ 
+  
+  
+```
+
+I might be interested in overall, or in herb-layer **species richness relationship** with biomass and with soil pH. At first I need to calculate the species richness in the spe file. And as an output I want to plot this with different colours for different forest types.
+
+**Boxplots of ellenberg-type indicator values**
+
+**Proportions of endangered or alien species** in forest type.
+
+```{r}
+
 # statistics <- spe %>% 
 #   group_by(releve_nr) %>% 
 #   summarize(covertotal_overlap = combine_cover(cover_perc)) %>%
