@@ -226,7 +226,7 @@ write.csv(spe, "data/turboveg_to_R/spe.csv")
 
 What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.
 
-![](images/clipboard-509340872.png)
+![](images/clipboard-3634652959.png)
 
 **A**\> In the first case, duplicate within one layer, I can fix the problem by summing the values for the same species in the same layer to get distinct species-layer combinations per plot. This is something we need to do. Otherwise our data would go against tidy approach and we will experience issues in joins, summarisation etc.
 
@@ -603,7 +603,7 @@ Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s>
 
 AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo>
 
-## 11.8 Exercises  
+## 11.8 Exercises
 
 ### These should be handed in for successful finishing of this course.
 
@@ -652,7 +652,7 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
       plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
     ```
 
-3.   **Frogs**
+3.  **Frogs**
 
 4.  **Lepidoptera**
 

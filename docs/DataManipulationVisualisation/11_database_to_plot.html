@@ -737,7 +737,7 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 <section id="duplicate-species-records" class="level3">
 <h3 class="anchored" data-anchor-id="duplicate-species-records">11.5.1 Duplicate species records</h3>
 <p>What is the problem? Sometimes we have some species names listed more than once in the same plot. Either because we changed the original concept (from subspecies to species level, or after additional identification) or because we recorded the same species in different layers. Depending on our further questions and analyses this might become minor or bigger problem.</p>
-<p><img src="images/clipboard-509340872.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3634652959.png" class="img-fluid"></p>
 <p><strong>A</strong>&gt; In the first case, duplicate within one layer, I can fix the problem by summing the values for the same species in the same layer to get distinct species-layer combinations per plot. This is something we need to do. Otherwise our data would go against tidy approach and we will experience issues in joins, summarisation etc.</p>
 <p><strong>B</strong>&gt; In the other case, duplicate across layers, the data are OK, because there is one more variable that makes it unique record (layer). But if we want to look at the whole community and e.g.&nbsp;calculate share of some life forms weighted by cover, etc. we again need to sum the values across layers and put all the species as they were in the same layer (this is then usually marked as 0).</p>
 </section>
