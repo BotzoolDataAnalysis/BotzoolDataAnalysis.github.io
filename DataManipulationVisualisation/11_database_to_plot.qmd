@@ -434,10 +434,12 @@ status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cer
          redlist=cerveny_seznam_2017_narodni_kategorie_ohrozeni)%>%
   mutate(origin = case_when(
     origin == "původní" ~ "native",
-    origin %in% c("archaeofyt/neofyt", "archaeofyt") ~ "arch",
+    origin %in% c("archeofyt/neofyt", "archeofyt") ~ "arch",
     origin == "neofyt" ~ "neo",
     TRUE ~ NA_character_))%>% 
-  mutate(redlist = case_when(redlist== "taxon není zařazen do Červeného seznamu" ~ NA))
+  mutate(redlist = case_when(
+    redlist == "taxon není zařazen do Červeného seznamu" ~ NA_character_,
+    TRUE ~ redlist))
 ```
 
 Now we will import data about plant height, again there are few issues, so we will fix it and calculate the mean height.
@@ -465,7 +467,7 @@ indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.
 
 ## 11.7 Summary statistics and graphical outputs
 
-First I want to produce a table with **summary statistics** like min, mean, max for two variables plant height, and biomass per forest type. The first one is a trait, so we need to append it to species file and calculate community means, while the other is a variable measured in each plot.
+I will a bit explore the data and ask about which factors influence species richness. Here are just few examples, we will read together the scripts and you will adopt them later to other tasks. First I want to produce a table with **summary statistics** like min, mean, max for two variables plant height, and biomass per forest type. The first one is a trait, so we need to append it to species file and calculate community means, while the other is a variable measured in each plot.
 
 ```{r}
 statistics <- spe %>% 
@@ -508,26 +510,89 @@ env %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   labs(x = NULL) +
   labs (y = NULL)
- 
-  
-  
 ```
 
-I might be interested in overall, or in herb-layer **species richness relationship** with biomass and with soil pH. At first I need to calculate the species richness in the spe file. And as an output I want to plot this with different colours for different forest types.
-
-**Boxplots of ellenberg-type indicator values**
-
-**Proportions of endangered or alien species** in forest type.
+I might be interested in **species richness relationship** with several factors. Below is an example of herb-layer species richness and biomass. At first I need to calculate the species richness in the spe file. And as an output I want to plot this with different colours for different forest types but keep the regression line for the whole dataset.
 
 ```{r}
+spe %>% 
+  filter(layer %in% c(6, 7)) %>% 
+  count(releve_nr, name = "herblayer_richness") %>% 
+  left_join(env %>% 
+              select(releve_nr, biomass, forest), by = "releve_nr") %>% 
+  ggplot(aes(x = sqrt(biomass), y = herblayer_richness)) +
+  geom_point(aes(colour = forest), size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = TRUE, colour = "black") +
+  theme_bw() +
+  labs(
+    x = "sqrt Biomass",
+    y = "Herb-layer species richness",
+    colour = "Forest type"
+  )
+```
 
-# statistics <- spe %>% 
-#   group_by(releve_nr) %>% 
-#   summarize(covertotal_overlap = combine_cover(cover_perc)) %>%
-#   left_join(status) %>% 
-#   filter(!is.na(redlist))%>%
-#   group_by(releve_nr)%>%
-#   summarise(cover_perc)
+**Boxplots of Ellenberg-type indicator values** are based again on species data and values specific for each species. We will calculate non-weighted mean for each plot and prepare boxplots for individual forest types. Again I will use the step with long format and facet wrap.
+
+```{r}
+spe %>% 
+  left_join(indicator_values) %>%
+  select(-c(layer, cover_perc)) %>%
+  distinct() %>%
+  group_by(releve_nr) %>%
+  summarise(across(starts_with("EIV"), ~ mean(.x, na.rm = TRUE))) %>%
+  left_join(env %>% select(releve_nr, forest))%>%
+  pivot_longer(
+    cols = starts_with("EIV"),
+    names_to = "EIV_variable",
+    values_to = "value")%>%
+  ggplot(aes(x = forest, y = value, fill = forest)) +
+  geom_boxplot() +
+  facet_wrap(~ EIV_variable, scales = "free_y") +
+  theme_bw()+
+  theme(legend.position = 'none')+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(x = NULL) +
+  labs (y = NULL)
+
+```
+
+**Proportions of endangered or alien species** in forest type. I will first look at the numbers of these species, here on example of redlist i.e. endangered species. I just one to see average number of redlist species per forest type.
+
+```{r}
+spe%>% 
+  left_join(spe %>% 
+              left_join(status)%>% 
+              filter(!is.na(redlist))%>%
+              count(releve_nr, name="richness_redlist"))%>%
+  left_join(spe %>% 
+              summarise(richness_all = n_distinct(species), 
+                        .by = releve_nr))%>%
+  distinct(releve_nr,richness_redlist,richness_all)%>%
+  mutate(richness_redlist = replace_na(richness_redlist, 0))%>%
+  mutate(richness_redlist_perc= richness_redlist/richness_all*100)%>%
+  left_join(env%>% select(releve_nr, forest))%>%
+  summarise(redlist_mean_perc = mean(richness_redlist_perc), .by=forest)%>%
+  arrange(forest)
+```
+
+But I can also ask about diferences in abundances of some plant groups. What is the proportion of cover of alien species relative to total cover in different forests?
+
+```{r}
+spe%>% 
+  left_join(spe %>% 
+              left_join(status)%>% 
+              filter(origin %in% c("arch","neo"))%>%
+              summarize(cover_alien = combine_cover(cover_perc), 
+                        .by=releve_nr))%>%
+  left_join(spe %>% 
+              summarize(cover_total = combine_cover(cover_perc), 
+                        .by=releve_nr))%>%
+  distinct(releve_nr, cover_alien, cover_total)%>%
+  mutate(cover_alien = replace_na(cover_alien, 0))%>%
+  mutate(cover_alien_perc= cover_alien/cover_total*100)%>%
+  left_join(env%>% select(releve_nr, forest))%>%
+  summarise(alien_cover_mean_perc = mean(cover_alien_perc), .by=forest)%>%
+  arrange(forest)
 ```
 
 ## Almost at the end of this course!
@@ -538,9 +603,13 @@ Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s>
 
 AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo>
 
-## 11.9 Exercises / these should be handed in for successful finishing of this course
+## 11.8 Exercises  
 
-1.  (Real-world example for botanists) Use the data from the folder `basiphilous_grasslands` and recreate the following plot:
+### These should be handed in for successful finishing of this course.
+
+1.  **Forest dataset from Turboveg database** - prepare script from the database files as described above and (1) prepare scatterplot of a) overall species richness and b) herb-layer species richness against soil pH (2) scatterplot of herb-layer species richness against cover of trees (3) boxplots of richness (number of species) of native species, redlist species and alien species.
+
+2.  Use the data from the folder **basiphilous_grasslands** and recreate the following plot. Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
 
     ```{r}
     #| echo: false
@@ -583,6 +652,8 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
       plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
     ```
 
-    Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
+3.   **Frogs**
 
-2.  will be added
+4.  **Lepidoptera**
+
+5.  **Acidophilous grasslands**

@@ -274,7 +274,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#summary-statistics-and-graphical-outputs" id="toc-summary-statistics-and-graphical-outputs" class="nav-link" data-scroll-target="#summary-statistics-and-graphical-outputs">11.7 Summary statistics and graphical outputs</a></li>
   <li><a href="#almost-at-the-end-of-this-course" id="toc-almost-at-the-end-of-this-course" class="nav-link" data-scroll-target="#almost-at-the-end-of-this-course">Almost at the end of this course!</a></li>
-  <li><a href="#exercises-these-should-be-handed-in-for-successful-finishing-of-this-course" id="toc-exercises-these-should-be-handed-in-for-successful-finishing-of-this-course" class="nav-link" data-scroll-target="#exercises-these-should-be-handed-in-for-successful-finishing-of-this-course">11.9 Exercises / these should be handed in for successful finishing of this course</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">11.8 Exercises</a>
+  <ul class="collapse">
+  <li><a href="#these-should-be-handed-in-for-successful-finishing-of-this-course." id="toc-these-should-be-handed-in-for-successful-finishing-of-this-course." class="nav-link" data-scroll-target="#these-should-be-handed-in-for-successful-finishing-of-this-course.">These should be handed in for successful finishing of this course.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1092,10 +1095,12 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">redlist=</span>cerveny_seznam_2017_narodni_kategorie_ohrozeni)<span class="sc">%&gt;%</span></span>
 <span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">origin =</span> <span class="fu">case_when</span>(</span>
 <span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>    origin <span class="sc">==</span> <span class="st">"původní"</span> <span class="sc">~</span> <span class="st">"native"</span>,</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>    origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"archaeofyt/neofyt"</span>, <span class="st">"archaeofyt"</span>) <span class="sc">~</span> <span class="st">"arch"</span>,</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>    origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"archeofyt/neofyt"</span>, <span class="st">"archeofyt"</span>) <span class="sc">~</span> <span class="st">"arch"</span>,</span>
 <span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    origin <span class="sc">==</span> <span class="st">"neofyt"</span> <span class="sc">~</span> <span class="st">"neo"</span>,</span>
 <span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span>))<span class="sc">%&gt;%</span> </span>
-<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">redlist =</span> <span class="fu">case_when</span>(redlist<span class="sc">==</span> <span class="st">"taxon není zařazen do Červeného seznamu"</span> <span class="sc">~</span> <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">redlist =</span> <span class="fu">case_when</span>(</span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>    redlist <span class="sc">==</span> <span class="st">"taxon není zařazen do Červeného seznamu"</span> <span class="sc">~</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> redlist))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we will import data about plant height, again there are few issues, so we will fix it and calculate the mean height.</p>
 <div class="cell">
@@ -1119,7 +1124,7 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </section>
 <section id="summary-statistics-and-graphical-outputs" class="level2">
 <h2 class="anchored" data-anchor-id="summary-statistics-and-graphical-outputs">11.7 Summary statistics and graphical outputs</h2>
-<p>First I want to produce a table with <strong>summary statistics</strong> like min, mean, max for two variables plant height, and biomass per forest type. The first one is a trait, so we need to append it to species file and calculate community means, while the other is a variable measured in each plot.</p>
+<p>I will a bit explore the data and ask about which factors influence species richness. Here are just few examples, we will read together the scripts and you will adopt them later to other tasks. First I want to produce a table with <strong>summary statistics</strong> like min, mean, max for two variables plant height, and biomass per forest type. The first one is a trait, so we need to append it to species file and calculate community means, while the other is a variable measured in each plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>statistics <span class="ot">&lt;-</span> spe <span class="sc">%&gt;%</span> </span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">==</span> <span class="st">"6"</span>) <span class="sc">%&gt;%</span></span>
@@ -1176,30 +1181,58 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 </div>
 </div>
-<p>I might be interested in overall, or in herb-layer <strong>species richness relationship</strong> with biomass and with soil pH. At first I need to calculate the species richness in the spe file. And as an output I want to plot this with different colours for different forest types.</p>
-<p><strong>Boxplots of ellenberg-type indicator values</strong></p>
-<p><strong>Proportions of endangered or alien species</strong> in forest type.</p>
+<p>I might be interested in <strong>species richness relationship</strong> with several factors. Below is an example of herb-layer species richness and biomass. At first I need to calculate the species richness in the spe file. And as an output I want to plot this with different colours for different forest types but keep the regression line for the whole dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statistics &lt;- spe %&gt;% </span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(releve_nr) %&gt;% </span></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(covertotal_overlap = combine_cover(cover_perc)) %&gt;%</span></span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   left_join(status) %&gt;% </span></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(!is.na(redlist))%&gt;%</span></span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(releve_nr)%&gt;%</span></span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(cover_perc)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, <span class="at">name =</span> <span class="st">"herblayer_richness"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> </span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(releve_nr, biomass, forest), <span class="at">by =</span> <span class="st">"releve_nr"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">sqrt</span>(biomass), <span class="at">y =</span> herblayer_richness)) <span class="sc">+</span></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> forest), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"sqrt Biomass"</span>,</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Herb-layer species richness"</span>,</span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Forest type"</span></span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
-</section>
-<section id="almost-at-the-end-of-this-course" class="level2">
-<h2 class="anchored" data-anchor-id="almost-at-the-end-of-this-course">Almost at the end of this course!</h2>
-<p>A couple of tidyverse songs as a bonus that you stayed with us and learned many new things:</p>
-<p>Human-made: <a href="https://www.youtube.com/watch?v=p8Py9C8iq2s" class="uri">https://www.youtube.com/watch?v=p8Py9C8iq2s</a></p>
-<p>AI-made: <a href="https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo" class="uri">https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo</a></p>
-</section>
-<section id="exercises-these-should-be-handed-in-for-successful-finishing-of-this-course" class="level2">
-<h2 class="anchored" data-anchor-id="exercises-these-should-be-handed-in-for-successful-finishing-of-this-course">11.9 Exercises / these should be handed in for successful finishing of this course</h2>
-<ol type="1">
-<li><p>(Real-world example for botanists) Use the data from the folder <code>basiphilous_grasslands</code> and recreate the following plot:</p>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="11_database_to_plot_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Boxplots of Ellenberg-type indicator values</strong> are based again on species data and values specific for each species. We will calculate non-weighted mean for each plot and prepare boxplots for individual forest types. Again I will use the step with long format and facet wrap.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(indicator_values) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(layer, cover_perc)) <span class="sc">%&gt;%</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest))<span class="sc">%&gt;%</span></span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"EIV"</span>),</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"EIV_variable"</span>,</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> forest, <span class="at">y =</span> value, <span class="at">fill =</span> forest)) <span class="sc">+</span></span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> EIV_variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)<span class="sc">+</span></span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(species)`
+Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1208,11 +1241,101 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 </div>
 </div>
-<p>Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (<code>THE_THF</code>) for each plot (Releve), join header data and transform the variable for the time of sampling (<code>Rs_observ</code>) to a character/factor).</p></li>
-<li><p>will be added</p></li>
+<p><strong>Proportions of endangered or alien species</strong> in forest type. I will first look at the numbers of these species, here on example of redlist i.e.&nbsp;endangered species. I just one to see average number of redlist species per forest type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>spe<span class="sc">%&gt;%</span> </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">left_join</span>(status)<span class="sc">%&gt;%</span> </span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(redlist))<span class="sc">%&gt;%</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(releve_nr, <span class="at">name=</span><span class="st">"richness_redlist"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarise</span>(<span class="at">richness_all =</span> <span class="fu">n_distinct</span>(species), </span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by =</span> releve_nr))<span class="sc">%&gt;%</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(releve_nr,richness_redlist,richness_all)<span class="sc">%&gt;%</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">richness_redlist =</span> <span class="fu">replace_na</span>(richness_redlist, <span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">richness_redlist_perc=</span> richness_redlist<span class="sc">/</span>richness_all<span class="sc">*</span><span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env<span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest))<span class="sc">%&gt;%</span></span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">redlist_mean_perc =</span> <span class="fu">mean</span>(richness_redlist_perc), <span class="at">.by=</span>forest)<span class="sc">%&gt;%</span></span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(species)`
+Joining with `by = join_by(releve_nr)`
+Joining with `by = join_by(releve_nr)`
+Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  forest                redlist_mean_perc
+  &lt;chr&gt;                             &lt;dbl&gt;
+1 1_oak forest                       6.25
+2 2_oak hornbeam forest              6.24
+3 3_ravine forest                    5.03
+4 4_alluvial forest                  1.71</code></pre>
+</div>
+</div>
+<p>But I can also ask about diferences in abundances of some plant groups. What is the proportion of cover of alien species relative to total cover in different forests?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>spe<span class="sc">%&gt;%</span> </span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">left_join</span>(status)<span class="sc">%&gt;%</span> </span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"arch"</span>,<span class="st">"neo"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_alien =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by=</span>releve_nr))<span class="sc">%&gt;%</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_total =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by=</span>releve_nr))<span class="sc">%&gt;%</span></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(releve_nr, cover_alien, cover_total)<span class="sc">%&gt;%</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien =</span> <span class="fu">replace_na</span>(cover_alien, <span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien_perc=</span> cover_alien<span class="sc">/</span>cover_total<span class="sc">*</span><span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env<span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest))<span class="sc">%&gt;%</span></span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">alien_cover_mean_perc =</span> <span class="fu">mean</span>(cover_alien_perc), <span class="at">.by=</span>forest)<span class="sc">%&gt;%</span></span>
+<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(species)`
+Joining with `by = join_by(releve_nr)`
+Joining with `by = join_by(releve_nr)`
+Joining with `by = join_by(releve_nr)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  forest                alien_cover_mean_perc
+  &lt;chr&gt;                                 &lt;dbl&gt;
+1 1_oak forest                         0.0188
+2 2_oak hornbeam forest                1.24  
+3 3_ravine forest                      3.11  
+4 4_alluvial forest                    3.08  </code></pre>
+</div>
+</div>
+</section>
+<section id="almost-at-the-end-of-this-course" class="level2">
+<h2 class="anchored" data-anchor-id="almost-at-the-end-of-this-course">Almost at the end of this course!</h2>
+<p>A couple of tidyverse songs as a bonus that you stayed with us and learned many new things:</p>
+<p>Human-made: <a href="https://www.youtube.com/watch?v=p8Py9C8iq2s" class="uri">https://www.youtube.com/watch?v=p8Py9C8iq2s</a></p>
+<p>AI-made: <a href="https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo" class="uri">https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo</a></p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">11.8 Exercises</h2>
+<section id="these-should-be-handed-in-for-successful-finishing-of-this-course." class="level3">
+<h3 class="anchored" data-anchor-id="these-should-be-handed-in-for-successful-finishing-of-this-course.">These should be handed in for successful finishing of this course.</h3>
+<ol type="1">
+<li><p><strong>Forest dataset from Turboveg database</strong> - prepare script from the database files as described above and (1) prepare scatterplot of a) overall species richness and b) herb-layer species richness against soil pH (2) scatterplot of herb-layer species richness against cover of trees (3) boxplots of richness (number of species) of native species, redlist species and alien species.</p></li>
+<li><p>Use the data from the folder <strong>basiphilous_grasslands</strong> and recreate the following plot. Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (<code>THE_THF</code>) for each plot (Releve), join header data and transform the variable for the time of sampling (<code>Rs_observ</code>) to a character/factor).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="11_database_to_plot_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p><strong>Frogs</strong></p></li>
+<li><p><strong>Lepidoptera</strong></p></li>
+<li><p><strong>Acidophilous grasslands</strong></p></li>
 </ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -10,8 +10,7 @@ author: 'Štěpánka Pustková, Branislav Kopčan'
 #|   %\VignetteEncoding{UTF-8}
 ```
 
-![](images/clipboard-727467331.png)
-Logo by Saša Smolková
+![](images/clipboard-727467331.png) Logo by Saša Smolková
 
 ```{r setup}
 #| warning: false
