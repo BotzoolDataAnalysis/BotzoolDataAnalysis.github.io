@@ -3,86 +3,125 @@ title: "Data Manipulation and Visualisation"
 author: Irena Axmanová, Klára Friesová
 ---
 
-# Osnova předmětu Manipulace a vizualizace dat
+# Data manipulation and visualisation course (Manipulace a vizualizace dat)
 
-V průběhu kurzu představíme pokročilé metody manipulace a vizualizace dat v programu R, zejména s využitím knihoven z kolekce tidyverse (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). Cílem předmětu je naučit studenty rutinní manipulaci s daty, tak aby si je uměli importovat, upravit, filtrovat, připojit nové informace z externích dat, vytvořit nové proměnné (např. na základě výpočtu), seskupit vzorky na základě nějaké charakteristiky/informace a pro tyto skupiny vypočítat další parametry. Dále se studenti naučí základní i pokročilé metody vizualizace dat pomocí ggplot2 a tvorbu základních map v R. Cílem předmětu je i osvojení přístupu open data science, kdy se naučí připravit skript tak, aby bylo možné ho na závěr publikovat na platformě GitHub.
+During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g. based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 and create basic maps in R. The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.
 
-# 1 Úvod - 15. 9. 2025
+# 1 Introduction - 15. 9. 2025
 
--   R jako programovací jazyk
+-   R as a programming language
+
 -   Tidyverse package, %\>%, \|\>
--   projekty v RStudiu, cheatsheets, keyboard shortcuts\
--   zásady tidy skriptu (úprava, nadpisy, záložky, poznámky)
--   zdroje informací a kde hledat pomoc, AI
--   import pomocí readr, readxl, na co si dávat pozor (encoding)
--   struktura dat (names, table, glimpse)
--   tidy data (zásady, příprava, kontrola), přejmenování proměnných (rename)
 
-# 2 Základní manipulace s daty - 22. 9. 2025
+-   projects in RStudio, cheatsheets, keyboard shortcuts
 
--   základní manipulace s daty (select, filter, mutate, arrange, slice)
--   export dat (write_csv)
+-   principles of a tidy script (formatting, headings, bookmarks, notes)
 
-# 3 Vizualizace dat pomocí ggplot - 29. 9. 2025
+-   information sources and where to look for help, AI
 
--   logika ggplot
--   základní geom funkce (point, boxplot, histogram, barplot)
--   prokládání trendů
--   symboly, barvy
--   legenda, popisky os
+-   import using readr, readxl, what to watch out for (encoding)
+
+-   data structure (names, table, glimpse)
+
+-   tidy data (principles, preparation, checking), renaming variables (rename)
+
+# 2 Data manipulation - 22. 9. 2025
+
+-   basic data manipulation (select, filter, mutate, arrange, slice)
+-   data export (write_csv)
+
+# 3 Data visualisation with ggplot - 29. 9. 2025
+
+-   logic of ggplot
+
+-   basic geom functions (point, boxplot, histogram, barplot)
+
+-   trend fitting
+
+-   symbols, colors
+
+-   legend, axis labels
+
 -   theme
--   uložení grafu (ggsave)
+
+-   saving a plot (ggsave)
 
 # 4 Wide vs. long format - 13. 10. 2025
 
--   převody formátů (pivot)
--   nové proměnné (mutate, group_by, summarise)
--   species richness, součty/podíly různých hodnot v rámci vzorku (count)
+-   format transformations (pivot)
 
-# 5 Join funkce - 20. 10. 2025
+-   new variables (mutate, group_by, summarise)
 
--   spojovací funkce (left_join, full_join), přidání informací z jiných datových souborů
--   filtrovací funkce: semi_join, anti_join
--   podíly určitých skupin podle vlastností, indikační hodnoty, CWM
--   úprava nomenklatury (pokročilé mutate, summarise), slučování duplicit
--   mutate s vícenásobnou podmínkou (ifelse, case_when)
+-   species richness, sums/proportions of different values within a sample (count)
 
-# 6 Pokročilá vizualizace dat - 27. 10. 2025
+# 5 Join functions - 20. 10. 2025
 
--   ggplot advanced - faceting, using multiple data sources, scales, position adjustments, legend modifications
--   useful extensions - patchwork, ggpubr, ggeffects
--   shiny trailer (ukázka)
+-   join functions (left_join, full_join), adding information from other data files
 
-# 7 + 8 Automatizace skriptu - 3. a 10. 11. 2025
+-   filtering functions: semi_join, anti_join
 
--   napsání vlastní funkce
--   použití smyček (for loops)
--   purrr a ukázka práce s nested dataframes
+-   proportions of certain groups by traits, indicator values, CWM
 
-# 9 + 10 Mapy v R - 24. 11. a 1. 12. 2025
+-   nomenclature editing (advanced mutate, summarise), merging duplicates
 
--   mapy pomocí terra
--   zobrazení vzorků v prostoru (přehledová mapa, měřítko, legenda…) na podkladě open street maps
--   kartogramy, mapování v gridu
--   extrakce dat z rastru, digitální model
--   výběr dat pomocí masky
--   škálování mapovaných bodů podle hodnot (barva, symbol)
+-   mutate with multiple conditions (ifelse, case_when)
+
+# 6 Advanced data visualisation - 27. 10. 2025
+
+-   ggplot advanced – faceting, using multiple data sources, scales, position adjustments, legend modifications
+
+-   useful extensions – patchwork, ggpubr, ggeffects
+
+-   shiny trailer (demo)
+
+# 7 + 8 Script automatisation - 3. a 10. 11. 2025
+
+-   writing your own function
+
+-   using loops (for loops)
+
+-   purrr and an example of working with nested dataframes
+
+# 9 + 10 Maps in R - 24. 11. a 1. 12. 2025
+
+-   maps using terra
+
+-   displaying samples in space (overview map, scale bar, legend…) on an OpenStreetMap background
+
+-   cartograms, grid-based mapping
+
+-   extracting data from a raster, digital model
+
+-   selecting data using a mask
+
+-   scaling mapped points according to values (color, symbol)
 
 # 11 Od databáze ke grafu (opakovací hodina) - 8. 12. 2025
 
--   import dat z databáze, propojení různých datových souborů, úprava struktury dat
--   filtrování podsouboru
--   sloučení duplicit např. vzniklých převodem nomenklatury
--   napojení externích vlastností, výpočty vážených průměrů
--   příprava grafu pro publikaci
--   sloučení celého procesu do jedné pipeliny
+-   importing data from a database, linking different data files, adjusting data structure
+
+-   filtering a subset
+
+-   merging duplicates, e.g., those created during nomenclature conversion
+
+-   linking external traits, calculating weighted means
+
+-   preparing a publication-ready figure
+
+-   combining the entire process into one pipeline
 
 # 12 GitHub - 15. 12. 2025
 
--   jak funguje, stažení dat z veřejných projektů
+-   how it works, downloading data from public projects
+
 -   version control
--   vlastní účet, propojení s RStudiem
--   vytvoření vlastního úložiště (repository), propojení s R projektem v počítači
--   spolupráce na projektu (branch, commit, push, pull, merge conflicts)
--   publikace skriptu, zveřejnění (doi, zásady readme)
--   GitHub pages
+
+-   own account, linking with RStudio
+
+-   creating your own repository, linking it with an R project on your computer
+
+-   collaborating on a project (branch, commit, push, pull, merge conflicts)
+
+-   publishing a script, making it public (DOI, README guidelines)
+
+-   GitHub Pages
