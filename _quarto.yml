@@ -45,6 +45,9 @@ website:
             href: DataManipulationVisualisation/11_database_to_plot.qmd
           - text: "12 GitHub"
             href: DataManipulationVisualisation/12_github.qmd
+            
+      - section: "Introduction to Biostatistics"
+        href: Biostatistics/biostatistics.qmd
         
       - section: "Community Ecology"
         href: CommunityEcology/community_ecology.qmd

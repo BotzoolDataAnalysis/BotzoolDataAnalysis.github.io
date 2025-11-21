@@ -5,11 +5,11 @@ author: Irena Axmanová, Klára Friesová
 
 # Data manipulation and visualisation course
 
-# (Bi8190 Manipulace a vizualizace dat)
+# ([Bi8190 Manipulace a vizualizace dat](https://is.muni.cz/predmet/sci/podzim2025/BI8190))
 
 During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g. based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 and create basic maps in R. The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.
 
-# 1 Introduction - 15. 9. 2025
+# [1 Introduction](1_introduction.qmd) - 15. 9. 2025
 
 -   R as a programming language
 -   Tidyverse package, %\>%, \|\>
@@ -20,12 +20,12 @@ During the course, we will introduce advanced methods of data manipulation and v
 -   data structure (names, table, glimpse)
 -   tidy data (principles, preparation, checking), renaming variables (rename)
 
-# 2 Data manipulation - 22. 9. 2025
+# [2 Data manipulation](2_data_manipulation.qmd) - 22. 9. 2025
 
 -   basic data manipulation (select, filter, mutate, arrange, slice)
 -   data export (write_csv)
 
-# 3 Data visualisation with ggplot - 29. 9. 2025
+# [3 Data visualisation with ggplot](3_data_visualisation.qmd) - 29. 9. 2025
 
 -   logic of ggplot
 -   basic geom functions (point, boxplot, histogram, barplot)
@@ -35,13 +35,13 @@ During the course, we will introduce advanced methods of data manipulation and v
 -   theme
 -   saving a plot (ggsave)
 
-# 4 Wide vs. long format - 13. 10. 2025
+# [4 Wide vs. long format](4_wide_vs_long.qmd) - 13. 10. 2025
 
 -   format transformations (pivot)
 -   new variables (mutate, group_by, summarise)
 -   species richness, sums/proportions of different values within a sample (count)
 
-# 5 Join functions - 20. 10. 2025
+# [5 Join functions](5_join_functions.qmd) - 20. 10. 2025
 
 -   join functions (left_join, full_join), adding information from other data files
 -   filtering functions: semi_join, anti_join
@@ -49,19 +49,19 @@ During the course, we will introduce advanced methods of data manipulation and v
 -   nomenclature editing (advanced mutate, summarise), merging duplicates
 -   mutate with multiple conditions (ifelse, case_when)
 
-# 6 Advanced data visualisation - 27. 10. 2025
+# [6 Advanced data visualisation](6_advanced_visualisation.qmd) - 27. 10. 2025
 
 -   ggplot advanced – faceting, using multiple data sources, scales, position adjustments, legend modifications
 -   useful extensions – patchwork, ggpubr, ggeffects
 -   shiny trailer (demo)
 
-# 7 + 8 Script automatisation - 3. a 10. 11. 2025
+# [7 + 8 Script automatisation](7_8_automatisation.qmd) - 3. a 10. 11. 2025
 
 -   writing your own function
 -   using loops (for loops)
 -   purrr and an example of working with nested dataframes
 
-# 9 + 10 Maps in R - 24. 11. a 1. 12. 2025
+# [9 + 10 Maps in R](9_10_maps.qmd) - 24. 11. a 1. 12. 2025
 
 -   maps using terra
 -   displaying samples in space (overview map, scale bar, legend…) on an OpenStreetMap background
@@ -70,7 +70,7 @@ During the course, we will introduce advanced methods of data manipulation and v
 -   selecting data using a mask
 -   scaling mapped points according to values (colour, symbol)
 
-# 11 From database to plot (review) - 8. 12. 2025
+# [11 From database to plot (review)](11_database_to_plot.qmd) - 8. 12. 2025
 
 -   importing data from a database, linking different data files, adjusting data structure
 -   filtering a subset
@@ -79,7 +79,7 @@ During the course, we will introduce advanced methods of data manipulation and v
 -   preparing a publication-ready figure
 -   combining the entire process into one pipeline
 
-# 12 GitHub - 15. 12. 2025
+# [12 GitHub](12_github.qmd) - 15. 12. 2025
 
 -   how it works, downloading data from public projects
 -   version control

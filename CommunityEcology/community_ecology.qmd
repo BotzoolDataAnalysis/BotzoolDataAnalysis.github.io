@@ -3,4 +3,6 @@ title: "Data Analysis in Community Ecology"
 format: html
 ---
 
-Cookbook might be moved here
+# Data Analysis in Community Ecology Course
+
+# ([Bi7540 Analýza dat v ekologii společenstev](https://is.muni.cz/predmet/sci/podzim2025/BI7540), [Bi7542 Data analysis in community ecology](https://is.muni.cz/predmet/sci/podzim2025/BI7542))

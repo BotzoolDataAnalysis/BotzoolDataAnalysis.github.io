@@ -1,0 +1,6 @@
+---
+title: "biostatistics"
+format: html
+---
+
+# [Bi6050 Introduction to Biostatistics in English](https://is.muni.cz/predmet/sci/jaro2026/BI6050)
