@@ -248,7 +248,7 @@ st_crs(South_Moravia)
 st_crs(protected_areas)
 ```
 
-All of our sf data are in WGS84 (EPSG: 4326), except for grasslands_shp, which uses S-JTSK / Krovak East North (EPSG: 5514).
+All of our sf data are in WGS84 (EPSG: 4326).
 
 We want to project all sf objects to WGS 84 / UTM zone 33N (EPSG: 32633):
 

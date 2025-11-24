@@ -381,21 +381,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Simple feature collection with 6682 features and 4 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
-Bounding box:  xmin: -676987.4 ymin: -1226729 xmax: -526709.2 ymax: -1112418
-Projected CRS: S-JTSK / Krovak East North
+Bounding box:  xmin: 15.56716 ymin: 48.62252 xmax: 17.63911 ymax: 49.63325
+Geodetic CRS:  WGS 84
 # A tibble: 6,682 × 5
    SHAPE_Leng SHAPE_Area DATA50_K DATA50_P                              geometry
-        &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;                       &lt;MULTIPOLYGON [m]&gt;
- 1      1396.     32898. 4030000  louky, pastviny (((-676793 -1180415, -676793.…
- 2      1126.     24282. 4030000  louky, pastviny (((-672771 -1185593, -672768.…
- 3     11685.    398261. 4030000  louky, pastviny (((-673521.2 -1183307, -67353…
- 4      1454.     26482. 4030000  louky, pastviny (((-674942.4 -1184958, -67497…
- 5      4838.    171081. 4030000  louky, pastviny (((-673213.5 -1184379, -67323…
- 6      1223.     40670. 4030000  louky, pastviny (((-671446.2 -1186285, -67146…
- 7      2392.     56106. 4030000  louky, pastviny (((-669039.5 -1185755, -66905…
- 8     20895.    963673. 4030000  louky, pastviny (((-672793.6 -1179712, -67281…
- 9      1131.     33635. 4030000  louky, pastviny (((-676532 -1181611, -676562.…
-10      2542.    111371. 4030000  louky, pastviny (((-668901.2 -1189786, -66889…
+        &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;                       &lt;MULTIPOLYGON [°]&gt;
+ 1      1396.     32898. 4030000  louky, pastviny (((15.56967 48.93862, 15.5696…
+ 2      1126.     24282. 4030000  louky, pastviny (((15.63268 48.89676, 15.6327…
+ 3     11685.    398261. 4030000  louky, pastviny (((15.61876 48.91636, 15.6186…
+ 4      1454.     26482. 4030000  louky, pastviny (((15.60223 48.90007, 15.6019…
+ 5      4838.    171081. 4030000  louky, pastviny (((15.62469 48.90712, 15.6244…
+ 6      1223.     40670. 4030000  louky, pastviny (((15.65175 48.89202, 15.6515…
+ 7      2392.     56106. 4030000  louky, pastviny (((15.68347 48.89934, 15.6833…
+ 8     20895.    963673. 4030000  louky, pastviny (((15.62271 48.94923, 15.6225…
+ 9      1131.     33635. 4030000  louky, pastviny (((15.57518 48.92822, 15.5749…
+10      2542.    111371. 4030000  louky, pastviny (((15.69191 48.8635, 15.69191…
 # ℹ 6,672 more rows</code></pre>
 </div>
 </div>
@@ -630,52 +630,22 @@ max value   : 956.6145 </code></pre>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(grasslands_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
-  User input: S-JTSK / Krovak East North 
+  User input: WGS 84 
   wkt:
-PROJCRS["S-JTSK / Krovak East North",
-    BASEGEOGCRS["S-JTSK",
-        DATUM["System of the Unified Trigonometrical Cadastral Network",
-            ELLIPSOID["Bessel 1841",6377397.155,299.1528128,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4156]],
-    CONVERSION["Krovak East North (Greenwich)",
-        METHOD["Krovak (North Orientated)",
-            ID["EPSG",1041]],
-        PARAMETER["Latitude of projection centre",49.5,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8811]],
-        PARAMETER["Longitude of origin",24.8333333333333,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8833]],
-        PARAMETER["Co-latitude of cone axis",30.2881397527778,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",1036]],
-        PARAMETER["Latitude of pseudo standard parallel",78.5,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8818]],
-        PARAMETER["Scale factor on pseudo standard parallel",0.9999,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8819]],
-        PARAMETER["False easting",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["easting (X)",east,
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["latitude",north,
             ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["northing (Y)",north,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["longitude",east,
             ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["GIS."],
-        AREA["Czechia; Slovakia."],
-        BBOX[47.73,12.09,51.06,22.56]],
-    ID["EPSG",5514]]</code></pre>
+            ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4326]]</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(plots_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -759,7 +729,7 @@ GEOGCS["WGS 84",
     AUTHORITY["EPSG","4326"]]</code></pre>
 </div>
 </div>
-<p>All of our sf data are in WGS84 (EPSG: 4326), except for grasslands_shp, which uses S-JTSK / Krovak East North (EPSG: 5514).</p>
+<p>All of our sf data are in WGS84 (EPSG: 4326).</p>
 <p>We want to project all sf objects to WGS 84 / UTM zone 33N (EPSG: 32633):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>plots_UTM33N <span class="ot">&lt;-</span>  plots_sf <span class="sc">%&gt;%</span></span>
