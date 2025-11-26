@@ -254,12 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introducing-dplyr" id="toc-introducing-dplyr" class="nav-link active" data-scroll-target="#introducing-dplyr">2.1. Introducing dplyr</a></li>
-  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">2.2 Select</a></li>
-  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange">2.3 Arrange</a></li>
-  <li><a href="#distinct" id="toc-distinct" class="nav-link" data-scroll-target="#distinct">2.4 Distinct</a></li>
-  <li><a href="#filter-and-slice" id="toc-filter-and-slice" class="nav-link" data-scroll-target="#filter-and-slice">2.5 Filter and slice</a></li>
-  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">2.6 Mutate</a></li>
+  <li><a href="#introducing-dplyr" id="toc-introducing-dplyr" class="nav-link active" data-scroll-target="#introducing-dplyr">2.1. Introducing <code>dplyr</code></a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">2.2 <code>select()</code></a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange">2.3 <code>arrange()</code></a></li>
+  <li><a href="#distinct" id="toc-distinct" class="nav-link" data-scroll-target="#distinct">2.4 <code>distinct()</code></a></li>
+  <li><a href="#filter-and-slice" id="toc-filter-and-slice" class="nav-link" data-scroll-target="#filter-and-slice">2.5 <code>filter()</code> and <code>slice()</code></a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">2.6 <code>mutate()</code></a></li>
   <li><a href="#save-the-data" id="toc-save-the-data" class="nav-link" data-scroll-target="#save-the-data">2.7 Save the data</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">2.8 Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">2.9 Further reading</a></li>
@@ -296,20 +296,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>In this chapter, we will try to explore the data, prepare subsets with only selected variables and filter them to only defined cases. We will prepare new variables and rearrange the data according to them. We will also further train importing and exporting the data.</p>
 <section id="introducing-dplyr" class="level2">
-<h2 class="anchored" data-anchor-id="introducing-dplyr">2.1. Introducing dplyr</h2>
-<p>The term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and make better results. It just means we want to show you how to easily handle the data, prepare them in the form you need. The functions for basic data handling, namely <strong>select, filter, mutate, arrange, slice</strong> come from the tidyverse package called <code>dplyr</code>. Do you remember how to find out more about the package? If nothing else you can try “?dplyr” which actually gives you more hints where to look further.</p>
+<h2 class="anchored" data-anchor-id="introducing-dplyr">2.1. Introducing <code>dplyr</code></h2>
+<p>The term data manipulation might sound a bit tricky. However, it does not mean we plan to show you how to cheat and get better results. It simply means we want to show you how to easily handle the data and prepare it in the form you need. The functions for basic data handling, namely <strong><code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>arrange()</code></strong>, and <strong><code>slice()</code></strong>, are provided by the tidyverse package <code>dplyr</code>. Do you remember how to find out more about the package? If nothing else, you can try <code>?dplyr</code>, which actually gives you more hints where to look further.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/IA_clipboard2Dplyr.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="755"></p>
 </figure>
 </div>
-<p>Note that many of these operations can be done also in some table editors (eg. Excel) before importing to R. However, the effort and time demands would be much higher and would be increasing enormously with the size of the dataset. In contrast, in R you can change and rerun the steps in one pipeline and the data will be immediately ready for next analyses.</p>
-<p>We will need following libraries</p>
+<p>Note that many of these operations can also be performed in some table editors (e.g., Excel) before importing to R. However, the effort and time demands would be significantly higher and would increase enormously with the size of the dataset. In contrast, in R, you can modify and rerun the steps in a single pipeline, and the data will be immediately ready for the following analysis.</p>
+<p>We will need the following libraries:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and the forest dataset. Again I will import the data just once and use the pipe to test the functions/effects without actually changing the data</p>
+<p>And the forest understory dataset. Again, we will import the data just once and use the pipe to test the functions/effects without actually changing the data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -324,9 +324,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="select" class="level2">
-<h2 class="anchored" data-anchor-id="select">2.2 Select</h2>
-<p>Select extracts columns/variables based on their names or position. It is important to realise the difference between select and filter. Select is used to select the names of variables I want to keep in the dataset, while filter applies to rows depending on their values.</p>
-<p>You can select by naming the variables. Here you would appreciate the tidy style of names! Tidy names means no need to use parentheses :-)</p>
+<h2 class="anchored" data-anchor-id="select">2.2 <code>select()</code></h2>
+<p><code>select()</code> extracts columns/variables based on their names or position. It is essential to understand the distinction between <code>select()</code> and <code>filter()</code>. <code>select()</code> is used to select variables (columns) we want to keep in the dataset, while <code>filter()</code> applies to rows depending on their values.</p>
+<p>You can select by naming the variables. Here, you would appreciate the tidy style of names! Tidy names mean no need to use parentheses :-).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, ForestType, ForestTypeName) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -347,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>You can also select by position. However, be sure it will stay the same after all the changes you might do with the data.</p>
+<p>You can also select by position. However, be sure it will remain the same after all the changes you might make to the data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -368,10 +368,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Sometimes you decide you want to get rid of some variables. Either you can name all the others which you want to keep, or you can remove those unwanted with minus sign. If it is one variable it is easy “select(-xx)”, if two or more, you have to use “select(-c(xx, xy))”</p>
+<p>Sometimes, you decide you want to get rid of some variables. Either you can name all the others that you want to keep, or you can remove the unwanted ones with a minus sign. In the case of just one variable, it is easy: <code>select(-xx)</code>. If you want to exclude two or more, you have to use <code>select(-c(xx, xy))</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(ForestType,ForestTypeName))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(ForestType, ForestTypeName))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 20
    PlotID Herbs Juveniles CoverE1 Biomass Soil_depth_categ pH_KCl Slope Altitude
@@ -392,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>You can also define range of variables between two of them.</p>
+<p>You can also define a range of variables between two of them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID<span class="sc">:</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -413,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Or you can combine the approaches listed above</p>
+<p>Or you can combine the approaches listed above:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (PlotID, <span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -434,7 +434,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Select can be also used in combination with stringr package to identify the pattern in the names: try several options: <code>starts_with</code>, <code>ends_with</code> or more general one <code>contains</code></p>
+<p><code>select()</code> can also be used in combination with functions from the <code>stringr</code> package to identify a specific pattern in the names. Try several options: <code>starts_with()</code>, <code>ends_with()</code> or a more general one, <code>contains()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (PlotID, <span class="fu">starts_with</span>(<span class="st">"EIV"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -455,10 +455,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Select can effectively help you organise the data. Imagine you have a workflow where you need only some variables, but in a certain sequence. And you import the data from different people, or years. With the use of select in your script you can order the variables always in the same way e.g.&nbsp;SampleID, ForestType, SpeciesNr, Productivity, even during import. And you can also rename the variables using select, to get exactly what you need. Here the new name is at the left, as in rename.</p>
+<p><code>select()</code> can effectively help you organise the data. Imagine you have a workflow where you need only some variables, but in a specific sequence. And you import the data from different people or years. By using <code>select()</code> in your script, you can always order the variables in the same way, e.g., SampleID, ForestType, SpeciesNr, Productivity, even during import. You can also rename the variables using select to get exactly what you need. Here, the new name is on the left, as in <code>rename()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">SampleID=</span>PlotID, <span class="at">ForestCode=</span>ForestType, <span class="at">SpeciesNr=</span>Herbs, <span class="at">Productivity=</span>Biomass) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">SampleID =</span> PlotID, <span class="at">ForestCode =</span> ForestType, <span class="at">SpeciesNr =</span> Herbs, <span class="at">Productivity =</span> Biomass) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
    SampleID ForestCode SpeciesNr Productivity
@@ -478,13 +478,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="arrange" class="level2">
-<h2 class="anchored" data-anchor-id="arrange">2.3 Arrange</h2>
-<p>This function keeps the same variables just reorders the rows according to the values we select. To see the changes at a first glance I will first select only few variables.</p>
+<h2 class="anchored" data-anchor-id="arrange">2.3 <code>arrange()</code></h2>
+<p>This function retains the same variables and reorders the rows according to the values of the selected variables. To view the changes at a glance, we will first select only a few variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>) </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(PlotID, ForestType, ForestTypeName, Biomass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now I decided to arrange the data by Forest type</p>
+<p>Now we have decided to arrange the data by Forest type.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -505,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>We can also decide to arrange the data from the highest value to the lowest, i.e.&nbsp;in descending order</p>
+<p>We can also decide to arrange the data from the highest value to the lowest, i.e.&nbsp;in descending order.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -526,10 +526,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Or we can arrange according to more variables. Here the forest type goes first, as I decided it is the most important grouping variable. Within each type I want to see the rows/cases ordered by biomass values.</p>
+<p>Or we can arrange according to more variables. Here, the forest type is listed first, as we have decided it is the most important grouping variable. Within each type, we want to see the rows/cases ordered by biomass values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestType, ForestTypeName, <span class="fu">desc</span>(Biomass)) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n=</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestType, ForestTypeName, <span class="fu">desc</span>(Biomass)) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
    PlotID ForestType ForestTypeName      Biomass
@@ -567,11 +567,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 35 more rows</code></pre>
 </div>
 </div>
-<p>To see more rows of the resulting table, I specified their number using print function.</p>
+<p>To see more rows of the resulting table, we specified their number using the <code>print()</code> function.</p>
 </section>
 <section id="distinct" class="level2">
-<h2 class="anchored" data-anchor-id="distinct">2.4 Distinct</h2>
-<p>Distinct is a function that takes your data and remove all the duplicate rows, keeping only the unique ones. There are many cases where you will really appreciate this elegant and easy way. For example, I want a list of unique PlotIDs, unique combinations of two categories etc. Here I want to prepare list of forest types codes and names.</p>
+<h2 class="anchored" data-anchor-id="distinct">2.4 <code>distinct()</code></h2>
+<p><code>distinct()</code> is a function that takes your data and removes all the duplicate rows, keeping only the unique ones. There are many cases where you will truly appreciate this elegant and effortless approach. For example, we want a list of unique Plot IDs, unique combinations of two categories, and so on. Here, we aim to compile a list of forest type codes and corresponding names.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestType) <span class="sc">%&gt;%</span></span>
@@ -587,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4          4 alluvial forest    </code></pre>
 </div>
 </div>
-<p>The same can be done also if I skip the select tool, because distinct works more like select+distinct.</p>
+<p>The same can also be done if I skip the select tool, because <code>distinct()</code> works more like <code>select()</code> + <code>distinct()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>      </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestType) <span class="sc">%&gt;%</span></span>
@@ -602,15 +602,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4          4 alluvial forest    </code></pre>
 </div>
 </div>
-<p>Sometimes, distinct can be used also when importing data just to remove forgotten duplicate rows: data&lt;- read_csv… %&gt;% distinct().</p>
+<p>Sometimes, <code>distinct()</code> can also be used when importing data to remove duplicate rows that were overlooked previously: <code>data &lt;- read_csv... %&gt;% distinct()</code>.</p>
 </section>
 <section id="filter-and-slice" class="level2">
-<h2 class="anchored" data-anchor-id="filter-and-slice">2.5 Filter and slice</h2>
-<p>When we have a large dataset, we sometimes need to create a subset of the rows/cases. First we have to define upon which variable we are going to filter the rows (e.g.&nbsp;Forest type, soil pH…) and which values are acceptable and which are not.</p>
-<p>In this first example I use categorical variable and I want to match exact value, so I have to use ==</p>
+<h2 class="anchored" data-anchor-id="filter-and-slice">2.5 <code>filter()</code> and <code>slice()</code></h2>
+<p>When we have a large dataset, we sometimes need to create a subset of the rows/cases. First, we need to define the variable on which we will filter the rows (e.g., Forest type, soil pH) and determine which values are acceptable and which are not.</p>
+<p>In this first example, we use a categorical variable, and we want to match the exact value, so we have to use <code>==</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestTypeName <span class="sc">==</span><span class="st">"alluvial forest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestTypeName <span class="sc">==</span> <span class="st">"alluvial forest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 4
    PlotID ForestType ForestTypeName  Biomass
@@ -628,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 11    132          4 alluvial forest   287. </code></pre>
 </div>
 </div>
-<p>Or I might define a list of values, especially for categorical variables. And the filter function will try to find rows with values exactly matching those %in% the list.</p>
+<p>Or we might define a list of values, especially for categorical variables. The filter function will try to find rows with values exactly matching those <code>%in%</code> the list.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestTypeName <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"alluvial forest"</span>, <span class="st">"ravine forest"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -649,7 +649,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 11 more rows</code></pre>
 </div>
 </div>
-<p>If I filter continuous variable, I can work with thresholds. For example, here the biomass of herb layer is measured in g/m2 and I want only those rows/cases where the biomass values are higher than 80.</p>
+<p>When filtering a continuous variable, we can work with thresholds. For example, here the biomass of the herb layer is measured in g/m<sup>2</sup>, and we want only those rows/cases where the biomass values are higher than 80.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>) </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
@@ -681,7 +681,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>You can also filter plots in a specified range of some value and use multiple conditions. Here I want to keep only plots that have biomass in the range 40-80 g/m2 but if there are any plots without any value (NA), I want to keep them as well.</p>
+<p>You can also filter plots within a specified range and apply multiple conditions. Here, we want to keep only plots with biomass in the range of 40–80 g/m², but we also want to keep plots without a value (NA).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>((Biomass <span class="sc">&gt;=</span> <span class="dv">40</span> <span class="sc">&amp;</span> Biomass <span class="sc">&lt;=</span> <span class="dv">80</span>) <span class="sc">|</span> <span class="fu">is.na</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -715,7 +715,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Example of multiple conditions in one filter line. Here we select all plots from the specified to types and from the others we take just those that have higher biomass because we used OR (|) between the two conditions.</p>
+<p>Example of multiple conditions in one filter line. Here, we select all plots of the specified types and exclude the others, taking only those with higher biomass, because we used the OR (<code>|</code>) operator between the two conditions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>((ForestTypeName <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"alluvial forest"</span>, <span class="st">"ravine forest"</span>) <span class="sc">|</span></span>
@@ -741,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Sometimes you might find it useful to filter something out, rather than specifying what should stay. This is done by the exclamation mark as you can see below.</p>
+<p>Sometimes you might find it useful to filter something out, rather than specifying what should stay. This is indicated by the exclamation mark, as shown below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Juveniles))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -766,7 +766,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Specific alternative to filter is <strong>slice</strong> function. Let’s say I want to get top 3 rows/cases/vegetation samples with the highest numbers of recorded juveniles. So I can arrange the values and find out the threshold and filter for the values above it. Or I can use slice_max to do the job for me.</p>
+<p>A specific alternative to <code>filter()</code> is the <strong><code>slice()</code></strong> function. Let’s say I want to get the top 3 rows/cases/vegetation samples with the highest numbers of recorded juveniles. So, we can arrange the values, determine the threshold and filter the values above it. Or we can use <code>slice_max()</code> to do the job for us.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Juveniles)) <span class="sc">%&gt;%</span></span>
@@ -784,15 +784,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   EIV_moisture &lt;dbl&gt;, EIV_soilreaction &lt;dbl&gt;, EIV_nutrients &lt;dbl&gt;, TWI &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Tip: try slice_min if you need the lowest values.</p>
+<p>Tip: Try <code>slice_min()</code> if you need the lowest values.</p>
 </section>
 <section id="mutate" class="level2">
-<h2 class="anchored" data-anchor-id="mutate">2.6 Mutate</h2>
-<p>Mutate adds new variables that are functions of existing variables. It can also overwrite the original variable e.g.&nbsp;round the values.</p>
-<p>For example, in the field I recorded separately juveniles of woody plants and all other herb-layer species. However, I want to sum these two values for each row/case/vegetation plot so that I can speak about overall species richness. I create new variable where I simply sum these two (note how easy it is with tidy names!).</p>
+<h2 class="anchored" data-anchor-id="mutate">2.6 <code>mutate()</code></h2>
+<p><code>mutate()</code> adds new variables that are functions of existing variables, e.g.&nbsp;round the values. It can also overwrite the original variable.</p>
+<p>For example, in the field, I recorded juveniles of woody plants and all other herb-layer species separately. However, we now want to sum these two values for each row/case/vegetation plot so that we can speak about overall species richness. I create a new variable by simply summing these two (note how easy it is with tidy names!).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesRichness =</span> Herbs<span class="sc">+</span>Juveniles) <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SpeciesRichness =</span> Herbs <span class="sc">+</span> Juveniles) <span class="sc">%&gt;%</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, SpeciesRichness, Herbs, Juveniles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
@@ -811,7 +811,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>Sometimes you want to add variable, where all the rows/cases will get the same value. For example because you plan to join the data with other data or because it is useful for another mutate. This is also the very simple way how to change the data with abundances to presence/absence data.</p>
+<p>Sometimes, you want to add a variable where all rows/cases will receive the same value. For example, because you plan to join the data with other data or because it is useful for another <code>mutate()</code>. This is also a straightforward method for converting data with abundances to presence/absence data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">selection =</span> <span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
@@ -833,7 +833,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>You can also create a variable with more categories based on values of other variable using <strong>mutate ifelse</strong> You give the condition when it should be called low and what to do if the condition is not met - name it high. <strong>TIP&gt;</strong> Inside ‘Condition’ you can use also other conditional operators, like AND (&amp;), OR (|), or EQUAL (==) .</p>
+<p>You can also create a variable with more categories based on the values of other variables using <strong><code>ifelse()</code></strong> inside <strong><code>mutate()</code></strong>. You give the condition when it should be called ‘low’ and what to do if the condition is not met - name it ‘high’.</p>
+<p><strong>Tip:</strong> Inside ‘Condition’, you can also use other conditional operators, like AND (<code>&amp;</code>), OR (<code>|</code>), or EQUAL (<code>==</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">ifelse</span>(Biomass<span class="sc">&lt;</span><span class="dv">60</span>,<span class="st">"low"</span>,<span class="st">"high"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -866,12 +867,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 45 more rows</code></pre>
 </div>
 </div>
-<p>The same can be done with similar approach using <strong>mutate cases when.</strong> Conditions are evaluated from the first (on the left) to the last (on the right side), so for each step you take only the rows, that are not yet treated by previous condition.</p>
+<p>The same can be done with a similar approach using <strong><code>case_when()</code>.</strong> Conditions are evaluated from the first (on the left) to the last (on the right side), so for each step, you take only the rows that are not yet treated by the previous condition.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">case_when</span>(Biomass <span class="sc">&lt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"low"</span>, Biomass <span class="sc">&gt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"high"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (PlotID, ForestTypeName, Productivity, Biomass) <span class="sc">%&gt;%</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, ForestTypeName, Productivity, Biomass) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
    PlotID ForestTypeName      Productivity Biomass
@@ -899,11 +900,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 45 more rows</code></pre>
 </div>
 </div>
-<p>I have already said that we often use mutate to directly transform original values. For example I want to round the numbers in several variables at once, so I use <strong>mutate across</strong></p>
+<p>I have already said that we often use <code>mutate()</code> to transform original values directly. To work with multiple variables at once, e.g., round them, we can use <strong><code>mutate(across())</code></strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Biomass, pH_KCl, TransTot), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="at">digits =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Biomass, pH_KCl,TransTot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Biomass, pH_KCl, TransTot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 4
    PlotID Biomass pH_KCl TransTot
@@ -921,27 +922,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p><strong>.x</strong> refers to the entire column (vector) being transformed inside a function like mutate(across(…)) or map().</p>
+<p><strong><code>.x</code></strong> refers to the entire column (vector) being transformed inside a function like <code>mutate(across(...))</code> or <code>map()</code>.</p>
 </section>
 <section id="save-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="save-the-data">2.7 Save the data</h2>
-<p>If you decide that you already prepared the dataset in the form it should be used later, you probably need to save it and export e.g.&nbsp;as csv. Remember, that we were mostly trying how it would look like with the %&gt;%, so you have to either assign the dataset to a new name, or add the write command at the end of the pipeline. See also chapter1.</p>
-<p>Here we will play a bit with tidyverse package readr.</p>
-<p>Write a comma delimited file</p>
+<p>If you decide that you have already prepared the dataset in the form it should be used later, you probably need to save it and export, e.g.&nbsp;as a csv. Remember that we were primarily trying to see what it would look like with the <code>%&gt;%</code>, so you must either assign the dataset to a new name or add the write command at the end of the pipeline. See also Chapter 1.</p>
+<p>Here we will play a bit with the <code>tidyverse</code> package <code>readr</code>.</p>
+<p>Write a comma-delimited file:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data, <span class="st">"exercisesIA/forest_selected1.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Write a semicolon delimited file “;”</p>
+<p>Write a semicolon-delimited file (;):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv2</span>(data, <span class="st">"exercisesIA/forest_selected2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>or find out more in the readr cheatsheet. Note that in contrast to write.csv functions the write_csv keeps the philosophy of tidyverse, so do not expect row names in the export.</p>
-<p>You can also write directly Excel file, for example, with writexl library.</p>
+<p>Or find out more in the <code>readr</code> cheatsheet. Note that, in contrast to the <code>write.csv()</code> function, the <code>write_csv()</code> function adheres to the tidyverse philosophy, so row names are not included in the export.</p>
+<p>You can also write directly to an Excel file, for example, using the <code>writexl</code> library.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(data, <span class="st">'exercisesIA/forestEnv.xlsx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To create an xlsx with (multiple) named sheets, you would need to provide a list of data frames.Here I specify that data1 should be saved as an Excel sheet forestEnv (environmental data) and data2 as a sheet forestSpe (species data of the same dataset).</p>
+<p>To create an xlsx with (multiple) named sheets, you would need to provide a list of data frames. Here, we specify that data1 should be saved as an Excel sheet named forestEnv (environmental data) and data2 as a sheet named forestSpe (species data from the same dataset).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
@@ -951,19 +952,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">2.8 Exercises</h2>
-<p>1. <strong>Forest Data</strong> - <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> - download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> This dataset is used in the whole chapter, please use it to prepare your own script with remarks, copy and train what is described above.</p>
-<p>Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in R script? Go to “Code” and tick “soft wrap long lines”.</p>
-<p>2. Directly from R studio create folder “results/chapter2” for saving todays datasets, as we will train a bit of exporting the data.</p>
-<p>3. Use the Forest Data to train more. Create variable “author” which will contain name Axmanova &gt; as we did before, create variable richness summing the herbs and juveniles &gt; select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into “results/chapter2”.</p>
-<p>4.Use the Forest dataset again. Find five plots with lowest biomass, from other forest types than oak forests.</p>
+<p>1. <strong>Forest Data</strong> - <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> - download the data from the repository and save it into your project folder (<code>Link to Github folder</code>). This dataset is used throughout the whole chapter. Please use it to prepare your own script with remarks, copy and train what is described above.</p>
+<p>Tip: If you copy the description and add it directly to your script, it is simply too long, right? Do you know how to read long lines of text in an R script? Go to “Code” and tick “soft wrap long lines”.</p>
+<p>2. Directly from R Studio, create a folder <code>results/chapter2</code> for saving today’s datasets, as we will train a bit of exporting the data.</p>
+<p>3. Use the Forest Data to train more. Create variable “author” which will contain the name Axmanova &gt; as we did before, create variable richness summing the herbs and juveniles &gt; select variables plotID, author, richness, productivity (renamed biomass) and pH. Try to save this subset into <code>results/chapter2</code>.</p>
+<p>4. Use the Forest dataset again. Find five plots with the lowest biomass from forest types other than oak forests.</p>
 <p>5. Select PlotID and all variables that are connected to transmitted light (Trans..) &gt; round these variables.</p>
-<p>6. We will switch to another dataset, <strong>Species Forest Data</strong> - <code>Axmanova-Forest-spe.xlsx</code> - download the data from the repository and save it into your project folder <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a> This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVENr). For each species, it is indicated in which vegetation layer it occurred and estimation of the abundance in the form of percentage cover.</p>
-<p>Import the data and check the structure &gt; change it to presence absence data (abundance set to 1) *Alternatively prepare presence absence data without considering different layers and save both lists on two different sheets of Excel file.</p>
-<p>7. Stay with the same dataset, we will try to get the list of all species occuring in the tree layer. Import the data&gt; sort the species data alphabetically &gt; get the list of unique species names of the tree layer i.e.&nbsp;layer 1 &gt; print, view all the species or store them as a new dataset. Save the result into csv file.</p>
-<p>8. <strong>iris dataset</strong> We will use the famous <code>iris dataset</code> of flower measurements. Find out more details asking R “?iris” as the dataset is integrated and ready to use. Check the structure of the dataset &gt; select variables including species and those of length measurements &gt; arrange according to Sepal.Length &gt; and filter 15 rows with the longest sepals. Which species prevails among these top 15?</p>
-<p>9. <strong>squirrel data</strong> Load data of squirrel observations from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md">Central Park Squirrel Census</a> using this line: read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’)</p>
-<p>Load squirrels data, check the structure, rename variables to get tidy names &gt; find out what are the possible colors of fur &gt; select at least 5 variables, include ID, fur color, location,.. &gt; filter squirrels of one fur color, up to your preference &gt; arrange data by location &gt; print at least 30 rows</p>
-<p>10.*get back to Forest data and using case when define three levels of productivity low, medium, high</p>
+<p>6. We will switch to another dataset, <strong>Species Forest Data</strong> - <code>Axmanova-Forest-spe.xlsx</code> - download the data from the repository and save it into your project folder (<a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a><code>).</code> This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here as RELEVE_NR). For each species, it is indicated in which vegetation layer it occurred, and an estimation of its abundance is in the form of percentage cover.</p>
+<p>Import the data and check the structure &gt; change it to presence-absence data (abundance set to 1) *Alternatively, prepare presence-absence data without considering different layers and save both lists on two different sheets of the Excel file.</p>
+<p>7. Stay with the same dataset, we will try to get the list of all species occurring in the tree layer. Import the data &gt; sort the species data alphabetically &gt; get the list of unique species names of the tree layer (i.e.&nbsp;layer == 1) &gt; print, view all the species or store them as a new dataset. Save the result into csv file.</p>
+<p>8. <strong>iris dataset:</strong> We will use the famous <code>iris dataset</code> of flower measurements. Find out more details by asking R <code>?iris</code> as the dataset is integrated and ready to use. Check the structure of the dataset &gt; select variables including species and those of length measurements &gt; arrange according to Sepal.Length &gt; and filter 15 rows with the longest sepals. Which species prevails among these top 15?</p>
+<p>9. <strong>squirrel data:</strong> Load data of squirrel observations from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md">Central Park Squirrel Census</a> using this line: read_csv(‘https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv’)</p>
+<p>Load squirrels data, check the structure, rename variables to get tidy names &gt; find out what are the possible colours of fur &gt; select at least 5 variables, including ID, fur colour, location, … &gt; filter squirrels of one fur colour, up to your preference &gt; arrange data by location &gt; print at least 30 rows</p>
+<ol start="10" type="1">
+<li>*get back to Forest data and using <code>case_when()</code> define three levels of productivity: low, medium, and high.</li>
+</ol>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">2.9 Further reading</h2>

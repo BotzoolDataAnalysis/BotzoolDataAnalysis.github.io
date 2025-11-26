@@ -3,7 +3,7 @@ title: "3 Data Visualisation"
 author: "Klára Friesová"
 ---
 
-In this chapter, we will cover the basics of data visualisation using the [`ggplot2`](https://ggplot2.tidyverse.org) package in R. `ggplot2` uses a conceptual framework called Grammar of Graphics , which allows you to compose graphs by combining independent components. Every graph produced with `ggplot2` can be built from the same components: **data**, a **coordinate system** and **geoms** (visual marks representing data points). That is what makes `ggplot2` so powerful. We will now explore how to create various types of plots, customize them, and save them for publications or presentations.
+In this chapter, we will cover the basics of data visualisation using the [`ggplot2`](https://ggplot2.tidyverse.org) package in R. `ggplot2` uses a conceptual framework called Grammar of Graphics, which enables you to compose graphs by combining independent components. Every graph produced with `ggplot2` can be built from the same components: **data**, a **coordinate system** and **geoms** (visual marks representing data points). That is what makes `ggplot2` so powerful. We will now explore how to create various types of plots, customise them, and save them for publications or presentations.
 
 So let's start. `ggplot2` is a part of `tidyverse`, so you should have it installed already, and you can load it by running:
 
@@ -62,7 +62,7 @@ ggplot(data = penguins,
 
 Now, the plot with a point for each row in the data appears. However, there is a warning message in the console, which tells us that 2 rows contained missing values or values outside of the scale range. We didn't set any limit for x or y axis, so it most likely means there are some missing values in the data. We will not focus on this point now, but the ideal next step would be to check the data, where the missing values appeared and why. If possible, correct missing data in the original data, load new data and continue.
 
-Note that we use `+` for adding layers to `ggplot()` instead of `%>%` or `|>`. This is because `+` in `ggplot()` existed earlier than the pipe was discovered. It might be confusing and a cause errors, but don't worry, `R` will tell you what's wrong if it happens:
+Note that we use `+` for adding layers to `ggplot()` instead of `%>%` or `|>`. This is because `+` in `ggplot()` existed earlier than the pipe was discovered. It might be confusing and cause errors, but don't worry, `R` will tell you what's wrong if it happens:
 
 ```{r}
 #| error: true

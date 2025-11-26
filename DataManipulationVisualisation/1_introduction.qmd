@@ -3,42 +3,42 @@ title: "1 Introduction"
 author: 'Irena Axmanová'
 ---
 
-In this chapter, we will train how to get ready for analyses in R. Preparing the project, starting a script, importing data and their first exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.
+In this chapter, we will learn how to prepare for analyses in R, including preparing the project, starting a script, importing data, and conducting an initial exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.
 
-You already know that **R** is a programming language and environment for statistical analysis and data visualisation. R is free and open-source, available from the [`CRAN directory`](https://cran.rstudio.com/). R is extended by a large number of software packages, which contain reusable code, documentation, and sample data. In this course, we will focus in the first place on the **tidyverse** collection of packages, which are designed for everyday data handling and visualisation (see more [`here`](https://www.tidyverse.org/)).
+You already know that **R** is a programming language and environment for statistical analysis and data visualisation. R is a free and open-source software, available from the [`CRAN directory`](https://cran.rstudio.com/). R is extended by a large number of software packages, which contain reusable code, documentation, and sample data. In this course, we will focus primarily on the **tidyverse** collection of packages, which are designed for everyday data handling and visualisation (see more [`here`](https://www.tidyverse.org/)).
 
 We will work with R using the interface called **RStudio IDE**, in short **RStudio**, which is an integrated development environment for R and can be downloaded [`here`](https://posit.co/download/rstudio-desktop/).
 
-[TO DO]{.underline}: **install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try further reading section at the end of this chapter or come and ask before the first lesson.
+[TO DO]{.underline}: **install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try the further reading section at the end of this chapter, or come and ask before the first lesson.
 
 ## 1.1. Introducing Tidyverse
 
 ![](images/IA_clipboard1Tidyverse.png){fig-align="center" width="755"}
 
-Tidyverse is a collection of R packages for transforming and visualizing data, which share an underlying philosophy (tidy data, tibbles, %\>%) and common interface. When you install the `tidyverse`, you get all the core packages at once, namely
+`tidyverse` is a collection of R packages for transforming and visualising data, which share an underlying philosophy (tidy data, tibbles, `%>%`) and a common interface. When you install the `tidyverse`, you get all the core packages at once, namely
 
--   `readr` for data importing\
--   `dplyr` with tools for data manipulation (e.g. select, filter, arrange, mutate...)
--   `tidyr` with functions that help you get to tidy data and transform their format (e.g.pivot)
--   `tibble` introducing simple dataframes called tibbles
+-   `readr` for data importing
+-   `dplyr` with tools for data manipulation (e.g. `select()`, `filter()`, `arrange()`, `mutate()`...)
+-   `tidyr` with functions that help you get to tidy data and transform their format (e.g. `pivot`)
+-   `tibble` introducing simple data frames called tibbles
 -   `ggplot2` package for data visualisation
--   `stringr`for working with strings, matching defined patterns, clean unwanted parts
--   `forcats` which enables easier work with factors
--   `lubridate`helping to work with date-times
--   `purr` which offers complete and consistent set of tools for working with functions and vectors, introduces map function instead of complicated loops
+-   `stringr` for working with strings, matching defined patterns, and cleaning unwanted parts
+-   `forcats`, which enables easier work with factors
+-   `lubridate` helps to work with dates and times
+-   `purrr`, which offers a complete and consistent set of tools for working with functions and vectors, introduces `map` functions instead of complicated loops
 
-In addition you get automatically installed also several more packages, which share the same approach, although developed later or by someone else, for example - `readxl` elegant direct import from Excel files - `magrittr`package where the pipe was originally introduced, including double-sided pipe
+In addition, you get automatically installed several more packages, which share the same approach, although developed later or by someone else, for example, `readxl`, for elegant direct import from Excel files, or `magrittr` package, where the pipe was initially introduced, including double-sided pipe
 
 Find more about tidyverse [`here`](https://www.tidyverse.org/) or check cheatsheets and vignettes for individual packages.
 
-Remember, that all the core packages are activated within the tidyverse library
+Remember that all the core packages are activated within the `tidyverse` library,
 
 ```{r}
 #| warning: false
 library(tidyverse)
 ```
 
-while for the extra ones you have to use an extra call
+while for the extra ones, you have to use an extra call:
 
 ```{r}
 #| warning: false
@@ -47,46 +47,48 @@ library(readxl)
 
 ### 1.1.1 Tidy data
 
-Data that are easy to handle and analyse. ![](images/IA_clipboard1TidyData.png){fig-align="center" width="755"}
+Data that are easy to handle and analyse.
 
-Find more in the R for data science book <https://r4ds.hadley.nz/>
+![](images/IA_clipboard1TidyData.png){fig-align="center" width="755"}
+
+Find more in the R for data science book: <https://r4ds.hadley.nz/>
 
 ### 1.1.2 Tibbles
 
-Tibbles are new, updated versions of base-R data frames. They are designed to work better with other tidyverse packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g. strings to factors), they never change the names of variables, and they never create row names. Example:
+Tibbles are new, updated versions of base-R data frames. They are designed to work better with other `tidyverse` packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g. strings to factors), they never change the names of variables, and they never create row names. Example:
 
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
-tibble (data)
+tibble(data)
 ```
 
-### 1.1.3 Pipes %\>%
+### 1.1.3 Pipes `%>%`
 
-The Tidyverse tools use a pipe: %\>% or \|\> The pipe allows the output of a previous command to be used as input to another command instead of using nested functions. It means, pipe binds individual steps into a sequence and it reads from left to right. In base R the logic of reading is from inside out and you have to save all the steps separately.
+The `tidyverse` tools use a pipe: `%>%` or `|>`. The pipe allows the output of a previous command to be used as input to another command, rather than using nested functions. It means that a pipe binds individual steps into a sequence, and it reads from left to right. In base R, the logic of reading is from inside out, and you have to save all the steps separately.
 
-See this example of the same steps with different approaches\>
+See this example of the same steps with different approaches:
 
-Base R method
+Base R method:
 
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
-# 1. Create new variable in the data
+# 1. Create a new variable in the data
 data$Productivity <- ifelse(data$Biomass < 60, "low", "high")
 
-# 2. Select only some columns, save as new dataframe
+# 2. Select only some columns, save as a new dataframe
 df <- data[, c("PlotID", "ForestTypeName", "Productivity", "pH_KCl")]
 
 # 3. Order by soil pH (descending)
 df <- df[order(df$pH_KCl, decreasing = TRUE), ]
 
-# 4. Keep only the first 15 rows with highest pH
-df_top20 <- df[1:15, ]
+# 4. Keep only the first 15 rows with the highest pH
+df_top15 <- df[1:15, ]
 
 # 5. Print the resulting subset to see which forest types grow in the high pH soils and if they have rather low or high productivity
-df_top20
+df_top15
 ```
 
-Piping (the same steps, but just in one line)
+Piping (the same steps, but just in one line):
 
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") %>%
@@ -97,9 +99,9 @@ data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-
   print()
 ```
 
-Note: It is even possible to overwrite original dataset with an assignment pipe %\<\>% included in `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
+Note: It is even possible to overwrite the original dataset with an assignment pipe `%<>%` included in the `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
 
-Tip: Insert a pipe by `ctrl+shift+M`
+Tip: Insert a pipe by `Ctrl + Shift + M`.
 
 ## 1.2. Effective and reproducible workflow
 
@@ -107,15 +109,18 @@ There are several rules to make your workflow effective and reproducible after s
 
 ### 1.2.1 Projects
 
-If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more [`here`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). Good habit is to organize each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.
+If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more [`here`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). A good habit is to organise each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.
 
-R Studio easily enables creating projects and switching between them (either through File-Open/New/Recent Project or by clicking on the upper right corner icon for projects). ![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
+R Studio easily enables creating projects and switching between them (either through File \> Open/New/Recent Project or by clicking the upper-right corner icon for projects).
 
-**Tip**: get used to creating the same **subfolders** in each of your project: data, scripts, results, maps, backup etc. to further organise the project structure. If you save the data into them, you can directly import them, see them through the project in R studio.
+![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
+
+**Tip**: get used to creating the same **subfolders** in each of your projects: data, scripts, results, maps, backup, etc., to further organise the project structure. If you save the data into them, you can directly import them and view them through the project in R Studio.
 
 ### 1.2.2 Scripts
 
--   **libraries** - list all the libraries your code need at the beginning of the script
+-   **libraries**
+    -   list all the libraries your code needs at the beginning of the script
 
 ```{r}
 library(tidyverse)
@@ -123,26 +128,18 @@ library(readxl)
 ```
 
 -   **remarks**
-
-\- add notes to your scripts, you will be grateful later
-
-\- change the text to non-active (marked with hash tags #) `ctrl + shift + C`
-
+    -   add notes to your scripts, you will be grateful later
+    -   change the text to non-active (marked with hash tags `#`) `Ctrl + Shift + C`
 -   **separate scripts or sections**
+    -   insert named section using `Ctrl + Shift + R`
+    -   or divide the code by `####`
+    -   fold all sections with `Alt + O`
+    -   unfold all with `Shift + Alt + O`
+-   **variable names**
+    -   should be short and easy to handle, without spaces, strange symbols
+    -   Simple variable names will save you a great deal of time and effort, as well as the need for parentheses.
 
-\- insert named section using `ctrl + shift + R`
-
-\- or divide the code by `####`
-
-\- fold all sections with `Alt + O`
-
-\- unfold all with `Shift + Alt + O`
-
--   **names of variables**
-
-\- should be short and easy to handle, without spaces, strange symbols Simple variable names will save you really so much time and parentheses !
-
-See this example
+See this example:
 
 ```{r}
 #| warning: false
@@ -150,16 +147,16 @@ data <- read_csv("data/messy_data/Example0.csv")
 names(data)
 ```
 
-You can rename strange names one by one. First use the new name and put the old one on the right like here.
+You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.
 
 ```{r}
 #| warning: false
-data %>% rename (Releve = "Relevé number")
+data %>% rename(Releve = "Relevé number")
 ```
 
-Or you can change all difficult patterns at once, using RegEx Regular expressions. Import the example once again.
+Alternatively, you can change all complex patterns at once, using RegEx regular expressions. Import the example once again.
 
-You identify the pattern on left, starting with two backslashes and define the outcome on right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
+You identify the pattern on the left, starting with two backslashes and define the outcome on the right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
 
 ```{r}
 #| warning: false
@@ -179,130 +176,130 @@ data %>%
 
 Now check the names again. Did it work?
 
--   Tip: use the function clean_names from package janitor
+-   Tip: Use the function `clean_names()` from the `janitor` package
 
-Note that in the examples above you are not really rewriting the data you have imported. Here the **"data %\>%" means, that you are just trying how it would look like** if you apply the following steps to data. To really change it you would have to assign your result into a new dataset, by using following options:
+Note that in the examples above, you are not really rewriting the data you have imported. Here, the **`data %>%` means that you are just trying to see what it would look like** if you apply the following steps to the data. To really change it, you would have to assign your result to a new dataset by using one of the following options:
 
--   data2\<- data1 %\>% ... #defining first the new dataset
+-   `data2 <- data1 %>%` ... \# defining first the new dataset
 
--   data\<-data %\>% ... #rewriting the existing dataset
+-   `data <- data %>%` ... \# rewriting the existing dataset
 
--   data %\<\>% data ... #rewriting the existing dataset by assignment pipe (magrittr)
+-   `data %<>% data` ... \# rewriting the existing dataset by assignment pipe (`magrittr`)
 
--   data1 %\>% ...-\>data2 #making/testing all the steps and assigning it to new dataset as the last step
+-   `data1 %>% ...-> data2` \# making/testing all the steps and assigning it to a new dataset as the last step
 
-This might sound troublesome, but it is actually very helpful. You can try all the steps and when you are happy with the code, you can put everything into one pipe line from import of the data to export of the result.
+This might sound troublesome, but it is actually very helpful. You can try all the steps, and when you are satisfied with the code, you can combine everything into a single pipeline, from importing the data to exporting the result.
 
 ## 1.3 Data import
 
-We will train how to import data with Tidyverse, which means `readr` or `readxl` in case of Excel files (see cheatsheet)
+We will train on how to import data using the `tidyverse` approach, which includes `readr` or `readxl` for Excel files (see the cheatsheet).
 
-What is useful is to check which files are stored in the folders we have. Here we list all files in the working=project directory
+It is useful to check which files are stored in the folders we have. Here, we list all files in the working (=project) directory.
 
 ```{r}
 list.files() 
 ```
 
-Or we can dive deeper in the hierarchy and check content of data folder, or specific subfolder
+Or we can dive deeper into the hierarchy and check the content of the data folder or a specific subfolder.
 
 ```{r}
 list.files("data") 
 list.files("data/forest_understory")
 ```
 
-Let's select one of the files and import it into our working environment. Depending on the type of file I have to select the right approach. Here it is an Excel file, so I can use function read_excel. Check the cheatsheet for more tips.
+Let's select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Here it is an Excel file, so I can use the `read_excel()` function. Check the cheatsheet for more tips.
 
 ```{r}
 #| warning: false
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 ```
 
-We imported the data and here are a few tips how to check the structure
+We imported the data, and here are a few tips on how to check the structure.
 
-First is the tibble, which actually appears automatically after any import using tidyverse approach - note that only ten rows and several variables are shown, if there are too many, rest is listed below.
+First is the tibble, which appears automatically after any import using the `tidyverse` approach. Note that only ten rows and several variables are shown. If there are too many, the remaining variables are listed below.
 
 ```{r}
 tibble(data)
 ```
 
-alternative way is to use glimpse, where the variables are listed below each other, showing the first 15 values
+An alternative way is to use `glimpse()`, where the variables are listed below each other, showing the first 15 values:
 
 ```{r}
 glimpse(data)
 ```
 
-if you forget the names of variables or you want to copy them and store in your script, use simple names
+If you forget the names of variables or you want to copy them and store them in your script, simply use `names()`:
 
 ```{r}
 names(data)
 ```
 
-Quite useful baseR approach function is table, which shows the counts per categories of selected variable. In tidyverse it will need more steps to be done, but we will get there next time...
+A quite useful base R function is `table()`, which shows the counts per category of the selected variable. In the `tidyverse`, it will require more steps to be completed, but we will get there next time.
 
 ```{r}
 table(data$ForestTypeName)
 ```
 
-Of course, you can also **view()** the data or click on it in the list in the Files to open it in a table-like scrolable format, which can be useful many times. However, this is not recommended with huge tables, as the previews are rather memory demanding.
+Of course, you can also **`view()`** the data or click on it in the list in the Files pane to open it in a table-like scrollable format, which can be useful many times. However, this is not recommended for huge tables, as the previews are rather memory-intensive.
 
 ## 1.4 Where to find help
 
-Motto: *Majority of the problems in R can be solved if you know how to ask and where*.
+Motto: *The majority of the problems in R can be solved if you know how to ask and where*.
 
-Knowing that I am lost in "Regular expressions" already helps to ask more specifically.
+Knowing that I am lost in "Regular expressions" already helps me to ask more specifically.
 
--   **R studio help** Try intergrated help in R studio, where you can find links to selected manuals, cheat sheets. It is the place where you can also find Keyboard shortcuts help to find out which combinations do what. e.g. shift+ctrl+m
+-   **R Studio help** - Try the integrated help in R Studio, where you can find links to selected manuals and cheatsheets. It is also the place where you can find keyboard shortcut help to find out which combinations do what. e.g. `Ctrl + Shift + m`
 
--   [**Cheatsheets**](https://posit.co/resources/cheatsheets/) - the most important features of a given package summarised at two A4 pages, ready to print
+-   [**Cheatsheets**](https://posit.co/resources/cheatsheets/) - the most important features of a given package summarised on two A4 pages, ready to print
 
--   **Vignettes** are supporting documents that are available for many packages. They give examples and explain functions available in the package. You can discover vignettes by accessing the help page for a package, or via the browseVignettes() function, which will get you to the overall list. Or you can just try by typing specific names e.g. vignette("dplyr")
+-   **Vignettes** are supporting documents that are available for many packages. They give examples and explain functions available in the package. You can discover vignettes by accessing the help page for a package, or via the `browseVignettes()` function, which will get you to the overall list. Or you can try by typing specific names, e.g., `vignette("dplyr")`
 
--   \[**R studio community**\] (https://forum.posit.co/) Questions sorted by packages, nice to check when looking for frequently asked questions.
+-   [**R Studio community**](https://forum.posit.co/) - Questions are sorted by packages, making it nice to check when looking for frequently asked questions.
 
--   [**Stack Overflow**](https://stackoverflow.com/). You probably already came across Stack Overflow if you were trying to Google something, as it suggests answers to coding related questions. It is a good environment to ask questions or try to find if somebody already asked the same things before. Be specific about the coding style. E.g. How to separate variable using tidyverse?
+-   [**Stack Overflow**](https://stackoverflow.com/) - You probably already came across Stack Overflow when you were trying to Google something, as it suggests answers to coding-related questions. It is a good environment to ask questions or try to find out if somebody has already asked the same things before. Be specific about the coding style. E.g. How to separate a variable using tidyverse?
 
--   **GitHub** is a great source - you can find there data, projects, packages, instructions. If you stay till the end of this course we will show you more.
+-   **GitHub** is a great source - you can find data, projects, packages, and instructions there. If you stay till the end of this course, we will show you more.
 
--   **AI tools** are worth to ask. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit.
+-   **AI tools** are worth asking. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit.
 
 Or just come and ask!
 
 ## 1.5 Exercises
 
-For exercises we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
+For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
 
-There will be some obligatory tasks, while voluntarily tasks will be marked by \*.
+There will be some obligatory tasks, while voluntary tasks will be marked by \*.
 
 In this chapter:
 
-1\. Create project for this lesson, add subfolders (data, scripts..), download the data from the folder Forest_understory, and store them in the folder "data" within your project. Import file called `Axmanova-Forest-understory-diversity-analyses.xlsx` into the working environment and check the structure. Prepare script with your notes, separated into sections.
+1\. Create a project for this lesson, add subfolders (data, scripts, etc.), download the data from the folder `Forest_understory`, and store them in the folder `data` within your project. Import the file called `Axmanova-Forest-understory-diversity-analyses.xlsx` into the working environment and check the structure. Prepare a script with your notes, separated into sections.
 
-2\. Create another project and start a new script, try switching between the projects. Delete this project.
+2\. Create another project and start a new script, and try switching between the projects. Delete this project.
 
-3\. Find a cheatsheet for readxl. Is there anything more then data import from Excel?
+3\. Find a cheatsheet for readxl. Is there anything more than data import from Excel?
 
-4\. Use cheatsheet to find out how to import second sheet of Excel file. Try this on import of `data/frozen_fauna/metadata`. Which sheets are there and can you easily check the structure?
+4\. Use the cheatsheet to find out how to import the second sheet of the Excel file. Try this on import of `data/frozen_fauna/metadata`. Which sheets are there, and how can you easily check the structure?
 
-5\. Download `Example0` from `data/messy_data`, save them into your data folder and import them to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, or rename_all, or clean_names function from the janitor package. \*Save the tidy dataset as Example0_tidy.csv using function write_csv.
+5\. Download `Example0` from `data/messy_data`, save it into your data folder and import it to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, with `rename_all()`, or use the `clean_names()` function from the `janitor` package. \*Save the tidy dataset as `Example0_tidy.csv` using the function `write_csv()`.
 
-6\. Try importing the same, not cleaned file via Rstudio and describe pros/cons.
+6\. Try importing the same, not cleaned file via R Studio and describe pros/cons.
 
-7\. \*Check the folder messy data, what are the problems in examples1-5? We will learn how to fix them in next chapters directly in R, but can you at least imagine how you would do it in Excel?
+7\. \*Check the folder `messy_data`. What are the problems in examples 1-5? We will learn how to fix them in the next chapters directly in R, but can you at least imagine how you would do it in Excel?
 
-8\. \*Do you know what is reprex and how to prepare it?
+8\. \*Do you know what a reprex is and how to prepare it?
 
 ## 1.6 Further reading
 
-RStudio: Download and basic information <https://posit.co/download/rstudio-desktop/>
+R Studio: Download and basic information <https://posit.co/download/rstudio-desktop/>
 
-David Zelený: Tutorial how to install R and Rstudio <https://www.davidzeleny.net/anadat-r/doku.php/en:r>
+David Zelený: Tutorial on how to install R and R Studio <https://www.davidzeleny.net/anadat-r/doku.php/en:r>
 
-Datacamp: Tutorial for R studio [`here`](https://www.datacamp.com/tutorial/r-studio-tutorial?utm_cid=19589720821&utm_aid=157156375351&utm_campaign=230119_1-ps-other~dsa~tofu_2-b2c_3-emea_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9209603-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~emea-en~dsa~tofu~tutorial-r-programming&gad_source=1&gad_campaignid=19589720821&gbraid=0AAAAADQ9WsGYLLxwdtiAlqFG_Qtdjkbvf&gclid=CjwKCAjwt-_FBhBzEiwA7QEqyP2ZGSuRbUrCK9jKWmxUdqNp8w6Lb1Ou4EAPR1-2M2VRcaX6b0UU8hoCDWcQAvD_BwE)
+Datacamp: Tutorial for R Studio [`here`](https://www.datacamp.com/tutorial/r-studio-tutorial?utm_cid=19589720821&utm_aid=157156375351&utm_campaign=230119_1-ps-other~dsa~tofu_2-b2c_3-emea_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9209603-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~emea-en~dsa~tofu~tutorial-r-programming&gad_source=1&gad_campaignid=19589720821&gbraid=0AAAAADQ9WsGYLLxwdtiAlqFG_Qtdjkbvf&gclid=CjwKCAjwt-_FBhBzEiwA7QEqyP2ZGSuRbUrCK9jKWmxUdqNp8w6Lb1Ou4EAPR1-2M2VRcaX6b0UU8hoCDWcQAvD_BwE)
 
 Why to organise your work in projects <https://www.tidyverse.org/blog/2017/12/workflow-vs-script/>
 
 David Zelený clean and tidy script <https://davidzeleny.net/wiki/doku.php/recol:clean_and_tidy_script>
 
-Tidyverse suggestions to good coding style <https://style.tidyverse.org/>
+Tidyverse suggestions for good coding style <https://style.tidyverse.org/>
 
 R for data science book <https://r4ds.hadley.nz/>

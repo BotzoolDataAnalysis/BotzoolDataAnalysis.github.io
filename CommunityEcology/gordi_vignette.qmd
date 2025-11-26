@@ -360,3 +360,5 @@ If you run into a bug or you would welcome some feature, which is not available 
 -   Branislav Kopčan: 📧 [kopcanb\@gmail.com](mailto:kopcanb@gmail.com){.email}
 
 You can also contact us anonymously through this [Google Form](https://forms.gle/KnrFRnYT9jv1JHCC8).
+
+![](images/clipboard-2790190679.png)
