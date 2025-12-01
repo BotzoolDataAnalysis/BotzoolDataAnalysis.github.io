@@ -1333,9 +1333,9 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 </div>
 </div></li>
-<li><p><strong>Frogs</strong></p></li>
-<li><p><strong>Lepidoptera</strong></p></li>
-<li><p><strong>Acidophilous grasslands</strong></p></li>
+<li><p><strong>Frogs</strong> Use the data of the 10 most common frog species recorded within the Australian <a href="https://www.frogid.net.au/explore">FrogID initiative</a>. The original data comes from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md">TidyTuesdays repository</a>, but we modified it slightly for this exercise and stored it in the <code>frogs</code> folder of our <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data">repository</a>. The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline (with <code>map</code>) and save to your environment as a single tibble &gt;&gt; prepare two barplots, first showing number of species in each stateProvince, and second showing number of all records irrespective of species &gt;&gt; prepare a table where there will be species as rows, columns for each stateProvince and values will represent the absolute number of records &gt;&gt; calculate also relative variables which will show representation of each species in the stateProvince relative to all species (%) in the stateProvince.</p></li>
+<li><p><strong>Lepidoptera</strong> Work with this dataset, namely <code>spe_matrix_MSvejnoha</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt;&gt; count number of all individuals at each site i.e.&nbsp;abundance of moths &gt;&gt; from the env file import for each site cover of herbs, shrubs, trees and dead wood &gt;&gt; prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.</p></li>
+<li><p><strong>Acidophilous grasslands</strong> Import the head dataset, transform latitude and longitude into deg_lat and deg_long format &gt;&gt;prepare map with sites/sampled localities &gt;&gt; for vegetation types (syntax_new) with more than 15 plots/samples prepare boxplots with comparison of species richness in old and new plots (information about new plots can be identified in the head as those sampled by M. Harásek, indicated as resampled).</p></li>
 </ol>
 
 

@@ -652,8 +652,8 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
       plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
     ```
 
-3.  **Frogs**
+3.  **Frogs** Use the data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline (with `map`) and save to your environment as a single tibble \>\> prepare two barplots, first showing number of species in each stateProvince, and second showing number of all records irrespective of species \>\> prepare a table where there will be species as rows, columns for each stateProvince and values will represent the absolute number of records \>\> calculate also relative variables which will show representation of each species in the stateProvince relative to all species (%) in the stateProvince.
 
-4.  **Lepidoptera**
+4.  **Lepidoptera** Work with this dataset, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \>\> count number of all individuals at each site i.e. abundance of moths \>\> from the env file import for each site cover of herbs, shrubs, trees and dead wood \>\> prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.
 
-5.  **Acidophilous grasslands**
+5.  **Acidophilous grasslands** Import the head dataset, transform latitude and longitude into deg_lat and deg_long format \>\>prepare map with sites/sampled localities \>\> for vegetation types (syntax_new) with more than 15 plots/samples prepare boxplots with comparison of species richness in old and new plots (information about new plots can be identified in the head as those sampled by M. Harásek, indicated as resampled).
