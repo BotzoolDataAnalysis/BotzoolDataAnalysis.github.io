@@ -461,12 +461,13 @@ location \> print at least 30 rows
 
 ## 2.9 Further reading
 
-dplyr main web page <https://dplyr.tidyverse.org>
+`dplyr` main web page: <https://dplyr.tidyverse.org>
 
-Find dplyr Cheatsheet in Posit <https://posit.co/resources/cheatsheets/>
+Find `dplyr` Cheatsheet in Posit:
+<https://posit.co/resources/cheatsheets/>
 
-Chapter devoted to Data transformation in the R for data science book
+Chapter devoted to Data transformation in the R for Data Science book:
 <https://r4ds.hadley.nz/data-transform.html>
 
-encoding issues during import and export
+encoding issues during import and export:
 <https://irene.rbind.io/post/encoding-in-r/>

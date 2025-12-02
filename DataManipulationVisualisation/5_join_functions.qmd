@@ -3,19 +3,19 @@ title: "5 Join Functions"
 author: "Irena Axmanová"
 ---
 
-In this chapter we will train how to add the information from another dataset (*left_join, full_join*), how to filter our data according to another dataset (*semi_join, anti_join*). We will also use our skills from previous chapter to calculate different statistics about our data, like mean indicator values, community weighted means of some traits, proportion of specific plant groups (*left_join, group_by, summarise*). We will also look at mutate with more conditions (*ifelse, case_when*).
+In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also utilise our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`). We will also use `mutate()` with additional conditions (`ifelse()`*,* `case_when()`).
 
 ![](images/clipboard-3097956773.png)
 
 Credits: <https://r4ds.hadley.nz/joins.html>
 
-## 5.1 Matching selected information with left_join
+## 5.1 Matching selected information with `left_join()`
 
-In most cases, the data you need for analyses are not organised in one file, but rather in more of them. For example we have measured characteristics for each species in the region, so called traits, and we have a species lists for all the sites. To be able to calculate mean values of selected traits for each site, we have to first append the information to individual records. For this we will use the function called `left_join` which belongs to the group of mutating joins available in tidyverse package `dplyr`.
+In most cases, the data you need for analyses is not organised in one file, but rather in multiple files. For example, we have measured characteristics, known as traits, for each species in the region, and we have species lists for all the sites. To calculate the mean values of selected traits for each site, we must first append the information to individual records. For this, we will use the function called `left_join()`, which belongs to the group of **mutating joins** available in the `tidyverse` package `dplyr`.
 
-![](images/clipboard-3580080053.png)This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the *by* argument. It will append all the columns available in the second "lifeforms" dataset, but only for rows, where there is a exact match. Although we have information also for other species such as *Abies alba* or *Carex sylvatica*, these do not have matching rows in the first dataset "data" and the information therefore will not be used. This means left_join is just picking those rows, that are in the first dataset. If the information is missing in the matching file, e.g. there is no information for *Trientalis europaea* in the lifeforms dataset, in the resulting file there will be NA.
+![](images/clipboard-3580080053.png)This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the `by` argument. It will append all the columns available in the second "lifeforms" dataset, but only for rows where there is an exact match. Although we have information for other species, such as *Abies alba* or *Carex sylvatica*, these do not have matching rows in the first dataset, "data", and the information will therefore not be used. This means that `left_join()` is only selecting rows that are present in the first dataset. If the information is missing in the matching file, for example, if there is no information for *Trientalis europaea* in the lifeforms dataset, the resulting file will contain NA.
 
-Let's train a bit. Start again a new script for this chapter.
+Let's train a bit. Start a new script for this chapter again.
 
 ```{r}
 #| warning: false
@@ -24,26 +24,26 @@ library(readxl)
 library(janitor)
 ```
 
-We will import the data from Forest understory again.
+We will import the data from the Forest understory again.
 
 ```{r}
-spe<- read_xlsx("data/forest_understory/Axmanova-Forest-spe.xlsx")
+spe <- read_xlsx("data/forest_understory/Axmanova-Forest-spe.xlsx")
 ```
 
-and we will import also data with some traits such as plant height, Ellenberg indicator values i.e. values indicating demands on environmental factors as soil reaction, light, nutrients... Lower values indicate lower demands, i.e. species can tolerate low=acidic pH, or low nutrient levels, high values indicate that the species requires or grows in habitats with high=basic soil reaction, high nutrient availability etc.
+We will also import data with some traits, such as plant height and Ellenberg-type indicator values, which indicate demands on environmental factors, including soil reaction, light, and nutrients. Lower values indicate lower demands, meaning that species can tolerate low (acidic) pH levels or low nutrient levels. High values suggest that the species requires or grows in habitats with high (basic) soil reaction and high nutrient availability.
 
 ```{r}
-traits<- read_xlsx("data/forest_understory/traits.xlsx")
+traits <- read_xlsx("data/forest_understory/traits.xlsx")
 ```
 
-If we try directly merging these two files it is not working. We will get a warning explaining that there are no common variables.
+If we try to merge these two files directly, it does not work. We will get a warning explaining that there are no common variables.
 
 ```{r}
 #| error: true
-spe%>% left_join(traits)
+spe %>% left_join(traits)
 ```
 
-So there are more options what we can do. We check the data and see that the information we need to match is once saved as Species (in the data) and once as a Taxon (in traits).
+So there are more options for what we can do. We verify the data and find that the required information to match is stored once as 'Species' (in the data) and once as 'Taxon' (in traits).
 
 ```{r}
 tibble(spe)
@@ -53,31 +53,31 @@ tibble(spe)
 tibble(traits)
 ```
 
-We can decide to rename the Species to Taxon and use this column for matching
+We can decide to rename the 'Species' column to 'Taxon' and use this column for matching.
 
 ```{r}
-spe%>% rename(Taxon=Species) %>% 
-  left_join(traits, by="Taxon")
+spe %>% rename(Taxon = Species) %>% 
+  left_join(traits, by = "Taxon")
 ```
 
-or we can even skip the *by* argument, as there is only one commong matching column.
+Or we can even skip the by argument, as there is only one common matching column.
 
 ```{r}
-spe%>% rename(Taxon=Species) %>% 
+spe %>% rename(Taxon = Species) %>% 
   left_join(traits)
 ```
 
-We can also skip rename step and directly say in the left_join function what is matching with what. Note that it will keep Species as outcome, because this was how we named it in the primary data file
+We can also skip the `rename()` step and directly say in the `left_join()` function what is matching with what. Note that it will retain 'Species' as the outcome, because this was how we named it in the primary data file.
 
 ```{r}
-spe%>% left_join(traits, by=c("Species" ="Taxon"))
+spe %>% left_join(traits, by = c("Species" = "Taxon"))
 ```
 
-Note that left_join is a great help. But you should always think about the data. If you have more, potentially matching rows you can do a lot of unwanted mess with left_join. For example if you do not use unique ID, but descriptor such as forest type. So please do read the warning messages. :-)
+Note that `left_join()` is a great help. However, you should always consider the data. If you have more potentially matching rows, you can create a lot of unwanted mess with `left_join()`. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)
 
-## 5.2 Full_join vs. bind_rows
+## 5.2 `full_join()` vs. `bind_rows()`
 
-Sometimes it is needed to match both datasets. In contrast to left_join, full_join will add also additional rows that appear in the other dataset.
+Sometimes it is needed to match both datasets. In contrast to `left_join()`, `full_join()` will also add additional rows that appear in the other dataset.
 
 ![](images/clipboard-1035988765.png)
 
@@ -86,158 +86,159 @@ Credits: <https://r4ds.hadley.nz/joins.html>
 We will upload the forest env data and make two subsets to train a bit.
 
 ```{r}
-env<- read_xlsx("data/forest_understory/Axmanova-Forest-env.xlsx")
+env <- read_xlsx("data/forest_understory/Axmanova-Forest-env.xlsx")
 ```
 
-In the first subset we will use only first two forest types, namely oak and oak-hoarnbeam forests and selection of variables.
+In the first subset, we will use only the first two forest types, namely oak and oak-hornbeam forests and the selection of variables.
 
 ```{r}
-forest1<-env %>% filter(ForestType %in% c(1,2))%>% 
-  select(PlotID=RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
+forest1 <- env %>% filter(ForestType %in% c(1, 2)) %>% 
+  select(PlotID = RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
 ```
 
-In the second subset we will use one forest type shared with the previous subset and two others, namely oak-hornbeam, ravine and alluvial forests, and a bit different selection of variables.
+In the second subset, we will use one forest type shared with the previous subset and two others: oak-hornbeam, ravine, and alluvial forests, with a slightly different selection of variables.
 
 ```{r}
-forest2<-env %>% 
-  filter(ForestType %in% c(2,3,4))%>% 
-  select(PlotID=RELEVE_NR, ForestType, ForestTypeName, pH_KCl,Canopy_E3)
+forest2 <- env %>% 
+  filter(ForestType %in% c(2, 3, 4))%>% 
+  select(PlotID = RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Canopy_E3)
 ```
 
-Now **left_join** the data and check the preview #use view () to see more of the dataset. Here we have just added the extra information available in the second dataset to our selection of plots and variables in the first dataset.
+Now, **`left_join()`** the data and check the preview (use `view()`) to see more of the dataset. We have added the extra information available in the second dataset to our selection of plots and variables in the first dataset.
 
 ```{r}
 forest1 %>% 
   left_join(forest2)
 ```
 
-In the next step we will take both subsets and merge them together using **full_join**. What is the output? We will get a dataset will whole information available, this includes all four forests types. However, since the Forest type 1 is only present in the first subset, the corresponding rows will have only the information available there (forest type, pH). The type 2 is in both datasets so it will have all information from both datasets (forest type, pH, biomass, canopy). Type 3 and 4 will have information only from the second dataset (forest type, pH, canopy). Use view () to see the complete merged dataset.
+In the next step, we will combine both subsets using a **`full_join()`**. What is the output? We will obtain a dataset containing all available information, encompassing all four forest types. However, since Forest type 1 is only present in the first subset, the corresponding rows will include only the information available there (forest type and pH). The Type 2 is present in both datasets so that it will contain all information from both datasets (forest type, pH, biomass, and canopy). Types 3 and 4 will have information only from the second dataset (forest type, pH, canopy). Use `view()` to see the complete merged dataset.
 
 ```{r}
 forest1 %>% 
   full_join(forest2)
 ```
 
-Note that the joining worked good, since we had the same names in both datasets. For example if biomass would be called soil_pH in one and pH_KCl in the other dataset, it will treat them as different variables as you can see below
+Note that the joining worked well, since we had the same names in both datasets. For example, if biomass were called soil_pH in one and pH_KCl in the other dataset, it will treat them as different variables, as you can see below:
 
 ```{r}
-forest1%>% 
-  rename(soil_pH=pH_KCl) %>% 
+forest1 %>% 
+  rename(soil_pH = pH_KCl) %>% 
   full_join(forest2)
 ```
 
-\*Tip if you are mergin data from different sources and you get similar mess, check function colesce <https://dplyr.tidyverse.org/reference/coalesce.html>
+\*Tip: if you are merging data from different sources and you get a similar mess, check the function `coalesce()` <https://dplyr.tidyverse.org/reference/coalesce.html>.
 
-Imagine situation when data were sampled in different years/months or by different colleagues, or in different regions separately. If these **subsets have exactly the same structure**, we may use **`bind_rows`** function to merge them together, one below each other.
+Imagine a situation where data were sampled in different years/months or by different colleagues, or in different regions separately. If these **subsets have exactly the same structure**, we can use the **`bind_rows()`** function to merge them, one below the other.
 
 ```{r}
-forest1<-env %>% 
-  filter(ForestType ==1)%>% 
-  select(PlotID=RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
+forest1 <- env %>% 
+  filter(ForestType == 1) %>% 
+  select(PlotID = RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
 
-forest2<-env %>% 
-  filter(ForestType ==2)%>% 
-  select(PlotID=RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
+forest2 <- env %>% 
+  filter(ForestType == 2)%>% 
+  select(PlotID = RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)
 ```
 
-Bind and check the whole dataset with view()
+Bind and check the whole dataset with `view()`.
 
 ```{r}
-forest1%>% 
+forest1 %>% 
   bind_rows(forest2)
 ```
 
-Note that the rbind function in baseR works similarly, but less effectively and it is designed for dataframes.
+Note that the `rbind()` function in base R works similarly, but less effectively and it is designed for data frames.
 
 ```{r}
-rm(forest1,forest2) #remove unwanted data from the environment
+rm(forest1, forest2) #remove unwanted data from the environment
 ```
 
 ## 5.3 Filtering joins
 
-Sometimes we need to filter the data according to another dataset. For example I have looked at the environmental file and decided that for a follow-up analysis I need only alluvial forest. I therefore filtered rows in the env file.
+Sometimes we need to filter the data according to another dataset. For example, we have reviewed the environmental file and determined that for a follow-up analysis, we only need the alluvial forest data. Therefore, we filtered rows in the env file.
 
 ```{r}
-env_selected <-env %>% 
-  filter(ForestType==4)%>%
-  select(PlotID=RELEVE_NR,ForestType, ForestTypeName, pH_KCl, Biomass) %>% print()
+env_selected <- env %>% 
+  filter(ForestType == 4)%>%
+  select(PlotID = RELEVE_NR,ForestType, ForestTypeName, pH_KCl, Biomass) %>% 
+  print()
 ```
 
-However, I also need to filter the rows in the species data, where there is no information about forest types. The only common identificator is the PlotID (i.e. sample/site ID).
+However, we also need to filter the rows in the species data where there is no information about forest types. The only common identifier is the PlotID (i.e. sample/site ID).
 
 ```{r}
-spe %>% rename(PlotID=RELEVE_NR) %>% 
+spe %>% rename(PlotID = RELEVE_NR) %>% 
   semi_join(env_selected)
 ```
 
-With distinct function you can check if the IDs are the same.
+With the `distinct()` function, you can check if the IDs are the same.
 
 ```{r}
-spe %>% rename(PlotID=RELEVE_NR) %>% 
+spe %>% rename(PlotID = RELEVE_NR) %>% 
   semi_join(env_selected) %>% 
   distinct(PlotID)
 ```
 
-Sometimes you may need the opposite - to keep only rows/IDs that are not in the other file. For this you should use `anti_join` function. An example can be that you want to remove from your list certain group of species such as annuals or nonvasculars (mosses and lichens).
+Sometimes you may need the opposite - to keep only rows/IDs that are not in the other file. For this, you should use the `anti_join()` function. For example, you may want to remove a particular group of species from your list, such as annuals or non-vascular plants (mosses and lichens).
 
 ![](images/clipboard-1417970058.png)
 
-## 5.4 Advanced mutate and .by
+## 5.4 Advanced `mutate()` and `.by`
 
-Below are few examples, how we used **mutate** so far
+Below are a few examples of how we used **`mutate()`** so far
 
 ```{r}
 env %>% 
-  mutate(author= "Axmanova", #add one column with specified value
-        forestType=as.character(ForestType), #change the type of variable
-        biomass = Biomass*1000, # multiply to change to mg
-        forestTypeName= str_replace_all(ForestTypeName," ","_"))%>% #change string
-  select(PlotID=RELEVE_NR, author, forestType, biomass,forestTypeName)
+  mutate(author = "Axmanova", #add one column with specified value
+        forestType = as.character(ForestType), #change the type of variable
+        biomass = Biomass * 1000, # multiply to change to mg
+        forestTypeName = str_replace_all(ForestTypeName, " ", "_")) %>% #change string
+  select(PlotID = RELEVE_NR, author, forestType, biomass, forestTypeName)
 
 ```
 
-We also used mutate to adjust more variables at once
+We also used `mutate()` to adjust more variables at once:
 
 ```{r}
 #| warning: false
 env %>% mutate(across(c(Radiation, Heat), ~ round(.x, digits = 2))) %>%
-  select (PlotID=RELEVE_NR, Radiation, Heat)
+  select(PlotID = RELEVE_NR, Radiation, Heat)
 ```
 
-**.x** refers to the entire column (vector) being transformed inside a function like mutate(across(...)) or map().
+**`.x`** refers to the entire column (vector) being transformed inside a function like `mutate(across(...))` or `map()`.
 
-Alternatively if you have a large table with only measured variables you can specify what should not be used, here Species, and mutate will be applied to everything left. This is especially useful for changing formats e.g from character to numeric (function *as.numeric*)
+Alternatively, if you have a large table with only measured variables, you can specify what should not be used, here Species, and `mutate()` will be applied to everything left. This is especially useful for changing formats, e.g., from character to numeric (using the function `as.numeric()`).
 
 ```{r}
 iris %>% 
   as_tibble() %>%  #first change from dataframe to tibble 
-  mutate(across(-Species,~ round(.x, digits=1)))
+  mutate(across(-Species,~round(.x, digits = 1)))
 ```
 
-You can even create a list of functions which should be applied. *`relocate`* here was used to shift all the Sepal variables before the first variable / just for easier check.
+You can even create a list of functions which should be applied. The `relocate()` function was used here to shift all the Sepal variables before the first variable (just for an easier check).
 
 ```{r}
 iris%>% 
   as_tibble() %>% 
   mutate(across(starts_with("Sepal"),
-                list(rounded = round, log = log1p)))%>%
-  relocate(starts_with("Sepal"),.before = 1)
+                list(rounded = round, log = log1p))) %>%
+  relocate(starts_with("Sepal"), .before = 1)
 ```
 
-What we can further do is to mutate a variable using **group_by**. This can be like below, step by step...
+We can further mutate a variable using the `group_by()` function. This can be illustrated step by step, as shown below...
 
 ```{r}
 env %>% 
   group_by(ForestType) %>%
-  select(PlotID=RELEVE_NR, ForestType, Biomass)%>%
-  mutate(meanBiomass=mean(Biomass))%>%
-  mutate(comparison= (case_when(Biomass>meanBiomass ~"higher", 
-                               Biomass<meanBiomass ~"lower",
-                               TRUE ~ "equal")))%>%
-  arrange(ForestType,desc(Biomass))
+  select(PlotID = RELEVE_NR, ForestType, Biomass) %>%
+  mutate(meanBiomass = mean(Biomass)) %>%
+  mutate(comparison = (case_when(Biomass > meanBiomass ~ "higher", 
+                               Biomass < meanBiomass ~ "lower",
+                               TRUE ~ "equal"))) %>%
+  arrange(ForestType, desc(Biomass))
 ```
 
-or like this, where we do not use stand alone group_by but much more effective **.by** directly included in the mutate function.
+Or like this, where we do not use a standalone `group_by()` but rather include it directly in the `mutate()` function with the `.by` argument.
 
 ```{r}
 env %>%
@@ -251,148 +252,147 @@ env %>%
     .by = ForestType)
 ```
 
-We need to realise, that after you use **group_by**, the data *stay grouped* until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise`or `count`). While `summarise`removes the grouping, `mutate` does not, therefore grouping still applies until the end of that call.
+We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While the `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
 
-Advantage of **.by** is that it works only within the mutate function.
+The advantage of **`.by`** is that it works only within the `mutate()` function.
 
-## 5.5 Advanced summarise
+## 5.5 Advanced `summarise()`
 
-Summarise reduces the information to single values per group, defined by the group_by function. We used summarise or summarise across and calculated min, mean, median,max values or sum of the values.
+`summarise()` reduces the information to a single value per group, as defined by the `group_by()` function. We also used the `summarise()` function with `across()` and calculated the minimum, mean, median, maximum values, or the sum of the values.
 
 ```{r}
 env %>% 
   group_by(ForestTypeName) %>%
-  summarise(meanBiomass= mean(Biomass))
+  summarise(meanBiomass = mean(Biomass))
 ```
 
-We did not yet explain anything about `n_distinct` function. It can be used for getting unique combinations of selected variables directly in summarise. Like here unique number of species in each plot
+We have not yet explained the `n_distinct()` function. It can be used for getting unique combinations of selected variables directly in `summarise()`. Like here, a unique number of species in each plot:
 
 ```{r}
 spe %>% 
   summarise(unique_species = n_distinct(Species), .by = RELEVE_NR)
 ```
 
-or unique pairs or combinations of selected variables, such as species +their combinations in vegetation layers -here in the whole dataset
+Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.
 
 ```{r}
 spe %>% 
   summarise(unique_species_layer = n_distinct(interaction(Species, Layer)))
 ```
 
-When you become confident with joins and summarise you can even do something like this. I am working with env data, but at the same time I want to use the summarised information from species data. And I can calculate it and match directly in the pipeline without stepping outside, as there is no need to calculating and saving intermediate steps separately.
+When you become confident with joins and `summarise()`, you can even do something like this: We are working with env data, but at the same time, we want to use the summarised information from species data. We can calculate it directly in the pipeline without stepping outside, as there is no need to calculate and save intermediate steps separately.
 
 ```{r}
 env %>% 
   left_join(spe %>% 
               group_by(RELEVE_NR) %>% 
               count(name = "Richness")) %>%
-  select(PlotID=RELEVE_NR,ForestType, ForestTypeName, Richness, Biomass, pH_KCl)
+  select(PlotID = RELEVE_NR, ForestType, ForestTypeName, Richness, Biomass, pH_KCl)
 ```
 
-Another useful thing is to know how to sum values across more columns and save it in another column, i.e. row-wise sum. The relevant function is called **`rowSums`**. We will look at the example of frozen fauna data availability and first we will turn the table into tidy by filling 0 and changing x to 1.
+Another useful thing is knowing how to sum values across multiple columns and save the result in another column, i.e., row-wise sum. The relevant function is called **`rowSums()`**. We will examine the example of frozen fauna data availability. First, we will transform the table into a tidy format by filling in the 0s and changing the x value to 1.
 
-Alternative is #mutate(across( c(pollen_spores, macrofossils, dna), \~ if_else(!is.na(.x) & .x == "x", 1, 0)))
+Alternative is `mutate(across(c(pollen_spores, macrofossils, dna), ~ if_else(!is.na(.x) & .x == "x", 1, 0)))`.
 
 ```{r}
-data<-  read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet=1)%>% 
-  clean_names()%>% 
+data <- read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet = 1) %>% 
+  clean_names() %>% 
   mutate(across(c(pollen_spores, macrofossils, dna), ~ replace_na(.x, "0"))) %>%
-  mutate(across(c(pollen_spores, macrofossils, dna), ~ if_else(.x == "x", 1, 0)))%>%
-  mutate(dataAvailableSum = rowSums(across(pollen_spores:dna)))%>% 
+  mutate(across(c(pollen_spores, macrofossils, dna), ~ if_else(.x == "x", 1, 0))) %>%
+  mutate(dataAvailableSum = rowSums(across(pollen_spores:dna))) %>% 
   print()
+```
+
+`summarise()` is often used for obtaining so-called **community means** or community-weighted means. For example, we have traits for individual species, and we want to calculate a mean for each site and compare it.
+
+```{r}
+spe %>% 
+  left_join(traits, by = c("Species" = "Taxon")) %>%
+  summarise(meanHeight = mean(Height), .by = RELEVE_NR)
+```
+
+So far, we have had data with no missing values, but you will most likely encounter situations where there are some NAs. For this, you will need to use the argument **`na.rm = TRUE`**, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. The same issue occurred here, so we need to address it.
+
+```{r}
+spe %>% 
+  left_join(traits, by = c("Species" = "Taxon")) %>%
+  summarise(meanHeight = mean(Height, na.rm = T), .by = RELEVE_NR)
+```
+
+We can also consider using abundance to weight the result. This is called the **community-weighted mean**, and it assigns higher importance to species that are more abundant and lower importance to those that are rare. Here, the abundance is approximated as a percentage cover in the plot.
+
+```{r}
+spe %>%
+  left_join(traits, by = c("Species" = "Taxon")) %>%
+  summarise(meanHeight = mean(Height, na.rm = T),
+            meanHeight_weighted = weighted.mean(Height, CoverPerc, na.rm = TRUE),
+            .by = RELEVE_NR)
+```
+
+You can see that the results are pretty different! Note that we are in a forest, so we now compare the heights of the dominant trees and the smaller, less abundant herbs. Especially for the CWM, it plays a huge role. Therefore, we will now calculate the CWM only for the herb-layer (6).
+
+```{r}
+spe %>%
+  left_join(traits, by = c("Species" = "Taxon")) %>%
+  filter(Layer == 6) %>%
+  summarise(meanHeight = mean(Height, na.rm = T),
+            meanHeight_weighted = weighted.mean(Height, CoverPerc, na.rm = TRUE),
+            .by = RELEVE_NR)
   
 ```
 
-Summarise is often used for getting so-called **community means** or community weighted means. For example we have traits for individual species and we want to calculate a mean for each site and compare it.
-
-```{r}
-spe%>% 
-  left_join(traits, by=c("Species" ="Taxon"))%>%
-  summarise(meanHeight= mean(Height), .by=RELEVE_NR)
-```
-
-So far, we had data with no missing values, but most probably you will come across situations where there will be some NAs. For this you will need to use argument **na.rm=TRUE** which indicates that you want to skip the NAs from counting. Otherwise a single NA would mean also the result will be NA. The same happened here, so we need to fix it.
-
-```{r}
-spe%>% 
-  left_join(traits, by=c("Species" ="Taxon"))%>%
-  summarise(meanHeight= mean(Height, na.rm=T), .by=RELEVE_NR)
-```
-
-We can also consider to use abundance to weight the result. This is called **community weighted mean** and it simply gives higher importance to those species that are more abundant and lower importance to the rare once. Here the abundance is approximated as percentage cover in the site.
+Similarly, we can calculate community means across multiple variables simultaneously. Here, we will try the **Ellenberg-type indicator values** (abbreviated as EIV), which measure species demands for particular factors. The higher the value, the higher the demands or affinity to habitats with higher values of these environmental factors. We will apply them solely based on the presence of species; no weights will be used. Therefore, we do not need to care that much about the differences among layers. However, we will keep each species only once (a list of unique species for each plot), so we will remove information about layers first and use `distinct()`. An alternative is to add `filter(Layer == 6) %>%` if we want to focus on the herb layer only.
 
 ```{r}
 spe %>%
   left_join(traits, by = c("Species" = "Taxon")) %>%
-  summarise(meanHeight= mean(Height, na.rm=T),
-            meanHeight_weighted = weighted.mean(Height, CoverPerc, na.rm = TRUE),
-            .by=RELEVE_NR)
-```
-
-You can see that the results are quite different! Note that we are in forest so we now compare together heights of trees, which are dominants, and herbs which are small and are less abundant. Especially for the CMW it plays really big role. Therefore we will now compare only for the herb-layer (6).
-
-```{r}
-spe %>%
-  left_join(traits, by = c("Species" = "Taxon")) %>%
-  filter(Layer==6)%>%
-  summarise(meanHeight= mean(Height, na.rm=T),
-            meanHeight_weighted = weighted.mean(Height, CoverPerc, na.rm = TRUE),
-            .by=RELEVE_NR)
-  
-```
-
-In the same way we can calculate community means across more variables. Here we will try the **Ellenberg indicator values** (abbreviated as EIV, measures of species demands for the particular factors, the higher value mean higher demands or affinity to habitats with higher values of these environmental factors). We will apply them just for presences of species, so no weights. Therefore we do not need to care that much for the differences among layers. However, we will keep each species only once (list of unique species for each plot), so we will remove information about layers first and use distinct. Alternative is to add #filter(Layer==6)%\>% if we want to focus on herb-layer only
-
-```{r}
-spe %>%
-  left_join(traits, by = c("Species" = "Taxon")) %>%
-  select(-c(Layer,CoverPerc))%>%
-  distinct()%>%
-  group_by(RELEVE_NR)%>%
-  summarise(across(starts_with("EIV"), ~ mean(.x, na.rm = TRUE)))
+  select(-c(Layer, CoverPerc)) %>%
+  distinct() %>%
+  group_by(RELEVE_NR) %>%
+  summarise(across(starts_with("EIV"), ~mean(.x, na.rm = TRUE)))
 ```
 
 ## 5.6 Exercises
 
-1\. Do a bit more with **Forest understory** data. Upload the env file called `Axmanova-Forest-env.xlsx` create two subsets: *forest1*, where you select PlotID=RELEVE_NR, ForestType, ForestTypeName and *forest2*, with columns ForestType, pH_KCl, Biomass \> Now use left_join to match forest2 to forest1. What happened? Check how many times there are rows with the same PlotID using some simple functions.
+1\. Do a bit more with **Forest understory** data. Upload the env file called `Axmanova-Forest-env.xlsx`, create two subsets: *forest1*, where you select PlotID = RELEVE_NR, ForestType, ForestTypeName and *forest2*, with columns ForestType, pH_KCl, Biomass. Now use `left_join()` to match forest2 to forest1. What happened? Check how many times there are rows with the same PlotID using some simple functions.
 
-2\. Upload the data from **Lepidoptera** folder . First the env data \> check the structure. The structure is inverted and we will first transpose it to be able to work with it normally.
+2\. Upload the data from the **Lepidoptera** folder. First, load the env data and check its structure. The structure is inverted, so we will first transpose it to work with it normally.
 
 ```{r}
-env<- read_xlsx("data/lepidoptera/env_char_MSVejnoha.xlsx") %>%
+env <- read_xlsx("data/lepidoptera/env_char_MSVejnoha.xlsx") %>%
   column_to_rownames(var = "Site") %>%  # move 'Site' column to row names
   t() %>%                               # transpose like Excel
   as.data.frame() %>%                   # back to data frame
   rownames_to_column(var = "Site") %>%  # make the row names a column again
-  as_tibble()%>% 
+  as_tibble() %>% 
   view()
 ```
 
-Now look at the tibble again. Since we went through the step with dataframe, everything is changed to a text. Add one more row to change everything to numeric (*as.numeric*) except for the first column called Site (ID of the site) \>\> check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of tress (select the tresholds based on the histogram) \> filter out the group with only low cover \>\> Import the spe data and filter to have the same sites in both files
+Now look at the tibble again. Since we went through the step with the dataframe, everything has been changed to text. Add one more row to change everything to numeric (`as.numeric()`) except for the first column called Site (ID of the site) \>\> check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of tress (select the tresholds based on the histogram) \> filter out the group with only low cover \>\> Import the spe data and filter to have the same sites in both files.
 
-3\. Upload **Penguins data** \> check names (penguins) \> calculate mean weight and SD of weight for different penguin species \> visualise the results by ggplot (geom_col).
+3\. Upload **Penguins data** \> check names (`penguins`) \> calculate mean weight and SD of weight for different penguin species \> visualise the results by `ggplot` (`geom_col()`).
 
-4\. Stay with Penguins, count how many individuals are at each island and to which species they belong. \> use a ggplot to visualise this. \*Prepare a wide format matrix with islands as rows x species as names, where values will be counts of individuals.
+4\. Stay with Penguins, count how many individuals are at each island and to which species they belong. Use a ggplot to visualise this. \*Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.
 
-5\. Get back to **Forest understory** species file. Axmanova-Forest-spe.xlsx In the data you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover (*for simplicity, specify in the slice_max to take just n=1, with_ties=F*) \> append it to env data \> summarise counts of plots with each of the dominant \*alternatively you can prepare a script, where all spe data handling will be a part of pipeline of env data handling
+5\. Get back to the **Forest understory** species file (`Axmanova-Forest-spe.xlsx`). In the data you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover (*for simplicity, specify in the `slice_max()` to take just `n = 1, with_ties = F`*) \> append it to env data \> summarise counts of plots with each of the dominant. \*Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.
 
-6.Use forest datasets - species and traits \> calculate community mean and community weighted mean for SeedMass. \*create boxplots for these means within forest types (info about forest type is available in env file).
+6\. Use forest datasets - species and traits \> calculate community mean and community weighted mean for SeedMass. \*Create boxplots for these means within forest types (info about forest type is available in the env file).
 
 ## 5.7 Further reading
 
-Joins -chapter in R for data science <https://r4ds.hadley.nz/joins.html>
+Joins - chapter in R for Data Science: <https://r4ds.hadley.nz/joins.html>
 
-Summarise <https://dplyr.tidyverse.org/reference/summarise.html>
+Summarise: <https://dplyr.tidyverse.org/reference/summarise.html>
 
-Summarise multiple columns <https://dplyr.tidyverse.org/reference/summarise_all.html>
+Summarise multiple columns: <https://dplyr.tidyverse.org/reference/summarise_all.html>
 
-Mutate across <https://dplyr.tidyverse.org/reference/across.html>
+Mutate across: <https://dplyr.tidyverse.org/reference/across.html>
 
-If else, case when chapter in R for data science <https://r4ds.hadley.nz/logicals.html#conditional-transformations>
+if_else, case_when chapter in R for Data Science: <https://r4ds.hadley.nz/logicals.html#conditional-transformations>
 
-Case when <https://dplyr.tidyverse.org/reference/case_when.html>
+case_when: <https://dplyr.tidyverse.org/reference/case_when.html>
 
-Case when example <https://rpubs.com/jenrichmond/case_when>
+case_when example: <https://rpubs.com/jenrichmond/case_when>
 
 <!-- frogID_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-02/frogID_data.csv') -->
 
