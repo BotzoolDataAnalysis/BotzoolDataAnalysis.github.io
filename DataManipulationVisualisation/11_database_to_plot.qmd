@@ -611,46 +611,7 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
 
 2.  Use the data from the folder **basiphilous_grasslands** and recreate the following plot. Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
 
-    ```{r}
-    #| echo: false
-    #| message: false
-
-    library(tidyverse)
-    library(patchwork)
-
-
-    bas_grass_env <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv')
-
-    bas_grass_spe <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv')
-
-    bas_grass_spe_data <- read_csv('data/basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species_data.csv')
-
-    spe_sum <- bas_grass_spe |> 
-      pivot_longer(cols = -Releve_number, names_to = 'SpecName_Layer', values_to = 'cover_perc') |> 
-      filter(cover_perc > 0) |> 
-      left_join(bas_grass_spe_data) |> 
-      group_by(Releve_number) |> 
-      summarise(species_number = n_distinct(Taxon), 
-                specialist_number = sum(THE_THF == T, na.rm = T)) |> 
-      left_join(bas_grass_env)
-
-    plot1 <- spe_sum |> 
-      ggplot(aes(x = as.factor(Rs_observ), y = species_number, fill = as.factor(Rs_observ))) +
-      geom_boxplot() +
-      theme_bw() +
-      theme(axis.title.x = element_blank())+
-      labs(y = 'Number of species', fill = 'Time')
-
-    plot2 <- spe_sum |> 
-      ggplot(aes(x = as.factor(Rs_observ), y = specialist_number, fill = as.factor(Rs_observ))) +
-      geom_boxplot() +
-      theme_bw() +
-      theme(axis.title.x = element_blank())+
-      labs(y = 'Number of dry grassland specialists', fill = 'Time')
-
-    plot1 + plot2 + plot_annotation(tag_levels = 'A') + 
-      plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
-    ```
+    ![](images/clipboard-3338851266.png)
 
 3.  **Frogs** Use the data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline (with `map`) and save to your environment as a single tibble \>\> prepare two barplots, first showing number of species in each stateProvince, and second showing number of all records irrespective of species \>\> prepare a table where there will be species as rows, columns for each stateProvince and values will represent the absolute number of records \>\> calculate also relative variables which will show representation of each species in the stateProvince relative to all species (%) in the stateProvince.
 
