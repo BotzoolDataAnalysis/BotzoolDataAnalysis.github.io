@@ -559,7 +559,8 @@ spe %>%
 **Proportions of endangered or alien species** in forest type. I will first look at the numbers of these species, here on example of redlist i.e. endangered species. I just one to see average number of redlist species per forest type.
 
 ```{r}
-spe%>% 
+env%>%
+  select(releve_nr, forest) %>% 
   left_join(spe %>% 
               left_join(status)%>% 
               filter(!is.na(redlist))%>%
@@ -567,10 +568,8 @@ spe%>%
   left_join(spe %>% 
               summarise(richness_all = n_distinct(species), 
                         .by = releve_nr))%>%
-  distinct(releve_nr,richness_redlist,richness_all)%>%
   mutate(richness_redlist = replace_na(richness_redlist, 0))%>%
   mutate(richness_redlist_perc= richness_redlist/richness_all*100)%>%
-  left_join(env%>% select(releve_nr, forest))%>%
   summarise(redlist_mean_perc = mean(richness_redlist_perc), .by=forest)%>%
   arrange(forest)
 ```
@@ -578,7 +577,8 @@ spe%>%
 But I can also ask about diferences in abundances of some plant groups. What is the proportion of cover of alien species relative to total cover in different forests?
 
 ```{r}
-spe%>% 
+env%>%
+  select(releve_nr, forest) %>% 
   left_join(spe %>% 
               left_join(status)%>% 
               filter(origin %in% c("arch","neo"))%>%
@@ -587,10 +587,8 @@ spe%>%
   left_join(spe %>% 
               summarize(cover_total = combine_cover(cover_perc), 
                         .by=releve_nr))%>%
-  distinct(releve_nr, cover_alien, cover_total)%>%
   mutate(cover_alien = replace_na(cover_alien, 0))%>%
   mutate(cover_alien_perc= cover_alien/cover_total*100)%>%
-  left_join(env%>% select(releve_nr, forest))%>%
   summarise(alien_cover_mean_perc = mean(cover_alien_perc), .by=forest)%>%
   arrange(forest)
 ```
@@ -607,7 +605,7 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
 
 ### These should be handed in for successful finishing of this course.
 
-1.  **Forest dataset from Turboveg database** - prepare script from the database files as described above and (1) prepare scatterplot of a) overall species richness and b) herb-layer species richness against soil pH (2) scatterplot of herb-layer species richness against cover of trees (3) boxplots of richness (number of species) of native species, redlist species and alien species.
+1.  **Forest dataset from Turboveg database** - prepare script from the database files as described above and (1) prepare scatterplot of a) overall species richness and b) herb-layer species richness against soil pH (2) scatterplot of herb-layer species richness against cover of trees (3) boxplots of richness (number of species) of native species, redlist species and alien species in individual forest types.
 
 2.  Use the data from the folder **basiphilous_grasslands** and recreate the following plot. Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (`THE_THF`) for each plot (Releve), join header data and transform the variable for the time of sampling (`Rs_observ`) to a character/factor).
 
