@@ -27,11 +27,17 @@ A huge advantage comes when you start to collaborate with other people. This is 
 
 ## 12.2 Find and download data and code
 
-how to find, download code from someone without an account (examples - maps course, published codes for articles)
+First of all , GitHub is a huge repository of open-source code and data. Many researchers collaborate on their analyses through GitHub and publish their data and code associated with their scientific articles there. You can also find many R packages there. You can browse the resources published there even without a GitHub account. Open the GitHub main page ([https://github.com](https://github.com)) and in the top right corner, you will find a search box. You can search for repositories, users, packages... You can try find our personal accounts by typing our names in the search box. Next, you can try to find the repository with the code for this website by searching for 'BotzoolDataAnalysis'.
+
+In some published studies using an R code for the analysis, you might find a link to the GitHub repository with the code in the Data Methods section or in the Data Availability Statement. You can find an example of such repository storing code from a published article here: [https://github.com/klaraklink/SMor_semi-dry_grass_change](https://github.com/klaraklink/SMor_semi-dry_grass_change). You can check the structure of the repository and read more about the data in the README. 
+
+You can not only look at the code online, but also download the whole repository to your computer by clicking on the green button '\<\> Code' and then 'Download ZIP'.
+
+![](images/github_download.png){fig-align="center"}
 
 ## 12.3 Set up your own account
 
-At the beginning, this is the most demanding task - to set up your own GitHub account and connect it to your RStudio, but once it works, you'll be able to make your own GitHub repository to share your work with others and much more. We will now go through the setup together.
+For other operations with GitHub, e.g., creating your own version control repository, collaborating on the analysis with others, or publishing code from a paper, you will need to create your own GitHub account. We will now go through the setup together. 
 
 ### 12.3.1 Create a GitHub account
 
@@ -331,8 +337,17 @@ How to avoid merge conflicts:
 -   organise the workflow in multiple steps and divide the work on different part of the code between the collaborators, do not work on the same thing simultaneously
 
 ## 12.9 Time travel
+One of the advantages of the version control system is, that you can look back in the history of your repository and see, what changes happened at which stage of the project etc. To see the previous commits in the R Studio, click on 'History' in the Git pane. You will see something like this:
 
-review history, go back to specific version
+![](images/github_history.png)
+You can check the changes made in each commit by clicking on it.
+
+Similarly, you can check the history of the remote repository on the GitHub webpage by clicking on 'Commits'.
+
+![](images/github_history_remote.png)
+
+When something goes wrong, you can always return to a previous version of your code. However, be careful when doing that, especially if you are collaborating with others. Look [here](https://happygitwithr.com/flight-rules.html) for some tips on how to get out of terrible situations.
+
 
 ## 12.10 Glossary
 
@@ -383,7 +398,7 @@ checkout
 
 ## 12.11 Other Tips
 
--   You can change use **private** repositories for work in progress which includes data and scripts that are not published yet and you don't want to make them public, e.g., before publishing a scientific paper based on the analysis.
+- You can use **private** repositories for work in progress which includes data and scripts that are not published yet and you don't want to make them public, e.g., before publishing a scientific paper based on the analysis. 
 -   If you are a student or a university researcher, you can get access to [GitHub Education](https://github.com/education), which provides some benefits, such as free private repositories with more than three collaborators, access to GitHub Copilot, etc.
 -   You can use the connection between GitHub and Zenodo to publish data and scripts associated with your scientific paper and get DOI for them. Look [here](https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content) for the instructions.
 -   It is also possible to create and host a webpage like this one through GitHub. Some researchers create their personal webpage this way. To do that you will have to learn basics of [Quarto](https://quarto.org), but don't be afraid, it is not so difficult. We recommend looking [here](https://r4ds.hadley.nz/quarto.html) for some introduction to Quarto and [here](https://docs.github.com/en/pages) to explore more about GitHub pages.

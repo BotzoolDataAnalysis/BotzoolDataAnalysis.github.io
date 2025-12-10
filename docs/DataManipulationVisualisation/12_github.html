@@ -336,11 +336,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="find-and-download-data-and-code" class="level2">
 <h2 class="anchored" data-anchor-id="find-and-download-data-and-code">12.2 Find and download data and code</h2>
-<p>how to find, download code from someone without an account (examples - maps course, published codes for articles)</p>
+<p>First of all , GitHub is a huge repository of open-source code and data. Many researchers collaborate on their analyses through GitHub and publish their data and code associated with their scientific articles there. You can also find many R packages there. You can browse the resources published there even without a GitHub account. Open the GitHub main page (<a href="https://github.com">https://github.com</a>) and in the top right corner, you will find a search box. You can search for repositories, users, packages… You can try find our personal accounts by typing our names in the search box. Next, you can try to find the repository with the code for this website by searching for ‘BotzoolDataAnalysis’.</p>
+<p>In some published studies using an R code for the analysis, you might find a link to the GitHub repository with the code in the Data Methods section or in the Data Availability Statement. You can find an example of such repository storing code from a published article here: <a href="https://github.com/klaraklink/SMor_semi-dry_grass_change">https://github.com/klaraklink/SMor_semi-dry_grass_change</a>. You can check the structure of the repository and read more about the data in the README.</p>
+<p>You can not only look at the code online, but also download the whole repository to your computer by clicking on the green button ‘&lt;&gt; Code’ and then ‘Download ZIP’.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/github_download.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
 <section id="set-up-your-own-account" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-your-own-account">12.3 Set up your own account</h2>
-<p>At the beginning, this is the most demanding task - to set up your own GitHub account and connect it to your RStudio, but once it works, you’ll be able to make your own GitHub repository to share your work with others and much more. We will now go through the setup together.</p>
+<p>For other operations with GitHub, e.g., creating your own version control repository, collaborating on the analysis with others, or publishing code from a paper, you will need to create your own GitHub account. We will now go through the setup together.</p>
 <section id="create-a-github-account" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-github-account">12.3.1 Create a GitHub account</h3>
 <p>First of all, you’ll need to create your own account at <a href="https://github.com">GitHub.com</a>. It is worth paying some attention to your username, which should preferably include your name. You can change it later, but it’s better not to do it.</p>
@@ -555,7 +562,11 @@ This is a line from RStudio. Modified.
 </section>
 <section id="time-travel" class="level2">
 <h2 class="anchored" data-anchor-id="time-travel">12.9 Time travel</h2>
-<p>review history, go back to specific version</p>
+<p>One of the advantages of the version control system is, that you can look back in the history of your repository and see, what changes happened at which stage of the project etc. To see the previous commits in the R Studio, click on ‘History’ in the Git pane. You will see something like this:</p>
+<p><img src="images/github_history.png" class="img-fluid"> You can check the changes made in each commit by clicking on it.</p>
+<p>Similarly, you can check the history of the remote repository on the GitHub webpage by clicking on ‘Commits’.</p>
+<p><img src="images/github_history_remote.png" class="img-fluid"></p>
+<p>When something goes wrong, you can always return to a previous version of your code. However, be careful when doing that, especially if you are collaborating with others. Look <a href="https://happygitwithr.com/flight-rules.html">here</a> for some tips on how to get out of terrible situations.</p>
 </section>
 <section id="glossary" class="level2">
 <h2 class="anchored" data-anchor-id="glossary">12.10 Glossary</h2>
@@ -625,7 +636,7 @@ time travel to a specific commit in the past
 <section id="other-tips" class="level2">
 <h2 class="anchored" data-anchor-id="other-tips">12.11 Other Tips</h2>
 <ul>
-<li>You can change use <strong>private</strong> repositories for work in progress which includes data and scripts that are not published yet and you don’t want to make them public, e.g., before publishing a scientific paper based on the analysis.</li>
+<li>You can use <strong>private</strong> repositories for work in progress which includes data and scripts that are not published yet and you don’t want to make them public, e.g., before publishing a scientific paper based on the analysis.</li>
 <li>If you are a student or a university researcher, you can get access to <a href="https://github.com/education">GitHub Education</a>, which provides some benefits, such as free private repositories with more than three collaborators, access to GitHub Copilot, etc.</li>
 <li>You can use the connection between GitHub and Zenodo to publish data and scripts associated with your scientific paper and get DOI for them. Look <a href="https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content">here</a> for the instructions.</li>
 <li>It is also possible to create and host a webpage like this one through GitHub. Some researchers create their personal webpage this way. To do that you will have to learn basics of <a href="https://quarto.org">Quarto</a>, but don’t be afraid, it is not so difficult. We recommend looking <a href="https://r4ds.hadley.nz/quarto.html">here</a> for some introduction to Quarto and <a href="https://docs.github.com/en/pages">here</a> to explore more about GitHub pages.</li>
