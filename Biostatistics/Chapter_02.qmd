@@ -1,0 +1,161 @@
+---
+title: "Chapter 2: Data exploration and data types" 
+author: "Jakub Těšitel"
+format: html
+editor: visual
+---
+
+If you have some data, say a variable describing observations of 100 objects (e.g. tail length of 100 rats), you may wish to explore these values to be able to say something about these data.
+
+That is, you may wish to describe the data using *descriptive statistics*.
+
+Before we start, let's prepare the packages and data we will be using in this chapter:
+
+```{r}
+rats <- rnorm(n = 100, mean = 5.5, sd = 1.5) 
+mice <- rnorm(n = 100, mean = 3, sd = 1)
+```
+
+::: callout-tip
+## Box 3. Generate normally distributed data
+
+Function `rnorm()` allows you to generate data of defined sample size (n), mean and standard deviation, which come from the Normal distribution. Check its help page.
+:::
+
+# Data explotarion
+
+## Descriptive statistics
+
+The data are here:
+
+```{r}
+rats
+```
+
+First, we need to know the size of the data, i.e. number of observations (n).
+
+```{r}
+length(rats)
+```
+
+Second, we are interested is the *central tendency*, i.e. certain middle value around which the data are located. This is provided by the *median*. Which is the middle value[^1] of the ordered data in the dataset from the lowest to the highest value. Here:
+
+[^1]: Note, that if *n* is even and the two values close to the middle are not equal, median is computed as their arithmetic mean.
+
+```{r}
+median(rats)
+```
+
+Third, we need to know the "spread of the data". A simple characteristic is *range* (*minimum* and *maximum*):
+
+```{r}
+range(rats)
+```
+
+However, the minima and maxima may be affected by outliers and extremes. While it is useful to know them, we may also prefer some more robust characteristics. This comes with *quartiles*. Quartiles are 25% and 75% *quantiles*. XX%-quantile refers to a value compared to which XX% of other observations are lower. In our case, this is the first quartile (25%) and the third quartile (75%). The second (50%) quartile is the median:
+
+```{r}
+quantile(rats, probs = c(0.25, 0.50, 0.75))
+```
+
+## Visual exploration
+
+These descriptive statistics can be summarized graphically in the form of *boxplot*. That is very useful for comparisons between different datasets (e.g. comparison of mouse tail length with a similar dataset on rats):
+
+```{r}
+boxplot(mice, rats,
+        ylab = 'Tail length (cm)',
+        names = c('mice', 'rats'))
+```
+
+::: callout-important
+## Box 4. Boxplots - how to read them
+
+The bold lines in boxes represent medians, boxes represent quartiles (i.e. 25 and 75% quantiles) and the lines extending from the box boundaries (whiskers) represent the range or non-outlier range of values, whichever is smaller. The non-outlier range is defined as the interval between (25% quantile) 1.5 × interquartile range) and (75% quantile + 1.5 × interquartile range). Any point outside this interval is considered an outlier and is depicted separately.[^2]
+:::
+
+[^2]: This is a very detailed description of a boxplot. Usually it can be briefer. Still, I was forced to make it this detailed by the editor of one paper I published.
+
+Another useful type of plot is the *histogram*. Histogram is very useful for displaying data distributions (but less so for comparisons between different datasets). To plot a histogram, values of the variable are assigned into intervals (called also bins). Numbers of observation (frequency) within each bin is then plotted on in the graph.
+
+```{r}
+hist(rats,
+     xlab = 'Tail length (cm)')
+```
+
+# Types of data
+
+The data on mouse tail length we have explored are called *data on ratio scale*. Several other types of data can be defined on the basis of their properties. These are summarized in Table 1.1. In ratio-scale and interval data, further distinction can be made between continuous and discrete data but that makes little difference for practical computation.
+
+| Data type | Criteria | Possible math operations | Examples | Object `class` in R |
+|----|----|----|----|----|
+| Ratio scale data | constant intervals between values, meaningful zero | \+ - \* / | length, mass, temperature in K | numeric |
+| Interval scale data | constant intervals between values, zero not meaningful | \+ - | temperature in °C | numeric |
+| Ordinal data (semi-quantitative) | variable intervals between values | comparison of values (\< \>) | exam grades, Braun-Blanquet cover scale | numeric (but may require conversion) |
+| Categorical data | non-numeric values | none | colours, sex, species identity | character, factor |
+
+: Table 1.1. Summary of data types definition and properties.
+
+Categorical variables cannot be explored by the methods described above. Instead, frequencies of individual categories can be summarized in a table, or a *barplot* can be used to illustrate the data graphically.
+
+Consider for example 163 bean plant individuals with flowers of three colours: white, red, purple:
+
+```{r}
+beans <- sample(
+  x = c('white', 'red', 'purple'),
+  size = 163,
+  replace = T) |>
+  table()
+
+barplot(beans, col = c('purple', 'red', 'white'))
+```
+
+::: callout-tip
+## Box 5. R Basics
+
+###### Installation
+
+-   R can be downloaded from here: https://cloud.r-project.org/
+-   R Studio can be downloaded from here: https://rstudio.com/products/rstudio/download/#download
+
+###### R Project
+
+-   Very useful approach to keep your disc/storage tidy. You "root" the project into a specified folder (`working directory`), where you also store the data you need, and all the scripts related to a single task - e.g., this course, data and analysis for a paper.
+
+###### Packages
+
+-   Installation: `install.packages('YourFavouritePackage')`
+-   Calling it from library (when you need some function from it): `library(YourFavouritePackage)`
+
+###### Import data
+
+-   comma separated values: `read.csv()`, `read.csv2()` (in case you use decimal comma)
+-   text files: `read.txt`
+-   more generic function: `read.delim()`, `read.delim2()`, `read.table()`
+-   Excel: `read_excel()` from the `readxl` package
+:::
+
+# Exercises
+
+*Solutions will be added after the practicals*
+
+1.  Calculate 5 + 3 and save the result in an object; then display its content.
+2.  Create a vector containing six numbers of your choice.
+3.  Display the 4th value of the vector.
+4.  Change the 5th value of the vector to `NA`.
+5.  Display the path of the working directory.
+6.  Display the help for the function boxplot.
+7.  Import the People dataset (`people.xlsx`) into R. Try importing using the `readxl::read_excel()` function or by window-based upload.
+8.  Summarize the data.
+9.  Display the class of the R object of the imported data and of the variables eye.color and height.
+10. Compute the median, range, and quartiles of height of all people.
+11. Create a new data frame containing just data on males.
+12. Compute median height for males and females.
+13. Plot a histogram of all height data.
+14. Plot a box plot of heights comparing males and females.
+15. Export both plots to Word.
+
+#### Tasks for independent work:
+
+1.  Compute median height for brown and blue-eyed persons.
+2.  Plot a box plot of heights comparing brown and blue-eyed persons.
