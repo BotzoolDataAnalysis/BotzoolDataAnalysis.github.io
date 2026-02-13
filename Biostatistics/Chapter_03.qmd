@@ -20,7 +20,7 @@ f(X) = \sum_{x_i < X}p_i
 $$ In human language, this translates as: Take probabilities $p_i$ of all values $x_i$ lower than $X$, compute their sum and you get the value of probability distribution function for value $X$ (Fig 3.1a). Let's simulate it:
 
 ```{r}
-#| label: fig-normal-dist
+#| label: fig-probability
 #| fig-cap: "Fig 3.1. Probability (a), frequency (b) and density (d) distribution of coin tosses (n = 100, size = 100, p = 0.5). Grey histograms represent sampling statistics (prob., freq., dens.). The red lines in (a) and (c) represent theoretical binomial probability distribution and density, respectively. (d) standard 10 crown coin of the Austrian-Hungarian Empire used for tossing. Depicted here to illustrate why we call the coin sides the Head and Eagle instead of Brno and Lion as on the current 10 CZK coin."
 
 set.seed(42)
@@ -96,12 +96,9 @@ So far, our example utilized **binomial distribution**. Among many theoretical d
     $$
 -   the **variance** which defines the spread of the probability density - i.e., mean square of differences of individual values from the mean (how far from the centre do the values usually fall): $$
     \sigma^2 = \frac{\sum_{i = 1}^{N}(X_i - \mu)^2}{N}
-    $$
-Variance is given in squared units of the variable itself (e.g. in m2 for length). Therefore, **standard deviation** ($\sigma$, SD), which is simply the square root of the variance, is frequently used:
-    $$
+    $$ Variance is given in squared units of the variable itself (e.g. in m2 for length). Therefore, **standard deviation** ($\sigma$, SD), which is simply the square root of the variance, is frequently used: $$
     \sigma = \sqrt{\sigma^2}
-    $$
-The common notation of the normal distribution with mean $μ$ and variance $σ^2$ is $N(μ, σ^2)$.
+    $$ The common notation of the normal distribution with mean $μ$ and variance $σ^2$ is $N(μ, σ^2)$.
 
 Normal distribution has non-zero probability density over the entire scale of real numbers. This implies that normal distribution may not always be a suitable proxy distribution of some variables, e.g. physical variables such as length or masses, because these cannot be lower than zero. However, normal density becomes close to zero if one moves several standard deviations (SD units) away from the mean (Fig. 3.2b). This means that normal distribution may be used for the always-positive variables (like length, mass etc.) only if the mean is reasonably far from zero (measured by SD units). At the same time, this implies that the existence of outlying values is not expected and normal approximation of variables containing them may be problematic.
 
@@ -158,4 +155,3 @@ mtext("(c)", side = 3, adj = -0.2, line = 2, font = 2) # label plot
 
 par(mfrow = c(1,1)) # Set grid back to normal view
 ```
-

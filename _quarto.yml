@@ -48,7 +48,30 @@ website:
             
       - section: "Introduction to Biostatistics"
         href: Biostatistics/biostatistics.qmd
-        
+        contents:
+          - text: "1 Philosophical foundations"
+            href: Biostatistics/Chapter_01.qmd
+          - text: "2 Data exploration"
+            href: Biostatistics/Chapter_02.qmd
+          - text: "3 Probability and distribution"
+            href: Biostatistics/Chapter_03.qmd
+          - text: "4 Graphs"
+            href: Biostatistics/Chapter_04.qmd
+          - text: "5 Hypotheses and patterns"
+            href: Biostatistics/Chapter_05.qmd
+          - text: "6 Contingency tables"
+            href: Biostatistics/Chapter_06.qmd
+          - text: "7 Confidence intervals and t-tests"
+            href: Biostatistics/Chapter_07.qmd
+          - text: "8 F-test and ANOVA"
+            href: Biostatistics/Chapter_08.qmd
+          - text: "9 Linear regression"
+            href: Biostatistics/Chapter_09.qmd
+          - text: "10 Transformations and non-parametric tests"
+            href: Biostatistics/Chapter_10.qmd
+          - text: "11 Multi-way ANOVA, multiple regression and GLMs"
+            href: Biostatistics/Chapter_11.qmd
+          
       - section: "Community Ecology"
         href: CommunityEcology/community_ecology.qmd
         contents:
