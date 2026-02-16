@@ -12,12 +12,14 @@ That is, you may wish to describe the data using *descriptive statistics*.
 Before we start, let's prepare the packages and data we will be using in this chapter:
 
 ```{r}
+set.seed(1234)
+
 rats <- rnorm(n = 100, mean = 5.5, sd = 1.5) 
 mice <- rnorm(n = 100, mean = 3, sd = 1)
 ```
 
 ::: callout-tip
-## Box 3. Generate normally distributed data
+## Generate normally distributed data
 
 Function `rnorm()` allows you to generate data of defined sample size (n), mean and standard deviation, which come from the Normal distribution. Check its help page.
 :::
@@ -69,7 +71,7 @@ boxplot(mice, rats,
 ```
 
 ::: callout-important
-## Box 4. Boxplots - how to read them
+## Boxplots - how to read them
 
 The bold lines in boxes represent medians, boxes represent quartiles (i.e. 25 and 75% quantiles) and the lines extending from the box boundaries (whiskers) represent the range or non-outlier range of values, whichever is smaller. The non-outlier range is defined as the interval between (25% quantile) 1.5 × interquartile range) and (75% quantile + 1.5 × interquartile range). Any point outside this interval is considered an outlier and is depicted separately.[^2]
 :::
@@ -85,7 +87,7 @@ hist(rats,
 
 # Types of data
 
-The data on mouse tail length we have explored are called *data on ratio scale*. Several other types of data can be defined on the basis of their properties. These are summarized in Table 1.1. In ratio-scale and interval data, further distinction can be made between continuous and discrete data but that makes little difference for practical computation.
+The data on mouse tail length we have explored are called *data on ratio scale*. Several other types of data can be defined on the basis of their properties. These are summarized in Table 1. In ratio-scale and interval data, further distinction can be made between continuous and discrete data but that makes little difference for practical computation.
 
 | Data type | Criteria | Possible math operations | Examples | Object `class` in R |
 |----|----|----|----|----|
@@ -94,7 +96,7 @@ The data on mouse tail length we have explored are called *data on ratio scale*.
 | Ordinal data (semi-quantitative) | variable intervals between values | comparison of values (\< \>) | exam grades, Braun-Blanquet cover scale | numeric (but may require conversion) |
 | Categorical data | non-numeric values | none | colours, sex, species identity | character, factor |
 
-: Table 1.1. Summary of data types definition and properties.
+: Table 1 Summary of data types definition and properties.
 
 Categorical variables cannot be explored by the methods described above. Instead, frequencies of individual categories can be summarized in a table, or a *barplot* can be used to illustrate the data graphically.
 
@@ -111,7 +113,7 @@ barplot(beans, col = c('purple', 'red', 'white'))
 ```
 
 ::: callout-tip
-## Box 5. R Basics
+## R Basics
 
 ###### Installation
 
@@ -137,22 +139,34 @@ barplot(beans, col = c('purple', 'red', 'white'))
 
 # Exercises
 
-*Solutions will be added after the practicals*
-
 1.  Calculate 5 + 3 and save the result in an object; then display its content.
+
 2.  Create a vector containing six numbers of your choice.
+
 3.  Display the 4th value of the vector.
+
 4.  Change the 5th value of the vector to `NA`.
+
 5.  Display the path of the working directory.
+
 6.  Display the help for the function boxplot.
+
 7.  Import the People dataset (`people.xlsx`) into R. Try importing using the `readxl::read_excel()` function or by window-based upload.
+
 8.  Summarize the data.
+
 9.  Display the class of the R object of the imported data and of the variables eye.color and height.
+
 10. Compute the median, range, and quartiles of height of all people.
+
 11. Create a new data frame containing just data on males.
+
 12. Compute median height for males and females.
+
 13. Plot a histogram of all height data.
+
 14. Plot a box plot of heights comparing males and females.
+
 15. Export both plots to Word.
 
 #### Tasks for independent work:

@@ -13,7 +13,7 @@ Some scientific disciplines, including biology, use data or experience to increa
 
 Statistics should then be the language of empirical science to summarize the data and make the inference of universal statements from the singular ones. This approach to empirical science would be called induction (Fig. 1.1). Despite being intuitive, it is ***not*** the approach we use in modern science to increase knowledge.
 
-[![Fig. 1.1. Deductive vs. inductive reasoning.](images/clipboard-4141926341.png)](https://practicalpie.com/inductive-reasoning-definition-examples/)
+[![Figure 1: Deductive vs. inductive reasoning.](images/clipboard-4141926341.png)](https://practicalpie.com/inductive-reasoning-definition-examples/)
 
 ## How do we recognize the truth?
 
@@ -40,11 +40,11 @@ It seems that we have a problem with truth and need to find the way out of it. T
 One illustrative account of this is the story of prisoners in cave contained in Plato’s Republic. This is the story about prisoners who are kept in a cave from the very beginning of their life and have their heads fixed to look at a wall. Fire is located far behind them and persons and objects pass between the fire and the prisoners’ back casting shadows on the wall, which the prisoners can see. Then, as Plato says (by the speech of Socrates): “To them, I said, the truth would be literally nothing but the shadows of the images.”. In this writing, Plato also declares ourselves to be like these prisoners. This may seem strange as we tend to believe that what we see is real but consider e.g. the recent observation of gravitational waves. We observe them by super-complicated and ultra-sensitive devices and can only see shadows of them (nobody can see them directly).
 
 ::: callout-note
-## Box 1. Misleading empirical experience
+## Misleading empirical experience
 
 1.  Ancient greek philosopher Anaximandros (ca 610-546 BC) was the first who identified the Earth as an individual celestial body and presented the first cosmology. This was a great achievement of human reason. However, he supposed the Earth to be barrel shape because he only could see flat world around him - as we actually do (Fig. 1.2).
 
-    ![Fig. 1.2. Life of Anaximandros on barrel Earth.](images/clipboard-49352980.png)
+    ![Figure 2: Life of Anaximandros on barrel Earth.](images/clipboard-49352980.png)
 
 2.  Jean-Baptiste Lamarck (1744-1829) formulated the first theory based on his naturalist experience with adaptations of organisms to their environment. He asserted tat organisms adapt to environment. He asserted that organisms adapt to their environment by adjustments of their bodies, which changes are inherited by the offspring. This is very intuitive but demonstrated to be false by a long series of experimental testing.
 :::
@@ -61,16 +61,16 @@ In summary, experience can tell us that a theory is wrong but no experience can 
 
 Consider e.g. the universal statement “All plants are green”. It is not important how many green plants you observe to prove it true. Instead, observation of e.g. single non-green parasitic *Orobanche* (Fig. 1.3) is enough to demonstrate that it is false.
 
-![Fig. 1.3. Non green parasitic plant *Orobanche lutea*](images/clipboard-13517846.png)
+![Figure 3: Non green parasitic plant *Orobanche lutea*](images/clipboard-13517846.png)
 
 Our approach of doing science is thus *not based on induction*. Instead it is *hypothetical-deductive* as we formulate hypotheses and from them deduce how world should look like if the hypotheses were true (Fig. 1.4). If such predictions can be *quantified*, their (dis)agreement with the reality can be measured by statistics. The use of statistics is however not limited to hypothesis testing. We also use statistics for *data exploration* and for *parameter estimates*.
 
-![Fig. 1.4. Scientific method illustrated.](images/clipboard-385269483.png)
+![Figure 4: Scientific method illustrated.](images/clipboard-385269483.png)
 
 Finally, you may wonder how *Biostatistics* differs from *Statistics* in general. Well, there no fundamental theoretical difference, Biostatistics refers to application of statistical tools in biological disciplines. Biostatistics generally acknowledges, that biologists mostly fear math so much that the mathematical roots of statistics are not discussed in details and also e.g. complicated formulae are avoided wherever possible.
 
 ::: callout-note
-## Box 2 Prisoners in cave[^4]
+## Prisoners in cave[^4]
 
 Socrates - GLAUCON
 
