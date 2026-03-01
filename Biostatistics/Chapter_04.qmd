@@ -13,14 +13,14 @@ Most people simply prefer seeing a graph to studying numbers presented in a tabl
 
 [^1]: Most readers of scientific papers only read the abstract and then look at the figures; and all of them do this before deciding whether the paper is worth of further reading. This applies also for journal editors and submitted manuscript. Figure quality and attractiveness may thus have a decisive effect on the editor’s decision on publication.
 
-An important aspect of the graphs is that they cannot display all the information contained in the raw data. An ideal graph should minimize this loss of information while efficiently depicting the patterns of interest. These requirements are however often in conflict. A reasonable solution often lies in providing the reader both the graph and the raw data (attached as supplementary material or deposited in a public repository such as Dryad: <https://datadryad.org/stash> or Zenodo: <https://zenodo.org/>).
+An important aspect of the graphs is that they cannot display all the information contained in the raw data. An ideal graph should minimize this loss of information while efficiently depicting the patterns of interest. These requirements are however often in conflict. A reasonable solution often lies in providing the reader both the graph and the raw data (attached as supplementary material or deposited in a public repository such as [Dryad](https://datadryad.org/stash) or [Zenodo](https://zenodo.org/)).
 
 Many scientific journals nowadays require disclosure of the original data anyway, which is important for checking the integrity of the analyses presented. **By contrast, presenting the same descriptive statistics in both table and graph format is generally considered superfluous and should be avoided.**
 
 ## Basic graph types
 
 | Graph type | Number of variables[^2] | Preservation of information | Display of sample parameters | Visualization of dependence |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | Histogram | 1 | ++ | -- | -- |
 | Boxplot | 1 quantitative + 1 categorical | \+ | \- | \+ |
 | Barplot (counts) | 1 or 2 categorical | \+ | -- | \+ |
@@ -420,3 +420,32 @@ your_plot +
 As you can see, the ggplot is adjustable to almost infinite number of styles, but usually, you can get a neat plot with the default options and use of predefined themes such as `theme_bw()` or `theme_classic()`, so no need to be afraid that you will spend three days just setting the title font size. :)
 
 That’s it! A little advice in the end. When you know what you want, but don’t know how to do it, there is a great support accessible via a simple Google search. Also, consulting AI turned out to be the relatively straightforward way to fine-tune plots, according to 10 out of 9 master's students.
+
+## Exercises
+
+0.  Check the Inkscape program (download [here](https://inkscape.org/) and possibly install it on your personal computer later).
+1.  Import data describing lettuce varieties (`lettuce.xlsx`) to R
+2.  Create histograms of harvest days for both lettuce colors
+3.  Create a boxplot of `harvest days ~ leaf color`
+4.  Set the color fill of the boxes to light blue
+5.  Set the color fill of the boxes to correspond to lettuce leaf color
+6.  Create a scatterplot of `harvest mass ~ harvest days`; update the default axis labels
+7.  Change the colors of the points to illustrate the leaf color of the variety
+8.  Plot a facetted scatterplot with panels (facets) defined by the leaf color variety
+9.  Adjust point size
+10. Export the graph to pdf/svg/powerpoint/word
+11. Import the dataset describing beer types (`beer.xlsx`) and plot a boxplot illustrating the pattern in alcohol content in dependence on beer subtype. Set the box fill according to beer type. Adjust axis labels and the fill legend text.
+12. Plot a boxplot illustrating the dependence of beer bitterness (IBU) on beer type and color.
+
+#### Independent tasks
+
+**#AI** Try to produce the plots #11 and #12 using an LLM and get the corresponding R script.
+
+1.  Import the `people2.xlsx` dataset. Draw scatterplots showing the relationships between
+
+    a.  body mass and height, and
+    b.  body mass and hours spent exercising
+
+    Illustrate the sex and hair color variables by using different point colors and faceting.
+
+    *At home*: try opening the svg files in Inkscape software and exporting the figures to pdf or png
