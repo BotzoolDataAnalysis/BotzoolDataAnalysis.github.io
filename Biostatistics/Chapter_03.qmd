@@ -322,11 +322,15 @@ Function `rnorm()` can be used to generate a sample (series of values) of normal
 
 1.  Import the people data (used in the first practicals) in R again. Compute means, variances, and standard deviations of heights for all people and then for each group defined by the combination of eye color and sex. Compute standard errors of the means for all of the means computed.
 
+    **#AI** Try to solve this task both in R and using an LLM. Instruct the LLM to provide not only the solution but also the R code.
+
 2.  Imagine, you measure plant height in a field measurement. Population mean is 25.5 cm and standard deviation is 2.4. You take 10 measurements on randomly selected individuals. Simulate this process in R and report the values of sample mean with its standard error, sample variance and median.
 
     a.  What happens with the mean, its standard error and variance if you misplace the decimal point and multiply one of the sampled values by 10.
     b.  What happens with median?
     c.  How would the situation look like if the sample was 10 x larger (i.e., 100 measurements were taken)?
+
+    **#AI** Consult this task with an LLM. Pay attention to the answer in question b.
 
 3.  You toss a coin three times and get head in all cases. What is the likelihood that the coin is fair? If the coin is fair, what is the probability of getting eagle in the next toss.
 
@@ -335,12 +339,16 @@ Function `rnorm()` can be used to generate a sample (series of values) of normal
     a.  What is the probability of each citizen to achieve the age of 100?
     b.  What is the probability to die before 50?
 
+    **#AI** Try to solve this task both in R and using an LLM.
+
 5.  Assume that the time needed to reach the Brno train station by walking is a normally distributed random variable with mean = 40 and variance = 6. How long before the train departure, you must leave the campus to have 90% probability to catch the train?
+
+    **#AI T**ry to solve this task with your brain and then consult an LLM. Ask the LLM for a graphical presentation and to generate the `ggplot2` script. Paste the script into R and generate the figure in R.
 
 #### Tasks for independent work:
 
 1.  Assume that height of students follows the normal distribution with mean = 179 cm and variance = 121.
-2.  You are a chair designer. For which height range you should design chairs to be suitable for 99% of students (and the remaining 1% was distributed symmetrically, i.e. the chairs were too small for 0.5% and too big for 0.5%.)?
-3.  You are a chair designer. For which height range you should design chairs not to be too small for 95% of students?
-4.  How many potential basket-ball players (height equal or higher than 200 cm) would you expect in a sample of 550 students?
-5.  What is the probability that a randomly selected student will be tall between 170 and 190 cm?
+    a.  You are a chair designer. For which height range you should design chairs to be suitable for 99% of students (and the remaining 1% was distributed symmetrically, i.e. the chairs were too small for 0.5% and too big for 0.5%.)?
+    b.  You are a chair designer. For which height range you should design chairs not to be too small for 95% of students?
+    c.  How many potential basket-ball players (height equal or higher than 200 cm) would you expect in a sample of 550 students?
+    d.  What is the probability that a randomly selected student will be tall between 170 and 190 cm?
