@@ -20,7 +20,7 @@ Many scientific journals nowadays require disclosure of the original data anyway
 ## Basic graph types
 
 | Graph type | Number of variables[^2] | Preservation of information | Display of sample parameters | Visualization of dependence |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | Histogram | 1 | ++ | -- | -- |
 | Boxplot | 1 quantitative + 1 categorical | \+ | \- | \+ |
 | Barplot (counts) | 1 or 2 categorical | \+ | -- | \+ |
@@ -407,14 +407,16 @@ your_plot +
 ```
 
 If you would like to change the font colour, face (...) of the texts in your plot, or play more with e.g., axis tick size, colour, labels or whatever you can imagine, it is done within the general `theme()`[^4] function through subfunctions `element_*()`:
+
+[^4]: Not to be confused with the `theme_classic()` or `theme_bw()` functions which are just predefined variants of the generic function `theme()`
+
 ```{r}
 #| eval: false
 your_plot +
   theme(axis.title.y = element_text(),
         plot.title = element_text())
 ```
-As you can see, the ggplot is adjustable to almost infinite number of styles, but usually, you can get a neat plot with the default options and use of predefined themes such as `theme_bw()` or `theme_classic()`, so no need to be afraid that you will spend three days just setting the title font size. :) 
 
-[^4]: Not to be confused with the `theme_classic()` or `theme_bw()` functions which are just predefined variants of the generic function `theme()`
+As you can see, the ggplot is adjustable to almost infinite number of styles, but usually, you can get a neat plot with the default options and use of predefined themes such as `theme_bw()` or `theme_classic()`, so no need to be afraid that you will spend three days just setting the title font size. :)
 
 That’s it! A little advice in the end. When you know what you want, but don’t know how to do it, there is a great support accessible via a simple Google search. Also, consulting AI turned out to be the relatively straightforward way to fine-tune plots, according to 10 out of 9 master's students.
