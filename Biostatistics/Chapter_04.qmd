@@ -20,7 +20,7 @@ Many scientific journals nowadays require disclosure of the original data anyway
 ## Basic graph types
 
 | Graph type | Number of variables[^2] | Preservation of information | Display of sample parameters | Visualization of dependence |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | Histogram | 1 | ++ | -- | -- |
 | Boxplot | 1 quantitative + 1 categorical | \+ | \- | \+ |
 | Barplot (counts) | 1 or 2 categorical | \+ | -- | \+ |
