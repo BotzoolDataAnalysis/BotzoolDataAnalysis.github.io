@@ -1339,5 +1339,15 @@
       "Introduction to Biostatistics",
       "3 Probability and distribution"
     ]
+  },
+  {
+    "objectID": "Biostatistics/biostatistics.html#chapters",
+    "href": "Biostatistics/biostatistics.html#chapters",
+    "title": "Introduction to Biostatistics in English",
+    "section": "Chapters",
+    "text": "Chapters\n\nChapter 1: Philosophical foundations of empirical science and statistics\n\n\nChapter 2: Data exploration and data types\n\n\nChapter 3: Probability, distribution, parameter estimates and likelihood\n\n\nChapter 4: Graphs\n\n\nChapter 5: Hypothesis testing and pattern detection; goodness-of-fit\n\n\nChapter 6: Contingency tables - association of two (or more)\n\n\nChapter 7: The t-distribution, confidence intervals, and t-tests\n\n\nChapter 8: F-test and distribution, analysis of variance (ANOVA)\n\n\nChapter 9: Linear regression, correlation and intro to general linear models\n\n\nChapter 10: When assumptions are violated - data transformation and non-parametric methods\n\n\nChapter 11: Brief introduction to multi-way ANOVA, multiple regression and general linear models",
+    "crumbs": [
+      "Introduction to Biostatistics"
+    ]
   }
 ]
