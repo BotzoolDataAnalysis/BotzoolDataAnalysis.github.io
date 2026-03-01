@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Štěpánka Pustková &amp; Martin Franc">
+<meta name="author" content="Jakub Těšitel, Štěpánka Pustková, Martin Franc">
 
 <title>Chapter 4: Graphs – Botzool Data Analysis</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,14 +67,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2c70ee9cb39a79c0c719330d5428fe92.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -95,7 +131,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -292,7 +329,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#why-graphs" id="toc-why-graphs" class="nav-link active" data-scroll-target="#why-graphs">Why graphs?</a></li>
+  <li><a href="#basic-graph-types" id="toc-basic-graph-types" class="nav-link" data-scroll-target="#basic-graph-types">Basic graph types</a></li>
+  <li><a href="#graph-plotting-in-r" id="toc-graph-plotting-in-r" class="nav-link" data-scroll-target="#graph-plotting-in-r">Graph plotting in R</a>
+  <ul class="collapse">
+  <li><a href="#the-ggplot-grammar" id="toc-the-ggplot-grammar" class="nav-link" data-scroll-target="#the-ggplot-grammar">The <code>ggplot</code> grammar</a></li>
+  <li><a href="#base-r-graphics" id="toc-base-r-graphics" class="nav-link" data-scroll-target="#base-r-graphics">Base R graphics</a></li>
+  </ul></li>
+  <li><a href="#facetting" id="toc-facetting" class="nav-link" data-scroll-target="#facetting">Facetting</a></li>
+  <li><a href="#colours-fills-shapes-sizes-palettes" id="toc-colours-fills-shapes-sizes-palettes" class="nav-link" data-scroll-target="#colours-fills-shapes-sizes-palettes">Colours, fills, shapes, sizes, palettes…</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -311,7 +357,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Štěpánka Pustková &amp; Martin Franc </p>
+             <p>Jakub Těšitel, Štěpánka Pustková, Martin Franc </p>
           </div>
   </div>
     
@@ -324,13 +370,535 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="why-graphs" class="level2">
+<h2 class="anchored" data-anchor-id="why-graphs">Why graphs?</h2>
+<p>Graphs represent a crucial tool in statistical analysis<strong>. They are used for exploratory data analysis, parameter comparisons between samples, and illustrations of associations between variables.</strong> A number of graph types exist, which are suitable for different purposes. They are very useful for communication, including also data/analysis result presentation.</p>
+<p>Most people simply prefer seeing a graph to studying numbers presented in a table. Producing nice graphs is thus an important part of presentation of scientific results<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. There are no universal rules how a nice graph should look like, but the good thing is that the quality of your graphs will quickly improve with practice and experience. Getting inspired by graphical presentations of other researchers is also very helpful.</p>
+<p>An important aspect of the graphs is that they cannot display all the information contained in the raw data. An ideal graph should minimize this loss of information while efficiently depicting the patterns of interest. These requirements are however often in conflict. A reasonable solution often lies in providing the reader both the graph and the raw data (attached as supplementary material or deposited in a public repository such as <a href="https://datadryad.org/stash">Dryad</a> or <a href="https://zenodo.org/">Zenodo</a>).</p>
+<p>Many scientific journals nowadays require disclosure of the original data anyway, which is important for checking the integrity of the analyses presented. <strong>By contrast, presenting the same descriptive statistics in both table and graph format is generally considered superfluous and should be avoided.</strong></p>
+</section>
+<section id="basic-graph-types" class="level2">
+<h2 class="anchored" data-anchor-id="basic-graph-types">Basic graph types</h2>
+<table class="caption-top table">
+<caption>Table 1: Summary of basic graph types, their advantages and limitations. ++ excelent, + good, - still adequate, – poor.</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Graph type</th>
+<th>Number of variables<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></th>
+<th>Preservation of information</th>
+<th>Display of sample parameters</th>
+<th>Visualization of dependence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Histogram</td>
+<td>1</td>
+<td>++</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td>Boxplot</td>
+<td>1 quantitative + 1 categorical</td>
+<td>+</td>
+<td>-</td>
+<td>+</td>
+</tr>
+<tr class="odd">
+<td>Barplot (counts)</td>
+<td>1 or 2 categorical</td>
+<td>+</td>
+<td>–</td>
+<td>+</td>
+</tr>
+<tr class="even">
+<td>Dotchart (with errorbars)</td>
+<td>1 quantitative + 1 categorical</td>
+<td>–</td>
+<td>++</td>
+<td>++</td>
+</tr>
+<tr class="odd">
+<td>Scatterplot</td>
+<td>2 quantitative</td>
+<td>++</td>
+<td>-</td>
+<td>++</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graph-plotting-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="graph-plotting-in-r">Graph plotting in R</h2>
+<p>Two most common include the <strong>R base graphics</strong> and <strong>the package ggplot2</strong>. Both approaches have their advantages and disadvantages. The R base graphics uses the same script grammar as the rest of R. Thus, you do not need to study another specialized package. However, plotting complicated plots may require quite a lot of programming. Producing graphically nice outputs may also require adjustments of many parameters in some (albeit not all) graph types.</p>
+<p>The ggplot2 package uses its own script grammar, which is quite different from R base. This means that you need to study another programming language. However, with this language you can easily plot complicated graphs with just two lines of code (instead of 20 in base graphics). In this material, we take things pragmatically. Generally, ggplot is in the focus as a modern tool of graph plotting. However, if it easier to to produce a particular graph type with base graphics, we choose that way.</p>
+<section id="the-ggplot-grammar" class="level3">
+<h3 class="anchored" data-anchor-id="the-ggplot-grammar">The <code>ggplot</code> grammar</h3>
+<p>Each definition of a ggplot graph starts with the <code>ggplot()</code> function, which defines the data (i.e.&nbsp;data frame where to look for variables) and so called <code>aesthetics mappings</code>, which are definition of variables used for plotting.</p>
+<p>Let’s define a simple scatterplot for a data frame called df with variables x and y:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call library ggplot or tidyverse (which includes gpglot package)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare df</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">20</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial function ggplot</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point function plotting scatterplot connected by '+'</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Other elements or arrangements of plot are specified by additional functions added with another <code>+</code>. The most essential among these are:</p>
+<ul>
+<li><p><code>theme()</code> – setting visual attributes; There are preset graphical themes. I really prefer <code>theme_classic()</code> or <code>theme_bw()</code> to the default <code>theme_gray()</code></p></li>
+<li><p><code>labs()</code> – specification of axis label text - <code>facet_wrap()</code> – faceting graphs, i.e.&nbsp;defining multipanel plots with panels based on a variable</p></li>
+<li><p><code>grid.arrange()</code> (package <code>gridExtra</code>), package <code>patchwork</code>, <code>ggarrange()</code> from the package <code>ggpubr</code> – creating general multipanel plots</p></li>
+<li><p><code>ggsave(filename, width, height, units, dpi, ...)</code> – saves the most recent plot to hard drive (height and width are specified in cm). File type (.pdf, .svg, .png) is automatically set by file extension.</p></li>
+</ul>
+<p>For ggplot2, there is abundant reference available, such as:</p>
+<ul>
+<li><p>a free <a href="https://ggplot2-book.org/index.html">online book</a> (printed version for $$)</p></li>
+<li><p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf">ggplot2 cheat sheet</a></p></li>
+<li><p>If you are looking for inspiration <a href="https://r-graph-gallery.com/ggplot2-package.html">R Graph Gallery</a> is also useful</p></li>
+<li><p>You can also find valuable reference or guidelines by Google searches such as “scatterplot in ggplot”</p></li>
+<li><p>Lesson <strong>Data visualisation</strong> from the course <em>Data Manipulation and Visualisation</em> available on this website</p></li>
+<li><p>AI chatbots have mastered the ggplot and for some extra specific stuff they cab be more useful than standard googling</p></li>
+</ul>
+</section>
+<section id="base-r-graphics" class="level3">
+<h3 class="anchored" data-anchor-id="base-r-graphics">Base R graphics</h3>
+<p>The R base graphics uses the common R grammar:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># classical parameters</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> df<span class="sc">$</span>x, <span class="at">y =</span> df<span class="sc">$</span>y)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># formula grammar (y depends on x)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For the base R graphics, there is also a <a href="http://publish.illinois.edu/johnrgallagher/files/2015/10/BaseGraphicsCheatsheet.pdf">cheat sheet</a> available as well as abundant online resources. R help is in general quite informative. Info on parameters of graphical functions can be called by <code>?par</code>.</p>
+<p>To export plots produced by R graphics, you need to define a graphical device in a file, draw the plot there and save the file, so basically <strong>3 lines</strong> of code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">'filename.pdf'</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">height =</span> <span class="dv">6</span>) <span class="co"># Creates the file – width and height are in inches (vector graphics: .pdf, .svg) or in pixels (raster graphics – .png, .jpg, .tif)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df) <span class="co"># Draws the plot</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># Closes the path opened by pdf() and saves the file.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="histogram" class="level4">
+<h4 class="anchored" data-anchor-id="histogram">Histogram</h4>
+<p>Histogram was already introduced in <strong>Chapter 2</strong>. The construction of histograms is done in two steps. The range of values is first divided into a number of intervals of defined width (called bins). These are plotted on the x-axis.</p>
+<p>Individual values are then assigned into them and the resulting frequencies of observations are plotted on the y-axis. Thus, histograms display the data with only minimal loss of information. They are a perfect tool for exploration of data distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data to R</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data/03_xy.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+Rows: 50 Columns: 4
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: "," chr
+(1): type dbl (3): ...1, x, y
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `` -&gt; `...1`</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(xy<span class="sc">$</span>y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Histogram of the variable xy$y plotted by base R.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="boxplot" class="level4">
+<h4 class="anchored" data-anchor-id="boxplot">Boxplot</h4>
+<p>Boxplot was also introduced in <strong>Chapter 2</strong>. Boxplots display a summary of descriptive statistics of samples: <strong>median</strong>, <strong>quartiles</strong>, <strong>non-outlier range</strong> and <strong>outliers</strong>. Typically, they are used to study association between a categorical (factor) and a quantitative (numeric) variable, where they display differences between individual categories (levels). <strong>Boxplots do not display means</strong>, so it is not possible to use them for direct mean comparisons. However, crucial characteristics of the distributions are visible on the plots: variability, symmetry, presence of outliers. This makes boxplots an important tool for <em>exploratory data analysis</em>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot in base R</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> type, <span class="at">data =</span> xy, <span class="at">main =</span> <span class="st">'Base R'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 2: Boxplot displaying the values of the variable y for individual categories of the variable type. Note the non-symmetric distributions and the outliers.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot with ggplot</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> xy,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">'grey'</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'ggplot'</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 3: Boxplot displaying the values of the variable y for individual categories of the variable type. Note the non-symmetric distributions and the outliers.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="barplot" class="level4">
+<h4 class="anchored" data-anchor-id="barplot">Barplot</h4>
+<p>Barplot is an efficient graphical tool to display <strong>counts of a categorical variable</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Multiple categorical variables may also be combined to define types of observations.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tibble</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>positions <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Country,   <span class="sc">~</span>Position,   <span class="sc">~</span>count,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Austria"</span>,  <span class="st">"Postdoc"</span>,   <span class="dv">6</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Austria"</span>,  <span class="st">"Professor"</span>, <span class="dv">4</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Austria"</span>,  <span class="st">"Student"</span>,   <span class="dv">8</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Czechia"</span>,  <span class="st">"Postdoc"</span>,   <span class="dv">4</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Czechia"</span>,  <span class="st">"Professor"</span>, <span class="dv">1</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Czechia"</span>,  <span class="st">"Student"</span>,   <span class="dv">14</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Denmark"</span>,  <span class="st">"Postdoc"</span>,   <span class="dv">0</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Denmark"</span>,  <span class="st">"Professor"</span>, <span class="dv">1</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Denmark"</span>,  <span class="st">"Student"</span>,   <span class="dv">4</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hungary"</span>,  <span class="st">"Postdoc"</span>,   <span class="dv">4</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hungary"</span>,  <span class="st">"Professor"</span>, <span class="dv">5</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Hungary"</span>,  <span class="st">"Student"</span>,   <span class="dv">14</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Slovakia"</span>, <span class="st">"Postdoc"</span>,   <span class="dv">2</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Slovakia"</span>, <span class="st">"Professor"</span>, <span class="dv">2</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Slovakia"</span>, <span class="st">"Student"</span>,   <span class="dv">14</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(count)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot - stacked</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> positions) <span class="sc">+</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Country, <span class="at">fill =</span> Position)) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot - dodged</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> positions) <span class="sc">+</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Country, <span class="at">fill =</span> Position), <span class="at">position =</span> <span class="st">'dodge2'</span>) <span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot panel</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(a, b, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 4: Stacked and dodged barplots displaying counts of conference participants categorized by their country of origin and position held.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Barplot arrangement
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the combination of the two categorical variables is done by defining one as <code>x</code> and the other as <code>fill</code>. The position parameter in geom_bar may be <code>stacked</code>, <code>dodge</code> or <code>dodge2</code>. Producing the upper panel of Fig. 4.3 however required a bit more complicated <code>geom_bar(position = 'dodge2')</code> because of the zero postdocs from Denmark.</p>
+</div>
+</div>
+</section>
+<section id="dotchart" class="level4">
+<h4 class="anchored" data-anchor-id="dotchart">Dotchart</h4>
+<p>Dotchart can be used to display <strong>means of quantitative variables</strong>, in particular differences between means of individual categories (factor levels). To judge the difference between means, it is necessary to display also a <strong>characteristic of uncertainty of mean estimate or variability</strong>. Therefore, dotcharts should be supplied by <strong>error bars</strong> displaying <strong>standard errors of the mean</strong>, <strong>confidence intervals</strong> or <strong>standard deviations</strong>.</p>
+<p>Of these, the general best choice is probably the confidence intervals, which indicates the range of values within which the (true) population mean lies with 95% probability (more on that in <strong>Chapter 7</strong>).</p>
+<p>In any case, <strong>specification of error bars (what they display) must always be included in a graph caption</strong>. The strong aspect of dotcharts is that they allow judging on differences between means. However, this comes with substantial loss of information as dotcharts do not display the distribution at all and may even be misleading in this respect.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dotchart</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(xy, <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">geom =</span> <span class="st">'pointrange'</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 5: Dotchart displaying mean values of variable y2 for individual categories of type.1. Error bars indicate 1 standard error.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Calculation within <code>ggplot</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The layer is defined by a <code>stat_*()</code> function here, which produces a statistical summary of the data (as opposed to <code>geom_*()</code> functions which need to be supplied by the data for direct plotting). In this case (which is applicable in general):</p>
+<ul>
+<li><p><code>stat_summary(fun.data = mean_se, geom = 'pointrange')</code></p></li>
+<li><p><code>fun.data</code> may be <code>mean_se</code> (mean +- standard error), <code>mean_cl_normal</code> (95%-confidence interval), or <code>smean_sdl</code> (standard deviation)</p></li>
+<li><p><code>geom = "pointrange"</code> defines the geom function used for plotting</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="scatterplot" class="level4">
+<h4 class="anchored" data-anchor-id="scatterplot">Scatterplot</h4>
+<p>Scatterplot is a simple point-based plot illustrating the association between two quantitative variables. The points in scatterplot usually represent original data, thus there is little loss of information, if any. Scatterplot is perfect for exploration of interdependence between two variables. Regression line (with confidence intervals) may also be added to the raw scatterplot to visualize a regression model (see chapter 10 for details).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatterplot</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(xy, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Simple scatterplot'</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ab <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(xy, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> type)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Scatterplot categorized by type'</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#library(ggpubr)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(aa, ab, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 6: Scatterplots displaying the relationships between x and y. An additional categorical variable can be displayed by point colours.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Static vs.&nbsp;dynamic parameters
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Generally, if you want some parameter to be <strong>dynamic</strong>, e.g., the colour/fill/shape of points should <strong>change based on some variable</strong>, it must be included as a parameter in the <code>aes()</code> function.</p>
+<p>If you just want all points to be <strong>static</strong> e.g., regardless what, all should be just red, it must be defined <strong>outside</strong> the <code>aes()</code> function, but still within the <code>ggplot()</code> or particular <code>geom_</code> or <code>stat_</code> function. The arguments are usually the same in <code>aes()</code> and <code>ggplot()</code> functions.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="facetting" class="level2">
+<h2 class="anchored" data-anchor-id="facetting">Facetting</h2>
+<p>Facetting is a powerful tool to display <strong>dependence of two variables at different levels of a factor</strong>. It may often be better than displaying colours.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(xy, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(type)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 7: Faceted scatterplot showing the relationships between x and y at different levels of Type.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="colours-fills-shapes-sizes-palettes" class="level2">
+<h2 class="anchored" data-anchor-id="colours-fills-shapes-sizes-palettes">Colours, fills, shapes, sizes, palettes…</h2>
+<p>Now, when you have read the basic overview about what kind of plots are possible to create in R, you may be wondering if they can be nicer than grey. There are plenty of ways to customize your plots and now we will look more into it.</p>
+<p>The first thing that will save you from many futile trials and errors is knowing the difference between <strong>static</strong> and <strong>dynamic</strong> parameters. If you want to set all points or lines or whatever to have the same colour, shape or size, this is defined as a <strong>static</strong> parameter.</p>
+<p>If you want to change colours, sizes of points or point shapes according to some third variable (i.e.&nbsp;column) in your dataset, you must define it as a <strong>dynamic</strong> parameter. Dynamic parameters may reflect a categorical but also continuous variable that is not displayed directly on the x or y axis, but it may be useful to see also this information.</p>
+<p>For example, you want to display the dependence of the number of pollinators (y) on the size of flowers (x), but it will be also useful to know which species they were (the third categorical variable), you can symbolize each point by different colour depending on what species the flower was.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will demonstrate static and dynamic parameters on the starwars dataset available in the package dplyr</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"starwars"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Static colour'</span>) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Static shape'</span>) <span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sex)) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Dynamic colour - categorical'</span>) <span class="sc">+</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> sex)) <span class="sc">+</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">na.value =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Dynamic shape - categorical'</span>) <span class="sc">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> birth_year)) <span class="sc">+</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient2</span>(<span class="at">low =</span> <span class="st">'gold'</span>, <span class="at">mid =</span> <span class="st">'limegreen'</span>, <span class="at">high =</span> <span class="st">'turquoise'</span>, <span class="at">midpoint =</span> <span class="dv">450</span>) <span class="sc">+</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Dynamic colour - continuous'</span>) <span class="sc">+</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(height, mass)) <span class="sc">+</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> birth_year), <span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">160</span>) <span class="sc">+</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Dynamic shape - continuous'</span>) <span class="sc">+</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(p1, p3, p5,</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>          p2, p4, p6,</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>          <span class="at">align =</span> <span class="st">'hv'</span>,</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="st">'right'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_04_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Figure 8: Examples of statically and dynamically set variables.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The next thing relates to the way how to define the colours (or sizes or shapes) you want to use. In the case of static parameters, the situation is quite easy. They are set <em>outside</em> the <code>aes()</code> function within desired <code>geom_*()</code> function. All you must do is choose your colour, and then the script will look like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">'red'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In the case of dynamic parameters, it gets a bit complicated. First, you define that the colour will represent some other variable. Setting of a dynamic parameter is done <em>within</em> the <code>aes()</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> your_variable)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>your_variable</code> must be a vector of either a categorical or a continuous variable and which must have the same length as the x and y vectors (or columns if they are organised in a data frame).</p>
+<p>If we don’t further define the colours, they are taken from the default R palettes. If you want to use some nicer predefined palette or create your own, you will need another line of script. Let’s say, <code>your_variable</code> is a factor with 3 levels. In this case, you use the function <code>scale_colour_manual()</code> where you need to define a vector containing 3 colours:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> your_variable)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For more scaling functions check the ggplot2 cheatsheet. For colour selection, you may look, what’s in the base R <code>palette()</code>, or <code>colours()</code> (this is done simply by running these functions). Apart from that, you may look for inspiration into many palette generators available online and take advantage of the R’s ability to read colours also from HEX codes (in this form: “#89BD9E”), e.g.:</p>
+<ul>
+<li><p><a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer 2.0</a></p></li>
+<li><p><a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html">R Color Brewer</a></p></li>
+<li><p><a href="https://r-charts.com/colors/">R Colors</a></p></li>
+<li><p><a href="https://coolors.co/">Coolors</a></p></li>
+<li><p><a href="https://colorhunt.co/palettes/">Color Hunt</a></p></li>
+<li><p>and many more…</p></li>
+</ul>
+<p>Sometimes, if you use some fancy point types, you may run into a problem with “colour” vs.&nbsp;“fill”. There are a few main scaling functions which have many mutations:</p>
+<ul>
+<li><p><code>scale_colour_*()</code> colour of point types 0-20 (don’t have fill), outline of point types 21-25</p></li>
+<li><p><code>scale_fill_*()</code> fill of point types 21-25</p></li>
+<li><p><code>scale_shape_*()</code> point types (Figure 8)</p></li>
+<li><p><code>scale_size_*()</code> size of points, can be changed according to both, categorical and continuous variables, but it is more intuitive to use it for continuous variables</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4088616088.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 8: Default point types in R. 0-20 have only the colour parameter, 21-15 have both, colour and fill.</figcaption>
+</figure>
+</div>
+<p>And the last thing. It is also useful to know how to adjust labs, axis titles, main title, subtitles and others. Title or lab texts are easily set in the function <code>labs()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>your_plot <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"x axis label"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"y axis label"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"title above plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you would like to change the font colour, face (…) of the texts in your plot, or play more with e.g., axis tick size, colour, labels or whatever you can imagine, it is done within the general <code>theme()</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> function through subfunctions <code>element_*()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>your_plot <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>As you can see, the ggplot is adjustable to almost infinite number of styles, but usually, you can get a neat plot with the default options and use of predefined themes such as <code>theme_bw()</code> or <code>theme_classic()</code>, so no need to be afraid that you will spend three days just setting the title font size. :)</p>
+<p>That’s it! A little advice in the end. When you know what you want, but don’t know how to do it, there is a great support accessible via a simple Google search. Also, consulting AI turned out to be the relatively straightforward way to fine-tune plots, according to 10 out of 9 master’s students.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol start="0" type="1">
+<li>Check the Inkscape program (download <a href="https://inkscape.org/">here</a> and possibly install it on your personal computer later).</li>
+<li>Import data describing lettuce varieties (<code>lettuce.xlsx</code>) to R</li>
+<li>Create histograms of harvest days for both lettuce colors</li>
+<li>Create a boxplot of <code>harvest days ~ leaf color</code></li>
+<li>Set the color fill of the boxes to light blue</li>
+<li>Set the color fill of the boxes to correspond to lettuce leaf color</li>
+<li>Create a scatterplot of <code>harvest mass ~ harvest days</code>; update the default axis labels</li>
+<li>Change the colors of the points to illustrate the leaf color of the variety</li>
+<li>Plot a facetted scatterplot with panels (facets) defined by the leaf color variety</li>
+<li>Adjust point size</li>
+<li>Export the graph to pdf/svg/powerpoint/word</li>
+<li>Import the dataset describing beer types (<code>beer.xlsx</code>) and plot a boxplot illustrating the pattern in alcohol content in dependence on beer subtype. Set the box fill according to beer type. Adjust axis labels and the fill legend text.</li>
+<li>Plot a boxplot illustrating the dependence of beer bitterness (IBU) on beer type and color.</li>
+</ol>
+<section id="independent-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="independent-tasks">Independent tasks</h4>
+<p><strong>#AI</strong> Try to produce the plots #11 and #12 using an LLM and get the corresponding R script.</p>
+<ol type="1">
+<li><p>Import the <code>people2.xlsx</code> dataset. Draw scatterplots showing the relationships between</p>
+<ol type="a">
+<li>body mass and height, and</li>
+<li>body mass and hours spent exercising</li>
+</ol>
+<p>Illustrate the sex and hair color variables by using different point colors and faceting.</p>
+<p><em>At home</em>: try opening the svg files in Inkscape software and exporting the figures to pdf or png</p></li>
+</ol>
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Most readers of scientific papers only read the abstract and then look at the figures; and all of them do this before deciding whether the paper is worth of further reading. This applies also for journal editors and submitted manuscript. Figure quality and attractiveness may thus have a decisive effect on the editor’s decision on publication.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Refers to a minimum (typical) number. May be increased, e.g.&nbsp;by combining multiple categorical predictors, or categorization of point in a scatterplot.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Common misunderstanding is that barplot is the same thing as histogram. Albeit in both cases you need to define just the x-axis variable; it is not true. <strong>Histogram</strong> is used for displaying frequencies of values on <strong>quantitative</strong> scale (chopped into bins of defined range). <strong>Barplot</strong> is used for displaying counts of levels of <strong>categorical</strong> variables (factors).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Not to be confused with the <code>theme_classic()</code> or <code>theme_bw()</code> functions which are just predefined variants of the generic function <code>theme()</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -382,13 +950,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
