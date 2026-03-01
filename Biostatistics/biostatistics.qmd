@@ -3,4 +3,8 @@ title: "Introduction to Biostatistics in English"
 format: html
 ---
 
-# [Bi6050 Introduction to Biostatistics in English](https://is.muni.cz/predmet/sci/jaro2026/BI6050)
+The aim of the course is to introduce the principles of statistical thinking and the use of statistics in science. Special emphasis is put on the practical use of statistical analyses and presentation of the results.
+
+After completing the course, the students will be able to process their own data and apply basic statistical methods to test hypotheses related to their research. They will also be aware about the assumptions and limitations of the basic statistical methods used in the course.
+
+Here is a link to the IS page: [Bi6050 Introduction to Biostatistics in English](https://is.muni.cz/predmet/sci/jaro2026/BI6050)
