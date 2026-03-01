@@ -9,17 +9,26 @@ After completing the course, the students will be able to process their own data
 
 Here is a link to the IS page: [Bi6050 Introduction to Biostatistics in English](https://is.muni.cz/predmet/sci/jaro2026/BI6050)
 
-
 ## Chapters
 
-#### [Chapter 1: Philosophical foundations of empirical science and statistics](Chapter_01.qmd) 
-#### [Chapter 2: Data exploration and data types](Chapter_02.qmd)
-#### [Chapter 3: Probability, distribution, parameter estimates and likelihood](Chapter_03.qmd)
-#### [Chapter 4: Graphs](Chapter_04.qmd)
-#### [Chapter 5: Hypothesis testing and pattern detection; goodness-of-fit](Chapter_05.qmd)
-#### [Chapter 6: Contingency tables - association of two (or more)](Chapter_06.qmd)
-#### [Chapter 7: The t-distribution, confidence intervals, and t-tests](Chapter_07.qmd)
-#### [Chapter 8: F-test and distribution, analysis of variance (ANOVA)](Chapter_08.qmd)
-#### [Chapter 9: Linear regression, correlation and intro to general linear models](Chapter_09.qmd)
-#### [Chapter 10: When assumptions are violated - data transformation and non-parametric methods](Chapter_10.qmd)
-#### [Chapter 11: Brief introduction to multi-way ANOVA, multiple regression and general linear models](Chapter_11.qmd)
+#### Chapter 1: [Philosophical foundations of empirical science and statistics](Chapter_01.qmd)
+
+#### Chapter 2: [Data exploration and data types](Chapter_02.qmd)
+
+#### Chapter 3: [Probability, distribution, parameter estimates and likelihood](Chapter_03.qmd)
+
+#### Chapter 4: [Graphs](Chapter_04.qmd)
+
+#### Chapter 5: [Hypothesis testing and pattern detection; goodness-of-fit](Chapter_05.qmd)
+
+#### Chapter 6: [Contingency tables - association of two (or more)](Chapter_06.qmd)
+
+#### Chapter 7: [The t-distribution, confidence intervals, and t-tests](Chapter_07.qmd)
+
+#### Chapter 8: [F-test and distribution, analysis of variance (ANOVA)](Chapter_08.qmd)
+
+#### Chapter 9: [Linear regression, correlation and intro to general linear models](Chapter_09.qmd)
+
+#### Chapter 10: [When assumptions are violated - data transformation and non-parametric methods](Chapter_10.qmd)
+
+#### Chapter 11: [Brief introduction to multi-way ANOVA, multiple regression and general linear models](Chapter_11.qmd)
