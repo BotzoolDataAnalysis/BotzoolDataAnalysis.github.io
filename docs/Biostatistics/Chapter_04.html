@@ -338,7 +338,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#facetting" id="toc-facetting" class="nav-link" data-scroll-target="#facetting">Facetting</a></li>
   <li><a href="#colours-fills-shapes-sizes-palettes" id="toc-colours-fills-shapes-sizes-palettes" class="nav-link" data-scroll-target="#colours-fills-shapes-sizes-palettes">Colours, fills, shapes, sizes, palettes…</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#graph-plotting-workshop-i." id="toc-graph-plotting-workshop-i." class="nav-link" data-scroll-target="#graph-plotting-workshop-i.">Graph plotting workshop I.</a></li>
+  <li><a href="#graph-plotting-workshop-ii." id="toc-graph-plotting-workshop-ii." class="nav-link" data-scroll-target="#graph-plotting-workshop-ii.">Graph plotting workshop II.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -857,6 +861,8 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="graph-plotting-workshop-i." class="level3">
+<h3 class="anchored" data-anchor-id="graph-plotting-workshop-i.">Graph plotting workshop I.</h3>
 <ol start="0" type="1">
 <li>Check the Inkscape program (download <a href="https://inkscape.org/">here</a> and possibly install it on your personal computer later).</li>
 <li>Import data describing lettuce varieties (<code>lettuce.xlsx</code>) to R</li>
@@ -884,8 +890,42 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 <p>Illustrate the sex and hair color variables by using different point colors and faceting.</p>
 <p><em>At home</em>: try opening the svg files in Inkscape software and exporting the figures to pdf or png</p></li>
 </ol>
+</section>
+</section>
+<section id="graph-plotting-workshop-ii." class="level3">
+<h3 class="anchored" data-anchor-id="graph-plotting-workshop-ii.">Graph plotting workshop II.</h3>
+<ol type="1">
+<li><p>Explore the RcolorBrewer color palettes by installing the <code>RColorBrewer</code> package, loading it, and running the <code>display.brewer.all()</code> function with various parameters</p>
+<ol type="a">
+<li><p>Try different <code>n</code></p></li>
+<li><p>Try specifying <code>colorblindFriendly = T / F</code></p></li>
+</ol></li>
+<li><p>Draw a barplot showing the association between lettuce taste classes and leaf color. Try plotting a stacked and dodged barplot and use various color schemes to code the taste variable levels. Display lettuce color on the x-axis and lettuce taste by a color code and vice versa.</p></li>
+<li><p>Draw dotcharts displaying mean (+- SE) alcohol content and IBU of beer subtypes (dataset <code>beer.xlsx</code>).</p>
+<ol type="a">
+<li><p>Combine them in a single two-panel plot.</p></li>
+<li><p>Display ABV by beer subtype by a dotchart and boxplot, and combine them in a single two panel plot.</p></li>
+</ol></li>
+<li><p>Download the original data supporting the scientific study on the interaction between invasive and hemiparasitic plants (<a href="https://neobiota.pensoft.net/article/113069/)." class="uri">https://neobiota.pensoft.net/article/113069/).</a> The dataset is also available in IS (<code>data/neobiota-090-097-s002.xlsx</code>). Import the data in R – check the arguments used in the <code>read_excel()</code> function in the script to import the data correctly.</p>
+<ol type="a">
+<li><p>Plot a boxplot showing the dependence of the host number of shoots (<code>host_n</code>) on the infection by hemiparasites (<code>parasite</code>). Try log-scaling the y-axis.</p></li>
+<li><p>Plot a scatterplot showing the relationship between hemiparasite biomass and host biomass. Use different point symbols for the host species and facets for hemiparasite species. Note that uninfected control observations must be removed from the data before plotting.</p></li>
+</ol></li>
+</ol>
+<p><strong>#AI</strong> Try to reproduce any of the tasks 1-4 with your favourite LLM. Get the R code from the LLM.</p>
+<section id="independent-work" class="level4">
+<h4 class="anchored" data-anchor-id="independent-work">Independent work</h4>
+<ol type="1">
+<li>With the data used in task 4:
+<ol type="a">
+<li>Plot a dotchart showing means +- SE to illustrate the dependence of the host number of shoots (<code>host_n</code>) on the infection by hemiparasites (<code>parasite</code>). Compare plots with linear and log10-scaled y-axis.</li>
+<li>Plot a dotchart (means +- SE) and a boxplot illustrating the dependence of host biomass (<code>host_g</code>) on the infection by hemiparasites (<code>parasite</code>). Arrange the two graphs in a single twopanel figure.</li>
+</ol></li>
+<li>Plot a scatterplot displaying the association between beer alcohol content and bitterness. Illustrate the primary beer type using different symbols.</li>
+</ol>
 
 
+</section>
 </section>
 </section>
 

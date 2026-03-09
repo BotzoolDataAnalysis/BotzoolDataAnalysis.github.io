@@ -423,6 +423,8 @@ That’s it! A little advice in the end. When you know what you want, but don’
 
 ## Exercises
 
+### Graph plotting workshop I.
+
 0.  Check the Inkscape program (download [here](https://inkscape.org/) and possibly install it on your personal computer later).
 1.  Import data describing lettuce varieties (`lettuce.xlsx`) to R
 2.  Create histograms of harvest days for both lettuce colors
@@ -449,3 +451,34 @@ That’s it! A little advice in the end. When you know what you want, but don’
     Illustrate the sex and hair color variables by using different point colors and faceting.
 
     *At home*: try opening the svg files in Inkscape software and exporting the figures to pdf or png
+
+### Graph plotting workshop II.
+
+1.  Explore the RcolorBrewer color palettes by installing the `RColorBrewer` package, loading it, and running the `display.brewer.all()` function with various parameters
+
+    a.  Try different `n`
+
+    b.  Try specifying `colorblindFriendly = T / F`
+
+2.  Draw a barplot showing the association between lettuce taste classes and leaf color. Try plotting a stacked and dodged barplot and use various color schemes to code the taste variable levels. Display lettuce color on the x-axis and lettuce taste by a color code and vice versa.
+
+3.  Draw dotcharts displaying mean (+- SE) alcohol content and IBU of beer subtypes (dataset `beer.xlsx`).
+
+    a.  Combine them in a single two-panel plot.
+
+    b.  Display ABV by beer subtype by a dotchart and boxplot, and combine them in a single two panel plot.
+
+4.  Download the original data supporting the scientific study on the interaction between invasive and hemiparasitic plants (<https://neobiota.pensoft.net/article/113069/).> The dataset is also available in IS (`data/neobiota-090-097-s002.xlsx`). Import the data in R – check the arguments used in the `read_excel()` function in the script to import the data correctly.
+
+    a.  Plot a boxplot showing the dependence of the host number of shoots (`host_n`) on the infection by hemiparasites (`parasite`). Try log-scaling the y-axis.
+
+    b.  Plot a scatterplot showing the relationship between hemiparasite biomass and host biomass. Use different point symbols for the host species and facets for hemiparasite species. Note that uninfected control observations must be removed from the data before plotting.
+
+**#AI** Try to reproduce any of the tasks 1-4 with your favourite LLM. Get the R code from the LLM.
+
+#### Independent work
+
+1.  With the data used in task 4:
+    a.  Plot a dotchart showing means +- SE to illustrate the dependence of the host number of shoots (`host_n`) on the infection by hemiparasites (`parasite`). Compare plots with linear and log10-scaled y-axis.
+    b.  Plot a dotchart (means +- SE) and a boxplot illustrating the dependence of host biomass (`host_g`) on the infection by hemiparasites (`parasite`). Arrange the two graphs in a single twopanel figure.
+2.  Plot a scatterplot displaying the association between beer alcohol content and bitterness. Illustrate the primary beer type using different symbols.
