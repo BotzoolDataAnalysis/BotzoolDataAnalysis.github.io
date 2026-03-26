@@ -5,4 +5,261 @@ format: html
 editor: visual
 ---
 
-## 
+## Contingency tables - introduction
+
+Contingency tables are tables that summarize frequencies (counts) of two (or more) categorical variables. Their analysis allows testing (in)dependence between the two variables. Table 1 is a contingency table summarizing frequencies of people of different eye and hair colors.
+
+|  |  |  |  |  |  |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|  |  |  | **HAIR COLOUR** |  |  |
+|  |  | **black** | **brown** | **blonde** | **Marginal sums** |
+| **EYE COLOUR** | **blue** | 12 | 45 | 14 | **71** |
+|  | **brown** | 51 | 256 | 84 | **391** |
+|  | **Marginal sums** | **63** | **301** | **98** | **GRAND TOTAL: 462** |
+
+: Table 1. Contingency table of two variables: eye and hair color with basic frequency statistics (marginal sums and grand total).
+
+## Basic analysis by goodness-of-fit test
+
+Association between the variables (i.e. the **null** **hypothesis which states that the variables are independent**) can be tested by a goodness-of-fit test. This is a universal approach suitable for tables of any size and dimensions, but its explanatory power is limited.
+
+For a goodness-of-fit test, we need expected frequencies under the null hypothesis, which are calculated on the basis of probability theory: $$
+P (event_1\ \& \ event_2) = P (event_1) * P (event_2)
+$$ if the two events are independent. In contingency tables, this can be used to calculate expected frequencies as the product of ratios of corresponding marginal totals and the grand total.
+
+For instance, expected probability of observing a blue-eyed and black-haired person in **Table 1** can be calculated as $P (blue_E\  \&\  black_H) = 63/462 * 71/462 = 0.02096$. Multiplication of the probability then gives the expected frequency $freq(e) = 0.02096 * 462 = 9.68$.
+
+The same approach can be used to calculate expected frequencies in all cells but is made automatically by software nowadays. The goodness-of-fit test can consequently be computed (in the same way as described in **Chapter 5**). Note, however, that the number of degrees of freedom is determined as $DF = (number\  of\  rows\  – 1) * (number\  of\  columns\  – 1)$.
+
+In our example (**Table 1**): We did not find a significant association between eye and hair color ($χ^2$ = 0.785, $DF$ = 2, $p$ = 0.6755).
+
+The *goodness-of-fit test* does not provide much more information on the result than the significance of the association. Still, in the case of a significant result, it may make sense to report also the difference between observed-expected frequencies (i.e. the residuals) or their standardized values (residuals divided by square root of corresponding expected frequencies) as supplementary information. In particular, standardized residuals are helpful as they indicate excess or deficiency of which combinations cause the association between the variables.
+
+## 2x2 tables and their analysis
+
+These tables represent particular and the simplest cases of contingency tables (**Table 2**).
+
+|           |             |             |             |       |
+|:---------:|:-----------:|:-----------:|:-----------:|:-----:|
+|           |             |  **VAR 1**  |             |       |
+|           |             | **level 1** | **level 2** |       |
+| **VAR 2** | **level 1** |  $f_{11}$   |  $f_{12}$   | $R_1$ |
+|           | **level 2** |  $f_{21}$   |  $f_{22}$   | $R_2$ |
+|           |             |    $C_1$    |    $C_2$    |  $n$  |
+
+: Table 2. Structure of a 2x2 table.
+
+Their simplicity allows additional statistics to be computed to express how tight the association between the two variables is. Most important of these is the **phi-coefficient**:
+
+$$
+\phi = \frac{f_{11} * f_{22} - f_{12} * f_{21}} {\sqrt{R_1 * R_2 * C_1 * C_2}} = \pm \sqrt{\frac{\chi^2}{n}}
+$$
+
+where $f$, $R$, and $C$ symbols correspond to the cells in **Table 2**, and $\chi^2$ is the $\chi^2$ statistics of the table, and n is the grand total.
+
+The **phi-coefficient** can thus be viewed as an average contribution of each observation to the association between the variables. This implies its advantage, which lies in the comparability of the phi coefficients between datasets with unequal numbers of observations.
+
+The 2x2 tables may seem trivial and not of much use. However, they, and especially the **phi-coefficient**, are frequently used in vegetation ecology to measure the association between occurrences of two species or as a fidelity measure of a species with a vegetation unit. In that case, VAR 1 (as in **Table 2**) describes the frequency of given species and VAR 2 frequency of the vegetation unit in the dataset.
+
+## Advanced analysis of contingency tables - odds and odds ratios
+
+Odds and odds ratios are additional important statistics that can be used to analyze contingency tables. They are defined for 2x2 tables only but can also be used in larger (in particular n x 2) tables subdivided into a series of 2x2 tables. For **Table 1**, we can calculate the odds for LEVEL 1 of VAR 1 as:
+
+$$
+odds_1 = \frac{p}{1 - p} = \frac{f_{11}}{R_1} / \frac{f_{12}}{R_1}
+$$ where $p$ is the probability of one outcome of the second variable and $1-p$ is the probability of the second outcome of the second variable. We can do the same for the LEVEL 2 of VAR 1 to get $odds_2$. Odds ratio then equals:
+
+$$
+OR = \frac{odds_1}{odds_2}
+$$
+
+The odds ratio directly indicates how the probability of observing LEVEL 1 of VAR 1 changes with respect to the levels of VAR 2.
+
+$OR$ values range between 0 and infinity, with $OR < 1$ indicating negative association, $OR = 1$ independence, and $OR > 1$ positive association.
+
+$OR$ is a population parameter. The computation summarized above is actually its *maximum-likelihood estimation procedure*. As a result, an $OR$ estimate has associated *standard error* and *confidence intervals* (i.e. intervals within which the population $OR$ lies with 95% probability).
+
+A *confidence interval* directly indicates significance – if a confidence interval of $OR$ contains 1, the $OR$ is not significantly different from 1, and thus, independence between the two variables cannot be rejected.
+
+::: callout-important
+## Sample variability vs. estimate precision
+
+#### 1. Sample variability: "How spread out is my data?"
+
+When we collect a sample, we usually report a **measure of central tendency** (like the mean or median) to show the "middle" of the data. However, the mean doesn't tell us if the individuals in the sample are all very similar or widely different.
+
+Sample variability describes the "noise" or spread within your specific group. Common measures include **range**, **interquartile range** (IQR), **variance** ($s^2$), and **standard deviation** ($s$ or SD).
+
+The point is to tell you about the **individuals**. If the SD is high, the individuals in your sample vary significantly from one another.
+
+#### 2. Estimate precision: "How much do I trust my results?"
+
+Since we usually study a sample to understand a larger population, our sample mean is just an "educated guess" (an estimate). If we took a new sample tomorrow, the mean would likely be slightly different.
+
+Estimate precision describes how much that "guess" would likely fluctuate if we repeated the study. The most common measures of estimate precision are:
+
+-   **Standard error of the mean** (SEM) represents the uncertainty of the sample mean[^1]. The formula is $SEM = \frac{s}{\sqrt(n)}$, where $s$ is standard deviation of the sample and $n$ is the sample size/number of observations.
+
+-   **Confidence interval** (CI) which is a range of values that likely contains the true *population mean*. A 95% CI means that if we repeated the experiment 100 times, 95 of those calculated intervals would capture the true population mean. Or, in other words, a 95% CI is a range where the true population mean lies with 95% probability.
+:::
+
+[^1]: Note that mean is not the only estimate we can calculate. Usually, when we describe some relationship, we calculate a model where we estimate e.g., *intercept*, *slope*, or many other parameters. And for each of these parameters we have a **standard error of the estimate**.
+
+## A worked example
+
+Malaria is a dangerous disease widespread in tropical areas. It is caused by protozoans of the genus *Plasmodium* and transmitted by mosquitos. Preventing the infection is possible by taking prophylaxis, i.e. a treatment which blocks the disease after a mosquito bite. This is only possible for short-time journeys to malaria areas since the prophylaxis drugs are not safe for long-term use.
+
+Here we asked whether the prophylaxis is efficient and whether there is a significant difference between two prophylaxis types. The data are summarized in the following table:
+
+```{r}
+# Prepare data table
+malaria <- data.frame(
+  prophylaxis = factor(c('control', 'control', 'doxy',  'doxy', 'lariam', 'lariam')),
+  infection = c(0, 1, 0, 1, 0, 1),
+  frequency = c(40, 94, 130, 80, 180, 15)
+)
+
+# Transform to matrix
+malaria_mat <- xtabs(frequency ~ prophylaxis + infection, data = malaria)
+
+malaria_mat
+```
+
+Note here that a contingency table can also have a form of a table with individual factor combinations and corresponding frequencies. This is actually a bit better for computation than the cross-tabulated form.
+
+The goodness-of-fit test demonstrates that there is a significant association between the two variables:
+
+```{r}
+chisq.test(malaria_mat)
+```
+
+Odds ratios summary then follows. Two odds ratios are produced comparing the second and third levels to the first one (here control). The “lower” and “upper” values indicate limits of confidence intervals. We can see that both types of prophylaxis are associated with significantly decreased infection rates.
+
+```{r}
+library(epitools)
+
+epitab(malaria_mat)$tab
+```
+
+To compare just the two prophylaxis types, we can select just the corresponding part of the data for analysis (specifying this by square brackets in R). The result shows that taking Lariam is associated with a significantly lower infection rate than taking doxycycline.
+
+```{r}
+epitab(malaria_mat[-1,])$tab
+```
+
+In a paper/thesis, the result can be summarized as **Table 4**.
+
+|                        | Odds ratio | Lower 95% CI | Upper 95% CI | p           |
+|------------------------|------------|--------------|--------------|-------------|
+| Lariam vs. none        | 0.035      | 0.019        | 0.067        | $< 10^{-6}$ |
+| Doxycycline vs. none   | 0.262      | 0.165        | 0.416        | $< 10^{-6}$ |
+| Lariam vs. Doxycycline | 0.135      | 0.075        | 0.246        | $< 10^{-6}$ |
+
+: Table 4. Summary of a contingency table analysis testing the association between malaria prophylaxis and infection. Overall test of independence $\chi^2 = 137.45$, $df = 2$, $p < 10^{-6}$.
+
+## Coincidence and causality
+
+Note here that significant results of a contingency table analysis indicate a significant association. This can be caused either by *coincidence* or *causality*. Causality means that if we manipulate one variable, the other also changes, i.e. one variable has a direct effect on the other. By contrast, coincidence may happen due to another variable affecting the two ones analyzed. In such a case, manipulation of one variable does not induce a change in the other variable.
+
+In the malaria example, the travelers using prophylaxis are simultaneously more likely to use mosquito repellents, which is known to decrease infection risk strongly. Therefore, if somebody from the no-prophylaxis travelers decided to take prophylaxis, it may have a much lower effect than our analysis suggests.
+
+People in general like causal explanations (and expect them). As a result, an association is frequently interpreted as a causal relationship, which is inappropriate. An association may only suggest causality at best, which can be consequently demonstrated by a manipulative experiment. In our case, this would mean selecting a group of people, assign them randomly into three groups according to prophylaxis, send them to the tropics and see what happens. In this particular case, however, such research would not be approved by an ethics committee.
+
+::: callout-note
+## How to do in R
+
+#### Chisq analysis of contingency tables
+
+###### Option 1
+
+Apply `chisq.test()` on matric containing frequencies
+
+###### Option 2
+
+If the data are formatted in the data frames as in *Table 3*, they can be converted to contingency tables by function `xtabs()`:
+
+```{r}
+#| eval: false
+data.table <- xtabs(freq ~ var1 + var2, data = data.frame)
+```
+
+`chisq.test()` can then be applied to the contingency table. If its result is saved in an object:
+
+```{r}
+#| eval: false
+test.res <- chisq.test(data.table)
+```
+
+Running `test.res$std.resid` can then be used to display standardized residuals.
+
+#### Phi-coefficient
+
+Function `phi()` (package `psych`) applied on 2x2 matrix.
+
+#### Odds ratios
+
+Function `epitab()` (package `epitools`) applied on contingency table produced by `xtabs()`. Square brackets can be used to select the levels to compare.
+:::
+
+## Excercises
+
+1.  128 Plants were cultivated in a greenhouse experiment. In this experiment, half of the pots were fertilised with potassium while the other half were not. Flowering was recorded after two weeks of continuous potassium treatment. 51 plants of potassium-treated plants produced a flower, while in the control plant, it was 33. Does potassium significantly affect the probability of flowering?
+
+2.  812 citizens of the same age were monitored during their lifetime in a town in Central China by the local medical authorities. It was recorded whether they drink tea and, if so, whether they prefer green or black tea. It was also monitored who in the experimental group developed cancer by the age of 0. The data were as follows:
+
+    |           | healthy | cancer |
+    |-----------|---------|--------|
+    | no tea    | 130     | 55     |
+    | green tea | 357     | 65     |
+    | black tea | 160     | 45     |
+
+    : Table 5. Frequencies of cancer occurence in citizens drinking green, black, or no tea.
+
+    Do the data suggest that drinking tea could protect against cancer? If so, is there any difference between the types of tea?
+
+3.  In a total set of 500 vegetation plots, 150 were of the wet meadow habitat.
+
+    -   *Carex nigra* had 30 records in the dataset. Of that, 26 were in wet meadows.
+
+    -   *Festuca rubra* had 246 records. Of that, 120 were in wet meadows.
+
+    -   *Cannabis sativa* had 10 records in the dataset. Of that, none was in wet meadows.
+
+    How are these species associated with the wet meadow habitat?
+
+4.  During a one-month period, 115 persons were taken to the hospital in Sierra Leone due to cholera. It was also recorded whether they had been vaccinated against tetanus. 55 patients survived cholera out of 60 vaccinated against tetanus, while 15 patients survived out of 55 non-vaccinated. Does vaccination against tetanus also protect against cholera?
+
+5.  During an outbreak of flu, 80 of 170 students of the faculty of education, 190 of 220 students of the faculty of science and 22 of 290 students of the faculty of philosophy became ill. Does susceptibility to flu differ among students of the faculties?
+
+**#AI** Ask your favourite LLM to solve any of the tasks 1-5 and compare the results with those obtained by R.
+
+#### Tasks for independent work
+
+A.  10% of 120 female students of the faculty of teaching became pregnant during a certain period. The conception rate accounted for 20% of 160 among the students of the faculty of science and 5% of 160 at the faculty of philosophy. Is there a difference in the probability of becoming pregnant among female students of the three individual faculties? If so, which faculty differs from which?
+
+B.  A dentist has 350 patients in his database who undergo regular checks for their dental health. In addition to the information on tooth decay, he asks his patients whether they drink tea unsweetened, sweetened by sugar or sweetened by honey. The resulting data are as follows:
+
+    -   Sugar: 60 with decay/18 without decay
+
+    -   Honey: 90 with decay/45 without decay
+
+    -   Unsweetened: 50 with decay/87 without decay
+
+    Does the type of tea sweetener affect the health of teeth? If so, how?
+
+C.  Two species, *Humulus lupulus* and *Alnus incana*, have the following records in a set of vegetation plots: cooccurrence – 26 plots, *Humulus* only 6 plots, *Alnus* only 81 plots, and none of the species 23 plots. Are these species significantly associated? If yes, how?
+
+D.  A group of student volunteers agreed to take part in an experiment studying the effect of supportive drugs on cognitive capacity. Before taking an exam, the students were randomly assigned to four groups. Members of each group were administered a type of drug that potentially supports their performance on the exam. The exam results are summarised in the table below:
+
+    |              | passed | failed |
+    |--------------|--------|--------|
+    | tea          | 65     | 37     |
+    | coffee       | 60     | 41     |
+    | chocolate    | 71     | 29     |
+    | energy drink | 55     | 46     |
+
+    : Table 6. Frequencies of exams passing/failing in groups of students consuming different supportive drugs.
+
+    Do the drugs significantly support students' performance on the exam? If so, can the identified trend be interpreted as really causal effects? In case of a significant result, describe the differences between the effects of individual drug types.
+
+E.  The incidence of asthma in the adult population of Czech Republic (8,700,000 people in total) is 6%. Two large Czech cities were surveyed for asthma incidence based on a sample of 500 randomly chosen adult inhabitants in each of the cities. 26 persons within the sample were diagnosed to suffer from asthma in Brno, while the figure was 106 persons in Ostrava. Does asthma incidence in these cities differ significantly from the nation-wide incidence?
