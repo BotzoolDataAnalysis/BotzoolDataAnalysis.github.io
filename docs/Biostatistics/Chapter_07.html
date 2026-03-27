@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,14 +67,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2c70ee9cb39a79c0c719330d5428fe92.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -68,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -95,7 +160,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -292,7 +358,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link active" data-scroll-target="#the-t-distribution">The t-distribution</a></li>
+  <li><a href="#confidence-intervals-for-the-mean-value" id="toc-confidence-intervals-for-the-mean-value" class="nav-link" data-scroll-target="#confidence-intervals-for-the-mean-value">Confidence intervals for the mean value</a></li>
+  <li><a href="#single-sample-t-test" id="toc-single-sample-t-test" class="nav-link" data-scroll-target="#single-sample-t-test">Single sample t-test</a></li>
+  <li><a href="#student-t-test" id="toc-student-t-test" class="nav-link" data-scroll-target="#student-t-test">Student t-test</a></li>
+  <li><a href="#paired-t-test" id="toc-paired-t-test" class="nav-link" data-scroll-target="#paired-t-test">Paired t-test</a></li>
+  <li><a href="#excercises" id="toc-excercises" class="nav-link" data-scroll-target="#excercises">Excercises</a></li>
   </ul>
 </nav>
     </div>
@@ -324,13 +395,278 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="the-t-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="the-t-distribution">The t-distribution</h2>
+<p>For any fixed value X, a t-value can be computed from a sample of a quantitative random variable using this formula: <span class="math display">\[
+t = \frac{X - \overline{x}}{s_{\overline{x}}}
+\]</span> where <span class="math inline">\(\overline{x}\)</span> is the <strong>sample mean</strong> and <span class="math inline">\(s_\overline{x}\)</span> is its associated <strong>standard error</strong>. Recall here, that <span class="math inline">\(\overline{x}\)</span> is the <em>estimate</em> of the population mean and <span class="math inline">\(s_{\overline{x}}\)</span> quantifies its accuracy. As a result, the <strong><em>t-value</em></strong> <strong>represents the estimate of the difference between</strong> <span class="math inline">\(X\)</span> <strong>and the population mean</strong>.</p>
+<p>Because <span class="math inline">\(\overline{x}\)</span> is a random variable, <em>t-value</em> is also a random variable and its probability distribution is called the <strong><em>t-distribution</em></strong>. Its shape is closely similar to <span class="math inline">\(Z\)</span> (standard normal distribution with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span>). In contrast to <span class="math inline">\(Z\)</span>, the <em>t-distribution</em> has a single parameter – <strong>the number of degrees of freedom</strong>, which equals the <span class="math inline">\(number\ of\ observations\ in\ a\ sample - 1\)</span>. In fact, <span class="math inline">\(t\)</span> approaches <span class="math inline">\(Z\)</span> asymptotically for high DF (<strong>Figure 1</strong>). Similarly to the normal distribution, the t-distribution is symmetric, and its two tails must be considered when computing probabilities (<strong>Figure 2</strong>).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t(df = 10)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">10</span>), <span class="at">col =</span> <span class="st">'green'</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">'t'</span>, <span class="at">ylab =</span> <span class="st">'Probability density'</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">'Probability density of t and Z'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.8</span>, <span class="at">y =</span> <span class="fl">0.28</span>, <span class="at">label =</span> <span class="st">'t(df = 10)'</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># t(df = 3)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">0.22</span>, <span class="at">label =</span> <span class="st">'t(df = 3)'</span>, <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># t(df = 1)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">1</span>), <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">'black'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">2.3</span>, <span class="at">y =</span> <span class="fl">0.16</span>, <span class="at">label =</span> <span class="st">'t(df = 1)'</span>, <span class="at">col =</span> <span class="st">'black'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Z(mu = 0, sd = 1)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">add =</span> T)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.3</span>, <span class="at">y =</span> <span class="fl">0.35</span>, <span class="at">label =</span> <span class="st">'Z(0,1)'</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_07_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Probability density plot of t-distributions with different DF and their comparison to standard normal distribution (Z). Notice how t-distribution approaches Z distribution with increasing df.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># curve for t(df = 5)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">5</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">col =</span> <span class="st">'red'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">'t'</span>, <span class="at">ylab =</span> <span class="st">'Probability density'</span>, <span class="at">main =</span> <span class="st">'t(df = 5)'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># zero</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum probability line</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.5% quantile</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">5</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 97.5% quantile</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">5</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># text labels</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">3.95</span>, <span class="at">y =</span> <span class="fl">0.1</span>, <span class="at">labels =</span> <span class="st">'p(t &lt; T) = 0.025'</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">3.95</span>, <span class="at">y =</span> <span class="fl">0.1</span>, <span class="at">labels =</span> <span class="st">'p(t &lt; T) = 0.975'</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_07_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 2: The t-distribution with its two tails and the 2.5% and 97.5% quantiles.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="confidence-intervals-for-the-mean-value" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-for-the-mean-value">Confidence intervals for the mean value</h2>
+<p>The t-distribution can be used to compute <strong>confidence intervals</strong> (CI), i.e.&nbsp;intervals within which the population mean value lies with a certain probability (usually 95%). The <em>confidence limits</em> (CL) within which the CI lies are determined using these formulae: <span class="math display">\[
+CL_{low} = \overline{x} - t_{(df,\ p = 0.025)}s_{\overline{x}}
+\]</span></p>
+<p><span class="math display">\[
+CL_{high} = \overline{x} + t_{(df,\ p = 0.025)}s_{\overline{x}}
+\]</span></p>
+<p>where <span class="math inline">\(t(df,\ p)\)</span> equals 2.5% or 97.5% probability quantile of t-distribution with given df and <span class="math inline">\(s_{\overline{x}}\)</span> is the standard error of the sample mean. These intervals can be used as error bars in barplots or dotcharts. In fact, they represent the best option to be used like this (in contrast to standard error or 2*standard error).</p>
+</section>
+<section id="single-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="single-sample-t-test">Single sample t-test</h2>
+<p>Confidence intervals can also be used to determine whether the population mean differs significantly from a given value: a value lying outside the CI is significantly different (at 5%-level of significance) while a value lying inside is not. This is closely associated with the <strong>single sample t-test</strong>, which tests a <em>null hypothesis</em> that a value <span class="math inline">\(X\)</span> equals the population mean. Using the formula for t-value and DF, the t-test determines the probability of Type I Error associated with rejection of such a hypothesis.</p>
+</section>
+<section id="student-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="student-t-test">Student t-test</h2>
+<p>If means can be compared with an <em>a priori</em> given value (by the single sample t-test), two means of different samples should also be comparable. This is done by a two-sample t-test<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, which quantifies uncertainty about the values of both means considered:</p>
+<p><span class="math display">\[
+t = \frac{\overline{x}_1 - \overline{x}_2}{s_{\overline{x}_1 - \overline{x}_2}}
+\]</span></p>
+<p>where <span class="math inline">\(\overline{x}_1\)</span> and <span class="math inline">\(\overline{x}_2\)</span> are arithmetic means of the two samples and <span class="math inline">\(s_{\overline{x}_1 - \overline{x}_2}\)</span> is the standard error of their difference.</p>
+<p>The <span class="math inline">\(s_{\overline{x}_1 - \overline{x}_2}\)</span> is computed using the following formula:</p>
+<p><span class="math display">\[
+s_{\overline{x}_1 - \overline{x}_2} = \sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}
+\]</span></p>
+<p>where <span class="math inline">\(s_p^2\)</span> is the pooled variance<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> of the two samples, and <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are sample sizes. Pooling variance like this is only possible if the two variances are equal. Correspondingly, the equality of population variances, called <strong>homogeneity of variance</strong>, is one of the t-test <strong><em>assumptions</em></strong>. In addition, the t-test assumes that the samples come from populations that are <strong>distributed normally</strong>. There is also the universal assumption that <strong>individual observations are independent</strong>.</p>
+<p>The t-test is relatively robust to violations of the assumptions about the homogeneity of variance and normality (i.e.&nbsp;their moderate violation does not produce strongly biased test outcomes). If variances are not equal, Welch approximation of t-test (Welch t-test) can be used instead of the original Student t-test. A slightly modified formula is used for the t-value computation, and also the degrees of freedom are approximated (as a result, df is usually not an integer). Note here that the Welch t-test is used by default in R. In the original (two-sample) Student t-test, the DF is determined as: <span class="math display">\[
+DF = n_1 - 1 + n_2 - 1
+\]</span> where <span class="math inline">\(n_1\)</span> is the size of sample 1 and <span class="math inline">\(n_2\)</span> is the size of sample 2.</p>
+</section>
+<section id="paired-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="paired-t-test">Paired t-test</h2>
+<p>Paired t-test is used to analysis of data composed of <em>paired observations</em>. For instance, a difference in length between left and right arms of people would be analyzed using a paired t-test. The null hypothesis, in this case, is that the <em>difference within the pair is zero</em>. In fact, a paired t-test is fully equivalent to a single sample t-test comparing the <strong>within-pair difference distribution with zero</strong>. The number of degrees of freedom is determined as DF = n – 1 because there is just one sample (of paired values) in a paired t-test.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to do in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="t-distribution-computations" class="level4">
+<h4 class="anchored" data-anchor-id="t-distribution-computations">1. t-distribution computations</h4>
+<p>As in case of normal distribution, where we used <code>dnorm()</code> and <code>qnorm()</code>, similar functions are available also for the t-distribution: <code>dt()</code>, <code>qt()</code> and others. For instance,</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">5</span>) <span class="co"># or any other df</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>can be used to compute the difference between the lower confidence limit and the mean.</p>
+</section>
+<section id="t-test" class="level4">
+<h4 class="anchored" data-anchor-id="t-test">2. t-test</h4>
+<p>Function <code>t.test()</code>. For two samples, the best way is to use a classifying factor and response variable in two columns. Then,</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(response <span class="sc">~</span> factor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>can be used. But,</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sample1, sample2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>is also okay and will work.</p>
+<section id="important-parameters" class="level6">
+<h6 class="anchored" data-anchor-id="important-parameters">Important parameters</h6>
+<ul>
+<li><p><code>var.equal</code> - switches between Welch and Student variants. Defaults to <code>FALSE</code> (Welch)</p></li>
+<li><p><code>mu</code> - <em>a priori</em> null value of the difference (relevant mainly for a single sample test)</p></li>
+<li><p><code>paired</code> - when <code>TRUE</code>, it specifies a paired t-test</p></li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+</section>
+<section id="excercises" class="level2">
+<h2 class="anchored" data-anchor-id="excercises">Excercises</h2>
+<ol type="1">
+<li><p>Import the data <code>people</code> used in the first practicals. Plot a dotchart displaying height means with 95% confidence intervals for each of the groups of people defined by sex and eye color.</p></li>
+<li><p>Import the <code>lettuce</code> data again, used in the graph plotting workshops. Test whether green- and red-leaved lettuce varieties differ in harvest mass and harvest date. Check the patterns on the corresponding plots.</p></li>
+<li><p>Five blocks were divided into two plots, one of which was fertilised and the other not. The experiment looked like this in the field:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2261817317.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 1: Randomized block design. Picture generated by ChatGPT-4.</figcaption>
+</figure>
+</div>
+<p>The resulting plant biomass was as follows:</p>
+<table class="caption-top table">
+<caption>Table 1: Plant biomass by different treatment.</caption>
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fertilized</td>
+<td>23</td>
+<td>25</td>
+<td>36</td>
+<td>19</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>non-fertilized</td>
+<td>20</td>
+<td>24</td>
+<td>33</td>
+<td>18</td>
+<td>21</td>
+</tr>
+</tbody>
+</table>
+<p>Does fertiliser application affect biomass production?</p></li>
+</ol>
+<p><strong>#AI</strong> Ask your favourite LLM to solve any of the tasks 1-3 and generate the corresponding R script.</p>
+<section id="tasks-for-independent-work" class="level4">
+<h4 class="anchored" data-anchor-id="tasks-for-independent-work">Tasks for independent work</h4>
+<ol type="A">
+<li>10 rats were fed nutrition enriched in magnesium since their birth. Ten additional control rats were fed the same nutrition, except that no extra magnesium was added. The results of erythrocyte counting in the blood of each of the rats are listed in the data frame below. Does Mg affect the number of erythrocytes?</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plus_Mg =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">89</span>, <span class="dv">79</span>, <span class="dv">80</span>, <span class="dv">91</span>, <span class="dv">95</span>, <span class="dv">79</span>, <span class="dv">88</span>, <span class="dv">89</span>, <span class="dv">90</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">c</span>(<span class="dv">79</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">79</span>, <span class="dv">80</span>, <span class="dv">71</span>, <span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">76</span>, <span class="dv">80</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>B. Heights of siblings (brother and sister) were measured at their adult age in eight families. The results (height in cm) are summarized in the table below. Is there any significant difference in height between siblings of different sex?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>siblings <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">brother =</span> <span class="fu">c</span>(<span class="dv">198</span>, <span class="dv">164</span>, <span class="dv">173</span>, <span class="dv">180</span>, <span class="dv">188</span>, <span class="dv">169</span>, <span class="dv">181</span>, <span class="dv">174</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sister =</span>  <span class="fu">c</span>(<span class="dv">165</span>, <span class="dv">162</span>, <span class="dv">158</span>, <span class="dv">177</span>, <span class="dv">178</span>, <span class="dv">170</span>, <span class="dv">165</span>, <span class="dv">159</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="A">
+<li>Days with snow cover per year were monitored in Brno in 15 successive years. The resulting numbers were as following. Is the mean number of days with snow cover significantly different from 58 days predicted for Brno on the basis of a global climatic model?</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>snow <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">1998</span>, <span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dv">2001</span>, <span class="dv">2002</span>, <span class="dv">2003</span>, <span class="dv">2004</span>, <span class="dv">2005</span>, <span class="dv">2006</span>, <span class="dv">2007</span>, <span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2012</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">days_snow =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">50</span>, <span class="dv">58</span>, <span class="dv">39</span>, <span class="dv">49</span>, <span class="dv">44</span>, <span class="dv">42</span>, <span class="dv">48</span>, <span class="dv">39</span>, <span class="dv">75</span>, <span class="dv">28</span>, <span class="dv">69</span>, <span class="dv">50</span>, <span class="dv">64</span>, <span class="dv">48</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="4" type="A">
+<li>Wine was cultivated on 8 wine-yards in the Niederösterreich region. Red grape varieties Cabernet Sauvignon and Zweigeltrebe were cultivated on each of the wine-yards. Grapes were harvested on the same date, pressed and glucose content in the resulting juice was measured. The results are summarized in the table below. Do the two wine varieties significantly differ in mean glucose content? (Glucose content was measured in kg/hl)</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">vineyard     =</span> <span class="fu">c</span>(<span class="dv">1</span>,    <span class="dv">2</span>,    <span class="dv">3</span>,    <span class="dv">4</span>,    <span class="dv">5</span>,    <span class="dv">6</span>,    <span class="dv">7</span>,    <span class="dv">8</span>   ),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cabernet     =</span> <span class="fu">c</span>(<span class="fl">19.5</span>, <span class="fl">17.5</span>, <span class="fl">19.7</span>, <span class="fl">17.2</span>, <span class="fl">18.0</span>, <span class="fl">19.8</span>, <span class="fl">17.9</span>, <span class="fl">18.4</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zweigeltrebe =</span> <span class="fu">c</span>(<span class="fl">19.2</span>, <span class="fl">18.4</span>, <span class="fl">20.3</span>, <span class="fl">17.4</span>, <span class="fl">20.1</span>, <span class="fl">19.5</span>, <span class="fl">17.9</span>, <span class="fl">18.9</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  vineyard cabernet zweigeltrebe
+1        1     19.5         19.2
+2        2     17.5         18.4
+3        3     19.7         20.3
+4        4     17.2         17.4
+5        5     18.0         20.1
+6        6     19.8         19.5
+7        7     17.9         17.9
+8        8     18.4         18.9</code></pre>
+</div>
+</div>
+<ol start="5" type="A">
+<li>Speed of swimming of two frog species was measured by a behavioral biologist. Following data were obtained. Do the two species significantly differ in speed of swimming? (Speed was measured in cm/s)</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">frog_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">species =</span> <span class="fu">c</span>(<span class="st">"Bufo bufo"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Bufotes viridis"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Bufo bufo"</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">speed   =</span> <span class="fu">c</span>(<span class="fl">7.8</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>, <span class="fl">7.1</span>, <span class="fl">6.7</span>, <span class="fl">7.1</span>, <span class="fl">7.0</span>, <span class="fl">6.5</span>, <span class="fl">7.0</span>, <span class="fl">6.4</span>, <span class="fl">6.9</span>, <span class="fl">7.2</span>, <span class="fl">7.5</span>, <span class="fl">7.2</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="6" type="A">
+<li>A farmer tested the yield difference between two varieties of rye. He cultivated each of them on six fields and measured the grain yield (in tonnes per hectare). The following numbers were obtained. Does yield differ between the two varieties? (Yield was measured in t/ha)</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rye <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">field   =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variety =</span> <span class="fu">c</span>(<span class="st">"Champion"</span>, <span class="st">"Miracle"</span>, <span class="st">"Champion"</span>, <span class="st">"Champion"</span>, <span class="st">"Miracle"</span>, <span class="st">"Miracle"</span>, <span class="st">"Champion"</span>, <span class="st">"Miracle"</span>, <span class="st">"Miracle"</span>, <span class="st">"Champion"</span>, <span class="st">"Miracle"</span>, <span class="st">"Champion"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yield   =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.1</span>, <span class="fl">5.7</span>, <span class="fl">6.0</span>, <span class="fl">5.3</span>, <span class="fl">5.8</span>, <span class="fl">6.4</span>, <span class="fl">6.0</span>, <span class="fl">5.5</span>, <span class="fl">6.4</span>, <span class="fl">5.5</span>, <span class="fl">6.1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Called also Student t-test after its inventor William Sealy Gosset (1976-1937), who used the pen name Student.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Pooled variance is basically the weighted average two or more group variances. The formula looks like this: <span class="math inline">\(s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -382,13 +718,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
