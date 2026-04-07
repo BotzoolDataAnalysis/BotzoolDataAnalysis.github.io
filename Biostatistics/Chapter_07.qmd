@@ -183,7 +183,7 @@ rats <- data.frame(
 )
 ```
 
-B. Heights of siblings (brother and sister) were measured at their adult age in eight families. The results (height in cm) are summarized in the table below. Is there any significant difference in height between siblings of different sex?
+B.  Heights of siblings (brother and sister) were measured at their adult age in eight families. The results (height in cm) are summarized in the table below. Is there any significant difference in height between siblings of different sex?
 
 ```{r}
 siblings <- data.frame(
