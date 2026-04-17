@@ -27,7 +27,7 @@ Here is a link to the IS page: [Bi6050 Introduction to Biostatistics in English]
 
 #### Chapter 8: [F-test and distribution, analysis of variance (ANOVA)](Chapter_08.qmd)
 
-#### Chapter 9: [Linear regression, correlation and intro to general linear models](Chapter_09.qmd)
+#### Chapter 9: [Linear regression, correlation and introduction to general linear models](Chapter_09.qmd)
 
 #### Chapter 10: [When assumptions are violated - data transformation and non-parametric methods](Chapter_10.qmd)
 

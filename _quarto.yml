@@ -65,7 +65,7 @@ website:
             href: Biostatistics/Chapter_07.qmd
           - text: "8 F-test and ANOVA"
             href: Biostatistics/Chapter_08.qmd
-          - text: "9 Linear regression"
+          - text: "9 Linear regression and correlation"
             href: Biostatistics/Chapter_09.qmd
           - text: "10 Transformations and non-parametric tests"
             href: Biostatistics/Chapter_10.qmd
