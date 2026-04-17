@@ -168,7 +168,7 @@ pchisq(q = 7.11, df = 1, lower.tail = F)
 ```
 :::
 
-## Excercises
+## Exercises
 
 1.  Color preferences of bees were studied. The bees were released one by one to a room with four circles of different colors. The color of the circle to which each bee first landed was recorded. The results were the following: red 10, yellow 25, blue 18, green 6. Do the bees prefer any color?
 

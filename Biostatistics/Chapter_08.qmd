@@ -286,7 +286,7 @@ par(mfrow = c(1,1))
 -   `TukeyHSD(aov.object)` - Produces a table with differences between groups. Post-hoc letters as in **Fig. 3** can be produced in R, but the implementation is not straighforward (see practicals script for details). However, there is always an option to add them manually.
 :::
 
-## Excercises
+## Exercises
 
 1.  The temperature of water in one pot was measured by different thermometers manufactured by two companies: Termom and Celsimet. Each of them provided ten thermometers for the testing. The aim of the testing was to detect potential systematic bias (whether the thermometers of one company show, on average, different values from those made by the other) and whether there is a difference in accuracy. The data were as follows:
 

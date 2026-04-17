@@ -149,7 +149,7 @@ is also okay and will work.
 -   `paired` - when `TRUE`, it specifies a paired t-test
 :::
 
-## Excercises
+## Exercises
 
 1.  Import the data `people` used in the first practicals. Plot a dotchart displaying height means with 95% confidence intervals for each of the groups of people defined by sex and eye color.
 

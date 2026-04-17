@@ -10,7 +10,7 @@ editor: visual
 Contingency tables are tables that summarize frequencies (counts) of two (or more) categorical variables. Their analysis allows testing (in)dependence between the two variables. Table 1 is a contingency table summarizing frequencies of people of different eye and hair colors.
 
 |  |  |  |  |  |  |
-|:--:|:--:|:--:|:--:|:--:|:--:|
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 |  |  |  | **HAIR COLOUR** |  |  |
 |  |  | **black** | **brown** | **blonde** | **Marginal sums** |
 | **EYE COLOUR** | **blue** | 12 | 45 | 14 | **71** |
@@ -150,7 +150,7 @@ epitab(malaria_mat[-1,])$tab
 In a paper/thesis, the result can be summarized as **Table 4**.
 
 |                        | Odds ratio | Lower 95% CI | Upper 95% CI | p           |
-|------------------------|------------|--------------|--------------|-------------|
+|------------------|--------------|--------------|--------------|--------------|
 | Lariam vs. none        | 0.035      | 0.019        | 0.067        | $< 10^{-6}$ |
 | Doxycycline vs. none   | 0.262      | 0.165        | 0.416        | $< 10^{-6}$ |
 | Lariam vs. Doxycycline | 0.135      | 0.075        | 0.246        | $< 10^{-6}$ |
@@ -201,7 +201,7 @@ Function `phi()` (package `psych`) applied on 2x2 matrix.
 Function `epitab()` (package `epitools`) applied on contingency table produced by `xtabs()`. Square brackets can be used to select the levels to compare.
 :::
 
-## Excercises
+## Exercises
 
 1.  128 Plants were cultivated in a greenhouse experiment. In this experiment, half of the pots were fertilised with potassium while the other half were not. Flowering was recorded after two weeks of continuous potassium treatment. 51 plants of potassium-treated plants produced a flower, while in the control plant, it was 33. Does potassium significantly affect the probability of flowering?
 
