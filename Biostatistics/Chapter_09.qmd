@@ -230,9 +230,13 @@ model.2 <- lm(response ~ predictor1 + predictor2 + predictor_n)
 ```
 
 -   `anova(model.1)` performs analysis of variance of the model (i.e. tests its significance by F-test). Models may also be compared by `anova(model.1, model.2)`
+
 -   `summary(model.1)`displays a summary of the model, including the t-tests of individual coefficients
+
 -   `resid(model.1)`extracts model residuals
+
 -   `predict(model.1)` returns predicted values
+
 -   `plot(model.1)`plotsregressiondiagnostic plots of the model
 
 #### Pearson correlation coefficient
@@ -270,7 +274,7 @@ ggplot(snow,
 1.  Snowflakes can have very different sizes, which might depend on the temperature of the ice crystals from which they are formed. In winter 2021, mean snowflake size and ice crystal temperature were recorded during 14 snowing events in Brno. The resulting data are summarised in the table below:
 
     |  |  |  |
-    |----|----|----|
+    |------------------------|------------------------|------------------------|
     | **Snowing event No.** | **Mean snowflake ice crystal temperature (°C)** | **Mean snowflake diameter (mm)** |
     | 1  | -18  | 6.9  |
     | 2  | -20  | 7.1  |
