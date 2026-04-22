@@ -239,13 +239,13 @@ model.2 <- lm(response ~ predictor1 + predictor2 + predictor_n)
 
 -   `plot(model.1)`plotsregressiondiagnostic plots of the model
 
-#### Pearson correlation coefficient
+#### 2. Pearson correlation coefficient
 
 -   `cor(Var1 ~ Var2)` computes just the correlation coefficient
 
 -   `cor.test(Var1~Var2)` computes the coefficient value together with significance test
 
-#### Plotting
+#### 3. Plotting
 
 Plotting a scatterplot with regression line is straightforward in ggplot:
 
