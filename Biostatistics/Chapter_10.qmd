@@ -167,12 +167,12 @@ par(mfrow = c(1,1))
 
 ## Non-parametric tests
 
-Some distributions cannot be approximated by the normal distribution, and simple transformations may not helpful. This applies to many data on the *ordinal scale* such as school grades, subjective rankings etc.
+Some distributions cannot be approximated by the normal distribution, and simple transformations may not be helpful. This applies to many data on the *ordinal scale* such as school grades, subjective rankings etc.
 
 For such cases, non-parametric tests were developed (**Table 3**). These tests replace the original values by their order and use the resulting order values to **test differences in central tendencies** (which are not precisely means) between the samples. These tests are still based on the assumption that the samples come from the same, although not normal, distribution (which, however, is quite reasonable).
 
 | Parametric test | Non-parametric alternative | R function |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | two-sample t-test | Mann-Whitney U test | `wilcox.test()` |
 | paired t-test | Wilcoxon test | `wilcox.test()` with parameter `paired = T` |
 | one way ANOVA | Kruskal-Wallis test[^1] | `kruskal.test()` |
@@ -232,20 +232,20 @@ Both functions require this parameter: `distribution = approximate(B = number of
 
     The measured hair length (in cm) was:
 
-    | Faculty of law | Faculty of science |
-    |----------------|--------------------|
-    | 14             | 6                  |
-    | 17             | 8                  |
-    | 29             | 2                  |
-    | 14             | 3                  |
-    | 14             | 4                  |
-    | 11             | 2                  |
-    | 39             | 10                 |
-    | 23             | 21                 |
-    | 18             | 5                  |
-    | 8              | 8                  |
-    | 51             | 3                  |
-    | 36             | 5                  |
+    | Faculty of science | Faculty of law |
+    |--------------------|----------------|
+    | 14                 | 6              |
+    | 17                 | 8              |
+    | 29                 | 2              |
+    | 14                 | 3              |
+    | 14                 | 4              |
+    | 11                 | 2              |
+    | 39                 | 10             |
+    | 23                 | 21             |
+    | 18                 | 5              |
+    | 8                  | 8              |
+    | 51                 | 3              |
+    | 36                 | 5              |
 
     : Hair length of male students
 
