@@ -172,7 +172,7 @@ Some distributions cannot be approximated by the normal distribution, and simple
 For such cases, non-parametric tests were developed (**Table 3**). These tests replace the original values by their order and use the resulting order values to **test differences in central tendencies** (which are not precisely means) between the samples. These tests are still based on the assumption that the samples come from the same, although not normal, distribution (which, however, is quite reasonable).
 
 | Parametric test | Non-parametric alternative | R function |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | two-sample t-test | Mann-Whitney U test | `wilcox.test()` |
 | paired t-test | Wilcoxon test | `wilcox.test()` with parameter `paired = T` |
 | one way ANOVA | Kruskal-Wallis test[^1] | `kruskal.test()` |

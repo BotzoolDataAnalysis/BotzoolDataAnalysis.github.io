@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,14 +67,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2c70ee9cb39a79c0c719330d5428fe92.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -68,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -95,7 +160,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -242,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 Linear regression</span></a>
+ <span class="menu-text">9 Linear regression and correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,8 +353,18 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multiple-regression-and-interaction" id="toc-multiple-regression-and-interaction" class="nav-link active" data-scroll-target="#multiple-regression-and-interaction">Multiple regression and interaction</a></li>
+  <li><a href="#testing-of-linear-models-and-their-terms" id="toc-testing-of-linear-models-and-their-terms" class="nav-link" data-scroll-target="#testing-of-linear-models-and-their-terms">Testing of linear models and their terms</a></li>
+  <li><a href="#model-building-strategies" id="toc-model-building-strategies" class="nav-link" data-scroll-target="#model-building-strategies">Model building strategies</a></li>
+  <li><a href="#correlation-between-predictors" id="toc-correlation-between-predictors" class="nav-link" data-scroll-target="#correlation-between-predictors">Correlation between predictors</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -318,10 +394,225 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="multiple-regression-and-interaction" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-regression-and-interaction">Multiple regression and interaction</h2>
+<p>In regression, multiple predictors may be used in the model:</p>
+<p><span class="math display">\[
+Y\ =\ a\ +\ b_1X_1\ +\ b_2X_2\ +\ ...\ +\ b_nX_n\ +\ \epsilon
+\]</span></p>
+<p>predictors may be both quantitative and categorical variables. This is based on the fact, that categorical variables may be decomposed into <span class="math inline">\(k - 1\)</span> binary (0-1) variables (where <span class="math inline">\(k\)</span> is number of categories/levels). In general, the maximum number of predictors is limited by degrees of freedom in the model.</p>
+<p>Complexity of the model measured by the model number of degrees of freedom may never exceed total <span class="math inline">\(DF\)</span> (i.e.&nbsp;number of observations – 1).</p>
+<p>Models containing two or more predictors may also contain <em>interaction terms</em> (<span class="math inline">\(c\)</span>):</p>
+<p><span class="math display">\[
+Y\ =\ a\ +\ b_1X_1\ +\ b_2X_2\ +\ c_1X_1X_2\ +\ ...\ + \epsilon
+\]</span></p>
+<p><strong>Interaction</strong> means that the dependence of the response variable on one predictor (<span class="math inline">\(X_1\)</span>) depends on the value of second predictor (<span class="math inline">\(X_2\)</span>). Interaction it typically tested in multi-way ANOVA, where even higher-order interactions can be considered. Interaction may be <strong>positive</strong> (i.e.&nbsp;the value of response is higher than expected from additive sums of main effects; in such case <span class="math inline">\(c_1 &gt; 0\)</span>; Fig. 11.1) or <strong>negative</strong> (response value is lower that the additive sum; <span class="math inline">\(c_1 &lt; 0\)</span>).</p>
+<p>The interaction is formally notated by <strong>×</strong> (Alt + 0215), i.e.&nbsp;<span class="math inline">\(Y \sim X_1 + X_2 + X_1 × X_2\)</span>. In R, interaction may be represented by “*” which indicates both additive and interaction effects or by “:” which indicates just the interaction term.</p>
+<p>Note that:</p>
+<ol type="1">
+<li><p>testing the interaction is very common in manipulative experiments</p></li>
+<li><p>interaction does not mean correlation between predictors</p></li>
+</ol>
+<p>As you will see later, correlation between predictors is a serious problem which among other issues prevents from reasonable assessment of interactive effects.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fertilizer =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Fertilized"</span>), <span class="at">each =</span> <span class="dv">20</span>)),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">watering =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Watered"</span>), <span class="at">each =</span> <span class="dv">10</span>), <span class="dv">2</span>)),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">biomass =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">70</span>, <span class="dv">5</span>),  <span class="co"># control + control</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">90</span>, <span class="dv">5</span>),  <span class="co"># control + watered</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">118</span>, <span class="dv">5</span>), <span class="co"># fertilized + control</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">190</span>, <span class="dv">5</span>)  <span class="co"># fertilized + watered</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction plot</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(<span class="at">x.factor =</span> df<span class="sc">$</span>fertilizer,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trace.factor =</span> df<span class="sc">$</span>watering,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">response =</span> df<span class="sc">$</span>biomass,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">'b'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">1</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">'Fertilizer'</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trace.label =</span> <span class="st">'Treatment Type'</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">'Plant biomass[mg]'</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">'Interaction plot'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_11_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Interaction plot showing positive interactive effects of fertilizer application and watering on plant growth. The interaction is directly visible from the graph as non-parallel lines connecting the mean values.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-of-linear-models-and-their-terms" class="level2">
+<h2 class="anchored" data-anchor-id="testing-of-linear-models-and-their-terms">Testing of linear models and their terms</h2>
+<p>Statistical significance testing of linear models (as whole predictor structures) using e.g.&nbsp;an F-test is easy and largely follows the same principles as in simple regression. It is more difficult to decide which predictors to include in the model and which not. Finding the best model is done through a model selection procedure that aims to identify the model containing only the predictors that have a significant effect on the response, while leaving out those that are non-significant (i.e., do not contribute to the predictive power of the model). Such models are called <em>minimum adequate models</em>. Philosophically, they are based upon the principle of <a href="https://en.wikipedia.org/wiki/Occam's_razor">Occam’s razor or parsimony</a>.</p>
+<p>Statistical methods are very efficient if applied to model testing and/or comparisons between models. However, there are no universal guidelines for model/predictor selection in all cases. In models with few candidate predictors, it is possible to fit all possible models and select the one with the highest explanatory power. Frequently (but certainly not always), simple testing of the significance of individual predictors can be performed by comparing models that exclude and include the given predictor.</p>
+<p>For efficient model selection, we need:</p>
+<ol type="1">
+<li><p>a measure of model quality (or quality comparison between models)</p></li>
+<li><p>a strategy for building the model.</p></li>
+</ol>
+<section id="measures-of-model-quality" class="level4">
+<h4 class="anchored" data-anchor-id="measures-of-model-quality">Measures of model quality</h4>
+<p>There are several measures of model quality or parameters of model comparison.</p>
+<section id="f-test" class="level6">
+<h6 class="anchored" data-anchor-id="f-test">F-test</h6>
+<p>The F-test may not only be used to test the significance of a model but also to test <em>whether one model is significantly better than another</em>. Works generally well for models with up to a moderate number of observations (~200). With large <em>n</em>, almost all predictors tend to be significant even if they explain very little variability in the response.</p>
+</section>
+<section id="r2" class="level6">
+<h6 class="anchored" data-anchor-id="r2">R<sup>2</sup></h6>
+<p>The proportion of explained variation is a property of the model itself. It is easy to interpret. For model comparisons, its main disadvantage is that adding more predictors always increases R<sup>2</sup>, even if the added predictor has little effect. As such, it is not suitable to compare models of different complexity.</p>
+</section>
+<section id="aic-akaike-information-criterion" class="level6">
+<h6 class="anchored" data-anchor-id="aic-akaike-information-criterion">AIC (<a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">Akaike information criterion</a>)</h6>
+<p>This measure is derived from information theory and allows straighforward comparisons of model quality. Models with a lower AIC value are better. The AIC is computed using the following formula:</p>
+<p><span class="math display">\[
+AIC = 2k - 2log(L)
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of parameters of the model and <span class="math inline">\(log(L)\)</span> is the log-likelihood<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of the model. Essentially, AIC combines model quality (<span class="math inline">\(L\)</span>) and complexity expressed as the number of parameters (<span class="math inline">\(k\)</span>) into one number.</p>
+<p>By accounting for the complexity, it also prevents the models to became overfitted (i.e.&nbsp;working precisely on the original data, but totally failing to predict values outside what it was trained on).</p>
+</section>
+<section id="aicc" class="level6">
+<h6 class="anchored" data-anchor-id="aicc">AIC<sub>C</sub></h6>
+<p>AIC<sub>C</sub> is a very similar measure, which is corrected for use with small sample sizes. As a result, it is slightly more conservative, i.e.&nbsp;prefers model simplicity over explanatory power.</p>
+</section>
+<section id="likelihood-ratio" class="level6">
+<h6 class="anchored" data-anchor-id="likelihood-ratio">Likelihood-ratio</h6>
+<p>The likelihood ratio is a very general approach which can be used to compare many types of models. It is based on the principle that the logarithm of the likelihood ratio (which numerically equals the difference between log-likelihoods) multiplied by 2 follows the χ<sup>2</sup> distribution; thus, the goodness-of-fit test may be used for testing models differing in numbers of degrees of freedom.</p>
+</section>
+</section>
+</section>
+<section id="model-building-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="model-building-strategies">Model building strategies</h2>
+<section id="data-exploration---first-step" class="level4">
+<h4 class="anchored" data-anchor-id="data-exploration---first-step">Data exploration - first step</h4>
+<p>It is generally good to start with an exploratory analysis of the data to examine variable distributions and shapes of their dependencies. This is generally done by plotting a matrix of pairwise plots. Such exploratory analysis helps identify intercorrelated predictors (the inclusion of which in the candidate predictor set is problematic – see below), data transformation needs, or possible non-linear relationships. Thus, the exploratory analysis may lead to adjustments of the original dataset.</p>
+</section>
+<section id="multi-model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="multi-model-comparisons">Multi-model comparisons</h4>
+<p>Then, there are several options for building a model. Theoretically, the best way would be to fit all possible models and choose the <strong>best-fitting</strong> one, e.g., based on AIC. However, the number of possible models could be very large (increasing with the number of predictors and the complexity of interaction terms), and fitting models may be demanding on computer power (even with current fast computers and the increasing availability of big data).</p>
+<p>Still, this option is available in the function <code>dredge()</code> in the package MuMIn. Nevertheless, researchers are generally encouraged to use a more specific comparison between a predefined set of models, rather than the mindless comparison of everything. The comparison among models can be done by the <code>AICtab()</code>/<code>AICctab()</code> function of the package bbmle.</p>
+</section>
+<section id="stepwise-model-selection" class="level4">
+<h4 class="anchored" data-anchor-id="stepwise-model-selection">Stepwise model selection</h4>
+<p>Another option is the so-called <strong>stepwise selection</strong>, which can go from two different directions <em>forward</em> and <em>backward</em>. Forward selection starts with the null (intercept-only) model. Next step includes testing every model containing single predictor against the null model. Such comparisons are indicative of individual predictor explanatory power and on this basis the best fitting predictor (using R<sup>2</sup> or AIC) can be added to the model.</p>
+<p>In the next step the model containing the selected predictor is used as the null against with the other predictors are tested and so on until there is no significant candidate predictor left. With two or more predictors in the model, interactions between the predictors may also be tested to be included in the model.</p>
+<p>An advantage of this approach is its intuitiveness and possibility to use a large number of candidate predictors (though multiple testing issue should be considered here). However, there are also disadvantages related with this approach including often high risk of selecting of non-optimal model due to constraints related to the procedure.</p>
+<p>Therefore, <strong>forward selection</strong> mostly considered an outdated approach, which can and should mostly be replaced with multi-model comparisons based on AIC (see above). Still forward selection remaind a reasonable choice for observational data in multivariate models (e.g.&nbsp;constrained ordinations), where AIC comparisons are not available.</p>
+<p><strong>Backward selection</strong> uses an opposite strategy – first a saturated model is fitted (i.e., model containing all candidate predictors together with all their interactions – these may be limited up to a specified order). Non-significant terms are then removed from the model one-by-one starting with poorest predictors (measured by AIC or significance testing). Note that in the case of a significant interaction, main effects are retained in the model even if they are not significant themselves (if the same model was built-up in a forward manner, such interactions would never be tested). Backward selection is still an accepted model-building strategy for data coming from <strong>manipulative experiments</strong>. Such data typically have a limited numbers of predictors and observations, which makes them suitable to classical statistical test.</p>
+</section>
+</section>
+<section id="correlation-between-predictors" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-between-predictors">Correlation between predictors</h2>
+<p>Correlation between predictors is a serious issue in multiple regression analysis. This issue concerns observational data because in experimental studies, we should use an experimental design which ensures independence of tested predictors. The problem is, that if there are two inter-correlated candidate predictors to be included in the model, one of them may be included just by chance (because it may look slightly better with given data). The other predictor will then never be included in the model, because its effect is already accounted for by the first predictor. Depending on the actual data, either one or the other predictor may be included while the other left out.</p>
+<p>Such inconsistency may lead to very different conclusions even if the relationships between the variables are the same and the data are just slightly different. Such cases are quite common in nature, e.g.&nbsp;soil pH and Ca concentration represent a common case in ecological studies. Unfortunately, none of the model building strategies or model quality measures can control this. However, a detailed exploration of the associations between the predictors themselves and between individual predictors and the response may be useful.</p>
+<p>As a part of this exploration, we may first analyze <strong>marginal</strong> or <strong>simple effects</strong> – i.e.&nbsp;effects of given predictor on the response which ignore the effects of other variables. These are simple linear regressions (or one-way ANOVA) and are indicative of the correlation structure in the study system. Conversely, <strong>partial</strong> or <strong>conditional effects</strong> can be computed (i.e.&nbsp;unique effects of individual predictors), which are computed by testing a given predictor against a model containing all other predictors. Such effects are greatly affected by predictor inter-correlation but if significant, they may really point to mechanisms underlying the correlations.</p>
+<p>Computing <em>marginal</em> and <em>partial effects</em> is then a part of a more general approach called <strong>variation partitioning</strong>. With this approach, you can describe the correlation structure among the predictors (or frequently groups of predictors) and quantify their unique or shared effects on the response variable.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to do in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="explanatory-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="explanatory-analysis">1. Explanatory analysis</h4>
+<p>Pair plots showing correlation between variables can be done by <code>ggpairs()</code> from the package Ggally, or <code>pairs.panels()</code> from the package psych.</p>
+</section>
+<section id="fitting-a-model" class="level4">
+<h4 class="anchored" data-anchor-id="fitting-a-model">2. Fitting a model</h4>
+<p>Function <code>lm()</code>. Individual predictors are included in the formula on the predictor side separated, by <strong>+</strong> (additive effects) or by <strong>*</strong> (both, additive and interactive effects).</p>
+</section>
+<section id="forward-selection-or-simple-effects" class="level4">
+<h4 class="anchored" data-anchor-id="forward-selection-or-simple-effects">3. Forward selection or simple effects</h4>
+<p>Testing candidate predictors to be included in the model is done by function <code>add1()</code> in forward selection:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add1</span>(lm.model, <span class="at">scope =</span> <span class="sc">~</span> predictor_1 <span class="sc">*</span> predictor_2 <span class="sc">*</span> predictor_n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Parameter test is then used for the specification of the model quality criterion. AIC is displayed always; for ordinary linear models, it makes sense to ask for an F-test by setting <code>test = "F"</code>.</p>
+<p><code>add1()</code> can also be used for testing predictor <strong>simple effects</strong>.</p>
+</section>
+<section id="backward-selection" class="level4">
+<h4 class="anchored" data-anchor-id="backward-selection">4. Backward selection</h4>
+<p>Testing predictors to be removed from the model can be done using function <code>drop1()</code>. The use is similar to <code>add1()</code>, just the parameter <code>scope</code> is not specified.</p>
+</section>
+<section id="changing-model-structure" class="level4">
+<h4 class="anchored" data-anchor-id="changing-model-structure">5. Changing model structure</h4>
+<p>Function <code>update()</code> adds or removes a predictor from a model (“manually”).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add predictor</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new.model <span class="ot">&lt;-</span> <span class="fu">update</span>(old.model, .<span class="sc">~</span>.<span class="sc">+</span> added.predictor)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remove predictor</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>new.model <span class="ot">&lt;-</span> <span class="fu">update</span>(old.model, .<span class="sc">~</span>.<span class="sc">-</span> removed.predictor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>update()</code> can be used to change other parameters of a model aswell.</p>
+</section>
+<section id="comparison-of-model-quality" class="level4">
+<h4 class="anchored" data-anchor-id="comparison-of-model-quality">6. Comparison of model quality</h4>
+<p>Function <code>anova()</code> (e.g.&nbsp;<code>anova(model1, model2)</code>) compares model2 vs model1 by AIC.</p>
+</section>
+<section id="model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="model-comparisons">7. Model comparisons</h4>
+<p><code>AICtab()</code>, <code>AICctab()</code> from the package bbmle provide comparisons of model quality by AIC/AIC<sub>C</sub>. Compared models are simply listed as arguments of the function. You have to prepare a <em>set of candidate models</em> yourself.</p>
+<p><code>dredge()</code> of the package MuMIn fits all models defined by all possible subsets of the provided full model and compares them by AIC/AIC<sub>C</sub>.</p>
+</section>
+<section id="testing-individual-terms" class="level4">
+<h4 class="anchored" data-anchor-id="testing-individual-terms">8. Testing individual terms</h4>
+<p><code>anova(lm.model)</code> displays <strong>sequential F-tests</strong> for individual terms. Sequential testing means that the order of the predictors affects the results (unless the predictors are perfectly independent - <em>orthogonal</em>).</p>
+<p><code>summary(lm.model)</code> displays detailed model statistics - F-test of the whole model and t-tests of individual regression coefficients. These t-tests are not sequential and thus are independent of the term order in the model.</p>
+</section>
+<section id="model-coefficients" class="level4">
+<h4 class="anchored" data-anchor-id="model-coefficients">9. Model coefficients</h4>
+<p>Function <code>coef()</code> shows model coefficients.</p>
+</section>
+<section id="model-residuals" class="level4">
+<h4 class="anchored" data-anchor-id="model-residuals">10. Model residuals</h4>
+<p>Function <code>resid()</code> displays model residuals.</p>
+</section>
+<section id="extraxt-fitted-values" class="level4">
+<h4 class="anchored" data-anchor-id="extraxt-fitted-values">11. Extraxt fitted values</h4>
+<p>Fitted (predicted) values can be obtained with the <code>predict_response()</code> function of the package ggeffects. This can be plotted directly with ggplot.</p>
+</section>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p><em>Data are availabe in separate Excel sheets.</em></p>
+<ol type="1">
+<li><p>The number of seedlings per square meter was monitored at 24 grasslands, which were mown once (mown1), mown twice (mown2), or grazed (variable treatment). In addition, biomass production was measured together with the mean annual temperature of each grassland. Build a multiple regression model predicting the effects of grassland parameters on seedling density.</p></li>
+<li><p>Transpiration of plants was recorded together with air humidity, temperature, wind speed, and sunny vs.&nbsp;cloudy weather. On which of these variables does the transpiration rate depend?</p></li>
+<li><p>The effect of watering and fertiliser application on plant growth (measured by biomass production) was tested in the full-factorial manipulative experiment. Perform a two-way analysis of variance and test the interaction between the two treatments.</p></li>
+<li><p>The effect of physical exercise and diet on body mass was studied in 21 people. In addition to the studied variables, body height, hair color, and sex were also recorded as presumed important covariates. What does the body mass depend on?</p></li>
+</ol>
+<section id="real-data-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="real-data-tasks">Real data tasks</h4>
+<ol start="5" type="1">
+<li>Analyse the dependence between vegetation species richness (=number of species) and all predictors describing soil properties and past management in the dataset of vegetation plots of Latvian grasslands. Consider appropriate transformations of the data if needed. The data are available from data/LatviaGrasslands.xlsx The data come from the <a href="https://theses.cz/id/zt3lx8/?lang=en">master thesis of Martin Franc</a> (in Czech with English abstract).</li>
+</ol>
+<p><strong>#AI</strong> Ask your favourite LLM to solve any of the tasks and generate the corresponding R script. Compare the LLM solution with yours</p>
 
 
+</section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The likelihood is something as “accuracy score” measuring how well the model actually explains the data, i.e.&nbsp;how much do its predictions match the reality. And why log? Well, this is mainly practical - the the chance (likelihood) that the model will predict every single data point right is very very small (e.g., 0.00000000000000000001) and as you can imagine, working with such numbers is a nightmare. For this purpose, we use the log(L), where the terrible number suddenly looks like this: -46.0517.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -373,13 +664,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
