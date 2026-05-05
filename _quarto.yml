@@ -69,7 +69,7 @@ website:
             href: Biostatistics/Chapter_09.qmd
           - text: "10 Transformations and non-parametric tests"
             href: Biostatistics/Chapter_10.qmd
-          - text: "11 Multi-way ANOVA, multiple regression and GLMs"
+          - text: "11 Multi-way ANOVA, multiple regression and LMs"
             href: Biostatistics/Chapter_11.qmd
           
       - section: "Community Ecology"
