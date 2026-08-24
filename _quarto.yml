@@ -35,17 +35,19 @@ website:
             href: DataManipulationVisualisation/4_wide_vs_long.qmd
           - text: "5 Join functions"
             href: DataManipulationVisualisation/5_join_functions.qmd
-          - text: "6 Advanced data visualisation"
-            href: DataManipulationVisualisation/6_advanced_visualisation.qmd
-          - text: "7 + 8 Automatisation"
-            href: DataManipulationVisualisation/7_8_automatisation.qmd
-          - text: "9 + 10 Maps"
-            href: DataManipulationVisualisation/9_10_maps.qmd
+          - text: "6 + 7 Advanced data visualisation"
+            href: DataManipulationVisualisation/6_7_advanced_visualisation.qmd
+          - text: "8 + 9 Automatisation"
+            href: DataManipulationVisualisation/8_9_automatisation.qmd
+          - text: "10 Long pipelines"
+            href: DataManipulationVisualisation/10_long_pipelines.qmd
           - text: "11 From a database to a plot"
             href: DataManipulationVisualisation/11_database_to_plot.qmd
           - text: "12 GitHub"
             href: DataManipulationVisualisation/12_github.qmd
-            
+          - text: "* Maps"
+            href: DataManipulationVisualisation/13_maps.qmd
+      
       - section: "Introduction to Biostatistics"
         href: Biostatistics/biostatistics.qmd
         contents:

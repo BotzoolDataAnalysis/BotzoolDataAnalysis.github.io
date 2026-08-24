@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Chapter 2: Data exploration and data types – Botzool Data Analysis</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -130,7 +133,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -187,20 +191,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/6_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6 Advanced data visualisation</span></a>
+  <a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 + 7 Advanced data visualisation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/7_8_automatisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">7 + 8 Automatisation</span></a>
+  <a href="../DataManipulationVisualisation/8_9_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 + 9 Automatisation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/9_10_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 + 10 Maps</span></a>
+  <a href="../DataManipulationVisualisation/10_long_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Long pipelines</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -213,6 +217,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/13_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">* Maps</span></a>
   </div>
 </li>
       </ul>
@@ -277,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 Linear regression</span></a>
+ <span class="menu-text">9 Linear regression and correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -289,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Biostatistics/Chapter_11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11 Multi-way ANOVA, multiple regression and GLMs</span></a>
+ <span class="menu-text">11 Multi-way ANOVA, multiple regression and LMs</span></a>
   </div>
 </li>
       </ul>
@@ -369,8 +379,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>That is, you may wish to describe the data using <em>descriptive statistics</em>.</p>
 <p>Before we start, let’s prepare the packages and data we will be using in this chapter:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rats <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">5.5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>) </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mice <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rats <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">5.5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mice <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -378,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Box 3. Generate normally distributed data
+<span class="screen-reader-only">Tip</span>Generate normally distributed data
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -391,50 +403,50 @@ Box 3. Generate normally distributed data
 <h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive statistics</h2>
 <p>The data are here:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] 6.796083 4.170613 4.783225 6.929806 4.376357 5.273160 5.712072 5.713873
-  [9] 6.190753 8.468905 3.691751 3.916548 5.476451 2.646348 6.458037 5.398193
- [17] 3.015756 5.528631 6.186298 5.092104 5.939548 3.637312 5.198228 2.975468
- [25] 6.183407 8.421669 7.421964 6.410697 5.832667 7.455527 6.547315 3.520392
- [33] 5.248992 6.536295 3.332991 4.861420 2.793825 4.623205 5.082376 9.072804
- [41] 4.321208 7.471051 6.212292 3.361641 5.565837 4.157670 6.972349 7.611701
- [49] 5.278543 7.522924 5.404851 2.572802 4.549788 7.013895 7.960317 4.986194
- [57] 6.450677 7.725027 7.795105 7.239030 5.590157 6.574127 7.360621 8.737300
- [65] 5.835315 6.919135 6.098068 4.493428 6.510050 4.079646 6.880770 6.836879
- [73] 5.857663 5.289927 6.259963 4.444286 6.312717 9.489859 8.138357 7.332058
- [81] 6.881108 4.923174 4.084242 5.990303 7.819691 7.161581 6.857164 1.643913
- [89] 4.569812 6.651721 5.499332 3.806127 6.997564 7.318023 5.030592 6.749097
- [97] 4.615502 2.981701 6.276756 4.828576</code></pre>
+<pre><code>  [1] 3.689401 5.916144 7.126662 1.981453 6.143687 6.259084 4.637890 4.680052
+  [9] 4.653322 4.164943 4.784211 4.002420 4.335619 5.596688 6.939241 5.334572
+ [17] 4.733486 4.133207 4.244242 9.123753 5.701132 4.763971 4.839178 6.189384
+ [25] 4.459420 3.327693 6.362134 3.964516 5.477293 4.096077 7.153446 4.786610
+ [33] 4.435840 4.748113 3.056360 3.748571 2.229941 3.488510 5.058559 4.801154
+ [41] 7.674244 3.897036 4.216953 5.079065 4.008490 4.047229 3.839023 3.622021
+ [49] 4.714258 4.754725 2.790953 4.626886 3.836666 3.977557 5.256536 6.344584
+ [57] 7.971726 4.339970 7.908864 3.763287 6.484883 9.323487 5.447859 4.495550
+ [65] 5.488593 8.165627 3.792088 7.551741 7.494347 6.004709 5.510339 4.816797
+ [73] 4.950214 6.472430 8.605406 5.269902 3.413949 4.414627 5.887393 5.024411
+ [81] 5.233315 5.245009 3.441547 5.239319 6.775348 6.546413 6.324996 4.895902
+ [89] 5.212609 3.708208 5.420262 5.882794 8.058946 7.002270 4.756625 6.033325
+ [97] 3.798088 6.817305 6.959375 8.681676</code></pre>
 </div>
 </div>
 <p>First, we need to know the size of the data, i.e.&nbsp;number of observations (n).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(rats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(rats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 100</code></pre>
 </div>
 </div>
 <p>Second, we are interested is the <em>central tendency</em>, i.e.&nbsp;certain middle value around which the data are located. This is provided by the <em>median</em>. Which is the middle value<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of the ordered data in the dataset from the lowest to the highest value. Here:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(rats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(rats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.846489</code></pre>
+<pre><code>[1] 4.923058</code></pre>
 </div>
 </div>
 <p>Third, we need to know the “spread of the data”. A simple characteristic is <em>range</em> (<em>minimum</em> and <em>maximum</em>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(rats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(rats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.643913 9.489859</code></pre>
+<pre><code>[1] 1.981453 9.323487</code></pre>
 </div>
 </div>
 <p>However, the minima and maxima may be affected by outliers and extremes. While it is useful to know them, we may also prefer some more robust characteristics. This comes with <em>quartiles</em>. Quartiles are 25% and 75% <em>quantiles</em>. XX%-quantile refers to a value compared to which XX% of other observations are lower. In our case, this is the first quartile (25%) and the third quartile (75%). The second (50%) quartile is the median:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(rats, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(rats, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     25%      50%      75% 
-4.621279 5.846489 6.890615 </code></pre>
+4.157009 4.923058 6.206809 </code></pre>
 </div>
 </div>
 </section>
@@ -442,9 +454,9 @@ Box 3. Generate normally distributed data
 <h2 class="anchored" data-anchor-id="visual-exploration">Visual exploration</h2>
 <p>These descriptive statistics can be summarized graphically in the form of <em>boxplot</em>. That is very useful for comparisons between different datasets (e.g.&nbsp;comparison of mouse tail length with a similar dataset on rats):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mice, rats,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mice, rats,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">'Tail length (cm)'</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">'mice'</span>, <span class="st">'rats'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">'mice'</span>, <span class="st">'rats'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -459,7 +471,7 @@ Box 3. Generate normally distributed data
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Box 4. Boxplots - how to read them
+<span class="screen-reader-only">Important</span>Boxplots - how to read them
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -468,8 +480,8 @@ Box 4. Boxplots - how to read them
 </div>
 <p>Another useful type of plot is the <em>histogram</em>. Histogram is very useful for displaying data distributions (but less so for comparisons between different datasets). To plot a histogram, values of the variable are assigned into intervals (called also bins). Numbers of observation (frequency) within each bin is then plotted on in the graph.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rats,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Tail length (cm)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rats,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Tail length (cm)'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -482,9 +494,9 @@ Box 4. Boxplots - how to read them
 </section>
 <section id="types-of-data" class="level1">
 <h1>Types of data</h1>
-<p>The data on mouse tail length we have explored are called <em>data on ratio scale</em>. Several other types of data can be defined on the basis of their properties. These are summarized in Table 1.1. In ratio-scale and interval data, further distinction can be made between continuous and discrete data but that makes little difference for practical computation.</p>
+<p>The data on mouse tail length we have explored are called <em>data on ratio scale</em>. Several other types of data can be defined on the basis of their properties. These are summarized in Table 1. In ratio-scale and interval data, further distinction can be made between continuous and discrete data but that makes little difference for practical computation.</p>
 <table class="caption-top table">
-<caption>Table 1.1. Summary of data types definition and properties.</caption>
+<caption>Table 1 Summary of data types definition and properties.</caption>
 <colgroup>
 <col style="width: 20%">
 <col style="width: 20%">
@@ -535,13 +547,13 @@ Box 4. Boxplots - how to read them
 <p>Categorical variables cannot be explored by the methods described above. Instead, frequencies of individual categories can be summarized in a table, or a <em>barplot</em> can be used to illustrate the data graphically.</p>
 <p>Consider for example 163 bean plant individuals with flowers of three colours: white, red, purple:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>beans <span class="ot">&lt;-</span> <span class="fu">sample</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>beans <span class="ot">&lt;-</span> <span class="fu">sample</span>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="st">'white'</span>, <span class="st">'red'</span>, <span class="st">'purple'</span>),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">163</span>,</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> T) <span class="sc">|&gt;</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(beans, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'purple'</span>, <span class="st">'red'</span>, <span class="st">'white'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(beans, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'purple'</span>, <span class="st">'red'</span>, <span class="st">'white'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -556,7 +568,7 @@ Box 4. Boxplots - how to read them
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Box 5. R Basics
+<span class="screen-reader-only">Tip</span>R Basics
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -594,23 +606,22 @@ Box 5. R Basics
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
-<p><em>Solutions will be added after the practicals</em></p>
 <ol type="1">
-<li>Calculate 5 + 3 and save the result in an object; then display its content.</li>
-<li>Create a vector containing six numbers of your choice.</li>
-<li>Display the 4th value of the vector.</li>
-<li>Change the 5th value of the vector to <code>NA</code>.</li>
-<li>Display the path of the working directory.</li>
-<li>Display the help for the function boxplot.</li>
-<li>Import the People dataset (<code>people.xlsx</code>) into R. Try importing using the <code>readxl::read_excel()</code> function or by window-based upload.</li>
-<li>Summarize the data.</li>
-<li>Display the class of the R object of the imported data and of the variables eye.color and height.</li>
-<li>Compute the median, range, and quartiles of height of all people.</li>
-<li>Create a new data frame containing just data on males.</li>
-<li>Compute median height for males and females.</li>
-<li>Plot a histogram of all height data.</li>
-<li>Plot a box plot of heights comparing males and females.</li>
-<li>Export both plots to Word.</li>
+<li><p>Calculate 5 + 3 and save the result in an object; then display its content.</p></li>
+<li><p>Create a vector containing six numbers of your choice.</p></li>
+<li><p>Display the 4th value of the vector.</p></li>
+<li><p>Change the 5th value of the vector to <code>NA</code>.</p></li>
+<li><p>Display the path of the working directory.</p></li>
+<li><p>Display the help for the function boxplot.</p></li>
+<li><p>Import the People dataset (<code>people.xlsx</code>) into R. Try importing using the <code>readxl::read_excel()</code> function or by window-based upload.</p></li>
+<li><p>Summarize the data.</p></li>
+<li><p>Display the class of the R object of the imported data and of the variables eye.color and height.</p></li>
+<li><p>Compute the median, range, and quartiles of height of all people.</p></li>
+<li><p>Create a new data frame containing just data on males.</p></li>
+<li><p>Compute median height for males and females.</p></li>
+<li><p>Plot a histogram of all height data.</p></li>
+<li><p>Plot a box plot of heights comparing males and females.</p></li>
+<li><p>Export both plots to Word.</p></li>
 </ol>
 <section id="tasks-for-independent-work" class="level4">
 <h4 class="anchored" data-anchor-id="tasks-for-independent-work">Tasks for independent work:</h4>
@@ -682,13 +693,14 @@ Box 5. R Basics
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

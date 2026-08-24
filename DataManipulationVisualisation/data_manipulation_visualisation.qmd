@@ -9,82 +9,86 @@ author: Irena Axmanová, Klára Friesová
 
 During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g. based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 and create basic maps in R. The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.
 
-# [1 Introduction](1_introduction.qmd) - 15. 9. 2025
+# [1 Introduction](1_introduction.qmd) - 14. 9. 2026
 
--   R as a programming language
--   Tidyverse package, %\>%, \|\>
--   projects in RStudio, cheatsheets, keyboard shortcuts
--   principles of a tidy script (formatting, headings, bookmarks, notes)
--   information sources and where to look for help, AI
--   import using readr, readxl, what to watch out for (encoding)
--   data structure (names, table, glimpse)
--   tidy data (principles, preparation, checking), renaming variables (rename)
+- R as a programming language
+- Tidyverse package, %\>%, \|\>
+- projects in RStudio, cheatsheets, keyboard shortcuts
+- principles of a tidy script (formatting, headings, bookmarks, notes)
+- information sources and where to look for help, AI
+- import using readr, readxl, what to watch out for (encoding)
+- data structure (names, table, glimpse)
+- tidy data (principles, preparation, checking), renaming variables (rename)
 
-# [2 Data manipulation](2_data_manipulation.qmd) - 22. 9. 2025
+# [2 Data manipulation](2_data_manipulation.qmd) - 21. 9. 2026
 
--   basic data manipulation (select, filter, mutate, arrange, slice)
--   data export (write_csv)
+- basic data manipulation (select, filter, mutate, arrange, slice)
+- data export (write_csv)
 
-# [3 Data visualisation with ggplot](3_data_visualisation.qmd) - 29. 9. 2025
+# [3 Data visualisation with ggplot](3_data_visualisation.qmd) - 5. 10. 2026
 
--   logic of ggplot
--   basic geom functions (point, boxplot, histogram, barplot)
--   trend fitting
--   symbols, colors
--   legend, axis labels
--   theme
--   saving a plot (ggsave)
+- logic of ggplot
+- basic geom functions (point, boxplot, histogram, barplot)
+- trend fitting
+- symbols, colors
+- legend, axis labels
+- theme
+- saving a plot (ggsave)
 
-# [4 Wide vs. long format](4_wide_vs_long.qmd) - 13. 10. 2025
+# [4 Wide vs. long format](4_wide_vs_long.qmd) - 12. 10. 2026
 
--   format transformations (pivot)
--   new variables (mutate, group_by, summarise)
--   species richness, sums/proportions of different values within a sample (count)
+- format transformations (pivot)
+- new variables (mutate, group_by, summarise)
+- species richness, sums/proportions of different values within a sample (count)
 
-# [5 Join functions](5_join_functions.qmd) - 20. 10. 2025
+# [5 Join functions](5_join_functions.qmd) - 19. 10. 2026
 
--   join functions (left_join, full_join), adding information from other data files
--   filtering functions: semi_join, anti_join
--   proportions of certain groups by traits, indicator values, CWM
--   nomenclature editing (advanced mutate, summarise), merging duplicates
--   mutate with multiple conditions (ifelse, case_when)
+- join functions (left_join, full_join), adding information from other data files
+- filtering functions: semi_join, anti_join
+- proportions of certain groups by traits, indicator values, CWM
+- nomenclature editing (advanced mutate, summarise), merging duplicates
+- mutate with multiple conditions (ifelse, case_when)
 
-# [6 Advanced data visualisation](6_advanced_visualisation.qmd) - 27. 10. 2025
+# [6 + 7 Advanced data visualisation](6_7_advanced_visualisation.qmd) - 26. 10. and 2. 11. 2026
 
--   ggplot advanced – faceting, using multiple data sources, scales, position adjustments, legend modifications
--   useful extensions – patchwork, ggpubr, ggeffects
--   shiny trailer (demo)
+- ggplot advanced – faceting, using multiple data sources, scales, position adjustments, legend modifications
+- useful extensions – patchwork, ggpubr, ggeffects
+- shiny trailer (demo)
 
-# [7 + 8 Script automatisation](7_8_automatisation.qmd) - 3. a 10. 11. 2025
+# [8 + 9 Script automatisation](8_9_automatisation.qmd) - 9. and 23. 11. 2026
 
--   writing your own function
--   using loops (for loops)
--   purrr and an example of working with nested dataframes
+- writing your own function
+- using loops (for loops)
+- purrr and an example of working with nested dataframes
 
-# [9 + 10 Maps in R](9_10_maps.qmd) - 24. 11. a 1. 12. 2025
+# [10 Long pipelines](10_long_pipelines.qmd) - 30. 11. 2026
 
--   maps using terra
--   displaying samples in space (overview map, scale bar, legend…) on an OpenStreetMap background
--   cartograms, grid-based mapping
--   extracting data from a raster, digital model
--   selecting data using a mask
--   scaling mapped points according to values (colour, symbol)
+- combining the entire process into one pipeline
 
-# [11 From database to plot (review)](11_database_to_plot.qmd) - 8. 12. 2025
+# [11 From database to plot (review)](11_database_to_plot.qmd) - 7. 12. 2026
 
--   importing data from a database, linking different data files, adjusting data structure
--   filtering a subset
--   merging duplicates, e.g., those created during nomenclature conversion
--   linking external traits, calculating weighted means
--   preparing a publication-ready figure
--   combining the entire process into one pipeline
+- importing data from a database, linking different data files, adjusting data structure
+- filtering a subset
+- merging duplicates, e.g., those created during nomenclature conversion
+- linking external traits, calculating weighted means
+- preparing a publication-ready figure
+- combining the entire process into one pipeline
 
-# [12 GitHub](12_github.qmd) - 15. 12. 2025
+# [12 GitHub](12_github.qmd) - 14. 12. 2026
 
--   how it works, downloading data from public projects
--   version control
--   own account, linking with RStudio
--   creating your own repository, linking it with an R project on your computer
--   collaborating on a project (branch, commit, push, pull, merge conflicts)
--   publishing a script, making it public (DOI, README guidelines)
--   GitHub Pages
+- how it works, downloading data from public projects
+- version control
+- own account, linking with RStudio
+- creating your own repository, linking it with an R project on your computer
+- collaborating on a project (branch, commit, push, pull, merge conflicts)
+- publishing a script, making it public (DOI, README guidelines)
+- GitHub Pages
+
+# [\* Maps in R](13_maps.qmd)
+
+- maps using terra
+- displaying samples in space (overview map, scale bar, legend…) on an OpenStreetMap background
+- cartograms, grid-based mapping
+- extracting data from a raster, digital model
+- selecting data using a mask
+- scaling mapped points according to values (colour, symbol)

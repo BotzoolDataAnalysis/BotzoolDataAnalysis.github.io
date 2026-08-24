@@ -6,7 +6,7 @@ This is a website for the study materials related to the courses on data analysi
 
 ### Website Navigation
 
--   [Data Manipulation and Visualisation](DataManipulationVisualisation/data_manipulation_visualisation.qmd)
--   [Introduction to Biostatistics](Biostatistics/biostatistics.qmd)
--   [Data Analysis in Community Ecology](CommunityEcology/community_ecology.qmd)
--   [AI in ecology](AIinTeaching/ai_in_teaching.qmd)
+- [Data Manipulation and Visualisation](DataManipulationVisualisation/data_manipulation_visualisation.qmd)
+- [Introduction to Biostatistics](Biostatistics/biostatistics.qmd)
+- [Data Analysis in Community Ecology](CommunityEcology/community_ecology.qmd)
+- [AI in ecology](AIinTeaching/ai_in_teaching.qmd)

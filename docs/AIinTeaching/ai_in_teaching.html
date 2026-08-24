@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>AI in Data Analysis – Botzool Data Analysis</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -56,10 +59,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -115,7 +118,8 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -172,20 +176,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/6_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6 Advanced data visualisation</span></a>
+  <a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 + 7 Advanced data visualisation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/7_8_automatisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">7 + 8 Automatisation</span></a>
+  <a href="../DataManipulationVisualisation/8_9_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 + 9 Automatisation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../DataManipulationVisualisation/9_10_maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 + 10 Maps</span></a>
+  <a href="../DataManipulationVisualisation/10_long_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Long pipelines</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -198,6 +202,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/13_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">* Maps</span></a>
   </div>
 </li>
       </ul>
@@ -262,7 +272,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9 Linear regression</span></a>
+ <span class="menu-text">9 Linear regression and correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -274,7 +284,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Biostatistics/Chapter_11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11 Multi-way ANOVA, multiple regression and GLMs</span></a>
+ <span class="menu-text">11 Multi-way ANOVA, multiple regression and LMs</span></a>
   </div>
 </li>
       </ul>
@@ -356,7 +366,7 @@ div.csl-indent {
 <p>AI tools, and especially LLMs (large language models) have been widely available for just a few years, basically for just a little while. However, they have managed to gain a die-hard fan base, as well as a group of people who see them nearly as a harbinger of the end of the world, or at least of the world as we know it <span class="citation" data-cites="kokotajlo_ai_2025">(<a href="#ref-kokotajlo_ai_2025" role="doc-biblioref">Kokotajlo et al., 2025</a>)</span>. So, everything we are trying to point out here may soon become completely irrelevant…</p>
 <p>Many people use it regularly, including the authors of this leaflet. The most common things we use it for are coding tasks (mainly script debugging), literature search, summarising long texts, explaining things or text editing. AI tools can give better search results than traditional search engines, can help with learning new analytical methods, new programming languages, and it can also make interdisciplinary research easier <span class="citation" data-cites="mammides_role_2024 rstudiodatalab_how_2023">(<a href="#ref-mammides_role_2024" role="doc-biblioref">Mammides &amp; Papadopoulos, 2024</a>; <a href="#ref-rstudiodatalab_how_2023" role="doc-biblioref">RStudioDataLab, 2023</a>)</span>. We want to encourage you to play, experiment with AI tools, and try to understand how they work and where the limits of their usage lie, too. But keep in mind that the content of your conversations with AI tools (i.e.&nbsp;data, information about yourself) may be used for further improvement of the model, especially in free versions. So, even if some tools (e.g.&nbsp;Chat GPT) allows you to turn off chat history or delete your conversations, think twice before you share anything and do not send sensitive data to LLMs.</p>
 <p>One of the important (and still not really resolved) issues of extensive usage for LLMs relates to copyright. If you let an LLM write a homework, an essay or even a whole article, who is actually the author of the whole thing? Is this a case of plagiarism? Isn’t it fair to acknowledge the authorship of the AI tool, too? How? Should, e.g., ChatGPT be credited as high as a co-author? Who is responsible for the correctness and accuracy of such text <span class="citation" data-cites="the_group_for_ai_in_teaching_at_masaryk_university_statement_2023 wu_unveiling_2024">(<a href="#ref-the_group_for_ai_in_teaching_at_masaryk_university_statement_2023" role="doc-biblioref">AI in teaching at Masaryk University, 2023</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>? It is also useful to realize that the quality of an AI-generated text originates from thousands of well-written texts by professional writers (Wu et al.&nbsp;2024) whose work is usually not credited in the AI output. When you are a researcher, such things as true authorship of ideas, text, credibility and authenticity of your outcomes will be the questions you will definitely encounter <span class="citation" data-cites="the_group_for_ai_in_teaching_at_masaryk_university_statement_2023 johnson_pressure_2024 wu_unveiling_2024">(<a href="#ref-the_group_for_ai_in_teaching_at_masaryk_university_statement_2023" role="doc-biblioref">AI in teaching at Masaryk University, 2023</a>; <a href="#ref-johnson_pressure_2024" role="doc-biblioref">Johnson et al., 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>. It might (or might not, who knows) also happen that large (uncredited) usage of LLMs in writing research papers can be reviewed as unacceptable in the future, and as such, it might even discredit your whole research work&nbsp;<span class="citation" data-cites="johnson_pressure_2024">(<a href="#ref-johnson_pressure_2024" role="doc-biblioref">Johnson et al., 2024</a>)</span>. Many journals and institutions (even MUNI, check <a href="https://www.muni.cz/en/students/daily-study/citing-sources-and-plagiarism/how-does-mu-approach-the-use-of-ai-tools">this link</a>) have prepared guidelines regarding AI usage and its reporting. Usually, usage of AI must be reported when it is used to write longer parts of text (e.g., abstract), or to analyse or visualise data. However, broader consensus on AI use reporting is still missing and therefore it is necessary to check the specific rules and conditions set by each institution, journal, or lecturer before using AI tools.</p>
-<p>Other ethical issues come up directly from the generated content. LLMs can suffer from issues such as training data poisoning or improper data sanitization, which may lead to significant biases in the outcomes <span class="citation" data-cites="johnson_pressure_2024 wu_unveiling_2024">(<a href="#ref-johnson_pressure_2024" role="doc-biblioref">Johnson et al., 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>. LLMs are also known to hallucinate non-existent stuff, e.g.&nbsp;literature references or names of software packages. Especially in the case of software packages, this can pose a considerable security risk. Such packages can then be published by hackers with harmful code, which you then unsuspectingly run on your own computer <span class="citation" data-cites="mammides_role_2024 wu_unveiling_2024 francoisn_-_fbriatteorg_ai-generated_2025">(<a href="#ref-francoisn_-_fbriatteorg_ai-generated_2025" role="doc-biblioref">f@briatte.org, 2025</a>; <a href="#ref-mammides_role_2024" role="doc-biblioref">Mammides &amp; Papadopoulos, 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>.</p>
+<p>Other ethical issues come up directly from the generated content. LLMs can suffer from issues such as training data poisoning or improper data sanitization, which may lead to significant biases in the outcomes <span class="citation" data-cites="johnson_pressure_2024 wu_unveiling_2024">(<a href="#ref-johnson_pressure_2024" role="doc-biblioref">Johnson et al., 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>. LLMs are also known to hallucinate non-existent stuff, e.g.&nbsp;literature references or names of software packages. Especially in the case of software packages, this can pose a considerable security risk. Such packages can then be published by hackers with harmful code, which you then unsuspectingly run on your own computer <span class="citation" data-cites="mammides_role_2024 wu_unveiling_2024 francoisn_-_fbriatteorg_ai-generated_2025">(<a href="#ref-francoisn_-_fbriatteorg_ai-generated_2025" role="doc-biblioref"><span class="nocase">f@briatte.org</span>, 2025</a>; <a href="#ref-mammides_role_2024" role="doc-biblioref">Mammides &amp; Papadopoulos, 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>.</p>
 <p>Heavy reliance on AI tools may also prevent you from learning crucial research skills, such as formulating your own ideas, deep understanding of your topic, various analytical approaches, critical reasoning, etc. <span class="citation" data-cites="johnson_pressure_2024 millard_chatgpt_2024">(<a href="#ref-johnson_pressure_2024" role="doc-biblioref">Johnson et al., 2024</a>; <a href="#ref-millard_chatgpt_2024" role="doc-biblioref">Millard et al., 2024</a>)</span>. The usage of AI tools also raises equity questions, especially in regard to paid versions. Naturally, LLMs will be more important for non-native English speakers, but the access to higher-level—but often paid—tools is not available for all, especially for people from low-income countries <span class="citation" data-cites="campbell_should_2024 wu_unveiling_2024">(<a href="#ref-campbell_should_2024" role="doc-biblioref">Campbell et al., 2024</a>; <a href="#ref-wu_unveiling_2024" role="doc-biblioref">Wu et al., 2024</a>)</span>.</p>
 <p>The flip side of AI tools also includes their environmental impact. Training and tuning a single LLM produces more CO2 emissions than the average American does in his entire lifetime <span class="citation" data-cites="strubell_energy_2019">(<a href="#ref-strubell_energy_2019" role="doc-biblioref">Strubell et al., 2019</a>)</span>. Using LLM chatbots for one year generates 25 times more CO2 emissions than training the GPT-3 model. This does not even consider the infrastructure and equipment needed, which requires a lot of water and mining of rare elements, causes contamination, and more <span class="citation" data-cites="chien_reducing_2023 cooper_harnessing_2024">(<a href="#ref-chien_reducing_2023" role="doc-biblioref">Chien et al., 2023</a>; <a href="#ref-cooper_harnessing_2024" role="doc-biblioref">Cooper et al., 2024</a>)</span>.</p>
 </section>
@@ -506,7 +516,7 @@ Davjekar, A. (2024). <em><span>AI</span>-assisted software development: <span>A<
 Ellen, L. (2025). How would <span>I</span> learn to code with <span>ChatGPT</span> if <span>I</span> had to start again. In <em>Towards Data Science</em>. <a href="https://towardsdatascience.com/how-would-i-learn-to-code-with-chatgpt-if-i-had-to-start-again/">https://towardsdatascience.com/how-would-i-learn-to-code-with-chatgpt-if-i-had-to-start-again/</a>
 </div>
 <div id="ref-francoisn_-_fbriatteorg_ai-generated_2025" class="csl-entry" role="listitem">
-f@briatte.org, F. -. (2025). <em><span>AI</span>-generated code comes with security risks <span></span> <span>R</span>-bloggers</em>. <a href="https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/">https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/</a>
+<span class="nocase">f@briatte.org, F. -</span>. (2025). <em><span>AI</span>-generated code comes with security risks <span></span> <span>R</span>-bloggers</em>. <a href="https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/">https://www.r-bloggers.com/2025/04/ai-generated-code-comes-with-security-risks/</a>
 </div>
 <div id="ref-johnson_pressure_2024" class="csl-entry" role="listitem">
 Johnson, T. F., Simmons, B. I., Millard, J., Strydom, T., Danet, A., Sweeny, A. R., &amp; Evans, L. C. (2024). Pressure to publish introduces large-language model risks. <em>Methods in Ecology and Evolution</em>, <em>15</em>(10), 1771–1773. <a href="https://doi.org/10.1111/2041-210X.14397">https://doi.org/10.1111/2041-210X.14397</a>
@@ -599,13 +609,14 @@ Wu, X., Duan, R., &amp; Ni, J. (2024). Unveiling security, privacy, and ethical 
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

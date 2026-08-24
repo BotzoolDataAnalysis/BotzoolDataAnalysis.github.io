@@ -85,9 +85,9 @@ penguins |>
 
 There are some useful RStudio keyboard shortcuts you can use to work with functions:
 
--   To find a definition of any function, place a cursor on the name of the function in the script and press `F2`.
+- To find a definition of any function, place a cursor on the name of the function in the script and press `F2`.
 
--   To extract a function from a code you have written, use `Alt + Ctrl + X`. Just be sure you always check the results, because sometimes it will not do exactly what you expect, so you will have to make some adjustments.
+- To extract a function from a code you have written, use `Alt + Ctrl + X`. Just be sure you always check the results, because sometimes it will not do exactly what you expect, so you will have to make some adjustments.
 
 We can also write summary functions to be used in a `summarise()` call. For example, we could calculate the difference between the minimum and maximum values of the given variable:
 
@@ -227,19 +227,19 @@ map_out[[1]]
 
 In addition to `map()`, `purrr` contains also several relatives, which return different output types:
 
--   `map()` makes a list
+- `map()` makes a list
 
--   `map_lgl()` makes a logical vector
+- `map_lgl()` makes a logical vector
 
--   `map_int()` makes an integer vector
+- `map_int()` makes an integer vector
 
--   `map_dbl()` makes a double vector
+- `map_dbl()` makes a double vector
 
--   `map_chr()` makes a character vector
+- `map_chr()` makes a character vector
 
 Each of the above-mentioned functions takes a vector input, applies a function to each element and returns a vector of the same length.
 
--   `map2()` takes two vectors, usually of the same length and iterates over two arguments at a time
+- `map2()` takes two vectors, usually of the same length and iterates over two arguments at a time
 
 And there is also a group of `walk()` functions, which return their side-effects and return the input `.x`. They might be used, for example, for saving multiple files or plots.
 
@@ -536,9 +536,7 @@ lm(lifeExp~year, data = by_country$data[[1]])
 
 5.  Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula [@mccune_equations_2002]:
 
-    $$
-    0.339 + 0.808 \cdot \cos\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \cos\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.196 \cdot \sin\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.482 \cdot \cos\left(\frac{\left|180 - \left|\text{aspect} - 225\right|\right| \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)
-    $$
+    $$0.339 + 0.808 \cdot \cos\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \cos\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.196 \cdot \sin\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.482 \cdot \cos\left(\frac{\left|180 - \left|\text{aspect} - 225\right|\right| \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)$$
 
     0.339+0.808\**cos(DEG_LAT\**pi/180)\**cos(SLOPE\**pi/180)-0.196\**sin(DEG_LAT\**pi/180)\**sin(SLOPE*\*pi/180)-0.482\**cos((abs(180-abs(ASPECT-225)))\*pi/180)*\**sin(SLOPE*\*pi/180)
 
