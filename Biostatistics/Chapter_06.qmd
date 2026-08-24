@@ -10,7 +10,7 @@ editor: visual
 Contingency tables are tables that summarize frequencies (counts) of two (or more) categorical variables. Their analysis allows testing (in)dependence between the two variables. Table 1 is a contingency table summarizing frequencies of people of different eye and hair colors.
 
 |  |  |  |  |  |  |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|:--:|:--:|:--:|:--:|:--:|:--:|
 |  |  |  | **HAIR COLOUR** |  |  |
 |  |  | **black** | **brown** | **blonde** | **Marginal sums** |
 | **EYE COLOUR** | **blue** | 12 | 45 | 14 | **71** |
@@ -23,9 +23,9 @@ Contingency tables are tables that summarize frequencies (counts) of two (or mor
 
 Association between the variables (i.e. the **null** **hypothesis which states that the variables are independent**) can be tested by a goodness-of-fit test. This is a universal approach suitable for tables of any size and dimensions, but its explanatory power is limited.
 
-For a goodness-of-fit test, we need expected frequencies under the null hypothesis, which are calculated on the basis of probability theory: $$
-P (event_1\ \& \ event_2) = P (event_1) * P (event_2)
-$$ if the two events are independent. In contingency tables, this can be used to calculate expected frequencies as the product of ratios of corresponding marginal totals and the grand total.
+For a goodness-of-fit test, we need expected frequencies under the null hypothesis, which are calculated on the basis of probability theory:
+$$P (event_1\ \& \ event_2) = P (event_1) * P (event_2)$$
+if the two events are independent. In contingency tables, this can be used to calculate expected frequencies as the product of ratios of corresponding marginal totals and the grand total.
 
 For instance, expected probability of observing a blue-eyed and black-haired person in **Table 1** can be calculated as $P (blue_E\  \&\  black_H) = 63/462 * 71/462 = 0.02096$. Multiplication of the probability then gives the expected frequency $freq(e) = 0.02096 * 462 = 9.68$.
 
@@ -51,9 +51,7 @@ These tables represent particular and the simplest cases of contingency tables (
 
 Their simplicity allows additional statistics to be computed to express how tight the association between the two variables is. Most important of these is the **phi-coefficient**:
 
-$$
-\phi = \frac{f_{11} * f_{22} - f_{12} * f_{21}} {\sqrt{R_1 * R_2 * C_1 * C_2}} = \pm \sqrt{\frac{\chi^2}{n}}
-$$
+$$\phi = \frac{f_{11} * f_{22} - f_{12} * f_{21}} {\sqrt{R_1 * R_2 * C_1 * C_2}} = \pm \sqrt{\frac{\chi^2}{n}}$$
 
 where $f$, $R$, and $C$ symbols correspond to the cells in **Table 2**, and $\chi^2$ is the $\chi^2$ statistics of the table, and n is the grand total.
 
@@ -65,13 +63,10 @@ The 2x2 tables may seem trivial and not of much use. However, they, and especial
 
 Odds and odds ratios are additional important statistics that can be used to analyze contingency tables. They are defined for 2x2 tables only but can also be used in larger (in particular n x 2) tables subdivided into a series of 2x2 tables. For **Table 1**, we can calculate the odds for LEVEL 1 of VAR 1 as:
 
-$$
-odds_1 = \frac{p}{1 - p} = \frac{f_{11}}{R_1} / \frac{f_{12}}{R_1}
-$$ where $p$ is the probability of one outcome of the second variable and $1-p$ is the probability of the second outcome of the second variable. We can do the same for the LEVEL 2 of VAR 1 to get $odds_2$. Odds ratio then equals:
+$$odds_1 = \frac{p}{1 - p} = \frac{f_{11}}{R_1} / \frac{f_{12}}{R_1}$$
+where $p$ is the probability of one outcome of the second variable and $1-p$ is the probability of the second outcome of the second variable. We can do the same for the LEVEL 2 of VAR 1 to get $odds_2$. Odds ratio then equals:
 
-$$
-OR = \frac{odds_1}{odds_2}
-$$
+$$OR = \frac{odds_1}{odds_2}$$
 
 The odds ratio directly indicates how the probability of observing LEVEL 1 of VAR 1 changes with respect to the levels of VAR 2.
 
@@ -98,9 +93,9 @@ Since we usually study a sample to understand a larger population, our sample me
 
 Estimate precision describes how much that "guess" would likely fluctuate if we repeated the study. The most common measures of estimate precision are:
 
--   **Standard error of the mean** (SEM) represents the uncertainty of the sample mean[^1]. The formula is $SEM = \frac{s}{\sqrt(n)}$, where $s$ is standard deviation of the sample and $n$ is the sample size/number of observations.
+- **Standard error of the mean** (SEM) represents the uncertainty of the sample mean[^1]. The formula is $SEM = \frac{s}{\sqrt(n)}$, where $s$ is standard deviation of the sample and $n$ is the sample size/number of observations.
 
--   **Confidence interval** (CI) which is a range of values that likely contains the true *population mean*. A 95% CI means that if we repeated the experiment 100 times, 95 of those calculated intervals would capture the true population mean. Or, in other words, a 95% CI is a range where the true population mean lies with 95% probability.
+- **Confidence interval** (CI) which is a range of values that likely contains the true *population mean*. A 95% CI means that if we repeated the experiment 100 times, 95 of those calculated intervals would capture the true population mean. Or, in other words, a 95% CI is a range where the true population mean lies with 95% probability.
 :::
 
 [^1]: Note that mean is not the only estimate we can calculate. Usually, when we describe some relationship, we calculate a model where we estimate e.g., *intercept*, *slope*, or many other parameters. And for each of these parameters we have a **standard error of the estimate**.
@@ -150,7 +145,7 @@ epitab(malaria_mat[-1,])$tab
 In a paper/thesis, the result can be summarized as **Table 4**.
 
 |                        | Odds ratio | Lower 95% CI | Upper 95% CI | p           |
-|------------------|--------------|--------------|--------------|--------------|
+|------------------------|------------|--------------|--------------|-------------|
 | Lariam vs. none        | 0.035      | 0.019        | 0.067        | $< 10^{-6}$ |
 | Doxycycline vs. none   | 0.262      | 0.165        | 0.416        | $< 10^{-6}$ |
 | Lariam vs. Doxycycline | 0.135      | 0.075        | 0.246        | $< 10^{-6}$ |
@@ -219,11 +214,11 @@ Function `epitab()` (package `epitools`) applied on contingency table produced b
 
 3.  In a total set of 500 vegetation plots, 150 were of the wet meadow habitat.
 
-    -   *Carex nigra* had 30 records in the dataset. Of that, 26 were in wet meadows.
+    - *Carex nigra* had 30 records in the dataset. Of that, 26 were in wet meadows.
 
-    -   *Festuca rubra* had 246 records. Of that, 120 were in wet meadows.
+    - *Festuca rubra* had 246 records. Of that, 120 were in wet meadows.
 
-    -   *Cannabis sativa* had 10 records in the dataset. Of that, none was in wet meadows.
+    - *Cannabis sativa* had 10 records in the dataset. Of that, none was in wet meadows.
 
     How are these species associated with the wet meadow habitat?
 
@@ -239,11 +234,11 @@ A.  10% of 120 female students of the faculty of teaching became pregnant during
 
 B.  A dentist has 350 patients in his database who undergo regular checks for their dental health. In addition to the information on tooth decay, he asks his patients whether they drink tea unsweetened, sweetened by sugar or sweetened by honey. The resulting data are as follows:
 
-    -   Sugar: 60 with decay/18 without decay
+    - Sugar: 60 with decay/18 without decay
 
-    -   Honey: 90 with decay/45 without decay
+    - Honey: 90 with decay/45 without decay
 
-    -   Unsweetened: 50 with decay/87 without decay
+    - Unsweetened: 50 with decay/87 without decay
 
     Does the type of tea sweetener affect the health of teeth? If so, how?
 
