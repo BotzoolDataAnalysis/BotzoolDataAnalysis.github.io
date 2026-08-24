@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jakub Těšitel">
+
+<title>Chapter 11: Brief introduction to multi-way ANOVA, multiple regression and general linear models – Botzool Data Analysis</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_11.html">11 Multi-way ANOVA, multiple regression and LMs</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Manipulation and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/2_data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/3_data_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/4_wide_vs_long.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Wide vs.&nbsp;long format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/5_join_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Join functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 + 7 Advanced data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/8_9_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 + 9 Automatisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/10_long_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Long pipelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/11_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 From a database to a plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/13_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">* Maps</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Biostatistics/biostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Philosophical foundations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Probability and distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Hypotheses and patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 Contingency tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 Confidence intervals and t-tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 F-test and ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 Linear regression and correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Transformations and non-parametric tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_11.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">11 Multi-way ANOVA, multiple regression and LMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../CommunityEcology/community_ecology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Community Ecology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CommunityEcology/gordi_vignette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">gordi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../AIinTeaching/ai_in_teaching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI in Data Analysis</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multiple-regression-and-interaction" id="toc-multiple-regression-and-interaction" class="nav-link active" data-scroll-target="#multiple-regression-and-interaction">Multiple regression and interaction</a></li>
+  <li><a href="#testing-of-linear-models-and-their-terms" id="toc-testing-of-linear-models-and-their-terms" class="nav-link" data-scroll-target="#testing-of-linear-models-and-their-terms">Testing of linear models and their terms</a></li>
+  <li><a href="#model-building-strategies" id="toc-model-building-strategies" class="nav-link" data-scroll-target="#model-building-strategies">Model building strategies</a></li>
+  <li><a href="#correlation-between-predictors" id="toc-correlation-between-predictors" class="nav-link" data-scroll-target="#correlation-between-predictors">Correlation between predictors</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_11.html">11 Multi-way ANOVA, multiple regression and LMs</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Chapter 11: Brief introduction to multi-way ANOVA, multiple regression and general linear models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jakub Těšitel </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="multiple-regression-and-interaction" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-regression-and-interaction">Multiple regression and interaction</h2>
+<p>In regression, multiple predictors may be used in the model:</p>
+<p><span class="math display">\[
+Y\ =\ a\ +\ b_1X_1\ +\ b_2X_2\ +\ ...\ +\ b_nX_n\ +\ \epsilon
+\]</span></p>
+<p>predictors may be both quantitative and categorical variables. This is based on the fact, that categorical variables may be decomposed into <span class="math inline">\(k - 1\)</span> binary (0-1) variables (where <span class="math inline">\(k\)</span> is number of categories/levels). In general, the maximum number of predictors is limited by degrees of freedom in the model.</p>
+<p>Complexity of the model measured by the model number of degrees of freedom may never exceed total <span class="math inline">\(DF\)</span> (i.e.&nbsp;number of observations – 1).</p>
+<p>Models containing two or more predictors may also contain <em>interaction terms</em> (<span class="math inline">\(c\)</span>):</p>
+<p><span class="math display">\[
+Y\ =\ a\ +\ b_1X_1\ +\ b_2X_2\ +\ c_1X_1X_2\ +\ ...\ + \epsilon
+\]</span></p>
+<p><strong>Interaction</strong> means that the dependence of the response variable on one predictor (<span class="math inline">\(X_1\)</span>) depends on the value of second predictor (<span class="math inline">\(X_2\)</span>). Interaction it typically tested in multi-way ANOVA, where even higher-order interactions can be considered. Interaction may be <strong>positive</strong> (i.e.&nbsp;the value of response is higher than expected from additive sums of main effects; in such case <span class="math inline">\(c_1 &gt; 0\)</span>; Fig. 11.1) or <strong>negative</strong> (response value is lower that the additive sum; <span class="math inline">\(c_1 &lt; 0\)</span>).</p>
+<p>The interaction is formally notated by <strong>×</strong> (Alt + 0215), i.e.&nbsp;<span class="math inline">\(Y \sim X_1 + X_2 + X_1 × X_2\)</span>. In R, interaction may be represented by “*” which indicates both additive and interaction effects or by “:” which indicates just the interaction term.</p>
+<p>Note that:</p>
+<ol type="1">
+<li><p>testing the interaction is very common in manipulative experiments</p></li>
+<li><p>interaction does not mean correlation between predictors</p></li>
+</ol>
+<p>As you will see later, correlation between predictors is a serious problem which among other issues prevents from reasonable assessment of interactive effects.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fertilizer =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Fertilized"</span>), <span class="at">each =</span> <span class="dv">20</span>)),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">watering =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Watered"</span>), <span class="at">each =</span> <span class="dv">10</span>), <span class="dv">2</span>)),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">biomass =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">70</span>, <span class="dv">5</span>),  <span class="co"># control + control</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">90</span>, <span class="dv">5</span>),  <span class="co"># control + watered</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">118</span>, <span class="dv">5</span>), <span class="co"># fertilized + control</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">190</span>, <span class="dv">5</span>)  <span class="co"># fertilized + watered</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction plot</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(<span class="at">x.factor =</span> df<span class="sc">$</span>fertilizer,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trace.factor =</span> df<span class="sc">$</span>watering,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">response =</span> df<span class="sc">$</span>biomass,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">'b'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">1</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">'Fertilizer'</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trace.label =</span> <span class="st">'Treatment Type'</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">'Plant biomass[mg]'</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">'Interaction plot'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_11_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Interaction plot showing positive interactive effects of fertilizer application and watering on plant growth. The interaction is directly visible from the graph as non-parallel lines connecting the mean values.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-of-linear-models-and-their-terms" class="level2">
+<h2 class="anchored" data-anchor-id="testing-of-linear-models-and-their-terms">Testing of linear models and their terms</h2>
+<p>Statistical significance testing of linear models (as whole predictor structures) using e.g.&nbsp;an F-test is easy and largely follows the same principles as in simple regression. It is more difficult to decide which predictors to include in the model and which not. Finding the best model is done through a model selection procedure that aims to identify the model containing only the predictors that have a significant effect on the response, while leaving out those that are non-significant (i.e., do not contribute to the predictive power of the model). Such models are called <em>minimum adequate models</em>. Philosophically, they are based upon the principle of <a href="https://en.wikipedia.org/wiki/Occam's_razor">Occam’s razor or parsimony</a>.</p>
+<p>Statistical methods are very efficient if applied to model testing and/or comparisons between models. However, there are no universal guidelines for model/predictor selection in all cases. In models with few candidate predictors, it is possible to fit all possible models and select the one with the highest explanatory power. Frequently (but certainly not always), simple testing of the significance of individual predictors can be performed by comparing models that exclude and include the given predictor.</p>
+<p>For efficient model selection, we need:</p>
+<ol type="1">
+<li><p>a measure of model quality (or quality comparison between models)</p></li>
+<li><p>a strategy for building the model.</p></li>
+</ol>
+<section id="measures-of-model-quality" class="level4">
+<h4 class="anchored" data-anchor-id="measures-of-model-quality">Measures of model quality</h4>
+<p>There are several measures of model quality or parameters of model comparison.</p>
+<section id="f-test" class="level6">
+<h6 class="anchored" data-anchor-id="f-test">F-test</h6>
+<p>The F-test may not only be used to test the significance of a model but also to test <em>whether one model is significantly better than another</em>. Works generally well for models with up to a moderate number of observations (~200). With large <em>n</em>, almost all predictors tend to be significant even if they explain very little variability in the response.</p>
+</section>
+<section id="r2" class="level6">
+<h6 class="anchored" data-anchor-id="r2">R<sup>2</sup></h6>
+<p>The proportion of explained variation is a property of the model itself. It is easy to interpret. For model comparisons, its main disadvantage is that adding more predictors always increases R<sup>2</sup>, even if the added predictor has little effect. As such, it is not suitable to compare models of different complexity.</p>
+</section>
+<section id="aic-akaike-information-criterion" class="level6">
+<h6 class="anchored" data-anchor-id="aic-akaike-information-criterion">AIC (<a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">Akaike information criterion</a>)</h6>
+<p>This measure is derived from information theory and allows straighforward comparisons of model quality. Models with a lower AIC value are better. The AIC is computed using the following formula:</p>
+<p><span class="math display">\[
+AIC = 2k - 2log(L)
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of parameters of the model and <span class="math inline">\(log(L)\)</span> is the log-likelihood<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of the model. Essentially, AIC combines model quality (<span class="math inline">\(L\)</span>) and complexity expressed as the number of parameters (<span class="math inline">\(k\)</span>) into one number.</p>
+<p>By accounting for the complexity, it also prevents the models to became overfitted (i.e.&nbsp;working precisely on the original data, but totally failing to predict values outside what it was trained on).</p>
+</section>
+<section id="aicc" class="level6">
+<h6 class="anchored" data-anchor-id="aicc">AIC<sub>C</sub></h6>
+<p>AIC<sub>C</sub> is a very similar measure, which is corrected for use with small sample sizes. As a result, it is slightly more conservative, i.e.&nbsp;prefers model simplicity over explanatory power.</p>
+</section>
+<section id="likelihood-ratio" class="level6">
+<h6 class="anchored" data-anchor-id="likelihood-ratio">Likelihood-ratio</h6>
+<p>The likelihood ratio is a very general approach which can be used to compare many types of models. It is based on the principle that the logarithm of the likelihood ratio (which numerically equals the difference between log-likelihoods) multiplied by 2 follows the χ<sup>2</sup> distribution; thus, the goodness-of-fit test may be used for testing models differing in numbers of degrees of freedom.</p>
+</section>
+</section>
+</section>
+<section id="model-building-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="model-building-strategies">Model building strategies</h2>
+<section id="data-exploration---first-step" class="level4">
+<h4 class="anchored" data-anchor-id="data-exploration---first-step">Data exploration - first step</h4>
+<p>It is generally good to start with an exploratory analysis of the data to examine variable distributions and shapes of their dependencies. This is generally done by plotting a matrix of pairwise plots. Such exploratory analysis helps identify intercorrelated predictors (the inclusion of which in the candidate predictor set is problematic – see below), data transformation needs, or possible non-linear relationships. Thus, the exploratory analysis may lead to adjustments of the original dataset.</p>
+</section>
+<section id="multi-model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="multi-model-comparisons">Multi-model comparisons</h4>
+<p>Then, there are several options for building a model. Theoretically, the best way would be to fit all possible models and choose the <strong>best-fitting</strong> one, e.g., based on AIC. However, the number of possible models could be very large (increasing with the number of predictors and the complexity of interaction terms), and fitting models may be demanding on computer power (even with current fast computers and the increasing availability of big data).</p>
+<p>Still, this option is available in the function <code>dredge()</code> in the package MuMIn. Nevertheless, researchers are generally encouraged to use a more specific comparison between a predefined set of models, rather than the mindless comparison of everything. The comparison among models can be done by the <code>AICtab()</code>/<code>AICctab()</code> function of the package bbmle.</p>
+</section>
+<section id="stepwise-model-selection" class="level4">
+<h4 class="anchored" data-anchor-id="stepwise-model-selection">Stepwise model selection</h4>
+<p>Another option is the so-called <strong>stepwise selection</strong>, which can go from two different directions <em>forward</em> and <em>backward</em>. Forward selection starts with the null (intercept-only) model. Next step includes testing every model containing single predictor against the null model. Such comparisons are indicative of individual predictor explanatory power and on this basis the best fitting predictor (using R<sup>2</sup> or AIC) can be added to the model.</p>
+<p>In the next step the model containing the selected predictor is used as the null against with the other predictors are tested and so on until there is no significant candidate predictor left. With two or more predictors in the model, interactions between the predictors may also be tested to be included in the model.</p>
+<p>An advantage of this approach is its intuitiveness and possibility to use a large number of candidate predictors (though multiple testing issue should be considered here). However, there are also disadvantages related with this approach including often high risk of selecting of non-optimal model due to constraints related to the procedure.</p>
+<p>Therefore, <strong>forward selection</strong> mostly considered an outdated approach, which can and should mostly be replaced with multi-model comparisons based on AIC (see above). Still forward selection remaind a reasonable choice for observational data in multivariate models (e.g.&nbsp;constrained ordinations), where AIC comparisons are not available.</p>
+<p><strong>Backward selection</strong> uses an opposite strategy – first a saturated model is fitted (i.e., model containing all candidate predictors together with all their interactions – these may be limited up to a specified order). Non-significant terms are then removed from the model one-by-one starting with poorest predictors (measured by AIC or significance testing). Note that in the case of a significant interaction, main effects are retained in the model even if they are not significant themselves (if the same model was built-up in a forward manner, such interactions would never be tested). Backward selection is still an accepted model-building strategy for data coming from <strong>manipulative experiments</strong>. Such data typically have a limited numbers of predictors and observations, which makes them suitable to classical statistical test.</p>
+</section>
+</section>
+<section id="correlation-between-predictors" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-between-predictors">Correlation between predictors</h2>
+<p>Correlation between predictors is a serious issue in multiple regression analysis. This issue concerns observational data because in experimental studies, we should use an experimental design which ensures independence of tested predictors. The problem is, that if there are two inter-correlated candidate predictors to be included in the model, one of them may be included just by chance (because it may look slightly better with given data). The other predictor will then never be included in the model, because its effect is already accounted for by the first predictor. Depending on the actual data, either one or the other predictor may be included while the other left out.</p>
+<p>Such inconsistency may lead to very different conclusions even if the relationships between the variables are the same and the data are just slightly different. Such cases are quite common in nature, e.g.&nbsp;soil pH and Ca concentration represent a common case in ecological studies. Unfortunately, none of the model building strategies or model quality measures can control this. However, a detailed exploration of the associations between the predictors themselves and between individual predictors and the response may be useful.</p>
+<p>As a part of this exploration, we may first analyze <strong>marginal</strong> or <strong>simple effects</strong> – i.e.&nbsp;effects of given predictor on the response which ignore the effects of other variables. These are simple linear regressions (or one-way ANOVA) and are indicative of the correlation structure in the study system. Conversely, <strong>partial</strong> or <strong>conditional effects</strong> can be computed (i.e.&nbsp;unique effects of individual predictors), which are computed by testing a given predictor against a model containing all other predictors. Such effects are greatly affected by predictor inter-correlation but if significant, they may really point to mechanisms underlying the correlations.</p>
+<p>Computing <em>marginal</em> and <em>partial effects</em> is then a part of a more general approach called <strong>variation partitioning</strong>. With this approach, you can describe the correlation structure among the predictors (or frequently groups of predictors) and quantify their unique or shared effects on the response variable.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to do in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="explanatory-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="explanatory-analysis">1. Explanatory analysis</h4>
+<p>Pair plots showing correlation between variables can be done by <code>ggpairs()</code> from the package Ggally, or <code>pairs.panels()</code> from the package psych.</p>
+</section>
+<section id="fitting-a-model" class="level4">
+<h4 class="anchored" data-anchor-id="fitting-a-model">2. Fitting a model</h4>
+<p>Function <code>lm()</code>. Individual predictors are included in the formula on the predictor side separated, by <strong>+</strong> (additive effects) or by <strong>*</strong> (both, additive and interactive effects).</p>
+</section>
+<section id="forward-selection-or-simple-effects" class="level4">
+<h4 class="anchored" data-anchor-id="forward-selection-or-simple-effects">3. Forward selection or simple effects</h4>
+<p>Testing candidate predictors to be included in the model is done by function <code>add1()</code> in forward selection:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add1</span>(lm.model, <span class="at">scope =</span> <span class="sc">~</span> predictor_1 <span class="sc">*</span> predictor_2 <span class="sc">*</span> predictor_n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Parameter test is then used for the specification of the model quality criterion. AIC is displayed always; for ordinary linear models, it makes sense to ask for an F-test by setting <code>test = "F"</code>.</p>
+<p><code>add1()</code> can also be used for testing predictor <strong>simple effects</strong>.</p>
+</section>
+<section id="backward-selection" class="level4">
+<h4 class="anchored" data-anchor-id="backward-selection">4. Backward selection</h4>
+<p>Testing predictors to be removed from the model can be done using function <code>drop1()</code>. The use is similar to <code>add1()</code>, just the parameter <code>scope</code> is not specified.</p>
+</section>
+<section id="changing-model-structure" class="level4">
+<h4 class="anchored" data-anchor-id="changing-model-structure">5. Changing model structure</h4>
+<p>Function <code>update()</code> adds or removes a predictor from a model (“manually”).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add predictor</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new.model <span class="ot">&lt;-</span> <span class="fu">update</span>(old.model, .<span class="sc">~</span>.<span class="sc">+</span> added.predictor)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remove predictor</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>new.model <span class="ot">&lt;-</span> <span class="fu">update</span>(old.model, .<span class="sc">~</span>.<span class="sc">-</span> removed.predictor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>update()</code> can be used to change other parameters of a model aswell.</p>
+</section>
+<section id="comparison-of-model-quality" class="level4">
+<h4 class="anchored" data-anchor-id="comparison-of-model-quality">6. Comparison of model quality</h4>
+<p>Function <code>anova()</code> (e.g.&nbsp;<code>anova(model1, model2)</code>) compares model2 vs model1 by AIC.</p>
+</section>
+<section id="model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="model-comparisons">7. Model comparisons</h4>
+<p><code>AICtab()</code>, <code>AICctab()</code> from the package bbmle provide comparisons of model quality by AIC/AIC<sub>C</sub>. Compared models are simply listed as arguments of the function. You have to prepare a <em>set of candidate models</em> yourself.</p>
+<p><code>dredge()</code> of the package MuMIn fits all models defined by all possible subsets of the provided full model and compares them by AIC/AIC<sub>C</sub>.</p>
+</section>
+<section id="testing-individual-terms" class="level4">
+<h4 class="anchored" data-anchor-id="testing-individual-terms">8. Testing individual terms</h4>
+<p><code>anova(lm.model)</code> displays <strong>sequential F-tests</strong> for individual terms. Sequential testing means that the order of the predictors affects the results (unless the predictors are perfectly independent - <em>orthogonal</em>).</p>
+<p><code>summary(lm.model)</code> displays detailed model statistics - F-test of the whole model and t-tests of individual regression coefficients. These t-tests are not sequential and thus are independent of the term order in the model.</p>
+</section>
+<section id="model-coefficients" class="level4">
+<h4 class="anchored" data-anchor-id="model-coefficients">9. Model coefficients</h4>
+<p>Function <code>coef()</code> shows model coefficients.</p>
+</section>
+<section id="model-residuals" class="level4">
+<h4 class="anchored" data-anchor-id="model-residuals">10. Model residuals</h4>
+<p>Function <code>resid()</code> displays model residuals.</p>
+</section>
+<section id="extraxt-fitted-values" class="level4">
+<h4 class="anchored" data-anchor-id="extraxt-fitted-values">11. Extraxt fitted values</h4>
+<p>Fitted (predicted) values can be obtained with the <code>predict_response()</code> function of the package ggeffects. This can be plotted directly with ggplot.</p>
+</section>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p><em>Data are availabe in separate Excel sheets.</em></p>
+<ol type="1">
+<li><p>The number of seedlings per square meter was monitored at 24 grasslands, which were mown once (mown1), mown twice (mown2), or grazed (variable treatment). In addition, biomass production was measured together with the mean annual temperature of each grassland. Build a multiple regression model predicting the effects of grassland parameters on seedling density.</p></li>
+<li><p>Transpiration of plants was recorded together with air humidity, temperature, wind speed, and sunny vs.&nbsp;cloudy weather. On which of these variables does the transpiration rate depend?</p></li>
+<li><p>The effect of watering and fertiliser application on plant growth (measured by biomass production) was tested in the full-factorial manipulative experiment. Perform a two-way analysis of variance and test the interaction between the two treatments.</p></li>
+<li><p>The effect of physical exercise and diet on body mass was studied in 21 people. In addition to the studied variables, body height, hair color, and sex were also recorded as presumed important covariates. What does the body mass depend on?</p></li>
+</ol>
+<section id="real-data-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="real-data-tasks">Real data tasks</h4>
+<ol start="5" type="1">
+<li>Analyse the dependence between vegetation species richness (=number of species) and all predictors describing soil properties and past management in the dataset of vegetation plots of Latvian grasslands. Consider appropriate transformations of the data if needed. The data are available from data/LatviaGrasslands.xlsx The data come from the <a href="https://theses.cz/id/zt3lx8/?lang=en">master thesis of Martin Franc</a> (in Czech with English abstract).</li>
+</ol>
+<p><strong>#AI</strong> Ask your favourite LLM to solve any of the tasks and generate the corresponding R script. Compare the LLM solution with yours</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The likelihood is something as “accuracy score” measuring how well the model actually explains the data, i.e.&nbsp;how much do its predictions match the reality. And why log? Well, this is mainly practical - the the chance (likelihood) that the model will predict every single data point right is very very small (e.g., 0.00000000000000000001) and as you can imagine, working with such numbers is a nightmare. For this purpose, we use the log(L), where the terrible number suddenly looks like this: -46.0517.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

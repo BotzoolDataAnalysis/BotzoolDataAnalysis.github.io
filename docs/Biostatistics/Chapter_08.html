@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jakub Těšitel">
+
+<title>Chapter 8: F-test and distribution, analysis of variance (ANOVA) – Botzool Data Analysis</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_08.html">8 F-test and ANOVA</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Manipulation and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/2_data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/3_data_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/4_wide_vs_long.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Wide vs.&nbsp;long format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/5_join_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Join functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 + 7 Advanced data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/8_9_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 + 9 Automatisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/10_long_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Long pipelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/11_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 From a database to a plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/13_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">* Maps</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Biostatistics/biostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Philosophical foundations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Probability and distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Hypotheses and patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 Contingency tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 Confidence intervals and t-tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_08.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">8 F-test and ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 Linear regression and correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Transformations and non-parametric tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 Multi-way ANOVA, multiple regression and LMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../CommunityEcology/community_ecology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Community Ecology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CommunityEcology/gordi_vignette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">gordi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../AIinTeaching/ai_in_teaching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI in Data Analysis</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#f-test" id="toc-f-test" class="nav-link active" data-scroll-target="#f-test">F-test</a></li>
+  <li><a href="#anova-analysis-of-variance" id="toc-anova-analysis-of-variance" class="nav-link" data-scroll-target="#anova-analysis-of-variance">ANOVA: Analysis of variance</a></li>
+  <li><a href="#anova-assumptions" id="toc-anova-assumptions" class="nav-link" data-scroll-target="#anova-assumptions">ANOVA assumptions</a></li>
+  <li><a href="#post-hoc-comparisons" id="toc-post-hoc-comparisons" class="nav-link" data-scroll-target="#post-hoc-comparisons">Post-hoc comparisons</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_08.html">8 F-test and ANOVA</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Chapter 8: F-test and distribution, analysis of variance (ANOVA)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jakub Těšitel </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="f-test" class="level2">
+<h2 class="anchored" data-anchor-id="f-test">F-test</h2>
+<p>Normally distributed data can be described by two parameters – the <strong>mean</strong> and the <strong>variance</strong>. We discussed testing the difference in the mean between two samples in the previous chapter (t-distribution and t-test). However, it is also possible to test whether <em>two samples which come from a population have the same variance</em>, i.e.&nbsp;the null hypothesis stating:</p>
+<p><span class="math display">\[
+\sigma^2_1 = \sigma^2_2
+\]</span></p>
+<p>as usual for population parameters, we do not know the <span class="math inline">\(\sigma^2\)</span>, but they can be estimated by <span class="math inline">\(s^2\)</span> (sample variances). A comparison between sample variances is then made by <strong>F-test</strong>, which is a simple ratio between sample variances:</p>
+<p><span class="math display">\[
+F = \frac{s^2_1}{s^2_2}
+\]</span></p>
+<p>The <span class="math inline">\(F\)</span> statistic follows the <strong>F-distribution</strong> (<strong>Fig. 1</strong>), the shape of which is defined by <strong>two degrees of freedom</strong> – <span class="math inline">\(DF\ numerator\)</span> and <span class="math inline">\(DF\ denominator\)</span>. These are found as <span class="math inline">\(n_1 – 1\)</span> and <span class="math inline">\(n_2 – 1\)</span> (i.e.&nbsp;number of observations in the corresponding sample – 1). When reporting test results in a text, both DFs must be reported (usually as subscripts). For instance, “variances in size significantly differed between green and red apples” (<span class="math inline">\(F_{20,25}\)</span> = 2.52, <span class="math inline">\(p\)</span> = 0.015).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># F(2,2)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">2</span>, <span class="at">df2 =</span> <span class="dv">2</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">'red'</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">'Probability density of F'</span>, <span class="at">xlab =</span> <span class="st">'F'</span>, <span class="at">ylab =</span> <span class="st">'Probability density'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">0.8</span>, <span class="at">y =</span> <span class="fl">0.85</span>, <span class="at">labels =</span> <span class="st">'F(2,2)'</span>, <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># F(3,20)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">3</span>, <span class="at">df2 =</span> <span class="dv">20</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">'green'</span>, <span class="at">add =</span> T)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">0.7</span>, <span class="at">labels =</span> <span class="st">'F(3,20)'</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># F(5,5)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">5</span>, <span class="at">df2 =</span> <span class="dv">5</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">add =</span> T)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="fl">0.58</span>, <span class="at">labels =</span> <span class="st">'F(5,5)'</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># F(20,3)</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">20</span>, <span class="at">df2 =</span> <span class="dv">3</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">'turquoise'</span>, <span class="at">add =</span> T)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.9</span>, <span class="at">y =</span> <span class="fl">0.47</span>, <span class="at">labels =</span> <span class="st">'F(20,3)'</span>, <span class="at">col =</span> <span class="st">'turquoise'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_08_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Probability density plot of F-distributions with different DFs.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="anova-analysis-of-variance" class="level2">
+<h2 class="anchored" data-anchor-id="anova-analysis-of-variance">ANOVA: Analysis of variance</h2>
+<p><strong>F-test</strong> is rarely used to test the differences in variances between two samples because hypotheses on variance are not common. However, <strong>F-test</strong> has a crucial application in the analysis of variance.</p>
+<p>In <strong>Chapter 7</strong>, we discussed comparisons between the means of two samples using a <strong>t-test</strong>. A natural question, however, arises – what if we have more than two samples? We may try using pair-wise comparisons between each pair of them. That would, however, lead to multiple non-independent tests and result in inflated <strong>Type I Error</strong> probability<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Therefore, we use analysis of variance (ANOVA) to solve such problems.</p>
+<p>ANOVA tests a null hypothesis on means of multiple samples, which states that the <em>population means are equal</em>, i.e.:</p>
+<p><span class="math display">\[
+\mu_1 = \mu_2 = \mu_3 =\ ...\ = \mu_k
+\]</span></p>
+<p>The mechanism of <strong>ANOVA</strong> is based on decomposing the total variability into two components:</p>
+<ol type="1">
+<li><p><strong>systematic component</strong> corresponding to differences <em>between</em> groups</p></li>
+<li><p><strong>error</strong> (or residual) component corresponding to differences <em>within</em> groups.</p></li>
+</ol>
+<p>These differences are measured as “squares”. For each observation in the dataset:</p>
+<ul>
+<li><p><strong>total square</strong> (measuring difference between its <em>value and the overall mean</em>)</p></li>
+<li><p><strong>effect square</strong> (measuring difference between corresponding <em>group mean and the overall mean</em><u>)</u></p></li>
+<li><p><strong>error square</strong> (measuring difference between the <em>value and corresponding group mean</em>)</p></li>
+</ul>
+<p>can be calculated as in <strong>Fig. 2</strong>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">5</span>)),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">6</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xpd =</span> T)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> group, <span class="at">data =</span> df, <span class="at">type =</span> <span class="st">'n'</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">'n'</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'sample'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">2.95</span>, <span class="fl">2.95</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">mean</span>(df<span class="sc">$</span>y), <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="fu">mean</span>(df<span class="sc">$</span>y)),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'#fcd3cc'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">3.05</span>, <span class="fl">3.05</span>, <span class="fl">3.7</span>, <span class="fl">3.7</span>),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">mean</span>(df<span class="sc">$</span>y), <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">-</span> <span class="fl">0.01</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">-</span> <span class="fl">0.01</span>, <span class="fu">mean</span>(df<span class="sc">$</span>y)),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'#fcd3cc'</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">3.05</span>, <span class="fl">3.05</span>, <span class="fl">3.4</span>, <span class="fl">3.4</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">+</span> <span class="fl">0.01</span>, <span class="fu">max</span>(df<span class="sc">$</span>y),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>              <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">+</span> <span class="fl">0.01</span>),</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'#fcd3cc'</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y <span class="sc">~</span> group, <span class="at">data =</span> df, <span class="at">add =</span> T)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fl">0.85</span>, <span class="at">x1 =</span> <span class="fl">1.15</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'1'</span>]),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fl">1.85</span>, <span class="at">x1 =</span> <span class="fl">2.15</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'2'</span>]),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fl">2.85</span>, <span class="at">x1 =</span> <span class="fl">3.15</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y), <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">3.25</span>, <span class="at">y =</span> <span class="fl">4.2</span>, <span class="at">labels =</span> <span class="st">'overall mean'</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.35</span>, <span class="at">y =</span> <span class="fl">3.3</span>, <span class="at">labels =</span> <span class="st">'group</span><span class="sc">\n</span><span class="st">mean'</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="at">bg =</span> <span class="st">'red'</span>, <span class="at">col =</span> <span class="st">'black'</span>, <span class="at">pch =</span> <span class="dv">21</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">2.95</span>, <span class="at">x1 =</span> <span class="fl">2.95</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y), <span class="at">y1 =</span> <span class="fu">max</span>(df<span class="sc">$</span>y),</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">2.95</span>, <span class="at">x1 =</span> <span class="fl">2.95</span>,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="at">y1 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y),</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">3.05</span>, <span class="at">x1 =</span> <span class="fl">3.05</span>,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y), <span class="at">y1 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]),</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">3.05</span>, <span class="at">x1 =</span> <span class="fl">3.05</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]), <span class="at">y1 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y),</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">3.05</span>, <span class="at">x1 =</span> <span class="fl">3.05</span>,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]), <span class="at">y1 =</span> <span class="fu">max</span>(df<span class="sc">$</span>y),</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fl">3.05</span>, <span class="at">x1 =</span> <span class="fl">3.05</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>       <span class="at">y0 =</span> <span class="fu">max</span>(df<span class="sc">$</span>y), <span class="at">y1 =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]),</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span> <span class="sc">+</span> (<span class="fl">2.95</span> <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y) <span class="sc">+</span> (<span class="fu">max</span>(df<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y)) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">'Total</span><span class="sc">\n</span><span class="st">Square'</span>) </span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">3.05</span> <span class="sc">+</span> (<span class="fl">3.4</span> <span class="sc">-</span> <span class="fl">3.05</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">+</span> (<span class="fu">max</span>(df<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>])) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">'Error</span><span class="sc">\n</span><span class="st">Sq.'</span>) </span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">3.05</span> <span class="sc">+</span> (<span class="fl">3.7</span> <span class="sc">-</span> <span class="fl">3.05</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="fu">mean</span>(df<span class="sc">$</span>y) <span class="sc">+</span> (<span class="fu">mean</span>(df<span class="sc">$</span>y[df<span class="sc">$</span>group <span class="sc">==</span> <span class="st">'3'</span>]) <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y)) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">'Group</span><span class="sc">\n</span><span class="st">(Effect)</span><span class="sc">\n</span><span class="st">Sq.'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_08_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 2: The ANOVA mechanism: definition of ‘squares’ exemplified with the red data point.</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xpd =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Subsequently, we can sum the square statistics over the whole dataset and get <strong>Sums of Squares (SS)</strong>: <span class="math inline">\(SS_{total}\)</span>, <span class="math inline">\(SS_{effect}\)</span>, <span class="math inline">\(SS_{error}\)</span>. We can further calculate <strong>Mean Squares (MS)</strong> by dividing <strong>SS</strong> by corresponding <strong>DF</strong>, with:</p>
+<ul>
+<li><p><span class="math inline">\(DF_{total} = n\ –\ 1\)</span></p></li>
+<li><p><span class="math inline">\(DF_{effect} = k\ –\ 1\)</span></p></li>
+<li><p><span class="math inline">\(DF_{error} = DF_{total} - DF_{effect}\)</span></p></li>
+</ul>
+<p>where <span class="math inline">\(n\)</span> is total number of observations and <span class="math inline">\(k\)</span> number of categories. Hence, we get:</p>
+<p><span class="math display">\[MS_{effect} = \frac{SS_{effect}}{DF_{effect}}\]</span> <span class="math display">\[MS_{error} = \frac{SS_{error}}{DF_{error}}\]</span></p>
+<p>and now, it comes: <strong>the mean squares are actually variances</strong>. As a result, we can use an <strong>F-test</strong> to test the null hypothesis that <span class="math inline">\(MS_{effect}\)</span> is lower than or equal to <span class="math inline">\(MS_{error}\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Such test is equivalent to the test of the null hypothesis stating that <strong>all means are equal</strong>:</p>
+<p><span class="math display">\[F_{DF_{effect},\ DF_{error}} = \frac{MS_{effect}}{MS_{error}}\]</span></p>
+<p>the corresponding <em>p-value</em> is then found based on a comparison with <em>F distribution</em> as in an ordinary <strong>F-test</strong>. Note that rejecting the null hypothesis means that <em>at least one of the means is significantly different from at least one other</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>Besides the <em>p-value</em>, it is also possible to compute the proportion of variability explained by the groups:</p>
+<p><span class="math display">\[r^2 = \frac{SS_{effect}}{SS_{total}}\]</span></p>
+<p>Typical report of ANOVA result in the text then reads:</p>
+<blockquote class="blockquote">
+<p>Means were significantly different among the groups (<span class="math inline">\(r^2\)</span> = 0.70, <span class="math inline">\(F_{2,\ 12}\)</span> = 14.63, <span class="math inline">\(p\)</span> = 0.0006).</p>
+</blockquote>
+</section>
+<section id="anova-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="anova-assumptions">ANOVA assumptions</h2>
+<p>ANOVA application assumes that:</p>
+<ol type="1">
+<li><p>samples come from normally distributed populations</p></li>
+<li><p>variances are equal among the groups</p></li>
+</ol>
+<p>These assumptions can be checked by analysis of residuals as they can be restated as requirements for:</p>
+<ol type="1">
+<li><p>normal distribution of residuals</p></li>
+<li><p>the constant variance of residuals</p></li>
+</ol>
+<p>There are formal tests testing for normality, such as the Shapiro-Wilk test, but their use is problematic as they test the null hypothesis that a given sample comes from a normal distribution. The tests are <strong>more powerful</strong> (likely to reject the null) if there are <strong>many observations</strong>. But in that case, <strong>ANOVA is rather robust</strong> to moderate violations of the assumption.</p>
+<p>By contrast, formal tests of normality fail to identify the most problematic cases, when the assumptions are not met, and also the number of observations is low because in such cases, their power is low.</p>
+<p>Instead, I highly recommend a visual check of the residuals. In particular, a scatterplot of standardized residuals and normal quantile-quantile (QQ) plots are informative about possible problems with ANOVA assumptions. Details on how to use these plots to assess ANOVA assumptions are very nicely explained <a href="https://arc.lib.montana.edu/book/statistics-with-r-textbook/item/57">here</a>.</p>
+</section>
+<section id="post-hoc-comparisons" class="level2">
+<h2 class="anchored" data-anchor-id="post-hoc-comparisons">Post-hoc comparisons</h2>
+<p>When we get a significant result in ANOVA (and ONLY in such case!), we may be further interested to see <em>which mean is different from which</em>. The statistical theory does not provide much help here, however, some pragmatic tools were developed for this purpose.</p>
+<p>These are based on the principle of <strong>pair-wise comparisons</strong> (similar to a series of pair-wise two-sample t-tests), which control the inflation of the <strong>Type I Error</strong> probability by adjusting the <em>p-values</em> upwards. An example of such a test is the <strong>Tukey Honest Significant Difference Test</strong> (Tukey HSD).</p>
+<p>Results of ANOVAs and the post-hoc tests can be summarized in plots with letter indices where different letters indicate significant differences between groups (<strong>Fig. 3</strong>). You can plot either fitted values with confidence intervals of the fit (<strong>Fig. 3</strong> left) – this corresponds exactly to the fitted ANOVA model or a boxplot (<strong>Fig. 3</strong> right) which displays the distribution of the data but does not display the means (which are subject to testing by ANOVA).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(y <span class="sc">~</span> <span class="fu">as.factor</span>(group), <span class="at">data =</span> df))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+as.factor(group)  2 26.355  13.177   16.33 0.000376 ***
+Residuals        12  9.682   0.807                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Post-hoc test</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(y <span class="sc">~</span> <span class="fu">as.factor</span>(group), <span class="at">data =</span> df))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = y ~ as.factor(group), data = df)
+
+$`as.factor(group)`
+         diff        lwr      upr     p adj
+2-1 0.7621108 -0.7534542 2.277676 0.4004750
+3-1 3.1143315  1.5987665 4.629896 0.0003811
+3-2 2.3522207  0.8366557 3.867786 0.0036181</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">### LM (create model)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">as.factor</span>(group), <span class="at">data =</span> df)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Predicted values (exxtracted from the model)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">predict</span>(m1, <span class="at">interval =</span> <span class="st">'confidence'</span>, <span class="at">level =</span> <span class="fl">0.95</span>), <span class="at">group =</span> df<span class="sc">$</span>group)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>pred2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pred[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">11</span>),])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># LEFT PLOT</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">### Dotchart</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> pred2<span class="sc">$</span>fit, <span class="at">x =</span> pred2<span class="sc">$</span>group, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">8</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="at">type =</span> <span class="st">'n'</span>, <span class="at">xaxt =</span> <span class="st">'n'</span>, <span class="at">yaxt =</span> <span class="st">'n'</span>, <span class="at">xlab =</span> <span class="st">'sample'</span>, <span class="at">ylab =</span> <span class="st">'Fitted value'</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">3</span>, <span class="at">by =</span> <span class="dv">1</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> pred2<span class="sc">$</span>group, <span class="at">y =</span> pred2<span class="sc">$</span>fit, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">x1 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0 =</span> pred2<span class="sc">$</span>lwr, <span class="at">y1 =</span> pred2<span class="sc">$</span>upr)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">4.4</span>, <span class="fl">5.2</span>, <span class="fl">7.6</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'a'</span>, <span class="st">'b'</span>))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># RIGHT PLOT</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">### Boxplot</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> <span class="fu">as.factor</span>(group), <span class="at">data =</span> df, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">8</span>), <span class="at">ylab =</span> <span class="st">'Observed value'</span>, <span class="at">xlab =</span> <span class="st">'sample'</span>, <span class="at">yaxt =</span> <span class="st">'n'</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>))</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">6.2</span>, <span class="fl">7.8</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'a'</span>, <span class="st">'b'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_08_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 3: Displaying ANOVA results. Dotchart displaying means and 95%-confidence intervals for the means of the three samples (left). Box-plot displaying the observed values of the response variable (y) for individual levels of the categorical predictor. Means significantly different from each other at α = 0.05 are denoted by different letters (based on the Tukey HSD test).</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to do in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="f-test-f-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="f-test-f-distribution">F-test, F-distribution</h4>
+<ul>
+<li><p><code>var.test()</code> - F Test to Compare Two Variances</p></li>
+<li><p><code>pf()</code>, <code>qf()</code> - F distribution probabilities</p></li>
+</ul>
+</section>
+<section id="anova" class="level4">
+<h4 class="anchored" data-anchor-id="anova">ANOVA</h4>
+<ul>
+<li><p><code>aov()</code> - fit an analysis of variance model, accepts formula syntax. Note, that the predictor must be a factor, otherwise linear regression is fitted (which is not correct, but no warning is given)</p></li>
+<li><p><code>summary(aov.object)</code> - displays the ANOVA table with <span class="math inline">\(SS\)</span>, <span class="math inline">\(MS\)</span>, <span class="math inline">\(F\)</span> and <span class="math inline">\(p\)</span></p></li>
+<li><p><code>plot(aov.object)</code> - displays diagnostic plots for checking ANOVA assumptions. See <a href="https://arc.lib.montana.edu/book/statistics-with-r-textbook/item/57">this page</a> for a detailed explanation. Note, that this webpage refers to more general regression diagnostics, which we will discuss in upcoming classes. It is, however, basically the same principle except for the diagnostics plot #4, which you may ignore for now.</p></li>
+</ul>
+</section>
+<section id="post-hoc-test" class="level4">
+<h4 class="anchored" data-anchor-id="post-hoc-test">Post-hoc test</h4>
+<ul>
+<li><code>TukeyHSD(aov.object)</code> - Produces a table with differences between groups. Post-hoc letters as in <strong>Fig. 3</strong> can be produced in R, but the implementation is not straighforward (see practicals script for details). However, there is always an option to add them manually.</li>
+</ul>
+</section>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li><p>The temperature of water in one pot was measured by different thermometers manufactured by two companies: Termom and Celsimet. Each of them provided ten thermometers for the testing. The aim of the testing was to detect potential systematic bias (whether the thermometers of one company show, on average, different values from those made by the other) and whether there is a difference in accuracy. The data were as follows:</p>
+<p>Termom: 18, 19, 18, 17, 16, 19, 18, 17, 19, 18</p>
+<p>Celsimet: 17, 15, 21, 20, 19, 22, 15, 16 ,18, 17</p>
+<p>Test both differences in mean values and the accuracy between the two manufacturers. Would you buy a thermometer produced by any of these companies? Voluntary task: go to a homeware shop, check thermometers there, and let the class know if the temperature pattern is similar to Termom, Celsimet, or different from both.</p></li>
+<li><p>In a fertiliser application experiment, plants growing in pots (one plant/one pot) were fertilised with different kinds of fertiliser. Dry weight of above-ground biomass was determined for each pot at the end of the experiment. The resulting masses are shown in <strong>Table 1</strong>:</p>
+<table class="caption-top table">
+<caption>Table 1. Dry weight above-ground biomass from pot experiment. DWb = dry weight biomass.</caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type of fertiliser</th>
+<th>DWb [g]</th>
+<th>DWb [g]</th>
+<th>DWb [g]</th>
+<th>DWb [g]</th>
+<th>DWb [g]</th>
+<th>DWb [g]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Water (control)</td>
+<td>87</td>
+<td>95</td>
+<td>74</td>
+<td>85</td>
+<td>89</td>
+<td>97</td>
+</tr>
+<tr class="even">
+<td>Mineral NPK diluted in water</td>
+<td>140</td>
+<td>180</td>
+<td>155</td>
+<td>164</td>
+<td>157</td>
+<td>149</td>
+</tr>
+<tr class="odd">
+<td>Mineral solid slowly decomposing NPK</td>
+<td>150</td>
+<td>190</td>
+<td>165</td>
+<td>185</td>
+<td>171</td>
+<td>182</td>
+</tr>
+<tr class="even">
+<td>Ammonnium nitrate</td>
+<td>123</td>
+<td>145</td>
+<td>136</td>
+<td>134</td>
+<td>141</td>
+<td>131</td>
+</tr>
+<tr class="odd">
+<td>Organic manure</td>
+<td>145</td>
+<td>161</td>
+<td>175</td>
+<td>149</td>
+<td>141</td>
+<td>169</td>
+</tr>
+</tbody>
+</table>
+<p>Does the application of different types of fertiliser affect plant biomass? If yes, how?</p></li>
+<li><p>20 experimental rats were given four types of nutrition. The effect of these types of nutrition on rat intelligence was measured by the time the rats needed to find a way out of a labyrinth.</p>
+<table class="caption-top table">
+<caption>Table 2. Time in seconds [c] which took each rat group to find a way out of a labyrinth.</caption>
+<thead>
+<tr class="header">
+<th>Nutrition</th>
+<th>s</th>
+<th>s</th>
+<th>s</th>
+<th>s</th>
+<th>s</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control nutrition</td>
+<td>56</td>
+<td>75</td>
+<td>65</td>
+<td>85</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td>Fat enriched</td>
+<td>102</td>
+<td>108</td>
+<td>95</td>
+<td>84</td>
+<td>115</td>
+</tr>
+<tr class="odd">
+<td>Sugar enriched</td>
+<td>85</td>
+<td>92</td>
+<td>75</td>
+<td>69</td>
+<td>79</td>
+</tr>
+<tr class="even">
+<td>Control nutrition + beer</td>
+<td>45</td>
+<td>56</td>
+<td>53</td>
+<td>61</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+<p>Does nutrition have an effect on rat intelligence? How do individual nutrition types affect rat intelligence?</p></li>
+</ol>
+<p><strong>#AI</strong> Ask your favourite LLM to solve task 3, including the graph with Tukey comparison letter display, and generate the corresponding R script.</p>
+<section id="tasks-for-independent-work" class="level4">
+<h4 class="anchored" data-anchor-id="tasks-for-independent-work">Tasks for independent work</h4>
+<ol type="A">
+<li><p>Distribution of four bird species on the gradient of altitude was studied in Moravia by recording the altitudes of their nests. The resulting data were as follows (<strong>Table 2</strong>):</p>
+<table class="caption-top table">
+<caption>Table 2. Nest altitudes (in m a.s.l.) of different bird species</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Species</th>
+<th>Nest altitude</th>
+<th>Nest altitude</th>
+<th>Nest altitude</th>
+<th>Nest altitude</th>
+<th>Nest altitude</th>
+<th>Nest altitude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>sea eagle</p>
+<p><img src="images/clipboard-616923756.png" class="img-fluid" width="166"></p></td>
+<td>160</td>
+<td>180</td>
+<td>224</td>
+<td>175</td>
+<td>305</td>
+<td>280</td>
+</tr>
+<tr class="even">
+<td><p>blackbird</p>
+<p><img src="images/clipboard-3137829646.png" class="img-fluid"></p></td>
+<td>780</td>
+<td>540</td>
+<td>180</td>
+<td>380</td>
+<td>685</td>
+<td>430</td>
+</tr>
+<tr class="odd">
+<td><p>raven</p>
+<p><img src="images/clipboard-4210348320.png" class="img-fluid"></p></td>
+<td>1200</td>
+<td>830</td>
+<td>450</td>
+<td>1050</td>
+<td>870</td>
+<td>930</td>
+</tr>
+<tr class="even">
+<td><p>red crossbill</p>
+<p><img src="images/clipboard-4144181507.png" class="img-fluid"></p></td>
+<td>780</td>
+<td>830</td>
+<td>680</td>
+<td>1005</td>
+<td>970</td>
+<td>950</td>
+</tr>
+</tbody>
+</table>
+<p>Does the mean of the altitudinal range significantly differ between the species?</p></li>
+<li><p>The number of insect herbivore species was recorded on three species of trees in a forest (9 randomly chosen individuals per species). The following numbers of herbivore species were recorded (<strong>Table 3</strong>):</p>
+<table class="caption-top table">
+<caption>Table 3. Herbivore richness on different tree species.</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Species</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+<th># sp.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>beech</td>
+<td>3</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>7</td>
+<td>8</td>
+<td>4</td>
+<td>6</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>spruce</td>
+<td>8</td>
+<td>3</td>
+<td>6</td>
+<td>7</td>
+<td>3</td>
+<td>4</td>
+<td>6</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>lime</td>
+<td>10</td>
+<td>7</td>
+<td>15</td>
+<td>12</td>
+<td>9</td>
+<td>8</td>
+<td>12</td>
+<td>11</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>Do the tree species differ in the species richness of herbivore communities? If yes, how?</p></li>
+<li><p>Wheat (<em>Triticum aestivum</em>) was cultivated in pots with three substrates: sandy, clay, and peaty. Chlorophyll concentration [<span class="math inline">\(\mu mol\)</span> per <span class="math inline">\(cm^2\)</span> of leaf area] was then analysed in the leaves of the experimental wheat plants. The results are summarised below (<strong>Table 4</strong>):</p>
+<table class="caption-top table">
+<caption>Table 4. Chlorophyll concentration in leaves on different substrates.</caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Substrate</th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+<th><span class="math inline">\(\mu mol / cm^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sandy soil</td>
+<td>50</td>
+<td>45</td>
+<td>61</td>
+<td>54</td>
+<td>48</td>
+<td>42</td>
+</tr>
+<tr class="even">
+<td>clay</td>
+<td>53</td>
+<td>61</td>
+<td>59</td>
+<td>49</td>
+<td>58</td>
+<td>69</td>
+</tr>
+<tr class="odd">
+<td>peaty soil</td>
+<td>31</td>
+<td>40</td>
+<td>41</td>
+<td>28</td>
+<td>35</td>
+<td>37</td>
+</tr>
+</tbody>
+</table>
+<p>Does the soil type have a significant effect on chlorophyll concentration?</p></li>
+<li><p>Speed of cars was measured by the traffic police on the Nové Sady Street in Brno. The drivers exceeding the speed limit of 50 <span class="math inline">\(km/h\)</span> were punished by a fine. In addition to the speed, the car color was recorded. The resulting speed data (in <span class="math inline">\(km/h\)</span>) were the following (<strong>Table 5</strong>):</p>
+<table class="caption-top table">
+<caption>Table 5. Car speed by carolour.</caption>
+<thead>
+<tr class="header">
+<th>Car colour</th>
+<th>speed (<span class="math inline">\(km/h\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>red</td>
+<td>50, 52, 47, 43, 40, 49, 49, 75, 48, 50, 48, 49</td>
+</tr>
+<tr class="even">
+<td>blue</td>
+<td>65, 50, 47, 75, 45, 38, 67, 57, 54</td>
+</tr>
+<tr class="odd">
+<td>black</td>
+<td>45, 76, 58, 53, 54, 50, 48, 49</td>
+</tr>
+<tr class="even">
+<td>yellow</td>
+<td>38, 49, 54, 49</td>
+</tr>
+</tbody>
+</table>
+<p>Is the driving speed associated with car color? Should the police focus more on drivers driving cars of a particular color?</p></li>
+</ol>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This comes from the fact that if individual tests are performed at <span class="math inline">\(\alpha\)</span> = 0.05, then probability of making <strong>Type I Error</strong> in 2 tests (i.e.&nbsp;making error in at least one of the test) is p = 0.05+0.05-0.052 = 0.975.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In other words, the effect of predictor is lower than the effect of random error.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Thus, based solemnly on this test, we cannot say which mean differs from which.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

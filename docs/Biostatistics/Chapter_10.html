@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jakub Těšitel">
+
+<title>Chapter 10: When assumptions are violated - data transformation and non-parametric methods – Botzool Data Analysis</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_10.html">10 Transformations and non-parametric tests</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Manipulation and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/1_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/2_data_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/3_data_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/4_wide_vs_long.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Wide vs.&nbsp;long format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/5_join_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Join functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 + 7 Advanced data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/8_9_automatisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 + 9 Automatisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/10_long_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 Long pipelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/11_database_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 From a database to a plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/12_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../DataManipulationVisualisation/13_maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">* Maps</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Biostatistics/biostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 Philosophical foundations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 Data exploration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 Probability and distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Hypotheses and patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 Contingency tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 Confidence intervals and t-tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 F-test and ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 Linear regression and correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_10.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">10 Transformations and non-parametric tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Biostatistics/Chapter_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 Multi-way ANOVA, multiple regression and LMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../CommunityEcology/community_ecology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Community Ecology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CommunityEcology/gordi_vignette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">gordi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../AIinTeaching/ai_in_teaching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI in Data Analysis</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#log-normally-distributed-data" id="toc-log-normally-distributed-data" class="nav-link active" data-scroll-target="#log-normally-distributed-data">Log-normally distributed data</a></li>
+  <li><a href="#non-parametric-tests" id="toc-non-parametric-tests" class="nav-link" data-scroll-target="#non-parametric-tests">Non-parametric tests</a></li>
+  <li><a href="#permutation-tests" id="toc-permutation-tests" class="nav-link" data-scroll-target="#permutation-tests">Permutation tests</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Biostatistics/biostatistics.html">Introduction to Biostatistics</a></li><li class="breadcrumb-item"><a href="../Biostatistics/Chapter_10.html">10 Transformations and non-parametric tests</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Chapter 10: When assumptions are violated - data transformation and non-parametric methods</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jakub Těšitel </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="log-normally-distributed-data" class="level2">
+<h2 class="anchored" data-anchor-id="log-normally-distributed-data">Log-normally distributed data</h2>
+<p>Log-normal distribution is very common in many kinds of biological data. These are random variables whose logarithm follows the normal distribution. As a result, log-normal variables may range from the zero limit (excluding zero itself) to plus infinity – that is pretty realistic e.g.&nbsp;for dimensions, mass, time, etc.</p>
+<p>In contrast to the symmetric normal distribution, log-normal variables are <em>positively skewed</em> and display a positive correlation between mean and variance (<strong>Figure 1</strong>). A straightforward suggestion for such data is to apply log-transformation to the values to obtain normally distributed variables (<strong>Figures 1</strong>, <strong>2</strong>, <strong>Table 1</strong>). ANOVA applied on non-transformed and transformed data provides quite different results (<strong>Table 1</strong>).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create vector of jobs</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jobs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"IT"</span>, <span class="st">"lawyer"</span>, <span class="st">"manager"</span>, <span class="st">"student"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># generate log-normally distributed data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>it <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">30</span>, <span class="at">meanlog =</span> <span class="fl">1.8</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>lawyer <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">35</span>, <span class="at">meanlog =</span> <span class="fl">2.1</span>, <span class="at">sdlog =</span> <span class="fl">0.7</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>manager <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">40</span>, <span class="at">meanlog =</span> <span class="fl">2.3</span>, <span class="at">sdlog =</span> <span class="fl">0.7</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>student <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">25</span>, <span class="at">meanlog =</span> <span class="fl">1.2</span>, <span class="at">sdlog =</span> <span class="fl">0.4</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>calls <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">job =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(jobs, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">25</span>)), <span class="at">levels =</span> jobs),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">length =</span> <span class="fu">c</span>(it, lawyer, manager, student)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plots</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(length <span class="sc">~</span> job, <span class="at">data =</span> calls)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(length) <span class="sc">~</span> job, <span class="at">data =</span> calls)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_10_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 1: Example of a log-normal variable: effect of job on the length of phone calls. The left panel shows the boxplot on the ordinary linear scale, while the right panel shows the same values on the log-scaled y-axis.</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The test may be then performed like this:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anova not transformed</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ntm <span class="ot">&lt;-</span> <span class="fu">lm</span>(length <span class="sc">~</span> job, <span class="at">data =</span> calls) <span class="co"># model</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ntm)             <span class="co"># test stats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: length
+           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+job         3 1657.4  552.48  11.196 1.455e-06 ***
+Residuals 126 6217.8   49.35                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ntm)<span class="sc">$</span>r.squared <span class="co"># r-squared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.210463</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anova transformed</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(length) <span class="sc">~</span> job, <span class="at">data =</span> calls) <span class="co"># model</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(tm)             <span class="co"># test stats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: log(length)
+           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+job         3 29.658  9.8860   18.93 3.379e-10 ***
+Residuals 126 65.804  0.5223                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tm)<span class="sc">$</span>r.squared <span class="co"># r-squared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3106795</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<caption>Table 1: Summaries of ANOVA applied on non-transformed and transformed data displayed in Figure 1.</caption>
+<thead>
+<tr class="header">
+<th>Analysis</th>
+<th><span class="math inline">\(R^2\)</span></th>
+<th><span class="math inline">\(F\)</span></th>
+<th><span class="math inline">\(DF\)</span></th>
+<th><span class="math inline">\(p\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>non-transformed</td>
+<td>0.12</td>
+<td>5.57</td>
+<td>3, 126</td>
+<td>0.00127</td>
+</tr>
+<tr class="even">
+<td>log-transformed</td>
+<td>0.23</td>
+<td>12.53</td>
+<td>3, 126</td>
+<td>3.15e-07</td>
+</tr>
+</tbody>
+</table>
+<p>And these plots compare diagnostics plots of the transformed and non-transformed models:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ntm, <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tm,  <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_10_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 2: Diagnostic plots of ANOVA models applied on non-transformed (upper row) and log-transformed data (lower row). Note the improved normal fit on the QQplot and homogeneity of variances after transformation (Residuals vs.&nbsp;Fitted and Scale-Location plots).</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>But log-transformation is not a simple utility procedure. It also affects the interpretation of the analysis. Log-transformation changes the scale from additive to multiplicative, i.e., we test the null hypothesis stating that <em>the ratio between population means is 1</em> (instead of the difference being 0). We also consider different means – analysis on log-scale implies testing the <em>geometric means</em> on the original scale.</p>
+<p>The same applies to regression coefficients, which become <em>relative</em> rather than absolute numbers, e.g., the slope indicates how many times the response variable will change with a change in the predictor. An example with log-transformation in linear regression is displayed in <strong>Figure 3</strong>, <strong>4</strong>. and <strong>Table 2</strong>.</p>
+<p>Log-transformation is sometimes used for data, which are not log-normally distributed but are just positively skewed. Such data may contain zeros and thus are not log-transformable. Instead <strong>log (x + constant)</strong> transformation must be used. Alternatively, square-root transformation may be considered for such data.</p>
+<p>Note that the analysis results do not depend on the logarithm used – natural and decadic logarithms are used most frequently. Just beware of being consistent in using the same logarithm throughout the analysis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2468</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># generate fertilizer data</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fertilizer <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">5</span>, <span class="dv">15</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># generate yield data (log normal)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>log_yield <span class="ot">&lt;-</span> <span class="fl">1.1</span> <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> fertilizer <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">1.6</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>yield <span class="ot">&lt;-</span> <span class="fu">exp</span>(log_yield)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># data frame</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>maize <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Fertilizer =</span> fertilizer, <span class="at">Yield =</span> yield)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="do">### linear scale</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Yield <span class="sc">~</span> Fertilizer, <span class="at">data =</span> maize,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">'Grain yield'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="do">### log scaled y-axis</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Yield <span class="sc">~</span> Fertilizer, <span class="at">data =</span> maize,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">log =</span> <span class="st">'y'</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">'Grain yield'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_10_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 3: Example of a regression with log-normal variable: how grain yield of maize depends on the amount of fertilizer applied. The left panel shows the scatterplot on the ordinary linear scale, while the right panel shows the same values on the log-scaled y-axis.</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>And this is how the tests would look like:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anova not transformed</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ntm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Yield <span class="sc">~</span> Fertilizer, <span class="at">data =</span> maize) <span class="co"># model</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ntm2)             <span class="co"># test stats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Yield
+           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+Fertilizer  1  313920  313920  6.2491 0.01409 *
+Residuals  98 4922942   50234                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ntm2)<span class="sc">$</span>r.squared <span class="co"># r-squared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0599443</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anova transformed</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Yield) <span class="sc">~</span> Fertilizer, <span class="at">data =</span> maize) <span class="co"># model</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(tm2)             <span class="co"># test stats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: log(Yield)
+           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Fertilizer  1  30.851 30.8506  13.129 0.0004631 ***
+Residuals  98 230.284  2.3498                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tm2)<span class="sc">$</span>r.squared <span class="co"># r-squared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1181406</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<caption>Table 2: ANOVA tables of linear models fitted on non-transformed and transformed data displayed in Figure 3.</caption>
+<thead>
+<tr class="header">
+<th>Analysis</th>
+<th><span class="math inline">\(R^2\)</span></th>
+<th><span class="math inline">\(F\)</span></th>
+<th><span class="math inline">\(DF\)</span></th>
+<th><span class="math inline">\(p\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>non-transformed</td>
+<td>0.06</td>
+<td>6.28</td>
+<td>1, 98</td>
+<td>0.01386</td>
+</tr>
+<tr class="even">
+<td>log-transformed</td>
+<td>0.11</td>
+<td>11.52</td>
+<td>1, 98</td>
+<td>0.0009951</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ntm2, <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tm2,  <span class="at">which =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Chapter_10_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Figure 4: Diagnostic plots of linear models fitted on non-transformed (upper row of plots) and log-transformed data (lower row of plots). Note improved normal fit on the QQplot and improved homogeneity of variances after transformation (Scale-Location plot).</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show R Script</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="non-parametric-tests" class="level2">
+<h2 class="anchored" data-anchor-id="non-parametric-tests">Non-parametric tests</h2>
+<p>Some distributions cannot be approximated by the normal distribution, and simple transformations may not be helpful. This applies to many data on the <em>ordinal scale</em> such as school grades, subjective rankings etc.</p>
+<p>For such cases, non-parametric tests were developed (<strong>Table 3</strong>). These tests replace the original values by their order and use the resulting order values to <strong>test differences in central tendencies</strong> (which are not precisely means) between the samples. These tests are still based on the assumption that the samples come from the same, although not normal, distribution (which, however, is quite reasonable).</p>
+<table class="caption-top table">
+<caption>Table 3: List of parametric tests and their most common non-parametric counterparts together with appropriate R functions.</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parametric test</th>
+<th>Non-parametric alternative</th>
+<th>R function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>two-sample t-test</td>
+<td>Mann-Whitney U test</td>
+<td><code>wilcox.test()</code></td>
+</tr>
+<tr class="even">
+<td>paired t-test</td>
+<td>Wilcoxon test</td>
+<td><code>wilcox.test()</code> with parameter <code>paired = T</code></td>
+</tr>
+<tr class="odd">
+<td>one way ANOVA</td>
+<td>Kruskal-Wallis test<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td><code>kruskal.test()</code></td>
+</tr>
+<tr class="even">
+<td>Pearson correlation</td>
+<td>Spearman correlation</td>
+<td><code>cor.test()</code> with parameter <code>method = 'spearman'</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="permutation-tests" class="level2">
+<h2 class="anchored" data-anchor-id="permutation-tests">Permutation tests</h2>
+<p>Permutation tests represent valuable alternatives to parametric or non-parametric tests. First, a statistic of difference from the null hypothesis (between samples) is defined. That may be the raw or relative difference or an F-ratio if multiple groups are analyzed. This statistic is computed for observed data (observed statistic). Subsequently, values of the response variable are repeatedly permuted (reshuffled), and the same statistic is computed in each permutation. The p-value is then determined by the formula:</p>
+<p><span class="math display">\[
+p = \frac{x + 1}{n_{perm} + 1}
+\]</span></p>
+<p>where <span class="math inline">\(x\)</span> is the number of permutations in which test statistic was higher than observed test statistic, and <span class="math inline">\(n_{perm}\)</span> is the total number of permutations.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to do in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="log-scaling-of-graph-axes-in-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="log-scaling-of-graph-axes-in-ggplot2">1. Log-scaling of graph axes in ggplot2</h2>
+<ul>
+<li><p><code>scale_y_continuous()</code> - scaling of y axis</p></li>
+<li><p><code>scale_x_continuous()</code> - scaling of x axis</p></li>
+<li><p>plus parameter <code>trans = 'log10'</code> to use decimal logarithm, <code>trans = 'log2'</code> to use 2 as the log-basis</p></li>
+<li><p>or you can use these handy wrapper functions: <code>scale_y_log10()</code> and <code>scale_x_log10()</code></p></li>
+</ul>
+</section>
+<section id="log-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="log-transformation">2. Log-transformation</h2>
+<ul>
+<li><p>function <code>log()</code> for natural logarithm</p></li>
+<li><p>function <code>log10()</code> for decimal logarithm</p></li>
+</ul>
+</section>
+<section id="non-parametric-tests-1" class="level2">
+<h2 class="anchored" data-anchor-id="non-parametric-tests-1">3. Non-parametric tests</h2>
+<p>See <strong>Table 3</strong>.</p>
+</section>
+<section id="permutation-tests-1" class="level2">
+<h2 class="anchored" data-anchor-id="permutation-tests-1">4. Permutation tests</h2>
+<p>They are available in library <strong>coin</strong>:</p>
+<ul>
+<li><p>permutation-based ANOVA: <code>oneway_test()</code></p></li>
+<li><p>permutation-based correlation: <code>spearman_test()</code></p></li>
+</ul>
+<p>Both functions require this parameter: <code>distribution = approximate(B = number of permutations)</code> to be set. <code>B</code> is usually set to <code>999</code> or <code>9999</code>.</p>
+</section>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li><p>Hair length was measured in two samples of twelve randomly chosen male students doing their studies at the faculty of science and the faculty of law.</p>
+<p>The measured hair length (in cm) was:</p>
+<table class="caption-top table">
+<caption>Hair length of male students</caption>
+<thead>
+<tr class="header">
+<th>Faculty of science</th>
+<th>Faculty of law</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>14</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td>21</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>51</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>Does the hair length of guys significantly differ depending on which faculty they do their studies?</p></li>
+<li><p>The number of vascular plant species was recorded in 10 countries. How does the number of species depend on the country’s area?</p></li>
+<li><p>Aggressiveness of football fans was monitored at 20 football matches of different leagues (0 = district league, 5 = Champions’ league) on an ordinal scale (0 = calm fans, 1 = loud support to players, 2 = loud support + some fireworks, 3 = loud support + many fireworks, 4 = fireworks thrown on the pitch, 5 = fans running on the pitch, 6 = fans running on the pitch and attacking the referee.</p>
+<p>The resulting data were as follows:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Match ID</th>
+<th>League</th>
+<th>Aggressiveness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>5</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Is the aggressiveness of fans associated with league level?</p></li>
+<li><p>During the finals of the pizza tasting competition, ten evaluators tasted pairs of pizza samples prepared by cooks Francesco and Giacomo. Their evaluation (on a scale 1-5, 1 is best, 5 is worst) was the following. Is there any significant difference in the quality of pizza these guys make? Who will be the winner of the competition?</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pizza <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Francesco =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Giacomo   =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="5" type="1">
+<li>Lettuce varieties were evaluated for their taste. They also differed in leaf color. The taste was ranked on the scale (1 = delightful, 2 = very good, 3 = acceptable, 4 = bitter, not really good, 5 = ugly, disgusting). The resulting values are summarised here. Is there an association between leaf color and the taste of lettuce?</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lettuce <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">red_leaved_varieties =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">green_leaved_varieties =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="6" type="1">
+<li><p>24 people read 24 books (one each) written by four different authors (6 by each). After reading the book, they were asked to rate the book on a scale: 1 – annoying, 2 – boring, 3 – mostly boring with some enjoyable parts, 4 – enjoyable, and 5 – wonderful.</p>
+<p>The resulting data are summarised below:</p>
+<table class="caption-top table">
+<caption>Book ratings</caption>
+<thead>
+<tr class="header">
+<th>Ernest Hemingway</th>
+<th>Charles Dickens</th>
+<th>Alexander Pushkin</th>
+<th>Lev Tolstoy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Is there any significant difference in rating among these authors? Which of them has the highest average rating?</p></li>
+</ol>
+<section id="real-data-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="real-data-tasks">Real data tasks</h4>
+<ol start="7" type="1">
+<li><p>Analyse the relationship between three types (the variable Type) of plant <em>Odontites vernus</em> defined on ploidy level (2n = 2x and 2n = 4x) and time of flowering (early = June and late = August), and morphology of the plants quantified by the number of internodes (the variable Internodes_total). Tests if the three types of the species differ in the internode number. Consider how the data align with the assumptions of ANOVA, and if not, find a suitable solution. The data are available from <code>data/Odontites_cytotypes_morphology.xlsx</code>. The original publication is available <a href="https://www.preslia.cz/article/150">here</a>.</p></li>
+<li><p>Analyse the dependence between vegetation species richness (number of species) and plant-available phosphorus concentration in the soil in the dataset of vegetation plots of Latvian grasslands. Consider how the data align with the assumptions of linear regression, and if not, find a suitable solution. The data are available from <code>data/LatviaGrasslands.xlsx</code>. The data come from the <a href="https://theses.cz/id/zt3lx8/?lang=en">master thesis of Martin Franc</a> (in Czech with English abstract).</p></li>
+</ol>
+<p><strong>#AI</strong> Ask your favourite LLM to solve any of the tasks and generate the corresponding R script. Discuss with the LLM possible transformations and uses of different non-parametric tests.</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>In this case, Dunn test may be used for post-hoc comparisons (function <code>dunnTest()</code> in package FSA).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
