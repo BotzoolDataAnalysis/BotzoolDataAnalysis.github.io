@@ -576,7 +576,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </div>
 </div>
 </div>
-<p>Almost publication-ready, except the grey background is not very nice. It might be easily remove by adding a different <code>theme</code>. One of our favourites is <code>theme_bw(),</code> meaning black and white, but you can experiment with <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">different ones</a> or even define your own.</p>
+<p>Almost publication-ready, except the grey background is not very nice. It might be easily removed by adding a different <code>theme</code>. One of our favourites is <code>theme_bw(),</code> meaning “black and white”, but you can experiment with <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">different ones</a> or even define your own.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">fill =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
@@ -710,7 +710,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <li><p>* How would you transform the variable before an analysis? Find a way to visualise the distribution on a transformed scale using a <code>ggplot</code> function.</p></li>
 <li><p>What is the relationship between the attack and special attack power of water-type Pokémons?</p></li>
 <li><p>Which Pokémon type has the highest attack power? Visualise the relationship.</p></li>
-<li><p>Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. * When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.</p></li>
+<li><p>Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. Select just three Pokémon types that you like to display. * When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.</p></li>
 <li><p>Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder <code>plots</code>.</p></li>
 </ol>
 </section>
@@ -814,6 +814,11 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

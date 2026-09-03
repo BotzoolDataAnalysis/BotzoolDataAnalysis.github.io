@@ -11,27 +11,28 @@ Every plot in `ggplot` consists of 7 parts that together serve as instructions o
 
 To produce any plot, `ggplot` needs **data**, **mapping** and at least one **layer**. The other parts have some defaults, but often need adjustments for a better appearance.
 
--   **Data** - preferably as a tidy tibble
+- **Data** - preferably as a tidy tibble
 
--   **Mapping** - instructions, how the data should be displayed, usually defined using `aes()` to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot
+- **Mapping** - instructions, how the data should be displayed, usually defined using `aes()` to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot
 
--   **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`. Note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
+- **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`. Note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
 
--   **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes, etc., to modify the defaults, use `scale` functions
+- **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes, etc., to modify the defaults, use `scale` functions
 
--   **Facets** - split data into smaller panels based on one or more variables
+- **Facets** - split data into smaller panels based on one or more variables
 
--   **Coordinates** - typically Cartesian coordinates (x and y axis), important to set for map projections or polar plots
+- **Coordinates** - typically Cartesian coordinates (x and y axis), important to set for map projections or polar plots
 
--   **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
+- **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
 
-We will again use the penguin dataset and play with the individual plot parts. In addition we will use some other packages, so please make sure you have them installed and leaded.
+We will again use the penguin dataset and play with the individual plot parts. In addition we will use some other packages, so please make sure you have them installed and loaded.
 
 ```{r}
 #| warning: false
 library(palmerpenguins)
 library(gapminder)
 library(readxl)
+library(ggrepel)
 library(tidyverse)
 library(patchwork)
 
@@ -119,7 +120,18 @@ Note that we added specifications of the point appearance of the highlighted poi
 
 Scale functions always follow the pattern `scale_{aesthetic}_{type}`. We already used `scale_shape_manual()` to manually rewrite the default shapes used in the plot. We can use scales to modify values, limits, breaks or labels of any aesthetics in our plot, typically colour, fill, and shape. To define desired values on your own, you can use manual scale definition, but there are many other types, e.g. continuous (useful, e.g., for defining labels for continuous variables), discrete (e.g. labels for discrete variables), gradient (e.g. for defining colour gradient for continuous variables). `scale_x_{type}` and `scale_y_{type}` are useful to define axis limits, ticks and labels.
 
-We will use the example of penguin body mass vs. flipper length and modify different scales of this plot. First of all, we will show with different colours on which island the penguins were measured. To change the default colours, we can define our own colours using `scale_fill_manual()` and the `values` argument inside, similarly to what we did for the shape before. But we can also use a predefined colour scale, e.g. from [colour brewer](https://colorbrewer2.org) using `scale_fill_brewer()`. We can also modify the labels in the legend by using the argument `labels`. Let's say we want to add the word 'Island' to each label:
+We will use the example of penguin body mass vs. flipper length and modify different scales of this plot. First of all, we will show with different colours on which island the penguins were measured. To change the default colours, we can define our own colours using `scale_fill_manual()` and the `values` argument inside, similarly to what we did for the shape before. In the values argument, we can define any color using its HEX reference. Some colors also have a name, which might be used instead, see this [website](https://r-charts.com/colors/) for their list.
+
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
+  geom_point(pch = 21)+
+  scale_fill_manual(values = c(Dream = '#7FFFD4', Biscoe = 'orchid3', Torgersen = 'deepskyblue2'))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
+```
+
+But we can also use a predefined colour scale, e.g. from [colour brewer](https://colorbrewer2.org) using `scale_fill_brewer()`. We can also modify the labels in the legend by using the argument `labels`. Let's say we want to add the word 'Island' to each label:
 
 ```{r}
 penguins |> 
@@ -130,7 +142,7 @@ penguins |>
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
 ```
 
-We used `type = 'qual'` inside `scale_color_brewer()` to use colours appropriate for discrete values. You can experiment with many more such colour scales that are already available.
+We used `type = 'qual'` inside `scale_color_brewer()` to use colours appropriate for discrete values. You can experiment with many more such colour scales that are already available, e.g., [here](https://r-charts.com/color-palettes/).
 
 Instead of colouring the points according to the island, we can also use colours to show a numerical variable, e.g. year when the measurement was taken:
 
@@ -142,7 +154,7 @@ penguins |>
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
 ```
 
-Note that the plot automatically chooses a continuous colour scale instead of the discrete one before, and the legend now shows a range from the lowest to the highest value. But for the year, it doesn't really make sense to show decimals. We can modify this using `scale_fill_continuous()`:
+Note that the plot automatically chooses a continuous colour scale instead of the discrete one before, and the legend now shows a range from the lowest to the highest value. But for the year, it doesn't really make sense to show decimals. We can modify this using the argument `breaks` inside `scale_fill_continuous()`:
 
 ```{r}
 penguins |> 
@@ -169,6 +181,40 @@ Note that when we do this, we get a warning message, indicating how many points 
 
 It is even possible to transform the axis using the `transform` argument or shortcuts for commonly used transformations, e.g. `scale_x_log10()`.
 
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  scale_x_continuous(transform = 'log')+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
+
+The `scale_x_` and `scale_y` functions might also be used to change which ticks are displayed on the axes:
+
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  scale_y_continuous(breaks = seq(170, 230, 5))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
+
+In addition to color, fill and shape of the points, we can also modify their size, or opacity. Here, we plot the penguing bill length vs bill depth and adjust the size of the points according to their body mass. In addition, we make the points a bit transparent using the `alpha` argument so that we can see the overlapping points.
+
+```{r}
+penguins |> 
+  ggplot(aes(bill_length_mm, bill_depth_mm, fill = island, size = body_mass_g))+
+  geom_point(pch = 21, alpha = 0.6)+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island', size = 'Body mass (g)')
+```
+
+We can again play with the size aesthetics, e.g., modify the size of the smallest and largest points, using the `scale_size_continuous()` function.
+
 ## 6.4 Legend modifications
 
 In all the plots we made so far, the legend was by default placed on the right side next to the plot. Sometimes it is helpful to move it somewhere else, for example, due to space constraints. Legend position might be modified inside the `theme()` function. We can move it to the bottom of the plot:
@@ -177,19 +223,17 @@ In all the plots we made so far, the legend was by default placed on the right s
 penguins |> 
   ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
   geom_point(pch = 21)+
-  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
   theme_bw()+
   theme(legend.position = 'bottom')+
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
 ```
 
-Sometimes, there is a space inside the plot, so it is possible to place the legend there and reduce the image size. In this case, we have to specify two arguments, `legend.position()` and `legend.justification()`. The values should indicate coordinates on the two axes and have values of 0-1, where 0 means the beginning of the axis and 1 the end. For example, 0, 0 means the bottom left corner of the plot, 1, 1 the top right corner.
+Sometimes, there is a space inside the plot, so it is possible to place the legend there and reduce the image size. In this case, we have to set `legend.position = 'inside'` and specify two arguments, `legend.position.inside()` and `legend.justification.inside()`. The values should indicate coordinates on the two axes and have values of 0-1, where 0 means the beginning of the axis and 1 the end. For example, 0, 0 means the bottom left corner of the plot, 1, 1 the top right corner.
 
 ```{r}
 penguins |> 
   ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
   geom_point(pch = 21)+
-  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
   theme_bw()+
   theme(legend.position = 'inside', legend.position.inside = c(1, 0), legend.justification.inside = c(1, 0))+
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
@@ -197,32 +241,89 @@ penguins |>
 
 To remove the legend completely, set `legend.position = 'none'`.
 
-The `theme()` function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to `element_blank()`, modify the text size, label angle, ticks length, background grid colour and many more. See the [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more details.
-
-## 6.5 Reordering
-
-For the final presentation of plots, it is sometimes needed to reorder the levels of the categorical variable. Let's look at the following plot, where we want to look at which penguin species has the longest bill on average.
+The `theme()` function allows us to modify many more plot elements. We can remove any plot component by setting the argument for it to `element_blank()`, modify the text size, label angle, ticks length, background grid colour and much more. See the [documentation](https://ggplot2.tidyverse.org/reference/theme.html) for more details.
 
 ```{r}
 penguins |> 
-  group_by(species) |> 
-  summarise(bill_length_mean = mean(bill_length_mm, na.rm = T)) |> 
-  ggplot(aes(species, bill_length_mean)) +
-  geom_col()
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
+  geom_point(pch = 21)+
+  theme_bw()+
+  theme(panel.grid = element_blank(), axis.title = element_text(size = 14, face  = 'bold'), axis.text.x = element_text(angle = 45))+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
 ```
 
-For the final visualisation, it might be better to reorder the species from that with the longest bill to that with the shortest bill. To reorder levels of a categorical variable, we need to treat it as a factor. Then, we can reorder the levels according to the values of a given variable using a function `fct_reorder()` from the `forcats` package, which is also a part of `tidyverse`. We want to modify an existing column, so we will rewrite it in `mutate()`. Inside the `fct_reorder()` function, we specify two arguments: the first specifies which variable should be reordered, and the second specifies which values should be taken to make the order. You can imagine this as if you first arrange the table according to the bill length in descending order, and then fix the order of the categorical variable (species) from this ordered table.
+## 6.5 Factors and reordering
+
+When using a categorical variable in a plot, the default order of the categories in alphabetical. However, that is not always what we want and it might be helpful to reorder the categories for the final presentation of our plots. For this, turning categorical variables to factors becomes especially useful. We can then use functions from the `forcats` package, whoch is also part of `tidyverse` to reorder the categories as desired.
+
+For illustration, we will now use data on the characters from Star Wars coming with the `dplyr` package.
 
 ```{r}
-penguins |> 
-  group_by(species) |> 
-  summarise(bill_length_mean = mean(bill_length_mm, na.rm = T)) |> 
-  mutate(species = fct_reorder(species, desc(bill_length_mean))) |> 
-  ggplot(aes(species, bill_length_mean)) +
+glimpse(starwars)
+```
+
+First, we can look at the frequency of different eye colors among the characters.
+
+```{r}
+ggplot(starwars, aes(y = eye_color)) + 
+  geom_bar()
+```
+
+We might want to reorder the categories according to their frequency. We can do that using the `fct_infreq` function.
+
+```{r}
+ggplot(starwars, aes(y = fct_infreq(eye_color))) + 
+  geom_bar()
+```
+
+We can see here, that there are some very rare eye colors appearing only once. Using the `fct_lump_min()` function, we can group them together in a category 'other'.
+
+```{r}
+starwars |> 
+  mutate(eye_color = fct_lump_min(eye_color, min = 2) |> 
+           fct_infreq()) |> 
+  ggplot(aes(y = eye_color)) + 
+  geom_bar()
+```
+
+Now, we can look at the relationship between the eye color and total body mass (kg). We will first calculate the mean body mass for each category.
+
+```{r}
+starwars_mean_mass <- starwars |> 
+  mutate(eye_color = fct_lump_min(eye_color, min = 2)) |> 
+  group_by(eye_color) |>
+  summarise(mean_mass = mean(mass, na.rm = TRUE))
+starwars_mean_mass
+```
+
+And then visualize the relationship. We will use `geom_col()`, where we specify the height of the bars in the plot by a numerical variable in our data. Note the difference between `geom_bar()` used previously, where we only specified one of x or y aesthetics and the other was calculated as a count of indivials in the given category. To order the columns from the smallest to the highest, we will use the `fct_reorder()` function. Inside the `fct_reorder()` function, we specify two arguments: the first specifies which variable should be reordered, and the second specifies which values should be taken to make the order. You can imagine this as if you first arrange the table according to the mean body mass, and then fix the order of the categorical variable (eye color) from this ordered table.
+
+```{r}
+starwars_mean_mass |> 
+  mutate(eye_color = fct_reorder(eye_color, mean_mass)) |> 
+  ggplot(aes(x = eye_color, y = mean_mass)) + 
   geom_col()
 ```
 
-The `forcats` package contains many useful functions for working with factors. Check, for example, `fct_relevel()` for manual reordering of factor levels.
+We can also order the categories in descending order using `desc()` inside `fct_reorder()`.
+
+```{r}
+starwars_mean_mass |> 
+  mutate(eye_color = fct_reorder(eye_color, desc(mean_mass))) |> 
+  ggplot(aes(x = eye_color, y = mean_mass)) + 
+  geom_col()
+```
+
+Sometimes, it might be useful to reorder the categories manually. For this, we can use the function `fct_relevel()`.
+
+```{r}
+starwars_mean_mass |> 
+  mutate(eye_color = fct_relevel(eye_color, c('yellow', 'orange', 'red', 
+                                              'blue', 'hazel', 'brown',
+                                              'black', 'unknown', 'Other'))) |> 
+  ggplot(aes(x = eye_color, y = mean_mass)) + 
+  geom_col()
+```
 
 ## 6.6 Composing plots together
 
@@ -252,6 +353,9 @@ p2 <- ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
   labs(y = 'Body mass (g)', fill = 'Species') + 
   theme_bw() + 
   theme(axis.title.x = element_blank())
+
+p1
+p2
 ```
 
 And then combine the two plots together:
@@ -260,7 +364,13 @@ And then combine the two plots together:
 p1 + p2
 ```
 
-So easy it is. And we can play more with the plot layout. Some useful functionalities of the patchwork package are that you can add annotations to the plots to identify individual panels:
+So easy it is. And we can play more with the plot layout. For example, we can adjust the width of each panel in the combined plot.
+
+```{r}
+p1 + p2 + plot_layout(widths = c(2, 1))
+```
+
+Some useful functionalities of the patchwork package are that you can add annotations to the plots to identify individual panels:
 
 ```{r}
 p1 + p2 + plot_annotation(tag_levels = 'a')
@@ -272,33 +382,79 @@ Or collect all legends of the subplots and place them in one place:
 p1 + p2 + plot_layout(guides = 'collect')
 ```
 
-## 6.7 Useful extensions
+And there are many more options to customise your plot layout, annotations etc.
+
+## 6.7 Other examples of `geom` functions
+
+Some other useful `geom` functions include, `geom_pointrage()` for showing summary characteristics, or model results.
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarise(min_body_mass = min(body_mass_g, na.rm = T), median_body_mass = median(body_mass_g, na.rm = T), max_body_mass = max(body_mass_g, na.rm = T)) |> ggplot()+
+  geom_pointrange(aes(x = species, y = median_body_mass, ymin = min_body_mass, ymax = max_body_mass))
+```
+
+`geom_text()` or `geom_label()` display labels instead of points when we want to compare e.g. specific individuals.
+
+```{r}
+starwars |> filter(species == 'Human') |> 
+  ggplot(aes(x = mass, y = height, label = name)) + 
+  geom_text(alpha = 0.6) 
+  
+```
+
+And `geom_text_repel()` from the `ggrepel` package is helpful to distinguish overlapping points.
+
+```{r}
+starwars |> filter(species == 'Human') |> 
+  ggplot(aes(x = mass, y = height, label = name)) + 
+  geom_text_repel(alpha = 0.6, max.overlaps = Inf) 
+```
+
+## 6.8 Useful extensions
 
 It is possible to do almost everything you would imagine using `ggplot2` and its [extensions](https://exts.ggplot2.tidyverse.org/gallery). We do not have time to cover all of that during this semester, but you are very welcome to experiment and explore this world on your own.
 
-Just a few tips for packages we personally find very useful for our work:
+Just a few tips for packages that you might useful for your work:
 
--   [`ggpubr`](https://rpkgs.datanovia.com/ggpubr) to make publication-ready plots - some easy-to-use functions for creating and customising `ggplot` plots
+- [`ggpubr`](https://rpkgs.datanovia.com/ggpubr) to make publication-ready plots - some easy-to-use functions for creating and customising `ggplot` plots
 
--   [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
+- [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
 
--   [`gordi`](CommunityEcology/gordi_vignette.qmd) a ggplot-based package for making ordination plots, developed in our group
+- [`gordi`](CommunityEcology/gordi_vignette.qmd) a ggplot-based package for making ordination plots, developed in our group
 
--   [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
+- [`ggtree`](https://www.bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/ggtree.html) for visualisation of phylogenetic trees
 
--   [`shiny`](https://shiny.posit.co) for creating web apps from R
+- [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
 
-## 6.8 Exercises
+- [`shiny`](https://shiny.posit.co) for creating web apps from R
 
-1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island.
+## 6.9 Exercises
 
-2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package (the dataset will be loaded in the environment once you load the package), which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Highlight the Czech Republic and Slovakia with different colours. Place the legend in the top left corner of the plot. \* Make the size of the points proportional to the country population size.
+1.  `facet_wrap()` facets the plot according to one variable, look in the documentation, what the related function `facet_grid()` does and use it to make a plot of penguin bill length and bill depth faceted by species and island. Use custom colours and point shapes to distinguish between males and females.
+
+2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package (the dataset will be loaded in the environment once you load the package), which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Make the size of the points proportional to the country population size. Highlight the Czech Republic and Slovakia with different colours.
 
 3.  Use the same data as in the previous exercise and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
 
-4.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. \* Modify the legend so that there is only one legend with coloured points at the bottom.
+4.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`) and visualise the relationship between Pokémon weight and height. Use logarithmic transformation for both axes. Make all points partly transparent. Highlight 20 Pokémons with the highest attack power by different color and larger point size.
 
-5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
+5.  Facet the previous plot according to Pokémon type \*and color them using colors from the column `color_1`.
+
+6.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and visualise the relationship between radiation and mean Ellenberg-type indicator values for light. Use custom colours to distinguish forest types and change the labels in the legend to 'Alluvial', 'Oak', 'Oak hornbeam' and 'Ravine'.
+
+7.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
+
+**Chapter 7**
+
+8.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. Modify the legend so that there is only one legend with coloured points at the bottom.
+
+9.  Calculate mean, minimum and maximum of penguin bill length for each species and visualize it using `geom_pointrange()`. Order the species according to their mean bill length.
+
+10. Take the plot from exercise 6, order the categories in legend according to the column `forest_type`. Move legend to the bottom of the plot.
+
+11. Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
 
     ```{r}
     #| echo: false
@@ -350,11 +506,13 @@ Just a few tips for packages we personally find very useful for our work:
 
     ```
 
-6.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
+12. Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
 
-7.  Save all plots you created so far to the `plots` folder.
+13. Select electric Pokémons and visualise the relationship between their weight and height. Use their names as text labels instead of points. Do the same for ice Pokémons and then combine both plots together. Add annotations 'A' and 'B' to the panels.
 
-## 6.8 Further reading
+14. Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
+
+## 6.10 Further reading
 
 ggplot2 vignette: <https://ggplot2.tidyverse.org>
 
@@ -367,6 +525,8 @@ Aesthetics specifications vignette: <https://ggplot2.tidyverse.org/articles/ggpl
 ggplot2: Elegant Graphics for Data Analysis (3e): <https://ggplot2-book.org>
 
 R Graphics Cookbook: <https://r-graphics.org>
+
+Fundamentals of Data Visualization: <https://clauswilke.com/dataviz/>
 
 patchwork vignette: <https://patchwork.data-imaginist.com/index.html>
 

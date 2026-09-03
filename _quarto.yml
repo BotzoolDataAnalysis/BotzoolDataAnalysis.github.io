@@ -87,4 +87,5 @@ format:
   html:
     theme: cosmo
     toc: true
+    link-external-newwindow: true
 

@@ -351,7 +351,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="bi8190-manipulace-a-vizualizace-dat" class="level1">
 <h1>(<a href="https://is.muni.cz/predmet/sci/podzim2025/BI8190">Bi8190 Manipulace a vizualizace dat</a>)</h1>
-<p>During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g.&nbsp;based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 and create basic maps in R. The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.</p>
+<p>During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purrr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g.&nbsp;based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 (*and create basic maps in R). The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.</p>
 </section>
 <section id="introduction---14.-9.-2026" class="level1">
 <h1><a href="../DataManipulationVisualisation/1_introduction.html">1 Introduction</a> - 14. 9. 2026</h1>
@@ -550,6 +550,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

@@ -154,7 +154,7 @@ ggplot(data = penguins,
   labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Species', shape = 'Species')
 ```
 
-Almost publication-ready, except the grey background is not very nice. It might be easily remove by adding a different `theme`. One of our favourites is `theme_bw(),` meaning black and white, but you can experiment with [different ones](https://ggplot2.tidyverse.org/reference/ggtheme.html) or even define your own.
+Almost publication-ready, except the grey background is not very nice. It might be easily removed by adding a different `theme`. One of our favourites is `theme_bw(),` meaning "black and white", but you can experiment with [different ones](https://ggplot2.tidyverse.org/reference/ggtheme.html) or even define your own.
 
 ```{r}
 #| warning: false
@@ -270,7 +270,7 @@ ggsave('plots/island_relative_frequency.png', plot1, width = 6, height = 4)
 
 7.  Which Pokémon type has the highest attack power? Visualise the relationship.
 
-8.  Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. \* When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.
+8.  Explore the relationship between the Pokémon attack and defense power. Distinguish different Pokémon types. Select just three Pokémon types that you like to display. \* When using different colors for many categories, the plot gets quite messy, try to come up with a solution to distinguish the Pokémon types more clearly in the plot.
 
 9.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
