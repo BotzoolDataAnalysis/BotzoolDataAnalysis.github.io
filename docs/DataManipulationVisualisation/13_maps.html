@@ -8,7 +8,7 @@
 
 <meta name="author" content="Barbora Klímová">
 
-<title>9 + 10 Maps – Botzool Data Analysis</title>
+<title>*13 Maps – Botzool Data Analysis</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -337,15 +337,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introducing-spatial-data" id="toc-introducing-spatial-data" class="nav-link active" data-scroll-target="#introducing-spatial-data">9.1. Introducing spatial data</a>
+  <li><a href="#introducing-spatial-data" id="toc-introducing-spatial-data" class="nav-link active" data-scroll-target="#introducing-spatial-data">13.1. Introducing spatial data</a>
   <ul class="collapse">
-  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">9.1.1. Vectors</a></li>
-  <li><a href="#rasters" id="toc-rasters" class="nav-link" data-scroll-target="#rasters">9.1.2. Rasters</a></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">13.1.1. Vectors</a></li>
+  <li><a href="#rasters" id="toc-rasters" class="nav-link" data-scroll-target="#rasters">13.1.2. Rasters</a></li>
   </ul></li>
-  <li><a href="#coordinate-reference-systems" id="toc-coordinate-reference-systems" class="nav-link" data-scroll-target="#coordinate-reference-systems">9.2. Coordinate reference systems</a></li>
-  <li><a href="#spatial-operations" id="toc-spatial-operations" class="nav-link" data-scroll-target="#spatial-operations">9.3. Spatial operations</a>
+  <li><a href="#coordinate-reference-systems" id="toc-coordinate-reference-systems" class="nav-link" data-scroll-target="#coordinate-reference-systems">13.2. Coordinate reference systems</a></li>
+  <li><a href="#spatial-operations" id="toc-spatial-operations" class="nav-link" data-scroll-target="#spatial-operations">13.3. Spatial operations</a>
   <ul class="collapse">
-  <li><a href="#vector-operations" id="toc-vector-operations" class="nav-link" data-scroll-target="#vector-operations">9.3.1. Vector operations</a></li>
+  <li><a href="#vector-operations" id="toc-vector-operations" class="nav-link" data-scroll-target="#vector-operations">13.3.1. Vector operations</a></li>
   <li><a href="#st_intersection" id="toc-st_intersection" class="nav-link" data-scroll-target="#st_intersection">st_intersection</a></li>
   <li><a href="#st_crop" id="toc-st_crop" class="nav-link" data-scroll-target="#st_crop">*st_crop</a></li>
   <li><a href="#st_union" id="toc-st_union" class="nav-link" data-scroll-target="#st_union">*st_union</a></li>
@@ -359,16 +359,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#st_length" id="toc-st_length" class="nav-link" data-scroll-target="#st_length">st_length</a></li>
   <li><a href="#st_intersects" id="toc-st_intersects" class="nav-link" data-scroll-target="#st_intersects">*st_intersects</a></li>
   <li><a href="#st_within" id="toc-st_within" class="nav-link" data-scroll-target="#st_within">*st_within</a></li>
-  <li><a href="#raster-operations" id="toc-raster-operations" class="nav-link" data-scroll-target="#raster-operations">9.3.2. Raster operations</a></li>
+  <li><a href="#raster-operations" id="toc-raster-operations" class="nav-link" data-scroll-target="#raster-operations">13.3.2. Raster operations</a></li>
   <li><a href="#crop" id="toc-crop" class="nav-link" data-scroll-target="#crop">crop</a></li>
   <li><a href="#mask" id="toc-mask" class="nav-link" data-scroll-target="#mask">mask</a></li>
   <li><a href="#aggregate" id="toc-aggregate" class="nav-link" data-scroll-target="#aggregate">*aggregate</a></li>
   <li><a href="#disaggregate" id="toc-disaggregate" class="nav-link" data-scroll-target="#disaggregate">*disaggregate</a></li>
   <li><a href="#resample" id="toc-resample" class="nav-link" data-scroll-target="#resample">resample</a></li>
   <li><a href="#raster-algebra" id="toc-raster-algebra" class="nav-link" data-scroll-target="#raster-algebra">raster algebra</a></li>
-  <li><a href="#combining-vector-and-raster-operations" id="toc-combining-vector-and-raster-operations" class="nav-link" data-scroll-target="#combining-vector-and-raster-operations">9.3.3. Combining vector and raster operations</a></li>
+  <li><a href="#combining-vector-and-raster-operations" id="toc-combining-vector-and-raster-operations" class="nav-link" data-scroll-target="#combining-vector-and-raster-operations">13.3.3. Combining vector and raster operations</a></li>
   </ul></li>
-  <li><a href="#terrain-derivatives-from-dem" id="toc-terrain-derivatives-from-dem" class="nav-link" data-scroll-target="#terrain-derivatives-from-dem">9.4. Terrain derivatives from DEM</a>
+  <li><a href="#terrain-derivatives-from-dem" id="toc-terrain-derivatives-from-dem" class="nav-link" data-scroll-target="#terrain-derivatives-from-dem">13.4. Terrain derivatives from DEM</a>
   <ul class="collapse">
   <li><a href="#slope" id="toc-slope" class="nav-link" data-scroll-target="#slope">Slope</a></li>
   <li><a href="#aspect" id="toc-aspect" class="nav-link" data-scroll-target="#aspect">Aspect</a></li>
@@ -376,16 +376,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#topographic-ruggedness-index" id="toc-topographic-ruggedness-index" class="nav-link" data-scroll-target="#topographic-ruggedness-index">*Topographic ruggedness index</a></li>
   <li><a href="#topographic-wetness-index" id="toc-topographic-wetness-index" class="nav-link" data-scroll-target="#topographic-wetness-index">*Topographic wetness index</a></li>
   </ul></li>
-  <li><a href="#maps" id="toc-maps" class="nav-link" data-scroll-target="#maps">9.5. Maps</a>
+  <li><a href="#maps" id="toc-maps" class="nav-link" data-scroll-target="#maps">13.5. Maps</a>
   <ul class="collapse">
-  <li><a href="#basic-map-of-study-area" id="toc-basic-map-of-study-area" class="nav-link" data-scroll-target="#basic-map-of-study-area">9.5.1. Basic map of study area</a></li>
-  <li><a href="#attribute-map" id="toc-attribute-map" class="nav-link" data-scroll-target="#attribute-map">9.5.2. Attribute map</a></li>
-  <li><a href="#faceted-maps" id="toc-faceted-maps" class="nav-link" data-scroll-target="#faceted-maps">*9.5.3. Faceted maps</a></li>
-  <li><a href="#scatterpie-in-maps" id="toc-scatterpie-in-maps" class="nav-link" data-scroll-target="#scatterpie-in-maps">*9.5.4. Scatterpie in maps</a></li>
-  <li><a href="#grid-mapping" id="toc-grid-mapping" class="nav-link" data-scroll-target="#grid-mapping">9.5.5. Grid mapping</a></li>
+  <li><a href="#basic-map-of-study-area" id="toc-basic-map-of-study-area" class="nav-link" data-scroll-target="#basic-map-of-study-area">13.5.1. Basic map of study area</a></li>
+  <li><a href="#attribute-map" id="toc-attribute-map" class="nav-link" data-scroll-target="#attribute-map">13.5.2. Attribute map</a></li>
+  <li><a href="#faceted-maps" id="toc-faceted-maps" class="nav-link" data-scroll-target="#faceted-maps">*13.5.3. Faceted maps</a></li>
+  <li><a href="#scatterpie-in-maps" id="toc-scatterpie-in-maps" class="nav-link" data-scroll-target="#scatterpie-in-maps">*13.5.4. Scatterpie in maps</a></li>
+  <li><a href="#grid-mapping" id="toc-grid-mapping" class="nav-link" data-scroll-target="#grid-mapping">13.5.5. Grid mapping</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">9.6. Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">9.7. Further reading</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">13.6. Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">13.7. Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/data_manipulation_visualisation.html">Data Manipulation and Visualization</a></li><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/13_maps.html">* Maps</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">9 + 10 Maps</h1>
+<h1 class="title">*13 Maps</h1>
 </div>
 
 
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel) <span class="co"># Prevent text labels from overlapping in ggplot2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="introducing-spatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="introducing-spatial-data">9.1. Introducing spatial data</h2>
+<h2 class="anchored" data-anchor-id="introducing-spatial-data">13.1. Introducing spatial data</h2>
 <p>Spatial data, also known as geospatial data, contain information that can be mapped, such as the physical <strong>location</strong>, <strong>shape</strong>, and <strong>spatial relationships</strong> of objects on the Earth’s surface.</p>
 <p>Spatial data can be classified into <strong>two main types</strong>:</p>
 <ol type="1">
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <section id="vectors" class="level3">
-<h3 class="anchored" data-anchor-id="vectors">9.1.1. Vectors</h3>
+<h3 class="anchored" data-anchor-id="vectors">13.1.1. Vectors</h3>
 <p>First, we will load spatial data on grasslands in South Moravia, stored in Shapefile format. The <code>read_sf()</code> function from the <a href="https://r-spatial.github.io/sf/" title="sf package"><code>sf</code></a> package imports the file as a Simple Features (sf) object, which is a standardised data structure for representing spatial data in R. An sf object combines both geometric information (such as the shape and location of each grassland polygon) and attribute data (e.g., land cover type and area). This structure allows us to easily visualise, manipulate, and analyse spatial data directly within R.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>grasslands_shp <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/grasslands_shp/LoukaPastvina_JMK.shp"</span>)</span>
@@ -577,7 +577,7 @@ Geodetic CRS:  WGS 84
 </div>
 </section>
 <section id="rasters" class="level3">
-<h3 class="anchored" data-anchor-id="rasters">9.1.2. Rasters</h3>
+<h3 class="anchored" data-anchor-id="rasters">13.1.2. Rasters</h3>
 <p>To work with raster data, we will use the <a href="https://rspatial.github.io/terra/reference/terra-package.html" title="terra"><code>terra</code></a> package along with <a href="https://dieghernan.github.io/tidyterra"><code>tidyterra</code></a>. Our analysis will focus on a digital elevation model (DEM) for South Moravia, as well as mean annual precipitation and temperature from CHELSA.</p>
 <p>First, we will load the DEM into R.</p>
 <div class="cell">
@@ -695,7 +695,7 @@ max value   : 956.6145 </code></pre>
 </section>
 </section>
 <section id="coordinate-reference-systems" class="level2">
-<h2 class="anchored" data-anchor-id="coordinate-reference-systems">9.2. Coordinate reference systems</h2>
+<h2 class="anchored" data-anchor-id="coordinate-reference-systems">13.2. Coordinate reference systems</h2>
 <p>Every spatial dataset must have a defined coordinate reference system (CRS). The CRS determines how coordinates relate to real-world locations on the Earth’s surface.</p>
 <ol type="1">
 <li><p><strong>Geographic CRS</strong> - coordinates are expressed in <strong>degrees</strong> of latitude and longitude (e.g., WGS84 ).</p></li>
@@ -857,10 +857,10 @@ GEOGCS["WGS 84",
 </div>
 </section>
 <section id="spatial-operations" class="level2">
-<h2 class="anchored" data-anchor-id="spatial-operations">9.3. Spatial operations</h2>
+<h2 class="anchored" data-anchor-id="spatial-operations">13.3. Spatial operations</h2>
 <p>In this chapter, we will learn how to perform basic spatial operations with both vector and raster data. Spatial operations allow us to combine, compare, and analyse spatial relationships between geographic layers.</p>
 <section id="vector-operations" class="level3">
-<h3 class="anchored" data-anchor-id="vector-operations">9.3.1. Vector operations</h3>
+<h3 class="anchored" data-anchor-id="vector-operations">13.3.1. Vector operations</h3>
 <p>Vector spatial operations are used to analyse and modify point, line, and polygon data. The most common function for vector operations include:</p>
 </section>
 <section id="st_intersection" class="level3">
@@ -1180,7 +1180,7 @@ first 10 elements:
 </div>
 </section>
 <section id="raster-operations" class="level3">
-<h3 class="anchored" data-anchor-id="raster-operations">9.3.2. Raster operations</h3>
+<h3 class="anchored" data-anchor-id="raster-operations">13.3.2. Raster operations</h3>
 <p>Raster operations are used to manipulate and analyse raster data such as digital elevation model (DEM), climate layers, or satellite imagery. Common operations include cropping, masking, resampling, and calculating derived variables like slope or aspect.</p>
 </section>
 <section id="crop" class="level3">
@@ -1348,7 +1348,7 @@ max value   :   924.65047 </code></pre>
 </div>
 </section>
 <section id="combining-vector-and-raster-operations" class="level3">
-<h3 class="anchored" data-anchor-id="combining-vector-and-raster-operations">9.3.3. Combining vector and raster operations</h3>
+<h3 class="anchored" data-anchor-id="combining-vector-and-raster-operations">13.3.3. Combining vector and raster operations</h3>
 <p>Vector and raster data are often used together to relate spatial features to raster layers. Typical operations include extracting raster values for vector geometries.</p>
 <p>The <code>extract()</code> function retrieves raster cell values corresponding to the locations of vector features (points, lines, or polygons). This is useful, for example, when you want to obtain the elevation for vegetation plots.</p>
 <div class="cell">
@@ -1387,7 +1387,7 @@ Projected CRS: WGS 84 / UTM zone 33N
 </section>
 </section>
 <section id="terrain-derivatives-from-dem" class="level2">
-<h2 class="anchored" data-anchor-id="terrain-derivatives-from-dem">9.4. Terrain derivatives from DEM</h2>
+<h2 class="anchored" data-anchor-id="terrain-derivatives-from-dem">13.4. Terrain derivatives from DEM</h2>
 <p>From a DEM, we can calculate various terrain derivatives. Common derivatives include:</p>
 <section id="slope" class="level3">
 <h3 class="anchored" data-anchor-id="slope">Slope</h3>
@@ -1540,7 +1540,7 @@ You can now start using whitebox
 </section>
 </section>
 <section id="maps" class="level2">
-<h2 class="anchored" data-anchor-id="maps">9.5. Maps</h2>
+<h2 class="anchored" data-anchor-id="maps">13.5. Maps</h2>
 <p>A map is a <strong>reduced</strong>, <strong>generalised</strong>, conventional representation of the <strong>Earth’s surface</strong>, transformed onto <strong>a plane</strong> using mathematically defined relationships.</p>
 <p>Important map elements include:</p>
 <ul>
@@ -1558,7 +1558,7 @@ You can now start using whitebox
 </figure>
 </div>
 <section id="basic-map-of-study-area" class="level3">
-<h3 class="anchored" data-anchor-id="basic-map-of-study-area">9.5.1. Basic map of study area</h3>
+<h3 class="anchored" data-anchor-id="basic-map-of-study-area">13.5.1. Basic map of study area</h3>
 <p>Firstly, we will create a basic map of the study area with a basemap from online sources such as OpenStreetMap or Esri (using the <code>basemaps</code> package). The map will include the most important map elements and a small overview map of the Czech Republic highlighting the study area.</p>
 <p>From the data, we will use vegetation plots in South Moravia (CNFD-selection-2023-01-09-JMK.xlsx) read from Excel, and polygons of South Moravia and regions from the <code>RCzechia</code> package.</p>
 <p>A list of possible basemap options can be found <a href="https://jakob.schwalb-willmann.de/basemaps/" title="basemaps">here</a> or by using:</p>
@@ -1748,7 +1748,7 @@ $maptiler
 </div>
 </section>
 <section id="attribute-map" class="level3">
-<h3 class="anchored" data-anchor-id="attribute-map">9.5.2. Attribute map</h3>
+<h3 class="anchored" data-anchor-id="attribute-map">13.5.2. Attribute map</h3>
 <p>We will create a map with the DEM as a basemap and vegetation plots for grasslands, forests, and shrubs, using shape to represent habitat type and the fill colour of points to represent soil reaction. Because we have multiple fill scales, we need to use the <code>new_scale_fill</code> function from the <code>ggnewscale</code> package, which allows us to define custom palettes for both the DEM and soil reaction.</p>
 <p>For the fill scale of the DEM, we will use the function <code>scale_fill_gradientn()</code>, which creates an n-colour gradient scale for the fill aesthetics by specifying a vector of colors.</p>
 <p>To scale vegetation plots by soil reaction, we will use the <code>scale_fill_viridis_b()</code>, which automatically divides continuous values of soil reaction into discrete colour bins (intervals) that can be adjusted using the n.breaks argument. The argument option = “H” specifies which version of the viridis colour palette is used. Other palette options can be found <a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html">here</a>.</p>
@@ -1915,7 +1915,7 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 </section>
 <section id="faceted-maps" class="level3">
-<h3 class="anchored" data-anchor-id="faceted-maps">*9.5.3. Faceted maps</h3>
+<h3 class="anchored" data-anchor-id="faceted-maps">*13.5.3. Faceted maps</h3>
 <p>In this section, we create faceted maps, which are particularly useful for visualising the same variable across different time periods, categories, or scenarios without having to manually create multiple plots. This approach also eliminates the need to write loops to generate separate maps for each year or group.</p>
 <p>We will again work with Czech regions and examine differences in mean age across regions for the period 2000–2024, in five-year intervals. First, we need to reshape our data into a long format, where each row corresponds to a single region and year, and the column Mean_age stores the mean age values.</p>
 <p>To fill the regions based on the mean age, we will use <code>scale_fill_fermenter()</code>, which creates a binned colour scale for fill aesthetics using ColorBrewer palettes. If you want to see which palettes can be used, you can either follow this <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html">link</a> or the <code>RColorBrewer</code> package and this function:</p>
@@ -1971,7 +1971,7 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 </section>
 <section id="scatterpie-in-maps" class="level3">
-<h3 class="anchored" data-anchor-id="scatterpie-in-maps">*9.5.4. Scatterpie in maps</h3>
+<h3 class="anchored" data-anchor-id="scatterpie-in-maps">*13.5.4. Scatterpie in maps</h3>
 <p>In this section, we use the <code>scatterpie</code> package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions.</p>
 <p>We will work with Czech regions and illustrate the distribution of different land-use types in the year 2024. First, we calculate the centroids of the regions to position the pie charts accurately.</p>
 <div class="cell">
@@ -2045,7 +2045,7 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 </section>
 <section id="grid-mapping" class="level3">
-<h3 class="anchored" data-anchor-id="grid-mapping">9.5.5. Grid mapping</h3>
+<h3 class="anchored" data-anchor-id="grid-mapping">13.5.5. Grid mapping</h3>
 <p>In this section, we create grid-based maps, which are useful for visualising spatial variables across a regular grid. Grids represent polygons of equal size and shape, allowing them to be processed in the same way as other polygon layers (e.g., administrative boundaries).</p>
 <p>We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. For the fill scale, we will use the function <code>scale_fill_gradientn()</code>, which creates an n-colour gradient scale for fill aesthetics by specifying a vector of colors.</p>
 <div class="cell">
@@ -2143,7 +2143,7 @@ chr (2): code, presence
 </section>
 </section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">9.6. Exercises</h2>
+<h2 class="anchored" data-anchor-id="exercises">13.6. Exercises</h2>
 <ol type="1">
 <li><p>Load the soil pH raster (pH_LUCAS_CR.tif) from the folder soil_pH_LUCAS. Determine its spatial resolution and coordinate reference system (CRS). If it uses a geographic CRS (WGS84), reproject it to a metric CRS suitable for the Czech Republic. Crop and mask the raster to the extent of South Moravia. Load the vegetation plots for South Moravia from the CNFD dataset (CNFD-selection-2023-01-09-JMK.xlsx) as simple feature objects, and plot them using the soil pH raster as the basemap. * Find the soil pH value for the vegetation plot with the PlotID number 270. (Note: The vegetation plots must be in the same CRS as the raster.)</p></li>
 <li><p>Calculate the area (in square meters) of the Pálava PLA polygon (select the Pálava polygon from the protected areas in RCzechia).</p></li>
@@ -2153,7 +2153,7 @@ chr (2): code, presence
 </ol>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">9.7. Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">13.7. Further reading</h2>
 <p>Spatial data science (with applications in R) - online book: <a href="https://r-spatial.org/book/" class="uri">https://r-spatial.org/book/</a></p>
 <p>Geocomputation wit R - online book: <a href="https://r.geocompx.org/" class="uri">https://r.geocompx.org/</a></p>
 <p>R as GIS for Economists: <a href="https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/" class="uri">https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/</a></p>

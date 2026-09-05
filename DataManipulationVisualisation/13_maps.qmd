@@ -1,5 +1,5 @@
 ---
-title: "9 + 10 Maps"
+title: "*13 Maps"
 author: "Barbora Klímová"
 ---
 
@@ -32,7 +32,7 @@ library(scales) # Customize scales, breaks, and labels in ggplot2
 library(ggrepel) # Prevent text labels from overlapping in ggplot2
 ```
 
-## 9.1. Introducing spatial data
+## 13.1. Introducing spatial data
 
 Spatial data, also known as geospatial data, contain information that can be mapped, such as the physical **location**, **shape**, and **spatial relationships** of objects on the Earth’s surface.
 
@@ -44,7 +44,7 @@ Spatial data can be classified into **two main types**:
 
 ![](images/BK_clipboard9vector_vs_raster.png){fig-align="center" width="755"}
 
-### 9.1.1. Vectors
+### 13.1.1. Vectors
 
 First, we will load spatial data on grasslands in South Moravia, stored in Shapefile format. The `read_sf()` function from the [`sf`](https://r-spatial.github.io/sf/ "sf package") package imports the file as a Simple Features (sf) object, which is a standardised data structure for representing spatial data in R. An sf object combines both geometric information (such as the shape and location of each grassland polygon) and attribute data (e.g., land cover type and area). This structure allows us to easily visualise, manipulate, and analyse spatial data directly within R.
 
@@ -131,7 +131,7 @@ Finally, we can save the filtered vegetation plots as a Shapefile for later use:
 write_sf(plots_sf, "data/vegetation_plots_JMK/plots_JMK.shp")
 ```
 
-### 9.1.2. Rasters
+### 13.1.2. Rasters
 
 To work with raster data, we will use the [`terra`](https://rspatial.github.io/terra/reference/terra-package.html "terra") package along with [`tidyterra`](https://dieghernan.github.io/tidyterra). Our analysis will focus on a digital elevation model (DEM) for South Moravia, as well as mean annual precipitation and temperature from CHELSA.
 
@@ -225,7 +225,7 @@ dem %>%
   as_tibble()
 ```
 
-## 9.2. Coordinate reference systems
+## 13.2. Coordinate reference systems
 
 Every spatial dataset must have a defined coordinate reference system (CRS). The CRS determines how coordinates relate to real-world locations on the Earth’s surface.
 
@@ -296,11 +296,11 @@ dem_UTM33N <- dem %>%
 writeRaster(dem_UTM33N, "data/dem_JMK/dem_UTM33N.tif", overwrite = T)
 ```
 
-## 9.3. Spatial operations
+## 13.3. Spatial operations
 
 In this chapter, we will learn how to perform basic spatial operations with both vector and raster data. Spatial operations allow us to combine, compare, and analyse spatial relationships between geographic layers.
 
-### 9.3.1. Vector operations
+### 13.3.1. Vector operations
 
 Vector spatial operations are used to analyse and modify point, line, and polygon data. The most common function for vector operations include:
 
@@ -503,7 +503,7 @@ grasslands_UTM33N %>%
   st_within(protect_areas_South_M_int)
 ```
 
-### 9.3.2. Raster operations
+### 13.3.2. Raster operations
 
 Raster operations are used to manipulate and analyse raster data such as digital elevation model (DEM), climate layers, or satellite imagery. Common operations include cropping, masking, resampling, and calculating derived variables like slope or aspect.
 
@@ -599,7 +599,7 @@ Or divide precipitation by temperature: .
 prec / temp
 ```
 
-### 9.3.3. Combining vector and raster operations
+### 13.3.3. Combining vector and raster operations
 
 Vector and raster data are often used together to relate spatial features to raster layers. Typical operations include extracting raster values for vector geometries.
 
@@ -629,7 +629,7 @@ grasslands_UTM33N %>%
   mutate(mean_temp = exact_extract(temp, grasslands_UTM33N, 'mean'))
 ```
 
-## 9.4. Terrain derivatives from DEM
+## 13.4. Terrain derivatives from DEM
 
 From a DEM, we can calculate various terrain derivatives. Common derivatives include:
 
@@ -728,7 +728,7 @@ ggplot() +
   theme_bw()
 ```
 
-## 9.5. Maps
+## 13.5. Maps
 
 A map is a **reduced**, **generalised**, conventional representation of the **Earth’s surface**, transformed onto **a plane** using mathematically defined relationships.
 
@@ -750,7 +750,7 @@ Important map elements include:
 
 ![](images/BK_clipboard9-map_elements.png){fig-align="center" width="755"}
 
-### 9.5.1. Basic map of study area
+### 13.5.1. Basic map of study area
 
 Firstly, we will create a basic map of the study area with a basemap from online sources such as OpenStreetMap or Esri (using the `basemaps` package). The map will include the most important map elements and a small overview map of the Czech Republic highlighting the study area.
 
@@ -854,7 +854,7 @@ final_map
 ggsave(filename = "maps/map_study_area.tiff", plot = final_map, width = 8, height = 5 , dpi = 300 )
 ```
 
-### 9.5.2. Attribute map
+### 13.5.2. Attribute map
 
 We will create a map with the DEM as a basemap and vegetation plots for grasslands, forests, and shrubs, using shape to represent habitat type and the fill colour of points to represent soil reaction. Because we have multiple fill scales, we need to use the `new_scale_fill` function from the `ggnewscale` package, which allows us to define custom palettes for both the DEM and soil reaction.
 
@@ -988,7 +988,7 @@ map_regions_population +
     color = "black")
 ```
 
-### \*9.5.3. Faceted maps
+### \*13.5.3. Faceted maps
 
 In this section, we create faceted maps, which are particularly useful for visualising the same variable across different time periods, categories, or scenarios without having to manually create multiple plots. This approach also eliminates the need to write loops to generate separate maps for each year or group.
 
@@ -1035,7 +1035,7 @@ maps_age
 ggsave(filename = "maps/map_regions_population_age.tiff", plot = maps_age, width = 10, height = 4, dpi = 300)
 ```
 
-### \*9.5.4. Scatterpie in maps
+### \*13.5.4. Scatterpie in maps
 
 In this section, we use the `scatterpie` package to visualise proportional data as pie charts directly on a map. This approach allows us to represent multiple categories for each spatial unit by placing pie charts at specific coordinates, such as the centroids of regions.
 
@@ -1100,7 +1100,7 @@ ggsave(filename = "maps/map_regions_scatterpie.tiff", plot = map_landuse, width 
 
 ```
 
-### 9.5.5. Grid mapping
+### 13.5.5. Grid mapping
 
 In this section, we create grid-based maps, which are useful for visualising spatial variables across a regular grid. Grids represent polygons of equal size and shape, allowing them to be processed in the same way as other polygon layers (e.g., administrative boundaries).
 
@@ -1176,7 +1176,7 @@ ggplot() +
         plot.margin = unit(c(0, 0.2, 0, 0.2), 'cm'))
 ```
 
-## 9.6. Exercises
+## 13.6. Exercises
 
 1.  Load the soil pH raster (pH_LUCAS_CR.tif) from the folder soil_pH_LUCAS. Determine its spatial resolution and coordinate reference system (CRS). If it uses a geographic CRS (WGS84), reproject it to a metric CRS suitable for the Czech Republic. Crop and mask the raster to the extent of South Moravia. Load the vegetation plots for South Moravia from the CNFD dataset (CNFD-selection-2023-01-09-JMK.xlsx) as simple feature objects, and plot them using the soil pH raster as the basemap. \* Find the soil pH value for the vegetation plot with the PlotID number 270. (Note: The vegetation plots must be in the same CRS as the raster.)
 
@@ -1188,7 +1188,7 @@ ggplot() +
 
 5.  Create a map of the Pálava protected landscape area (select the Pálava polygon from the protected areas in RCzechia). Use orthophoto imagery as the basemap and overlay the PLA boundary. Display only the vegetation plots located within Pálava (from CNFD-selection-2023-01-09-JMK.xlsx). Insert an inset map of the Czech Republic showing the location of Pálava (as a point — centroid of the polygon). \* Scale the fill of the points according to the number of species — plots with more species should be displayed on top. Add standard map elements: a legend, scale bar, title, and optionally a north arrow if the map is not oriented northwards. Save the map as a TIFF file with 300 dpi.
 
-## 9.7. Further reading
+## 13.7. Further reading
 
 Spatial data science (with applications in R) - online book: <https://r-spatial.org/book/>
 
