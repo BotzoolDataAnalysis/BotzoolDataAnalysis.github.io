@@ -691,9 +691,13 @@ ggplot() +
 TWI quantifies the effect of topography on soil moisture distribution. It combines the upslope contributing area (representing water supply) and the local slope (representing drainage potential) for each cell in a DEM. Higher TWI values indicate areas more likely to accumulate water, while lower values correspond to well-drained locations.
 
 ```{r}
-
+#| eval: false
 # Downloads and installs the WhiteboxTools executable. You only need to run this command once; after installation, the tools are ready to use.
 whitebox::install_whitebox()
+```
+
+```{r}
+#| eval: false
 
 # Fill single-cell pits
 wbt_fill_single_cell_pits(dem = "data/dem_JMK/dem_UTM33N.tif", 
@@ -727,6 +731,8 @@ ggplot() +
   scale_fill_paletteer_c("grDevices::RdBu", na.value = "transparent", name = "TWI") +
   theme_bw()
 ```
+
+![](images/clipboard-2358388673.png)
 
 ## 13.5. Maps
 
@@ -858,7 +864,7 @@ ggsave(filename = "maps/map_study_area.tiff", plot = final_map, width = 8, heigh
 
 We will create a map with the DEM as a basemap and vegetation plots for grasslands, forests, and shrubs, using shape to represent habitat type and the fill colour of points to represent soil reaction. Because we have multiple fill scales, we need to use the `new_scale_fill` function from the `ggnewscale` package, which allows us to define custom palettes for both the DEM and soil reaction.
 
-For the fill scale of the DEM, we will use the function `scale_fill_gradientn()`, which creates an n-colour gradient scale for the fill aesthetics by specifying a vector of colors. 
+For the fill scale of the DEM, we will use the function `scale_fill_gradientn()`, which creates an n-colour gradient scale for the fill aesthetics by specifying a vector of colors.
 
 To scale vegetation plots by soil reaction, we will use the `scale_fill_viridis_b()`, which automatically divides continuous values of soil reaction into discrete colour bins (intervals) that can be adjusted using the n.breaks argument. The argument option = "H" specifies which version of the viridis colour palette is used. Other palette options can be found [here](https://sjmgarnier.github.io/viridis/reference/scale_viridis.html).
 
@@ -1104,7 +1110,7 @@ ggsave(filename = "maps/map_regions_scatterpie.tiff", plot = map_landuse, width 
 
 In this section, we create grid-based maps, which are useful for visualising spatial variables across a regular grid. Grids represent polygons of equal size and shape, allowing them to be processed in the same way as other polygon layers (e.g., administrative boundaries).
 
-We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. For the fill scale, we will use the function `scale_fill_gradientn()`, which creates an n-colour gradient scale for fill aesthetics by specifying a vector of colors. 
+We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. We will use the Pladias dataset of grid cells to map continuous variables such as the climatic moisture index (cmi), which is derived from the CHELSA BIOCLIM+ database. For the fill scale, we will use the function `scale_fill_gradientn()`, which creates an n-colour gradient scale for fill aesthetics by specifying a vector of colors.
 
 ```{r}
 pladias <- read_sf("data/Pladias_data/kvadranty_Pladias.shp")
@@ -1184,7 +1190,7 @@ ggplot() +
 
 3.  \* Select all vegetation plots located within the Pálava PLA and within a 5 km buffer zone around it. Determine how many plots there are and calculate their average number of species.
 
-4. Create a raster showing the temperature difference between January 2013 (data/climate_raster/CHELSA_tmean_2013_01_CR) and January 1979 (data/climate_raster/CHELSA_tmean_1979_01_CR). Plot it with a legend, scale bar, and north arrow. Save the map as a TIFF file with a resolution of 300 dpi.
+4.  Create a raster showing the temperature difference between January 2013 (data/climate_raster/CHELSA_tmean_2013_01_CR) and January 1979 (data/climate_raster/CHELSA_tmean_1979_01_CR). Plot it with a legend, scale bar, and north arrow. Save the map as a TIFF file with a resolution of 300 dpi.
 
 5.  Create a map of the Pálava protected landscape area (select the Pálava polygon from the protected areas in RCzechia). Use orthophoto imagery as the basemap and overlay the PLA boundary. Display only the vegetation plots located within Pálava (from CNFD-selection-2023-01-09-JMK.xlsx). Insert an inset map of the Czech Republic showing the location of Pálava (as a point — centroid of the polygon). \* Scale the fill of the points according to the number of species — plots with more species should be displayed on top. Add standard map elements: a legend, scale bar, title, and optionally a north arrow if the map is not oriented northwards. Save the map as a TIFF file with 300 dpi.
 

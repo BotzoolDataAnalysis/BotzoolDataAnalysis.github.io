@@ -9,9 +9,55 @@ You already know that **R** is a programming language and environment for statis
 
 We will work with R using the interface called **RStudio IDE**, in short **RStudio**, which is an integrated development environment for R and can be downloaded [`here`](https://posit.co/download/rstudio-desktop/).
 
-[TO DO]{.underline}: **install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try the further reading section at the end of this chapter, or come and ask before the first lesson.
+## To do first
 
-## 1.1. Introducing Tidyverse
+**install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try the "further reading section" at the end of this chapter, or come and ask before the first lesson.
+
+All the data used in our chapters are either available online and accessible through direct links, or you need to download them from our repository and save in the same folders. For this we prepared an **example R project**, which can be downloaded here at this link to Github folder (use the arrow icon to download the raw data). Use it as a place to train according to our tutorials, save there your scripts and notes from the lessons.
+
+Note that each chapter has also extra exercises for training.
+
+## 1.1. Effective and reproducible workflow
+
+There are several rules to make your workflow effective and reproducible after some time or by other people.
+
+### 1.1.1 Projects
+
+If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more [`here`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). A good habit is to organise each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.
+
+R Studio easily enables creating projects and switching between them (either through File \> Open/New/Recent Project or by clicking the upper-right corner icon for projects).
+
+![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
+
+**Tip**: get used to creating the same **subfolders** in each of your projects: data, scripts, results, maps, backup, etc., to further organise the project structure. If you save the data into them, you can directly import them and view them through the project in R Studio.
+
+### 1.1.2 Scripts
+
+-   **libraries**
+    -   list all the libraries your code needs at the beginning of the script
+
+```{r}
+library(tidyverse) 
+library(readxl)
+library(janitor)
+```
+
+-   **remarks**
+    -   add notes to your scripts, you will be grateful later
+    -   change the text to non-active (marked with hash tags `#`) `Ctrl + Shift + C`
+-   **separate scripts or sections**
+    -   insert named section using `Ctrl + Shift + R`
+    -   or divide the code by `####`
+    -   fold all sections with `Alt + O`
+    -   unfold all with `Shift + Alt + O`
+-   **variable names**
+    -   should be short and easy to handle, without spaces, strange symbols
+
+    -   Simple variable names will save you a great deal of time and effort, as well as the need for parentheses.
+
+        (see exercises below)
+
+## 1.2. Introducing Tidyverse
 
 ![](images/IA_clipboard1Tidyverse.png){fig-align="center" width="755"}
 
@@ -45,7 +91,7 @@ while for the extra ones, you have to use an extra call:
 library(readxl)
 ```
 
-### 1.1.1 Tidy data
+### 1.2.1 Tidy data
 
 Data that are easy to handle and analyse.
 
@@ -53,7 +99,7 @@ Data that are easy to handle and analyse.
 
 Find more in the R for data science book: <https://r4ds.hadley.nz/>
 
-### 1.1.2 Tibbles
+### 1.2.2 Tibbles
 
 Tibbles are new, updated versions of base-R data frames. They are designed to work better with other `tidyverse` packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g. strings to factors), they never change the names of variables, and they never create row names. Example:
 
@@ -62,7 +108,7 @@ data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-
 tibble(data)
 ```
 
-### 1.1.3 Pipes `%>%`
+### 1.2.3 Pipes `%>%`
 
 The `tidyverse` tools use a pipe: `%>%` or `|>`. The pipe allows the output of a previous command to be used as input to another command, rather than using nested functions. It means that a pipe binds individual steps into a sequence, and it reads from left to right. In base R, the logic of reading is from inside out, and you have to save all the steps separately.
 
@@ -92,107 +138,26 @@ Piping (the same steps, but just in one line):
 
 ```{r}
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") %>%
-  mutate(Productivity = ifelse(Biomass < 100, "low", "high")) %>%
+  mutate(Productivity = ifelse(Biomass < 60, "low", "high")) %>%
   select(PlotID, ForestTypeName, Productivity, pH_KCl) %>%
   arrange(desc(pH_KCl)) %>%
   slice_head(n = 15) %>%
   print()
 ```
 
+Try to **check how the pipeline is working** by sending to the console just parts from pipe to pipe like this: ![](images/clipboard-1881997059.png){width="383"}
+
+![](images/clipboard-1595658979.png){width="385"}
+
+![](images/clipboard-349377751.png){width="382"}
+
+This approach is very useful for finding problems in your script. Or you can use it to produce outputs such as plots, tables etc. without saving it as an intermediate object.
+
 Note: It is even possible to overwrite the original dataset with an assignment pipe `%<>%` included in the `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
 
 Tip: Insert a pipe by `Ctrl + Shift + M`.
 
-## 1.2. Effective and reproducible workflow
-
-There are several rules to make your workflow effective and reproducible after some time or by other people.
-
-### 1.2.1 Projects
-
-If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more [`here`](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)). A good habit is to organise each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.
-
-R Studio easily enables creating projects and switching between them (either through File \> Open/New/Recent Project or by clicking the upper-right corner icon for projects).
-
-![](images/IA_clipboard1Project.png){fig-align="center" width="755"}
-
-**Tip**: get used to creating the same **subfolders** in each of your projects: data, scripts, results, maps, backup, etc., to further organise the project structure. If you save the data into them, you can directly import them and view them through the project in R Studio.
-
-### 1.2.2 Scripts
-
--   **libraries**
-    -   list all the libraries your code needs at the beginning of the script
-
-```{r}
-library(tidyverse)
-library(readxl)
-```
-
--   **remarks**
-    -   add notes to your scripts, you will be grateful later
-    -   change the text to non-active (marked with hash tags `#`) `Ctrl + Shift + C`
--   **separate scripts or sections**
-    -   insert named section using `Ctrl + Shift + R`
-    -   or divide the code by `####`
-    -   fold all sections with `Alt + O`
-    -   unfold all with `Shift + Alt + O`
--   **variable names**
-    -   should be short and easy to handle, without spaces, strange symbols
-    -   Simple variable names will save you a great deal of time and effort, as well as the need for parentheses.
-
-See this example:
-
-```{r}
-#| warning: false
-data <- read_csv("data/messy_data/Example0.csv")
-names(data)
-```
-
-You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.
-
-```{r}
-#| warning: false
-data %>% rename(Releve = "Relevé number")
-```
-
-Alternatively, you can change all complex patterns at once, using RegEx regular expressions. Import the example once again.
-
-You identify the pattern on the left, starting with two backslashes and define the outcome on the right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
-
-```{r}
-#| warning: false
-data <- read_csv("data/messy_data/Example0.csv")
-names(data)
-data %>%
-  rename_all(~ str_replace_all(., c(
-    "\\." = "",     # remove dots in the variable names
-    "\\é" = "e",    # replace é by e
-    "\\%" = "perc", # remove symbol % and change it to perc
-    "\\(" = "",     # remove brackets
-    "\\)" = "",     # remove brackets
-    "\\/" = "",     # remove slash
-    "\\?" = "",     # remove questionmark
-    "\\s" = ".")))   # remove spaces
-```
-
-Now check the names again. Did it work?
-
--   Tip: Use the function `clean_names()` from the `janitor` package
-
-Note that in the examples above, you are not really rewriting the data you have imported. Here, the **`data %>%` means that you are just trying to see what it would look like** if you apply the following steps to the data. To really change it, you would have to assign your result to a new dataset by using one of the following options:
-
--   `data2 <- data1 %>%` ... \# defining first the new dataset
-
--   `data <- data %>%` ... \# rewriting the existing dataset
-
--   `data %<>% data` ... \# rewriting the existing dataset by assignment pipe (`magrittr`)
-
--   `data1 %>% ...-> data2` \# making/testing all the steps and assigning it to a new dataset as the last step
-
-This might sound troublesome, but it is actually very helpful. You can try all the steps, and when you are satisfied with the code, you can combine everything into a single pipeline, from importing the data to exporting the result.
-
 ## 1.3 Data import
-
-We will train on how to import data using the `tidyverse` approach, which includes `readr` or `readxl` for Excel files (see the cheatsheet).
 
 It is useful to check which files are stored in the folders we have. Here, we list all files in the working (=project) directory.
 
@@ -207,12 +172,30 @@ list.files("data")
 list.files("data/forest_understory")
 ```
 
+Alternatively you can check the structure of your files directly in the "files" section in the R studio and open the folders by clicking on them.
+
+### 1.3.1 Import
+
+We will train on how to import data using the `tidyverse` approach, which includes `readr` or `readxl` for Excel files (see the cheatsheet).
+
 Let's select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Here it is an Excel file, so I can use the `read_excel()` function. Check the cheatsheet for more tips.
 
 ```{r}
 #| warning: false
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 ```
+
+Much more often you will need to import csv file, which is also often used when we import data from online repositories
+
+```{r}
+#| warning: false
+#| eval: false
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv")
+```
+
+Import through R studio is another option, which we will show you. Note that it is advisable to copy the suggested code and save it in your script for later.
+
+### 1.3.2 Check the data structure
 
 We imported the data, and here are a few tips on how to check the structure.
 
@@ -241,6 +224,74 @@ table(data$ForestTypeName)
 ```
 
 Of course, you can also **`view()`** the data or click on it in the list in the Files pane to open it in a table-like scrollable format, which can be useful many times. However, this is not recommended for huge tables, as the previews are rather memory-intensive.
+
+### 1.3.2 Cleaning variable names
+
+See this example:
+
+```{r}
+data<-read_csv("data/messy_data/Example0.csv")
+```
+
+```{r}
+names(data)
+```
+
+You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.
+
+```{r}
+data %>% rename(Releve = "Relevé number")
+```
+
+Alternatively, you can change all complex patterns at once, using RegEx regular expressions. Import the example once again.
+
+You identify the pattern on the left, starting with two backslashes and define the outcome on the right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.
+
+```{r}
+data <- read_csv("data/messy_data/Example0.csv")   
+names(data) 
+```
+
+```{r}
+data %>%         
+  rename_all(~ str_replace_all(., c(               
+    "\\." = "",     # remove dots in the variable names 
+    "\\é" = "e",    # replace é by e               
+    "\\%" = "perc", # remove symbol % and change it to perc
+    "\\(" = "",     # remove brackets   
+    "\\)" = "",     # remove brackets              
+    "\\/" = "",     # remove slash               
+    "\\?" = "",     # remove questionmark               
+    "\\s" = ".")))   # remove spaces
+```
+
+Now check the names again. Did it work?
+
+Now use the function `clean_names()` from the `janitor` package, and check how it works directly in the import line by sending to the console first part alone and than both of them
+
+```{r}
+read_csv("data/messy_data/Example0.csv") %>% 
+  clean_names()
+```
+
+### 1.3.3 Assign results to an object
+
+Note that in the examples above, you are not really rewriting the data you have imported. Here, the **`data %>%` means that you are just trying to see what it would look like** if you apply the following steps to the data. To really change it, you would have to assign your result to a new dataset by using one of the following options:
+
+-   `data2 <- data1 %>%` ... \# defining first the new dataset
+
+-   `data <- data %>%` ... \# rewriting the existing dataset
+
+-   `data %<>% data` ... \# rewriting the existing dataset by assignment pipe (`magrittr`)
+
+-   `data1 %>% ...-> data2` \# making/testing all the steps and assigning it to a new dataset as the last step
+
+```{r}
+   read_csv("data/messy_data/Example0.csv") %>% 
+     clean_names() ->data
+```
+
+This might sound troublesome, but it is actually very helpful. You can try all the steps, and when you are satisfied with the code, you can combine everything into a single pipeline, from importing the data to exporting the result.
 
 ## 1.4 Where to find help
 
@@ -280,7 +331,7 @@ In this chapter:
 
 4\. Use the cheatsheet to find out how to import the second sheet of the Excel file. Try this on import of `data/frozen_fauna/metadata`. Which sheets are there, and how can you easily check the structure?
 
-5\. Download `Example0` from `data/messy_data`, save it into your data folder and import it to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, with `rename_all()`, or use the `clean_names()` function from the `janitor` package. \*Save the tidy dataset as `Example0_tidy.csv` using the function `write_csv()`.
+5\. Download `Example0` from `data/messy_data`, save it into your data folder and import it to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, with `rename_all()`, or use the `clean_names()` function from the `janitor` package. Assign the cleaned data to example_cleaned.
 
 6\. Try importing the same, not cleaned file via R Studio and describe pros/cons.
 

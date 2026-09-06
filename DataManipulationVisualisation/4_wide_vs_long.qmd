@@ -1,5 +1,5 @@
 ---
-title: "4 Wide vs long format"
+title: "4 Wide vs long format, summarise"
 author: "Irena Axmanová"
 ---
 
