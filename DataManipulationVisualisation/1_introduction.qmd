@@ -3,7 +3,7 @@ title: "1 Introduction"
 author: 'Irena Axmanová'
 ---
 
-In this chapter, we will learn how to prepare for analyses in R, including preparing the project, starting a script, importing data, and conducting an initial exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.
+In this chapter, we will learn how to prepare for analyses in R, including preparing the project, starting a script, importing data, and conducting an initial exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflows and scripts.
 
 You already know that **R** is a programming language and environment for statistical analysis and data visualisation. R is a free and open-source software, available from the [`CRAN directory`](https://cran.rstudio.com/). R is extended by a large number of software packages, which contain reusable code, documentation, and sample data. In this course, we will focus primarily on the **tidyverse** collection of packages, which are designed for everyday data handling and visualisation (see more [`here`](https://www.tidyverse.org/)).
 
@@ -19,7 +19,7 @@ Note that each chapter has also extra exercises for training.
 
 ## 1.1. Effective and reproducible workflow
 
-There are several rules to make your workflow effective and reproducible after some time or by other people.
+There are several rules to make your workflow effective and reproducible over time or by other people.
 
 ### 1.1.1 Projects
 
@@ -217,10 +217,16 @@ If you forget the names of variables or you want to copy them and store them in 
 names(data)
 ```
 
-A quite useful base R function is `table()`, which shows the counts per category of the selected variable. In the `tidyverse`, it will require more steps to be completed, but we will get there next time.
+A quite useful base R function is `table()`, which shows the counts per category of the selected variable.
 
 ```{r}
 table(data$ForestTypeName)
+```
+
+In the `tidyverse`, you can do the same with `count` and we will explain it in more detail in the next chapters with `group_by` and `summarise`.
+
+```{r}
+data %>% count(ForestTypeName)
 ```
 
 Of course, you can also **`view()`** the data or click on it in the list in the Files pane to open it in a table-like scrollable format, which can be useful many times. However, this is not recommended for huge tables, as the previews are rather memory-intensive.
@@ -267,7 +273,7 @@ data %>%
 
 Now check the names again. Did it work?
 
-Now use the function `clean_names()` from the `janitor` package, and check how it works directly in the import line by sending to the console first part alone and than both of them
+Now use the function `clean_names()` from the `janitor` package, which is of great help! Check how it works directly in the import line by sending the first part to the console first, and then both parts together.
 
 ```{r}
 read_csv("data/messy_data/Example0.csv") %>% 

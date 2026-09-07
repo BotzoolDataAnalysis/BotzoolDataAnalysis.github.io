@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this chapter, we will learn how to prepare for analyses in R, including preparing the project, starting a script, importing data, and conducting an initial exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflow and scripts.</p>
+<p>In this chapter, we will learn how to prepare for analyses in R, including preparing the project, starting a script, importing data, and conducting an initial exploration. We will follow the rules for preparing reproducible, reportable, clean and tidy workflows and scripts.</p>
 <p>You already know that <strong>R</strong> is a programming language and environment for statistical analysis and data visualisation. R is a free and open-source software, available from the <a href="https://cran.rstudio.com/"><code>CRAN directory</code></a>. R is extended by a large number of software packages, which contain reusable code, documentation, and sample data. In this course, we will focus primarily on the <strong>tidyverse</strong> collection of packages, which are designed for everyday data handling and visualisation (see more <a href="https://www.tidyverse.org/"><code>here</code></a>).</p>
 <p>We will work with R using the interface called <strong>RStudio IDE</strong>, in short <strong>RStudio</strong>, which is an integrated development environment for R and can be downloaded <a href="https://posit.co/download/rstudio-desktop/"><code>here</code></a>.</p>
 <section id="to-do-first" class="level2">
@@ -397,7 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="effective-and-reproducible-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="effective-and-reproducible-workflow">1.1. Effective and reproducible workflow</h2>
-<p>There are several rules to make your workflow effective and reproducible after some time or by other people.</p>
+<p>There are several rules to make your workflow effective and reproducible over time or by other people.</p>
 <section id="projects" class="level3">
 <h3 class="anchored" data-anchor-id="projects">1.1.1 Projects</h3>
 <p>If you start your work by setting the working directory, the reproducibility by someone else is very limited (see more <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/"><code>here</code></a>). A good habit is to organise each data analysis into a project: a folder on your computer that holds all the files relevant to that particular piece of work.</p>
@@ -648,12 +648,15 @@ The following objects are masked from 'package:stats':
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Axmanova-Forest-env.xlsx"                             
-[2] "Axmanova-Forest-spe.xlsx"                             
-[3] "Axmanova-Forest-understory-diversity-analyses.xlsx"   
-[4] "Axmanova-Forest-understory-diversity-merged-long.xlsx"
-[5] "readme.txt"                                           
-[6] "traits.xlsx"                                          </code></pre>
+<pre><code>[1] "Axmanova-Forest-env.csv"                              
+[2] "Axmanova-Forest-env.xlsx"                             
+[3] "Axmanova-Forest-spe.csv"                              
+[4] "Axmanova-Forest-spe.xlsx"                             
+[5] "Axmanova-Forest-understory-diversity-analyses.xlsx"   
+[6] "Axmanova-Forest-understory-diversity-merged-long.xlsx"
+[7] "readme.txt"                                           
+[8] "traits.csv"                                           
+[9] "traits.xlsx"                                          </code></pre>
 </div>
 </div>
 <p>Alternatively you can check the structure of your files directly in the “files” section in the R studio and open the folders by clicking on them.</p>
@@ -739,7 +742,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 [21] "EIV_nutrients"    "TWI"             </code></pre>
 </div>
 </div>
-<p>A quite useful base R function is <code>table()</code>, which shows the counts per category of the selected variable. In the <code>tidyverse</code>, it will require more steps to be completed, but we will get there next time.</p>
+<p>A quite useful base R function is <code>table()</code>, which shows the counts per category of the selected variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -748,13 +751,26 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
                  11                  16                  28                  10 </code></pre>
 </div>
 </div>
+<p>In the <code>tidyverse</code>, you can do the same with <code>count</code> and we will explain it in more detail in the next chapters with <code>group_by</code> and <code>summarise</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">count</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  ForestTypeName          n
+  &lt;chr&gt;               &lt;int&gt;
+1 alluvial forest        11
+2 oak forest             16
+3 oak hornbeam forest    28
+4 ravine forest          10</code></pre>
+</div>
+</div>
 <p>Of course, you can also <strong><code>view()</code></strong> the data or click on it in the list in the Files pane to open it in a table-like scrollable format, which can be useful many times. However, this is not recommended for huge tables, as the previews are rather memory-intensive.</p>
 </section>
 <section id="cleaning-variable-names" class="level3">
 <h3 class="anchored" data-anchor-id="cleaning-variable-names">1.3.2 Cleaning variable names</h3>
 <p>See this example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -767,7 +783,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Relevé number"                   "Taxon"                          
 [3] "Vegetation layer"                "Cover %"                        
@@ -776,7 +792,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 <p>You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 51 × 5
    Releve Taxon              `Vegetation layer` `Cover %` Braun-Blanquet Scale…¹
@@ -798,7 +814,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <p>Alternatively, you can change all complex patterns at once, using RegEx regular expressions. Import the example once again.</p>
 <p>You identify the pattern on the left, starting with two backslashes and define the outcome on the right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -809,7 +825,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Relevé number"                   "Taxon"                          
 [3] "Vegetation layer"                "Cover %"                        
@@ -817,16 +833,16 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>         </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(               </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove dots in the variable names </span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">é"</span> <span class="ot">=</span> <span class="st">"e"</span>,    <span class="co"># replace é by e               </span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets   </span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets              </span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove slash               </span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove questionmark               </span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span> <span class="ot">=</span> <span class="st">"."</span>)))   <span class="co"># remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>         </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(               </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove dots in the variable names </span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">é"</span> <span class="ot">=</span> <span class="st">"e"</span>,    <span class="co"># replace é by e               </span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets   </span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets              </span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove slash               </span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove questionmark               </span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span> <span class="ot">=</span> <span class="st">"."</span>)))   <span class="co"># remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 51 × 5
    Releve.number Taxon        Vegetation.layer Cover.perc Braun-Blanquet.Scale…¹
@@ -846,10 +862,10 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 </div>
 <p>Now check the names again. Did it work?</p>
-<p>Now use the function <code>clean_names()</code> from the <code>janitor</code> package, and check how it works directly in the import line by sending to the console first part alone and than both of them</p>
+<p>Now use the function <code>clean_names()</code> from the <code>janitor</code> package, which is of great help! Check how it works directly in the import line by sending the first part to the console first, and then both parts together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -889,8 +905,8 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <li><p><code>data1 %&gt;% ...-&gt; data2</code> # making/testing all the steps and assigning it to a new dataset as the last step</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">clean_names</span>() <span class="ot">-&gt;</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">clean_names</span>() <span class="ot">-&gt;</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────

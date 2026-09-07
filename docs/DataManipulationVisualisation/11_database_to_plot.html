@@ -414,12 +414,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/tvhabita.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 137 Columns: 84
+<pre><code>Rows: 65 Columns: 55
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
-dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
-lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+chr  (9): COUNTRY, COVERSCALE, AUTHOR, MOSS_IDENT, LICH_IDENT, REMARKS, COOR...
+dbl (33): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (13): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, SYNTAXON, UTM, SYNOPTIC, ...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -436,16 +436,10 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 [21] "COV_LICHEN" "COV_ALGAE"  "COV_LITTER" "COV_WATER"  "COV_ROCK"  
 [26] "TREE_HIGH"  "TREE_LOW"   "SHRUB_HIGH" "SHRUB_LOW"  "HERB_HIGH" 
 [31] "HERB_LOW"   "HERB_MAX"   "CRYPT_HIGH" "MOSS_IDENT" "LICH_IDENT"
-[36] "REMARKS"    "COORD_CODE" "SYNTAX_OLD" "RESURVEY"   "FOR_EVA"   
-[41] "RS_PROJECT" "RS_SITE"    "RS_PLOT"    "RS_OBSERV"  "PLOT_SHAPE"
-[46] "MANIPULATE" "MANIPTYP"   "LOC_METHOD" "DATA_OWNER" "EVA_ACCESS"
-[51] "LONGITUDE"  "LATITUDE"   "PRECISION"  "LOCALITY"   "BIAS_MIN"  
-[56] "BIAS_GPS"   "CEBA_GRID"  "FIELD_NR"   "HABITAT"    "GEOLOGY"   
-[61] "SOIL"       "WATER_PH"   "S_PH_H2O"   "S_PH_KCL"   "S_PH_CACL2"
-[66] "SOIL_PH"    "CONDUCT"    "NR_ORIG"    "HLOUBK_CM"  "DNO"       
-[71] "CEL_PLO_M2" "ZAROST_PLO" "ESY_CODE"   "ESY_NAME"   "COV_WOOD"  
-[76] "SOIL_DPT"   "TRAMPLING"  "PLOT_TYPE"  "RS_CODE"    "RS_PROJTYP"
-[81] "RADIATION"  "HEAT"       "LES"        "NELES"     </code></pre>
+[36] "REMARKS"    "SYNOPTIC"   "NR_OF_REL"  "SYNTAXONEU" "SBSREFCODE"
+[41] "LONGITUDE"  "LATITUDE"   "COORD_CODE" "SYNTAX_OLD" "LOCALITY"  
+[46] "BIAS_MIN"   "BIAS_GPS"   "CEBA_GRID"  "FIELD_NR"   "HABITAT"   
+[51] "GEOLOGY"    "SOIL"       "PH_H20"     "PH_KCL"     "SELECTION" </code></pre>
 </div>
 </div>
 <p>Therefore, we will directly change them to tidy names using the <code>clean_names()</code> function from the <code>janitor</code> package. An alternative is to rename one by one using e.g.&nbsp;<code>rename()</code>, but here we want to save time and effort.</p>
@@ -453,33 +447,33 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/tvhabita.csv"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 137 Columns: 84
+<pre><code>Rows: 65 Columns: 55
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
-dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
-lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+chr  (9): COUNTRY, COVERSCALE, AUTHOR, MOSS_IDENT, LICH_IDENT, REMARKS, COOR...
+dbl (33): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (13): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, SYNTAXON, UTM, SYNOPTIC, ...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 137 × 84
+<pre><code># A tibble: 65 × 55
    releve_nr country reference table_nr nr_in_tab coverscale project author
        &lt;dbl&gt; &lt;chr&gt;   &lt;lgl&gt;     &lt;lgl&gt;    &lt;lgl&gt;     &lt;chr&gt;      &lt;lgl&gt;   &lt;chr&gt; 
- 1    183111 CZ      NA        NA       NA        02         NA      0832  
- 2    183112 CZ      NA        NA       NA        02         NA      0832  
- 3    183113 CZ      NA        NA       NA        02         NA      0832  
- 4    183114 CZ      NA        NA       NA        02         NA      0832  
- 5    183115 CZ      NA        NA       NA        02         NA      0832  
- 6    183116 CZ      NA        NA       NA        02         NA      0832  
- 7    183117 CZ      NA        NA       NA        02         NA      0832  
- 8    183118 CZ      NA        NA       NA        02         NA      0832  
- 9    183119 CZ      NA        NA       NA        02         NA      0832  
-10    183120 CZ      NA        NA       NA        02         NA      0832  
-# ℹ 127 more rows
-# ℹ 76 more variables: date &lt;dbl&gt;, syntaxon &lt;chr&gt;, surf_area &lt;dbl&gt;, utm &lt;lgl&gt;,
+ 1         1 CZ      NA        NA       NA        02         NA      0669  
+ 2         2 CZ      NA        NA       NA        02         NA      0832  
+ 3         3 CZ      NA        NA       NA        02         NA      0832  
+ 4         4 CZ      NA        NA       NA        02         NA      0832  
+ 5         5 CZ      NA        NA       NA        02         NA      0832  
+ 6         6 CZ      NA        NA       NA        02         NA      0832  
+ 7         7 CZ      NA        NA       NA        02         NA      0832  
+ 8         8 CZ      NA        NA       NA        02         NA      0832  
+ 9         9 CZ      NA        NA       NA        02         NA      0832  
+10        10 CZ      NA        NA       NA        02         NA      0832  
+# ℹ 55 more rows
+# ℹ 47 more variables: date &lt;dbl&gt;, syntaxon &lt;lgl&gt;, surf_area &lt;dbl&gt;, utm &lt;lgl&gt;,
 #   altitude &lt;dbl&gt;, exposition &lt;dbl&gt;, inclinatio &lt;dbl&gt;, cov_total &lt;dbl&gt;,
 #   cov_trees &lt;dbl&gt;, cov_shrubs &lt;dbl&gt;, cov_herbs &lt;dbl&gt;, cov_mosses &lt;dbl&gt;,
 #   cov_lichen &lt;dbl&gt;, cov_algae &lt;dbl&gt;, cov_litter &lt;dbl&gt;, cov_water &lt;dbl&gt;,
@@ -497,16 +491,10 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 [21] "cov_lichen" "cov_algae"  "cov_litter" "cov_water"  "cov_rock"  
 [26] "tree_high"  "tree_low"   "shrub_high" "shrub_low"  "herb_high" 
 [31] "herb_low"   "herb_max"   "crypt_high" "moss_ident" "lich_ident"
-[36] "remarks"    "coord_code" "syntax_old" "resurvey"   "for_eva"   
-[41] "rs_project" "rs_site"    "rs_plot"    "rs_observ"  "plot_shape"
-[46] "manipulate" "maniptyp"   "loc_method" "data_owner" "eva_access"
-[51] "longitude"  "latitude"   "precision"  "locality"   "bias_min"  
-[56] "bias_gps"   "ceba_grid"  "field_nr"   "habitat"    "geology"   
-[61] "soil"       "water_ph"   "s_ph_h2o"   "s_ph_kcl"   "s_ph_cacl2"
-[66] "soil_ph"    "conduct"    "nr_orig"    "hloubk_cm"  "dno"       
-[71] "cel_plo_m2" "zarost_plo" "esy_code"   "esy_name"   "cov_wood"  
-[76] "soil_dpt"   "trampling"  "plot_type"  "rs_code"    "rs_projtyp"
-[81] "radiation"  "heat"       "les"        "neles"     </code></pre>
+[36] "remarks"    "synoptic"   "nr_of_rel"  "syntaxoneu" "sbsrefcode"
+[41] "longitude"  "latitude"   "coord_code" "syntax_old" "locality"  
+[46] "bias_min"   "bias_gps"   "ceba_grid"  "field_nr"   "habitat"   
+[51] "geology"    "soil"       "ph_h20"     "ph_kcl"     "selection" </code></pre>
 </div>
 </div>
 <p>We will prepare a selection of the variables we want to keep and rewrite the file. Always keep <code>releve_nr</code> and <code>coverscale</code>, as you will need them later on.</p>
@@ -515,7 +503,7 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, coverscale,field_nr, country, author, date, syntaxon, </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         altitude, exposition, inclinatio, </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         cov_trees, cov_shrubs, cov_herbs, cov_mosses, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, precision, bias_min, bias_gps, locality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, bias_min, bias_gps, locality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternatively, we can combine all the steps we’ve taken so far into a single pipeline and check the resulting dataset.</p>
 <div class="cell">
@@ -524,42 +512,41 @@ lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, coverscale, field_nr, country, author, date, syntaxon,</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         altitude, exposition, inclinatio,</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         cov_trees, cov_shrubs, cov_herbs, cov_mosses,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, precision, bias_min, bias_gps, locality) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         latitude, longitude, bias_min, bias_gps, locality) <span class="sc">%&gt;%</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 137 Columns: 84
+<pre><code>Rows: 65 Columns: 55
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (13): COUNTRY, COVERSCALE, AUTHOR, SYNTAXON, MOSS_IDENT, LICH_IDENT, REM...
-dbl (45): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
-lgl (26): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, UTM, RESURVEY, FOR_EVA, R...
+chr  (9): COUNTRY, COVERSCALE, AUTHOR, MOSS_IDENT, LICH_IDENT, REMARKS, COOR...
+dbl (33): RELEVE_NR, DATE, SURF_AREA, ALTITUDE, EXPOSITION, INCLINATIO, COV_...
+lgl (13): REFERENCE, TABLE_NR, NR_IN_TAB, PROJECT, SYNTAXON, UTM, SYNOPTIC, ...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 137
-Columns: 20
-$ releve_nr  &lt;dbl&gt; 183111, 183112, 183113, 183114, 183115, 183116, 183117, 183…
+<pre><code>Rows: 65
+Columns: 19
+$ releve_nr  &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 18, 28, 29, 31, …
 $ coverscale &lt;chr&gt; "02", "02", "02", "02", "02", "02", "02", "02", "02", "02",…
-$ field_nr   &lt;chr&gt; "2/2007", "3/2007", "4/2007", "5/2007", "6/2007", "7/2007",…
+$ field_nr   &lt;chr&gt; "Jan-07", "Feb-07", "Mar-07", "Apr-07", "May-07", "Jun-07",…
 $ country    &lt;chr&gt; "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ", "CZ",…
-$ author     &lt;chr&gt; "0832", "0832", "0832", "0832", "0832", "0832", "0832", "08…
-$ date       &lt;dbl&gt; 20070702, 20070702, 20070702, 20070703, 20070703, 20070703,…
-$ syntaxon   &lt;chr&gt; "LDA01", "LDA01", "LDA", "LDA01", "LDA", "LD", "LBB", "LB",…
-$ altitude   &lt;dbl&gt; 458, 414, 379, 374, 380, 373, 390, 255, 340, 368, 356, 427,…
-$ exposition &lt;dbl&gt; 150, 150, 210, NA, 170, 65, NA, 80, 220, 95, 200, 170, 130,…
-$ inclinatio &lt;dbl&gt; 24, 13, 21, 0, 10, 6, 0, 38, 13, 29, 38, 27, 7, 22, 9, 21, …
-$ cov_trees  &lt;dbl&gt; 80, 80, 75, 70, 65, 65, 85, 80, 70, 85, 45, 70, 65, 70, 80,…
-$ cov_shrubs &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 20, 0, 15, 1, 0, 2, 1, 12, 0, 0, 0, 0,…
-$ cov_herbs  &lt;dbl&gt; 25, 25, 30, 35, 60, 70, 70, 15, 75, 8, 75, 40, 60, 40, 60, …
-$ cov_mosses &lt;dbl&gt; 10, 8, 10, 8, 3, 5, 5, 10, 3, 5, 20, 3, 5, 30, 1, 5, 1, 5, …
-$ latitude   &lt;dbl&gt; 492015.3, 492128.9, 492126.4, 490210.2, 490203.1, 490158.5,…
-$ longitude  &lt;dbl&gt; 163420.0, 163345.8, 162913.4, 162137.8, 162128.3, 162117.2,…
-$ precision  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ author     &lt;chr&gt; "0669", "0832", "0832", "0832", "0832", "0832", "0832", "08…
+$ date       &lt;dbl&gt; 20070611, 20070702, 20070702, 20070702, 20070703, 20070703,…
+$ syntaxon   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ altitude   &lt;dbl&gt; 412, 458, 414, 379, 374, 380, 373, 390, 255, 340, 368, 280,…
+$ exposition &lt;dbl&gt; 135, 150, 150, 210, NA, 170, 65, NA, 80, 220, 95, 340, 120,…
+$ inclinatio &lt;dbl&gt; 4, 24, 13, 21, NA, 10, 6, NA, 38, 13, 29, 47, 33, 24, NA, N…
+$ cov_trees  &lt;dbl&gt; 80, 80, 80, 75, 70, 65, 65, 85, 80, 70, 85, 60, 75, 70, 70,…
+$ cov_shrubs &lt;dbl&gt; 15, 0, 0, 0, 0, 1, 0, 0, 20, 0, 15, 20, 0, 0, 0, 0, 15, 0, …
+$ cov_herbs  &lt;dbl&gt; 20, 25, 25, 30, 35, 60, 70, 70, 15, 75, 8, 30, 60, 85, 55, …
+$ cov_mosses &lt;dbl&gt; 1, 10, 8, 10, 8, 3, 5, 5, 10, 3, 5, 8, 20, 3, 8, 5, 5, 10, …
+$ latitude   &lt;dbl&gt; 491312.1, 492015.3, 492128.9, 492126.4, 490210.2, 490203.1,…
+$ longitude  &lt;dbl&gt; 164038.6, 163420.0, 163345.8, 162913.4, 162137.8, 162128.3,…
 $ bias_min   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ bias_gps   &lt;dbl&gt; 5, 6, 10, 6, 5, 6, 14, 6, 4, 5, 5, 5, 6, 6, 5, 11, 8, 7, 4,…
-$ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", "Lažany…</code></pre>
+$ bias_gps   &lt;dbl&gt; 7, 5, 6, 10, 6, 5, 6, 14, 6, 4, 5, 11, 9, 9, 6, 6, 0, 6, 11…
+$ locality   &lt;chr&gt; "Brno, Maloměřice, Hády; 1,7 km od středu městské části", "…</code></pre>
 </div>
 </div>
 <p>And save it for easier access.</p>
@@ -574,12 +561,11 @@ $ locality   &lt;chr&gt; "Svinošice (Brno, Kuřim); 450 m SZ od středu obce", 
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tvabund <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/tvabund.csv"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 4583 Columns: 5
+<pre><code>Rows: 2278 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (1): COVER_CODE
 dbl (3): RELEVE_NR, SPECIES_NR, LAYER
-lgl (1): _ORIG_NAME
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -588,13 +574,12 @@ lgl (1): _ORIG_NAME
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tvabund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 4,583
-Columns: 5
-$ releve_nr  &lt;dbl&gt; 183111, 183111, 183111, 183111, 183111, 183111, 183111, 183…
-$ species_nr &lt;dbl&gt; 2206, 2315, 3351, 4283, 4430, 4577, 5127, 5137, 5165, 5353,…
-$ cover_code &lt;chr&gt; "+", "1", "r", "1", "r", "r", "1", "+", "r", "r", "2b", "+"…
-$ layer      &lt;dbl&gt; 6, 7, 6, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 7, 6, 6, 6, 6,…
-$ orig_name  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+<pre><code>Rows: 2,278
+Columns: 4
+$ releve_nr  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ species_nr &lt;dbl&gt; 80, 80, 83, 651, 1506, 2206, 2246, 2248, 2315, 2455, 3067, …
+$ cover_code &lt;chr&gt; "2b", "+", "r", "+", "r", "1", "r", "+", "+", "r", "2m", "2…
+$ layer      &lt;dbl&gt; 1, 7, 7, 6, 6, 6, 6, 6, 7, 6, 6, 4, 7, 4, 7, 7, 6, 7, 6, 6,…</code></pre>
 </div>
 </div>
 <p>Now we will check the data again, and we see that there are no species names, just numbers. Additionally, the cover is provided in the original codes, not in percentages. Refer to the scheme below to understand where each piece of information is stored.</p>
@@ -771,21 +756,21 @@ Joining with `by = join_by(releve_nr)`
 Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,583 × 10
-   releve_nr species_nr cover_code layer orig_name kaplan          expert_system
-       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;     &lt;chr&gt;           &lt;chr&gt;        
- 1    183111       2206 +              6 NA        Carex digitata… Carex digita…
- 2    183111       2315 1              7 NA        Carpinus betul… Carpinus bet…
- 3    183111       3351 r              6 NA        Cytisus nigric… Cytisus nigr…
- 4    183111       4283 1              6 NA        Festuca ovina   Festuca ovina
- 5    183111       4430 r              7 NA        Fraxinus excel… Fraxinus exc…
- 6    183111       4577 r              6 NA        Galium rotundi… Galium rotun…
- 7    183111       5127 1              6 NA        Hieracium lach… Hieracium la…
- 8    183111       5137 +              6 NA        Hieracium muro… Hieracium mu…
- 9    183111       5165 r              6 NA        Hieracium saba… Hieracium sa…
-10    183111       5353 r              6 NA        Hypericum perf… Hypericum pe…
-# ℹ 4,573 more rows
-# ℹ 3 more variables: nonvascular &lt;dbl&gt;, coverscale &lt;chr&gt;, cover_perc &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 2,278 × 9
+   releve_nr species_nr cover_code layer kaplan        expert_system nonvascular
+       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;               &lt;dbl&gt;
+ 1         1         80 2b             1 Acer campest… Acer campest…           0
+ 2         1         80 +              7 Acer campest… Acer campest…           0
+ 3         1         83 r              7 Acer platano… Acer platano…           0
+ 4         1        651 +              6 Anemone spec… Anemone spec…           0
+ 5         1       1506 r              6 Bromus benek… Bromus benek…           0
+ 6         1       2206 1              6 Carex digita… Carex digita…           0
+ 7         1       2246 r              6 Carex michel… Carex michel…           0
+ 8         1       2248 +              6 Carex montana Carex montana           0
+ 9         1       2315 +              7 Carpinus bet… Carpinus bet…           0
+10         1       2455 r              6 Cephalanther… Cephalanther…           0
+# ℹ 2,268 more rows
+# ℹ 2 more variables: coverscale &lt;chr&gt;, cover_perc &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>The output contains these variables.</p>
@@ -833,12 +818,11 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-# Groups:   releve_nr, species, layer [2]
+<pre><code># A tibble: 1 × 4
+# Groups:   releve_nr, species, layer [1]
   releve_nr species              layer     n
       &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt; &lt;int&gt;
-1       132 Galium palustre agg.     6     2
-2    183182 Galium palustre agg.     6     2</code></pre>
+1       132 Galium palustre agg.     6     2</code></pre>
 </div>
 </div>
 <p>We can see that in two releves/plots, there is a conflict in the species <em>Galium palustre</em> agg. Most likely, we distinguished two species in the field that we later grouped into this aggregate. We can go back and check where exactly this happened by specifying where to look.</p>
@@ -853,13 +837,11 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 <pre><code>Joining with `by = join_by(species_nr)`</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 4
+<pre><code># A tibble: 2 × 4
   releve_nr species_nr turboveg         species             
       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;               
-1    183182       4558 Galium elongatum Galium palustre agg.
-2    183182       4570 Galium palustre  Galium palustre agg.
-3       132       4558 Galium elongatum Galium palustre agg.
-4       132       4570 Galium palustre  Galium palustre agg.</code></pre>
+1       132       4558 Galium elongatum Galium palustre agg.
+2       132       4570 Galium palustre  Galium palustre agg.</code></pre>
 </div>
 </div>
 <p>Alternatively, we can save the first output and use the <code>semi_join()</code> function, which is particularly useful when there are more rows to check, and we do not need to specify multiple conditions in the filter.</p>
@@ -881,13 +863,11 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 Joining with `by = join_by(releve_nr, species)`</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 4
+<pre><code># A tibble: 2 × 4
   releve_nr species_nr turboveg         species             
       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;               
-1    183182       4558 Galium elongatum Galium palustre agg.
-2    183182       4570 Galium palustre  Galium palustre agg.
-3       132       4558 Galium elongatum Galium palustre agg.
-4       132       4570 Galium palustre  Galium palustre agg.</code></pre>
+1       132       4558 Galium elongatum Galium palustre agg.
+2       132       4570 Galium palustre  Galium palustre agg.</code></pre>
 </div>
 </div>
 <p>Now that we understand why it happened, we need to address the issue. But we continue checking. Now we will check if there is also a problem with species across layers (B). We will simply change the grouping conditions to the higher hierarchy.</p>
@@ -897,8 +877,8 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 375 × 3
-# Groups:   releve_nr, species [375]
+<pre><code># A tibble: 187 × 3
+# Groups:   releve_nr, species [187]
    releve_nr species                  n
        &lt;dbl&gt; &lt;chr&gt;                &lt;int&gt;
  1         1 Acer campestre           2
@@ -911,7 +891,7 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
  8         6 Ligustrum vulgare        2
  9         6 Quercus petraea agg.     2
 10         6 Rosa species             2
-# ℹ 365 more rows</code></pre>
+# ℹ 177 more rows</code></pre>
 </div>
 </div>
 <p>We got a lot of duplicates, right? However, it is understandable given the type of vegetation we have. Keep this in mind for later analyses.</p>
@@ -923,8 +903,8 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 38 × 2
-# Groups:   species [38]
+<pre><code># A tibble: 37 × 2
+# Groups:   species [37]
    species                    n
    &lt;chr&gt;                  &lt;int&gt;
  1 Acer campestre             3
@@ -937,7 +917,7 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
  8 Cornus mas                 2
  9 Cornus sanguinea           2
 10 Corylus avellana           3
-# ℹ 28 more rows</code></pre>
+# ℹ 27 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -948,20 +928,20 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(releve_nr, species, layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,575 × 3
-   releve_nr species                   layer
-       &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt;
- 1    183111 Carex digitata                6
- 2    183111 Carpinus betulus              7
- 3    183111 Cytisus nigricans             6
- 4    183111 Festuca ovina                 6
- 5    183111 Fraxinus excelsior            7
- 6    183111 Galium rotundifolium          6
- 7    183111 Hieracium lachenalii          6
- 8    183111 Hieracium murorum             6
- 9    183111 Hieracium sabaudum s.lat.     6
-10    183111 Hypericum perforatum          6
-# ℹ 4,565 more rows</code></pre>
+<pre><code># A tibble: 2,277 × 3
+   releve_nr species                  layer
+       &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;
+ 1         1 Acer campestre               1
+ 2         1 Acer campestre               7
+ 3         1 Acer platanoides             7
+ 4         1 Anemone species              6
+ 5         1 Bromus benekenii             6
+ 6         1 Carex digitata               6
+ 7         1 Carex michelii               6
+ 8         1 Carex montana                6
+ 9         1 Carpinus betulus             7
+10         1 Cephalanthera damasonium     6
+# ℹ 2,267 more rows</code></pre>
 </div>
 </div>
 <p>The percentage cover is estimated visually relative to the total area. In the field, it is estimated independently of other plants, because we know that the plants overlap within vertical space. If we use the normal <code>sum()</code> function, we can easily get the total cover per plot above 100%. Although we can separate the information into vegetation layers, it remains a relatively coarse division, especially in grasslands, where the main diversity is concentrated in just one, often very dense, layer.</p>
@@ -985,8 +965,8 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 using the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,575 × 4
-# Groups:   releve_nr, species [4,138]
+<pre><code># A tibble: 2,277 × 4
+# Groups:   releve_nr, species [2,061]
    releve_nr species                  layer cover_perc_new
        &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;
  1         1 Acer campestre               1           20  
@@ -999,7 +979,7 @@ using the `.groups` argument.</code></pre>
  8         1 Carex montana                6            0.5
  9         1 Carpinus betulus             7            0.5
 10         1 Cephalanthera damasonium     6            0.1
-# ℹ 4,565 more rows</code></pre>
+# ℹ 2,267 more rows</code></pre>
 </div>
 </div>
 <p>We will also add pipelines to check for any remaining duplicate rows. Note that we need to specify the grouping again in the <code>count()</code> (or add the <code>group_by()</code> before the <code>count()</code> again), since the <code>summarise()</code> finished the grouping from the <code>group_by()</code> function.</p>
@@ -1042,20 +1022,20 @@ using the `.groups` argument.</code></pre>
 <span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, covertotal_sum, covertotal_overlap) <span class="sc">%&gt;%</span></span>
 <span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(covertotal_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 137 × 3
+<pre><code># A tibble: 65 × 3
    releve_nr covertotal_sum covertotal_overlap
        &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
- 1    183134           253                95.7
- 2       125           232.               93.3
- 3    183175           232.               93.3
- 4       131           223.               92.4
- 5    183181           223.               92.4
- 6       130           201.               92.4
- 7    183180           201.               92.4
- 8       129           192.               89.4
- 9    183179           192.               89.4
-10       113           192.               90.4
-# ℹ 127 more rows</code></pre>
+ 1       125           232.               93.3
+ 2       131           223.               92.4
+ 3       130           201.               92.4
+ 4       129           192.               89.4
+ 5       113           192.               90.4
+ 6       127           190.               90.2
+ 7        99           189                91.3
+ 8       128           184.               91.0
+ 9       123           182.               87.4
+10        86           176.               95.3
+# ℹ 55 more rows</code></pre>
 </div>
 </div>
 <p>The same with respect to layers</p>
@@ -1066,8 +1046,8 @@ using the `.groups` argument.</code></pre>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, layer, covertotal_sum, covertotal_overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 497 × 4
-# Groups:   releve_nr [137]
+<pre><code># A tibble: 237 × 4
+# Groups:   releve_nr [65]
    releve_nr layer covertotal_sum covertotal_overlap
        &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
  1         1     1           82.5              70   
@@ -1080,7 +1060,7 @@ using the `.groups` argument.</code></pre>
  8         3     1           62.5              62.5 
  9         3     6           23.8              21.5 
 10         3     7            4                 4   
-# ℹ 487 more rows</code></pre>
+# ℹ 227 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1114,11 +1094,11 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">unite</span>(forest, forest_type, forest_type_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>New names:
-Rows: 137 Columns: 21
+Rows: 65 Columns: 20
 ── Column specification
 ──────────────────────────────────────────────────────── Delimiter: "," chr
-(6): coverscale, field_nr, country, author, syntaxon, locality dbl (15): ...1,
-releve_nr, date, altitude, exposition, inclinatio, cov_trees...
+(5): coverscale, field_nr, country, author, locality dbl (14): ...1, releve_nr,
+date, altitude, exposition, inclinatio, cov_trees... lgl (1): syntaxon
 ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
 Specify the column types or set `show_col_types = FALSE` to quiet this message.
 Joining with `by = join_by(releve_nr)`
@@ -1133,7 +1113,7 @@ Joining with `by = join_by(releve_nr)`
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 4575 Columns: 4
+<pre><code>Rows: 2277 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (1): species
@@ -1154,20 +1134,28 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <pre><code> [1] "axmanova_forest_env_extra.csv"                                             
  [2] "cover_20230402.csv"                                                        
  [3] "ekologicke_indikacni_hodnoty.xlsx"                                         
- [4] "env.csv"                                                                   
- [5] "nomenclature_20251108.csv"                                                 
- [6] "nomenclature_check.csv"                                                    
- [7] "Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx"
- [8] "readme.txt"                                                                
- [9] "spe.csv"                                                                   
-[10] "spe_merged_covers.csv"                                                     
-[11] "spe_merged_covers_across_layers.csv"                                       
-[12] "species.csv"                                                               
-[13] "traits.csv"                                                                
-[14] "tvabund.csv"                                                               
-[15] "tvhabita.csv"                                                              
-[16] "Vyska.xlsx"                                                                
-[17] "Zivotni_forma.xlsx"                                                        </code></pre>
+ [4] "ellenberg_type_indicators_cz.csv"                                          
+ [5] "env.csv"                                                                   
+ [6] "env_measured.csv"                                                          
+ [7] "nomenclature_20251108.csv"                                                 
+ [8] "nomenclature_check.csv"                                                    
+ [9] "Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx"
+[10] "readme.txt"                                                                
+[11] "spe.csv"                                                                   
+[12] "spe_juice_input.csv"                                                       
+[13] "spe_merged_covers.csv"                                                     
+[14] "spe_merged_covers_across_layers.csv"                                       
+[15] "species.csv"                                                               
+[16] "status.csv"                                                                
+[17] "table_cover.csv"                                                           
+[18] "table_nomenclature.csv"                                                    
+[19] "traits.csv"                                                                
+[20] "tvabund.csv"                                                               
+[21] "tvabund.dbf"                                                               
+[22] "tvhabita.csv"                                                              
+[23] "tvhabita.dbf"                                                              
+[24] "Vyska.xlsx"                                                                
+[25] "Zivotni_forma.xlsx"                                                        </code></pre>
 </div>
 </div>
 <p>First, we will import the file downloaded from the Pladias database, which contains information about the status. The file itself is in Czech, and it needs some fixing to make it tidy. Below, you can already find one suggestion on how to import this file, but we will check it together to understand how to read it and how it works step by step.</p>
@@ -1342,8 +1330,8 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <pre><code># A tibble: 4 × 2
   forest                redlist_mean_perc
   &lt;chr&gt;                             &lt;dbl&gt;
-1 1_oak forest                       6.25
-2 2_oak hornbeam forest              6.24
+1 1_oak forest                       7.95
+2 2_oak hornbeam forest              6.75
 3 3_ravine forest                    5.03
 4 4_alluvial forest                  1.71</code></pre>
 </div>

@@ -1,0 +1,2278 @@
+﻿RELEVE_NR,Species,Layer,CoverPerc
+1,Quercus petraea agg.,1,63
+1,Acer campestre,1,18
+1,Crataegus laevigata,4,2
+1,Cornus mas,4,8
+1,Lonicera xylosteum,4,3
+1,Galium sylvaticum,6,3
+1,Carex digitata,6,3
+1,Melica nutans,6,2
+1,Polygonatum odoratum,6,2
+1,Geum urbanum,6,2
+1,Anemone species,6,2
+1,Viola mirabilis,6,2
+1,Hieracium murorum,6,2
+1,Platanthera bifolia,6,1
+1,Convallaria majalis,6,4
+1,Hepatica nobilis,6,3
+1,Carex montana,6,2
+1,Poa nemoralis,6,2
+1,Sanicula europaea,6,1
+1,Viola reichenbachiana,6,3
+1,Pulmonaria mollis,6,1
+1,Rubus fruticosus agg.,6,2
+1,Primula veris,6,1
+1,Cephalanthera damasonium,6,1
+1,Hieracium lachenalii,6,2
+1,Geranium robertianum,6,1
+1,Bromus benekenii,6,1
+1,Fragaria moschata,6,1
+1,Maianthemum bifolium,6,1
+1,Carex michelii,6,1
+1,Vincetoxicum hirundinaria,6,1
+1,Viola hirta,6,1
+1,Euonymus verrucosus,7,3
+1,Quercus petraea agg.,7,4
+1,Acer campestre,7,2
+1,Fraxinus excelsior,7,2
+1,Crataegus species,7,2
+1,Ligustrum vulgare,7,2
+1,Rosa species,7,1
+1,Prunus avium,7,1
+1,Acer platanoides,7,1
+1,Carpinus betulus,7,2
+1,Corylus avellana,7,1
+1,Rhamnus cathartica,7,1
+2,Quercus petraea agg.,1,63
+2,Quercus petraea agg.,7,8
+2,Luzula luzuloides,6,18
+2,Carpinus betulus,7,3
+2,Poa nemoralis,6,3
+2,Hieracium lachenalii,6,3
+2,Hieracium murorum,6,2
+2,Veronica officinalis,6,1
+2,Melampyrum pratense,6,2
+2,Festuca ovina,6,3
+2,Hypericum perforatum,6,1
+2,Carex digitata,6,2
+2,Melica uniflora,6,2
+2,Hieracium sabaudum,6,1
+2,Fraxinus excelsior,7,1
+2,Galium rotundifolium,6,1
+3,Quercus petraea agg.,1,63
+3,Quercus petraea agg.,7,4
+3,Poa nemoralis,6,4
+3,Convallaria majalis,6,3
+3,Melampyrum pratense,6,4
+3,Festuca ovina,6,4
+3,Luzula luzuloides,6,3
+3,Hieracium murorum,6,3
+3,Galium odoratum,6,2
+3,Melica uniflora,6,2
+3,Hieracium lachenalii,6,2
+3,Galium pumilum agg.,6,2
+3,Galium rotundifolium,6,2
+3,Senecio nemorensis agg.,6,1
+3,Campanula persicifolia,6,1
+3,Veronica chamaedrys agg.,6,1
+4,Quercus petraea agg.,1,38
+4,Carpinus betulus,1,18
+4,Quercus petraea agg.,7,8
+4,Poa nemoralis,6,4
+4,Hypericum montanum,6,1
+4,Vincetoxicum hirundinaria,6,2
+4,Anthericum ramosum,6,3
+4,Hieracium lachenalii,6,2
+4,Genista tinctoria,6,1
+4,Veronica officinalis,6,1
+4,Hieracium murorum,6,3
+4,Prunus avium,7,2
+4,Dryopteris filix-mas,6,1
+4,Impatiens parviflora,6,1
+4,Festuca ovina,6,1
+4,Carpinus betulus,7,2
+4,Hylotelephium telephium agg.,6,1
+4,Fraxinus excelsior,7,2
+4,Fagus sylvatica,7,1
+4,Cytisus nigricans,6,1
+4,Melittis melissophyllum,6,1
+5,Quercus petraea agg.,1,63
+5,Festuca ovina,6,4
+5,Poa nemoralis,6,18
+5,Quercus petraea agg.,7,3
+5,Calamagrostis arundinacea,6,2
+5,Hieracium lachenalii,6,2
+5,Fallopia dumetorum,6,1
+5,Ajuga genevensis,6,2
+5,Hypericum perforatum,6,1
+5,Vincetoxicum hirundinaria,6,1
+5,Polygonatum odoratum,6,2
+5,Agrostis capillaris,6,4
+5,Melittis melissophyllum,6,1
+5,Carex humilis,6,2
+6,Quercus petraea agg.,1,38
+6,Rosa species,4,2
+6,Ligustrum vulgare,4,2
+6,Poa nemoralis,6,38
+6,Vincetoxicum hirundinaria,6,4
+6,Alliaria petiolata,6,3
+6,Quercus petraea agg.,7,4
+6,Fallopia dumetorum,6,4
+6,Viola collina,6,3
+6,Glechoma hederacea,6,3
+6,Ligustrum vulgare,7,2
+6,Rosa species,7,1
+6,Ajuga genevensis,6,2
+6,Allium oleraceum,6,1
+6,Myosotis sylvatica,6,2
+6,Polygonatum odoratum,6,2
+6,Carex muricata agg.,6,2
+6,Lapsana communis,6,3
+6,Urtica dioica,6,1
+6,Hypericum perforatum,6,1
+6,Galium pumilum agg.,6,1
+6,Moehringia trinervia,6,2
+7,Quercus petraea agg.,1,63
+7,Poa nemoralis,6,38
+7,Quercus petraea agg.,7,8
+7,Vincetoxicum hirundinaria,6,3
+7,Veronica chamaedrys agg.,6,2
+7,Crataegus species,7,2
+7,Hypericum perforatum,6,2
+7,Viola collina,6,2
+7,Festuca ovina,6,3
+7,Fallopia dumetorum,6,3
+7,Rubus fruticosus agg.,6,2
+7,Tilia platyphyllos,7,1
+7,Rosa species,7,2
+7,Calamagrostis epigejos,6,1
+7,Moehringia trinervia,6,2
+7,Ligustrum vulgare,7,2
+7,Agrostis capillaris,6,2
+7,Poa angustifolia,6,1
+7,Viola reichenbachiana,6,3
+7,Carex michelii,6,2
+7,Alliaria petiolata,6,1
+7,Ajuga genevensis,6,1
+7,Carex muricata agg.,6,1
+8,Tilia cordata,1,38
+8,Quercus petraea agg.,1,38
+8,Poa nemoralis,6,18
+8,Melica nutans,6,3
+8,Calamagrostis arundinacea,6,38
+8,Quercus petraea agg.,7,4
+8,Carex michelii,6,4
+8,Galium odoratum,6,3
+8,Convallaria majalis,6,2
+8,Lathyrus vernus,6,2
+8,Scrophularia nodosa,6,1
+8,Agrostis capillaris,6,2
+8,Festuca heterophylla,6,3
+8,Carex montana,6,8
+8,Fragaria moschata,6,2
+8,Galium pumilum agg.,6,2
+8,Vicia sepium,6,1
+8,Viola reichenbachiana,6,2
+8,Poa angustifolia,6,3
+8,Veronica officinalis,6,2
+8,Luzula luzuloides,6,2
+8,Galium album subsp. pycnotrichum,6,2
+8,Festuca ovina,6,3
+8,Carex muricata agg.,6,2
+9,Quercus petraea agg.,1,38
+9,Carpinus betulus,1,18
+9,Acer platanoides,1,3
+9,Euonymus verrucosus,4,3
+9,Carpinus betulus,4,8
+9,Tilia cordata,4,3
+9,Acer campestre,4,2
+9,Luzula luzuloides,6,4
+9,Poa nemoralis,6,4
+9,Acer platanoides,7,2
+9,Hylotelephium telephium agg.,6,3
+9,Hieracium sabaudum,6,2
+9,Asplenium trichomanes,6,2
+9,Polypodium vulgare,6,3
+9,Carpinus betulus,7,2
+9,Quercus petraea agg.,4,3
+9,Lonicera xylosteum,4,2
+9,Galium pumilum agg.,6,2
+9,Festuca ovina,6,2
+9,Vincetoxicum hirundinaria,6,2
+9,Hieracium murorum,6,4
+9,Stellaria holostea,6,3
+9,Veronica chamaedrys agg.,6,2
+9,Acer campestre,7,2
+9,Tanacetum corymbosum,6,3
+9,Campanula persicifolia,6,2
+9,Quercus petraea agg.,7,3
+9,Brachypodium pinnatum,6,1
+10,Quercus petraea agg.,1,63
+10,Quercus petraea agg.,7,38
+10,Poa nemoralis,6,38
+10,Vincetoxicum hirundinaria,6,8
+10,Genista tinctoria,6,3
+10,Tanacetum corymbosum,6,2
+10,Campanula persicifolia,6,1
+10,Euphorbia cyparissias,6,2
+10,Verbascum chaixii subsp. austriacum,6,2
+10,Festuca ovina,6,2
+10,Euonymus verrucosus,7,3
+10,Hypericum perforatum,6,2
+10,Carex humilis,6,3
+10,Rosa species,7,1
+10,Trifolium alpestre,6,2
+10,Carex michelii,6,1
+10,Crataegus species,7,1
+10,Digitalis grandiflora,6,1
+11,Quercus petraea agg.,1,63
+11,Carpinus betulus,1,38
+11,Carpinus betulus,4,8
+11,Luzula luzuloides,6,4
+11,Quercus petraea agg.,7,2
+11,Poa nemoralis,6,3
+11,Digitalis grandiflora,6,2
+11,Carpinus betulus,7,2
+11,Vincetoxicum hirundinaria,6,2
+11,Mycelis muralis,6,1
+11,Anthericum ramosum,6,2
+11,Polygonatum odoratum,6,2
+11,Polypodium vulgare,6,1
+11,Tilia cordata,7,2
+11,Festuca ovina,6,2
+11,Hypericum perforatum,6,1
+11,Hieracium sabaudum,6,1
+11,Acer platanoides,7,1
+14,Quercus petraea agg.,1,38
+14,Pinus sylvestris,1,8
+14,Carpinus betulus,4,8
+14,Tilia cordata,4,8
+14,Hylotelephium telephium agg.,6,3
+14,Hieracium murorum,6,4
+14,Impatiens parviflora,6,4
+14,Geranium robertianum,6,2
+14,Galium sylvaticum,6,3
+14,Quercus petraea agg.,7,2
+14,Primula veris,6,4
+14,Polypodium vulgare,6,2
+14,Stellaria holostea,6,3
+14,Luzula luzuloides,6,8
+14,Carpinus betulus,7,1
+14,Hepatica nobilis,6,1
+14,Poa nemoralis,6,8
+14,Veronica officinalis,6,1
+14,Carex digitata,6,1
+14,Epilobium montanum,6,2
+14,Fragaria vesca,6,2
+14,Mycelis muralis,6,2
+14,Galium pumilum agg.,6,2
+14,Lathyrus vernus,6,1
+14,Hieracium sabaudum,6,2
+14,Tilia cordata,7,1
+14,Campanula rotundifolia agg.,6,2
+14,Veronica chamaedrys agg.,6,2
+14,Tanacetum corymbosum,6,2
+14,Hieracium lachenalii,6,2
+14,Convallaria majalis,6,2
+14,Festuca ovina,6,1
+14,Calamagrostis arundinacea,6,3
+14,Arabidopsis arenosa,6,2
+14,Senecio nemorensis agg.,6,2
+14,Polygonatum odoratum,6,1
+16,Quercus petraea agg.,1,63
+16,Carpinus betulus,1,8
+16,Carpinus betulus,7,4
+16,Quercus petraea agg.,7,18
+16,Hieracium murorum,6,4
+16,Luzula luzuloides,6,18
+16,Poa nemoralis,6,4
+16,Campanula persicifolia,6,3
+16,Prunus species,7,2
+16,Melampyrum pratense,6,2
+16,Carex digitata,6,3
+16,Tilia platyphyllos,7,2
+16,Hieracium sabaudum,6,2
+16,Viscaria vulgaris,6,3
+16,Polypodium vulgare,6,2
+16,Hieracium lachenalii,6,4
+16,Sorbus aucuparia,7,2
+16,Festuca ovina,6,4
+16,Silene nutans,6,4
+16,Melica nutans,6,2
+16,Genista germanica,6,2
+16,Astragalus glycyphyllos,6,2
+16,Rosa species,7,2
+16,Hylotelephium telephium agg.,6,2
+16,Asplenium trichomanes,6,1
+16,Digitalis grandiflora,6,1
+16,Rubus fruticosus agg.,6,2
+16,Acer platanoides,7,1
+16,Galium mollugo agg.,6,2
+16,Galium odoratum,6,3
+16,Arabidopsis arenosa,6,1
+16,Myosotis sylvatica,6,2
+16,Fragaria moschata,6,1
+18,Quercus petraea agg.,1,63
+18,Carpinus betulus,1,2
+18,Melica uniflora,6,63
+18,Quercus petraea agg.,7,8
+18,Crataegus species,7,2
+18,Hedera helix,6,4
+18,Impatiens parviflora,6,3
+18,Euonymus verrucosus,7,2
+18,Polygonatum odoratum,6,2
+18,Poa nemoralis,6,3
+18,Convallaria majalis,6,2
+18,Asarum europaeum,6,3
+18,Lathyrus vernus,6,1
+18,Cyclamen purpurascens,6,3
+18,Campanula rapunculoides,6,1
+18,Alliaria petiolata,6,1
+18,Galium aparine,6,3
+18,Myosotis sylvatica,6,1
+28,Quercus petraea agg.,1,63
+28,Quercus petraea agg.,7,3
+28,Poa nemoralis,6,38
+28,Veronica officinalis,6,3
+28,Clinopodium vulgare,6,2
+28,Calamagrostis arundinacea,6,4
+28,Campanula persicifolia,6,3
+28,Melampyrum pratense,6,2
+28,Carex digitata,6,3
+28,Poa angustifolia,6,2
+28,Melica uniflora,6,3
+28,Carex montana,6,3
+29,Quercus petraea agg.,1,63
+29,Carpinus betulus,1,8
+29,Quercus petraea agg.,7,4
+29,Melica uniflora,6,4
+29,Poa nemoralis,6,18
+29,Carpinus betulus,7,2
+29,Carex pilulifera,6,1
+29,Veronica officinalis,6,1
+31,Quercus petraea agg.,1,63
+31,Tilia cordata,1,8
+31,Carpinus betulus,4,8
+31,Tilia cordata,4,4
+31,Avenella flexuosa,6,8
+31,Poa nemoralis,6,2
+31,Festuca ovina,6,4
+31,Quercus petraea agg.,7,3
+31,Melampyrum pratense,6,3
+31,Picea abies,7,1
+31,Viscum album subsp. album,1,1
+32,Quercus petraea agg.,1,18
+32,Quercus robur,1,38
+32,Pinus sylvestris,1,8
+32,Carpinus betulus,1,4
+32,Poa nemoralis,6,18
+32,Quercus petraea agg.,7,3
+32,Carpinus betulus,7,4
+32,Euphorbia cyparissias,6,3
+32,Melampyrum pratense,6,4
+32,Acer pseudoplatanus,7,3
+32,Sorbus aucuparia,7,1
+32,Fraxinus excelsior,7,2
+32,Maianthemum bifolium,6,3
+32,Carex digitata,6,4
+32,Melica nutans,6,8
+32,Hypericum perforatum,6,2
+32,Deschampsia cespitosa,6,2
+32,Tilia cordata,7,3
+32,Veronica chamaedrys agg.,6,1
+32,Luzula pilosa,6,2
+32,Viola reichenbachiana,6,2
+32,Luzula luzuloides,6,3
+32,Knautia drymeia,6,2
+32,Festuca ovina,6,3
+32,Senecio nemorensis agg.,6,2
+32,Carex pallescens,6,2
+32,Hieracium sabaudum,6,2
+32,Calamagrostis epigejos,6,2
+32,Dryopteris dilatata,6,2
+32,Agrostis capillaris,6,2
+32,Carex pilulifera,6,2
+32,Hieracium murorum,6,1
+32,Galeobdolon luteum s.lat.,6,3
+32,Rubus fruticosus agg.,6,1
+32,Ajuga reptans,6,1
+32,Campanula persicifolia,6,2
+36,Quercus petraea agg.,1,63
+36,Carpinus betulus,1,8
+36,Carex digitata,6,3
+36,Quercus petraea agg.,7,4
+36,Carpinus betulus,7,2
+36,Milium effusum,6,2
+36,Tilia cordata,7,1
+36,Calamagrostis arundinacea,6,2
+36,Luzula luzuloides,6,3
+36,Stellaria holostea,6,2
+36,Melica nutans,6,2
+36,Fraxinus excelsior,7,1
+36,Galium rotundifolium,6,1
+36,Maianthemum bifolium,6,1
+41,Quercus petraea agg.,1,63
+41,Viscum album subsp. album,1,2
+41,Tilia cordata,4,3
+41,Quercus petraea agg.,7,38
+41,Poa nemoralis,6,18
+41,Lathyrus vernus,6,2
+41,Galium odoratum,6,4
+41,Melampyrum pratense,6,3
+41,Stellaria holostea,6,4
+41,Carpinus betulus,7,2
+41,Luzula luzuloides,6,2
+41,Tilia cordata,7,2
+41,Calamagrostis arundinacea,6,1
+41,Hieracium murorum,6,2
+41,Veronica chamaedrys agg.,6,2
+41,Hypericum perforatum,6,1
+42,Quercus petraea agg.,1,38
+42,Viscum album subsp. album,1,2
+42,Pinus sylvestris,1,4
+42,Carpinus betulus,1,8
+42,Carpinus betulus,4,3
+42,Hieracium murorum,6,4
+42,Luzula luzuloides,6,8
+42,Carpinus betulus,7,2
+42,Festuca ovina,6,3
+42,Poa nemoralis,6,2
+42,Quercus petraea agg.,7,4
+42,Digitalis grandiflora,6,3
+42,Genista tinctoria,6,2
+42,Melampyrum pratense,6,2
+42,Hieracium lachenalii,6,3
+42,Acer campestre,7,2
+42,Fraxinus excelsior,7,2
+42,Fagus sylvatica,7,2
+42,Campanula persicifolia,6,2
+42,Picea abies,7,1
+42,Silene nutans,6,1
+43,Quercus petraea agg.,1,63
+43,Carpinus betulus,1,8
+43,Tilia cordata,1,4
+43,Tilia platyphyllos,4,4
+43,Tilia cordata,4,4
+43,Carpinus betulus,4,4
+43,Stellaria holostea,6,4
+43,Carex digitata,6,3
+43,Carex pilosa,6,18
+43,Melica uniflora,6,8
+43,Quercus petraea agg.,7,18
+43,Convallaria majalis,6,4
+43,Rosa species,7,1
+43,Carpinus betulus,7,3
+43,Luzula luzuloides,6,3
+43,Lathyrus niger,6,3
+43,Galium odoratum,6,4
+43,Poa nemoralis,6,2
+43,Acer platanoides,7,1
+43,Galium sylvaticum,6,1
+43,Dactylis polygama,6,2
+43,Asarum europaeum,6,4
+43,Ajuga reptans,6,3
+43,Orobanche species,6,1
+43,Lathyrus vernus,6,2
+43,Euphorbia amygdaloides,6,1
+43,Hieracium murorum,6,2
+43,Polygonatum odoratum,6,2
+43,Pulmonaria officinalis s.lat.,6,1
+44,Quercus petraea agg.,1,63
+44,Anthericum ramosum,6,4
+44,Festuca ovina,6,38
+44,Hieracium lachenalii,6,2
+44,Hieracium murorum,6,3
+44,Viscaria vulgaris,6,4
+44,Quercus petraea agg.,7,4
+44,Polygonatum odoratum,6,3
+44,Vincetoxicum hirundinaria,6,3
+44,Melampyrum pratense,6,2
+44,Hieracium sabaudum,6,2
+44,Genista germanica,6,2
+44,Cytisus nigricans,6,2
+44,Silene nutans,6,3
+44,Genista tinctoria,6,2
+44,Galium pumilum agg.,6,1
+44,Poa nemoralis,6,2
+44,Digitalis grandiflora,6,2
+44,Luzula campestris agg.,6,2
+44,Veronica officinalis,6,2
+44,Calluna vulgaris,6,2
+44,Carex montana,6,2
+44,Allium senescens subsp. montanum,6,1
+44,Rubus fruticosus agg.,6,1
+2,Cytisus nigricans,6,1
+10,Viscaria vulgaris,6,1
+11,Viscaria vulgaris,6,3
+47,Quercus petraea agg.,1,88
+47,Viscum album subsp. album,1,2
+47,Carex digitata,6,4
+47,Lathyrus niger,6,3
+47,Quercus petraea agg.,7,8
+47,Poa nemoralis,6,8
+47,Hieracium murorum,6,3
+47,Festuca ovina,6,3
+47,Rosa species,7,1
+47,Fraxinus excelsior,7,2
+47,Prunus avium,7,1
+47,Acer platanoides,7,1
+47,Hieracium sabaudum,6,2
+47,Frangula alnus,7,2
+47,Hieracium lachenalii,6,2
+47,Euonymus verrucosus,7,1
+47,Genista germanica,6,1
+47,Genista tinctoria,6,1
+5,Luzula luzuloides,6,3
+14,Campanula persicifolia,6,3
+28,Festuca ovina,6,2
+29,Festuca ovina,6,2
+32,Quercus robur,7,4
+44,Hieracium maculatum,6,3
+81,Quercus petraea agg.,1,38
+81,Quercus petraea agg.,7,3
+81,Carex humilis,6,4
+81,Festuca ovina,6,18
+81,Senecio viscosus,6,3
+81,Viscaria vulgaris,6,4
+81,Scleranthus perennis,6,3
+81,Ajuga genevensis,6,3
+81,Allium flavum,6,3
+81,Veronica dillenii,6,2
+81,Carpinus betulus,7,1
+81,Galeopsis species,6,1
+81,Hypericum perforatum,6,2
+81,Thymus pulegioides,6,3
+81,Galium pumilum agg.,6,2
+81,Verbascum chaixii subsp. austriacum,6,3
+81,Galium aparine,6,1
+81,Myosotis sylvatica,6,3
+81,Trifolium arvense,6,3
+81,Euphorbia cyparissias,6,2
+81,Genista pilosa,6,2
+81,Hieracium murorum,6,2
+81,Pilosella officinarum,6,3
+81,Poa nemoralis,6,3
+81,Arabidopsis thaliana,6,2
+81,Koeleria macrantha,6,2
+81,Luzula campestris agg.,6,1
+81,Sedum reflexum,6,1
+81,Melica nutans,6,2
+81,Hylotelephium telephium agg.,6,1
+81,Achillea millefolium agg.,6,2
+81,Genista tinctoria,6,1
+81,Polypodium vulgare,6,1
+81,Asplenium septentrionale,6,2
+81,Myosotis ramosissima,6,2
+81,Veronica officinalis,6,1
+81,Rosa species,7,1
+81,Carex praecox,6,2
+82,Sorbus torminalis,1,3
+82,Quercus petraea agg.,1,63
+82,Ligustrum vulgare,4,3
+82,Quercus petraea agg.,7,4
+82,Dactylis polygama,6,4
+82,Anthericum ramosum,6,3
+82,Carpinus betulus,7,2
+82,Tanacetum corymbosum,6,3
+82,Silene nutans,6,4
+82,Festuca ovina,6,4
+82,Stellaria holostea,6,3
+82,Carex humilis,6,4
+82,Hieracium sabaudum,6,3
+82,Poa nemoralis,6,4
+82,Trifolium alpestre,6,2
+82,Campanula persicifolia,6,2
+82,Vincetoxicum hirundinaria,6,3
+82,Sorbus torminalis,7,1
+82,Myosotis sylvatica,6,2
+82,Epilobium species,6,1
+82,Alliaria petiolata,6,1
+82,Hieracium murorum,6,3
+82,Euphorbia cyparissias,6,2
+82,Veronica chamaedrys agg.,6,2
+82,Fallopia convolvulus,6,1
+82,Galium aparine,6,1
+82,Achillea millefolium agg.,6,1
+82,Clinopodium vulgare,6,1
+82,Polygonatum multiflorum,6,1
+82,Galium album subsp. pycnotrichum,6,1
+82,Ligustrum vulgare,7,3
+82,Verbascum chaixii subsp. austriacum,6,2
+82,Luzula campestris agg.,6,1
+82,Hieracium schmidtii,6,3
+82,Hylotelephium telephium agg.,6,2
+82,Genista tinctoria,6,1
+82,Lapsana communis,6,1
+82,Cardamine impatiens,6,1
+82,Acer pseudoplatanus,7,1
+82,Fraxinus excelsior,7,1
+82,Rosa species,7,1
+82,Prunus avium,7,1
+83,Quercus petraea agg.,1,63
+83,Carpinus betulus,1,18
+83,Convallaria majalis,6,8
+83,Luzula luzuloides,6,38
+83,Vaccinium myrtillus,6,3
+83,Acer pseudoplatanus,7,3
+83,Acer platanoides,7,2
+83,Fagus sylvatica,7,2
+83,Stellaria holostea,6,4
+83,Calamagrostis arundinacea,6,3
+83,Cyclamen purpurascens,6,2
+83,Carpinus betulus,7,2
+83,Quercus petraea agg.,7,3
+83,Impatiens parviflora,6,1
+83,Poa nemoralis,6,2
+83,Hieracium sabaudum,6,1
+83,Sorbus torminalis,7,1
+86,Quercus petraea agg.,1,88
+86,Quercus petraea agg.,4,3
+86,Tilia cordata,4,4
+86,Poa nemoralis,6,38
+86,Galium odoratum,6,3
+86,Melica uniflora,6,4
+86,Calamagrostis arundinacea,6,3
+86,Galeopsis tetrahit s.lat.,6,3
+86,Impatiens parviflora,6,2
+86,Quercus petraea agg.,7,4
+86,Fallopia convolvulus,6,2
+86,Alliaria petiolata,6,1
+86,Moehringia trinervia,6,2
+86,Cyclamen purpurascens,6,2
+86,Sorbus torminalis,7,1
+86,Euphorbia cyparissias,6,2
+86,Mycelis muralis,6,1
+86,Senecio nemorensis agg.,6,2
+86,Carpinus betulus,7,2
+86,Viola reichenbachiana,6,3
+86,Dactylis polygama,6,4
+86,Brachypodium sylvaticum,6,3
+86,Carex otomana,6,3
+86,Polygonatum multiflorum,6,2
+86,Carex pallescens,6,3
+86,Veronica officinalis,6,2
+86,Hypericum perforatum,6,2
+86,Hieracium murorum,6,2
+86,Chenopodium polyspermum,6,1
+86,Chenopodium album agg.,6,1
+86,Fragaria moschata,6,3
+86,Calamagrostis epigejos,6,1
+86,Symphytum tuberosum,6,2
+86,Ajuga genevensis,6,2
+86,Acer platanoides,7,1
+86,Asarum europaeum,6,2
+86,Chaerophyllum temulum,6,1
+86,Acer campestre,7,1
+86,Luzula campestris agg.,6,1
+86,Scrophularia nodosa,6,1
+87,Quercus petraea agg.,1,63
+87,Carpinus betulus,1,3
+87,Tilia cordata,1,3
+87,Cornus mas,4,4
+87,Crataegus laevigata,4,4
+87,Alliaria petiolata,6,4
+87,Cyclamen purpurascens,6,3
+87,Melica uniflora,6,8
+87,Dactylis polygama,6,4
+87,Poa nemoralis,6,18
+87,Euphorbia cyparissias,6,2
+87,Euonymus verrucosus,7,3
+87,Campanula persicifolia,6,2
+87,Viscaria vulgaris,6,3
+87,Myosotis sylvatica,6,3
+87,Veronica chamaedrys agg.,6,2
+87,Lapsana communis,6,4
+87,Carpinus betulus,7,2
+87,Polygonatum odoratum,6,2
+87,Acer campestre,7,2
+87,Hylotelephium telephium agg.,6,2
+87,Lathyrus niger,6,2
+87,Luzula luzuloides,6,2
+87,Clinopodium vulgare,6,2
+87,Impatiens parviflora,6,2
+87,Fallopia convolvulus,6,2
+87,Fragaria moschata,6,1
+87,Geranium robertianum,6,2
+87,Ligustrum vulgare,7,3
+87,Tilia cordata,7,2
+87,Pulmonaria officinalis s.lat.,6,2
+87,Campanula rapunculoides,6,1
+87,Hieracium murorum,6,2
+87,Tanacetum corymbosum,6,1
+87,Acer pseudoplatanus,7,1
+87,Carex otomana,6,1
+87,Hypericum perforatum,6,1
+87,Quercus petraea agg.,7,2
+87,Cornus mas,7,2
+87,Veronica officinalis,6,1
+87,Primula veris,6,1
+87,Euphorbia dulcis,6,1
+87,Epilobium montanum,6,1
+87,Chaerophyllum temulum,6,1
+87,Sorbus torminalis,7,1
+87,Silene nutans,6,2
+87,Carex digitata,6,1
+87,Vicia pisiformis,6,1
+89,Quercus petraea agg.,1,63
+89,Carpinus betulus,1,3
+89,Crataegus species,4,3
+89,Poa nemoralis,6,4
+89,Galeopsis tetrahit s.lat.,6,4
+89,Fallopia convolvulus,6,3
+89,Impatiens parviflora,6,3
+89,Quercus petraea agg.,7,3
+89,Prunus avium,7,2
+89,Acer pseudoplatanus,7,1
+89,Luzula campestris agg.,6,2
+89,Carex humilis,6,4
+89,Galeopsis pubescens,6,3
+89,Rosa species,7,2
+89,Carpinus betulus,7,1
+89,Crataegus species,7,1
+89,Festuca ovina,6,2
+89,Anthericum ramosum,6,2
+89,Carex praecox,6,2
+89,Galium aparine,6,3
+89,Carex otomana,6,3
+89,Alliaria petiolata,6,2
+89,Prunus spinosa,7,1
+89,Chaerophyllum temulum,6,1
+89,Ribes uva-crispa,6,1
+98,Quercus petraea agg.,1,63
+98,Viscum album subsp. album,1,2
+98,Quercus petraea agg.,4,3
+98,Quercus petraea agg.,7,8
+98,Carex digitata,6,4
+98,Carex montana,6,8
+98,Poa nemoralis,6,8
+98,Impatiens parviflora,6,2
+98,Convallaria majalis,6,3
+98,Lathyrus niger,6,3
+98,Carex muricata agg.,6,2
+98,Digitalis grandiflora,6,2
+98,Lathyrus vernus,6,2
+98,Fragaria moschata,6,1
+98,Senecio viscosus,6,1
+98,Festuca ovina,6,2
+98,Rosa species,7,2
+98,Viola reichenbachiana,6,2
+98,Hieracium sabaudum,6,3
+98,Astragalus glycyphyllos,6,1
+98,Hieracium murorum,6,2
+98,Galium aparine,6,1
+98,Galium pumilum agg.,6,2
+98,Hieracium lachenalii,6,2
+98,Luzula luzuloides,6,3
+98,Tanacetum corymbosum,6,2
+98,Melittis melissophyllum,6,1
+98,Campanula persicifolia,6,1
+98,Vicia sepium,6,1
+98,Carpinus betulus,7,1
+98,Galium odoratum,6,1
+98,Prunus avium,7,1
+98,Scrophularia nodosa,6,1
+98,Tilia cordata,7,1
+98,Genista tinctoria,6,1
+99,Quercus petraea agg.,1,63
+99,Viscum album subsp. album,1,1
+99,Tilia cordata,4,3
+99,Convallaria majalis,6,38
+99,Melampyrum arvense,6,3
+99,Carpinus betulus,7,3
+99,Impatiens parviflora,6,2
+99,Lathyrus vernus,6,3
+99,Lathyrus niger,6,3
+99,Carex pilosa,6,38
+99,Poa nemoralis,6,4
+99,Quercus petraea agg.,7,8
+99,Genista tinctoria,6,2
+99,Melica uniflora,6,3
+99,Galium odoratum,6,3
+99,Galium aparine,6,2
+99,Poa angustifolia,6,2
+99,Hieracium murorum,6,3
+99,Carex montana,6,4
+99,Luzula luzuloides,6,3
+99,Trifolium alpestre,6,1
+99,Sorbus torminalis,7,1
+99,Hieracium lachenalii,6,3
+99,Festuca ovina,6,2
+99,Rosa species,7,2
+99,Crataegus species,7,1
+100,Quercus petraea agg.,1,63
+100,Viscum album subsp. album,1,2
+100,Vincetoxicum hirundinaria,6,4
+100,Senecio viscosus,6,2
+100,Polygonatum odoratum,6,4
+100,Festuca ovina,6,4
+100,Genista tinctoria,6,2
+100,Luzula luzuloides,6,3
+100,Hieracium sabaudum,6,3
+100,Allium senescens subsp. montanum,6,3
+100,Poa nemoralis,6,3
+100,Hylotelephium telephium agg.,6,2
+100,Digitalis grandiflora,6,2
+100,Melica uniflora,6,3
+100,Hieracium lachenalii,6,2
+100,Anthericum ramosum,6,3
+100,Hieracium murorum,6,2
+100,Acer platanoides,7,1
+100,Calamagrostis arundinacea,6,1
+100,Galium aparine,6,1
+100,Secale cereale,6,1
+99,Prunus spinosa,7,1
+4,Hieracium sabaudum,6,2
+101,Fraxinus excelsior,1,38
+102,Quercus robur,1,18
+103,Alnus glutinosa,1,63
+104,Alnus glutinosa,1,63
+105,Carpinus betulus,1,38
+106,Carpinus betulus,1,2
+107,Carpinus betulus,1,63
+108,Acer pseudoplatanus,1,8
+109,Quercus petraea agg.,1,18
+110,Alnus glutinosa,1,38
+111,Alnus glutinosa,1,38
+112,Carpinus betulus,1,63
+113,Alnus glutinosa,1,63
+114,Ulmus glabra,1,38
+115,Tilia platyphyllos,1,8
+116,Carpinus betulus,1,2
+117,Tilia cordata,1,38
+118,Tilia cordata,1,8
+119,Carpinus betulus,1,38
+120,Carpinus betulus,1,38
+121,Carpinus betulus,1,38
+122,Acer pseudoplatanus,1,18
+123,Fagus sylvatica,1,38
+124,Carpinus betulus,1,38
+125,Alnus glutinosa,1,38
+126,Carpinus betulus,1,38
+128,Corylus avellana,1,38
+129,Alnus glutinosa,1,38
+130,Acer pseudoplatanus,1,38
+131,Alnus glutinosa,1,38
+132,Alnus glutinosa,1,38
+101,Alnus glutinosa,1,38
+101,Populus x canadensis,1,3
+101,Corylus avellana,4,3
+101,Fraxinus excelsior,4,2
+101,Populus x canadensis,4,2
+101,Tilia cordata,4,2
+101,Viburnum opulus,7,1
+101,Acer pseudoplatanus,7,2
+101,Acer campestre,7,2
+101,Fraxinus excelsior,7,2
+101,Euonymus europaeus,7,2
+101,Rhamnus cathartica,7,1
+101,Aegopodium podagraria,6,38
+101,Asarum europaeum,6,18
+101,Pulmonaria officinalis s.lat.,6,4
+101,Campanula rapunculoides,6,3
+101,Geum urbanum,6,4
+101,Brachypodium sylvaticum,6,2
+101,Impatiens parviflora,6,3
+101,Veronica chamaedrys agg.,6,2
+101,Vicia sylvatica,6,2
+101,Urtica dioica,6,2
+101,Ajuga reptans,6,2
+101,Stellaria holostea,6,3
+101,Mercurialis perennis,6,1
+101,Maianthemum bifolium,6,2
+101,Viola mirabilis,6,2
+101,Equisetum arvense,6,2
+101,Anemone nemorosa,6,2
+101,Galium aparine,6,1
+101,Heracleum sphondylium,6,1
+101,Galeobdolon luteum s.lat.,6,2
+101,Lysimachia nummularia,6,1
+101,Alliaria petiolata,6,1
+101,Bromus benekenii,6,2
+101,Ranunculus acris,6,2
+101,Galium odoratum,6,2
+101,Fragaria moschata,6,2
+101,Milium effusum,6,1
+101,Polygonatum odoratum,6,1
+101,Melica uniflora,6,1
+102,Acer campestre,1,1
+102,Carpinus betulus,1,63
+102,Carpinus betulus,4,3
+102,Ulmus glabra,7,1
+102,Acer pseudoplatanus,7,1
+102,Quercus petraea agg.,7,8
+102,Ribes uva-crispa,7,1
+102,Acer platanoides,7,2
+102,Euonymus europaeus,7,1
+102,Acer campestre,7,2
+102,Corylus avellana,7,2
+102,Tilia cordata,7,2
+102,Carpinus betulus,7,3
+102,Rosa species,7,1
+102,Sambucus nigra,7,1
+102,Melica uniflora,6,18
+102,Asarum europaeum,6,4
+102,Hepatica nobilis,6,4
+102,Galeobdolon luteum s.lat.,6,3
+102,Viola hirta,6,2
+102,Pulmonaria officinalis s.lat.,6,3
+102,Poa nemoralis,6,3
+102,Alliaria petiolata,6,2
+102,Campanula rapunculoides,6,2
+102,Euphorbia dulcis,6,2
+102,Fragaria moschata,6,2
+102,Stellaria holostea,6,2
+102,Impatiens parviflora,6,2
+102,Mycelis muralis,6,2
+102,Moehringia trinervia,6,2
+102,Carex pilosa,6,18
+102,Geum urbanum,6,2
+102,Geranium robertianum,6,2
+102,Galium aparine,6,2
+102,Hieracium murorum,6,1
+102,Campanula trachelium,6,2
+102,Lathyrus vernus,6,2
+102,Lapsana communis,6,2
+102,Lysimachia nummularia,6,2
+102,Viola reichenbachiana,6,2
+102,Cyclamen purpurascens,6,2
+102,Galium odoratum,6,2
+102,Dactylis polygama,6,2
+102,Convallaria majalis,6,2
+102,Veronica chamaedrys agg.,6,2
+102,Carex digitata,6,3
+102,Anemone nemorosa,6,2
+102,Aegopodium podagraria,6,2
+102,Brachypodium sylvaticum,6,2
+102,Veronica officinalis,6,1
+102,Crataegus monogyna s.lat.,7,1
+102,Vicia sylvatica,6,1
+102,Clinopodium vulgare,6,2
+102,Campanula persicifolia,6,1
+103,Galium palustre agg.,6,2
+103,Impatiens parviflora,6,2
+103,Caltha palustris,6,8
+103,Urtica dioica,6,3
+103,Euonymus europaeus,7,1
+103,Sonchus oleraceus,6,1
+103,Lysimachia vulgaris,6,8
+103,Solanum dulcamara,6,3
+103,Lycopus europaeus,6,3
+103,Sambucus nigra,7,1
+103,Crataegus species,7,1
+103,Carex acutiformis,6,3
+103,Berula erecta,6,8
+103,Iris pseudacorus,6,3
+103,Solidago canadensis,6,1
+103,Bidens frondosa,6,8
+103,Ranunculus repens,6,8
+103,Galium aparine,6,1
+103,Poa palustris,6,2
+103,Agrostis stolonifera,6,2
+103,Rosa species,7,1
+103,Deschampsia cespitosa,6,2
+103,Ficaria verna,6,2
+103,Poa trivialis,6,1
+103,Geum urbanum,6,1
+103,Myosoton aquaticum,6,2
+103,Myosotis palustris subsp. laxiflora,6,3
+103,Mentha aquatica,6,3
+103,Veronica beccabunga,6,2
+103,Phalaris arundinacea,6,1
+103,Symphytum officinale,6,1
+103,Brachypodium sylvaticum,6,1
+103,Ranunculus auricomus agg.,6,1
+103,Lactuca serriola,6,1
+103,Rumex obtusifolius,6,1
+103,Moehringia trinervia,6,1
+103,Calystegia sepium,6,1
+103,Ribes rubrum,7,1
+103,Arctium lappa,6,1
+104,Alnus glutinosa,4,4
+104,Acer pseudoplatanus,4,3
+104,Fraxinus excelsior,4,2
+104,Euonymus europaeus,4,2
+104,Ribes rubrum,4,2
+104,Equisetum arvense,6,3
+104,Scirpus sylvaticus,6,63
+104,Impatiens parviflora,6,3
+104,Lysimachia vulgaris,6,2
+104,Solanum dulcamara,6,3
+104,Calystegia sepium,6,1
+104,Clematis vitalba,6,1
+104,Angelica sylvestris,6,2
+104,Caltha palustris,6,2
+104,Geranium robertianum,6,1
+104,Alnus glutinosa,7,1
+104,Fraxinus excelsior,7,2
+104,Acer pseudoplatanus,7,2
+104,Acer campestre,7,2
+104,Euonymus europaeus,7,2
+104,Ribes rubrum,7,2
+104,Sorbus aucuparia,7,1
+104,Urtica dioica,6,2
+104,Ranunculus repens,6,2
+104,Aegopodium podagraria,6,1
+104,Galium aparine,6,1
+104,Pulmonaria officinalis s.lat.,6,2
+104,Cirsium oleraceum,6,2
+104,Galeopsis species,6,1
+104,Mycelis muralis,6,1
+104,Lycopus europaeus,6,1
+104,Veronica beccabunga,6,1
+104,Ficaria verna,6,1
+104,Rosa species,7,1
+104,Mentha longifolia,6,2
+104,Carex acutiformis,6,4
+104,Geum urbanum,6,1
+104,Viburnum opulus,7,1
+104,Sambucus nigra,7,1
+104,Prunus avium,7,1
+105,Acer campestre,1,3
+105,Acer pseudoplatanus,1,38
+105,Lonicera xylosteum,4,3
+105,Fraxinus excelsior,4,2
+105,Sambucus nigra,4,2
+105,Ulmus glabra,4,2
+105,Acer pseudoplatanus,4,3
+105,Cornus mas,4,2
+105,Fraxinus excelsior,7,2
+105,Sambucus nigra,7,3
+105,Cornus mas,7,2
+105,Crataegus species,7,2
+105,Acer pseudoplatanus,7,2
+105,Acer campestre,7,1
+105,Ulmus glabra,7,2
+105,Acer platanoides,7,2
+105,Euonymus europaeus,7,2
+105,Euonymus verrucosus,7,1
+105,Impatiens parviflora,6,4
+105,Chaerophyllum temulum,6,4
+105,Polygonatum multiflorum,6,8
+105,Asarum europaeum,6,18
+105,Lamium maculatum,6,8
+105,Galeobdolon luteum s.lat.,6,8
+105,Pulmonaria officinalis s.lat.,6,8
+105,Galium aparine,6,1
+105,Viola hirta,6,2
+105,Geum urbanum,6,2
+105,Geranium robertianum,6,1
+105,Moehringia trinervia,6,1
+106,Acer campestre,1,63
+106,Quercus petraea agg.,1,2
+106,Acer platanoides,4,2
+106,Acer campestre,4,2
+106,Fraxinus excelsior,4,2
+106,Fagus sylvatica,4,1
+106,Sambucus nigra,4,2
+106,Ulmus glabra,4,3
+106,Impatiens noli-tangere,6,38
+106,Galeobdolon luteum s.lat.,6,38
+106,Asarum europaeum,6,2
+106,Symphytum tuberosum,6,3
+106,Stellaria holostea,6,3
+106,Oxalis acetosella,6,2
+106,Alliaria petiolata,6,1
+106,Impatiens parviflora,6,1
+106,Stachys sylvatica,6,2
+106,Geranium robertianum,6,1
+106,Pulmonaria officinalis s.lat.,6,2
+106,Aegopodium podagraria,6,1
+106,Moehringia trinervia,6,1
+106,Urtica dioica,6,2
+106,Dryopteris filix-mas,6,2
+106,Adoxa moschatellina,6,1
+107,Acer pseudoplatanus,1,3
+107,Tilia cordata,4,4
+107,Acer pseudoplatanus,7,2
+107,Ulmus glabra,7,3
+107,Carpinus betulus,7,2
+107,Acer campestre,7,2
+107,Tilia cordata,7,2
+107,Stellaria holostea,6,18
+107,Melica uniflora,6,8
+107,Urtica dioica,6,1
+107,Galeobdolon luteum s.lat.,6,8
+107,Galium odoratum,6,18
+107,Geum urbanum,6,1
+107,Oxalis acetosella,6,2
+107,Galium aparine,6,2
+107,Geranium robertianum,6,2
+107,Silene latifolia subsp. alba,6,2
+107,Ajuga reptans,6,2
+107,Asarum europaeum,6,2
+107,Pulmonaria officinalis s.lat.,6,3
+107,Aegopodium podagraria,6,2
+107,Viola riviniana,6,2
+107,Circaea lutetiana,6,2
+107,Symphytum tuberosum,6,3
+107,Euphorbia dulcis,6,2
+107,Senecio nemorensis agg.,6,1
+107,Anemone nemorosa,6,1
+107,Impatiens noli-tangere,6,1
+107,Viola reichenbachiana,6,2
+107,Primula veris,6,2
+107,Festuca gigantea,6,1
+107,Impatiens parviflora,6,1
+107,Galium sylvaticum,6,1
+107,Paris quadrifolia,6,2
+107,Dryopteris filix-mas,6,1
+107,Fragaria vesca,6,1
+107,Stachys sylvatica,6,1
+107,Cyclamen purpurascens,6,1
+108,Acer platanoides,1,8
+108,Carpinus betulus,1,38
+108,Tilia platyphyllos,4,2
+108,Acer platanoides,4,1
+108,Ulmus glabra,4,1
+108,Acer platanoides,7,2
+108,Stellaria holostea,6,8
+108,Dryopteris filix-mas,6,38
+108,Poa nemoralis,6,8
+108,Oxalis acetosella,6,2
+108,Paris quadrifolia,6,2
+108,Asarum europaeum,6,3
+108,Impatiens parviflora,6,2
+108,Galeobdolon luteum s.lat.,6,3
+108,Geranium robertianum,6,3
+108,Galium aparine,6,2
+108,Acer pseudoplatanus,7,2
+108,Cystopteris fragilis,6,1
+108,Cyclamen purpurascens,6,1
+108,Pulmonaria officinalis s.lat.,6,2
+108,Dentaria bulbifera,6,1
+108,Senecio nemorensis agg.,6,2
+108,Circaea lutetiana,6,2
+108,Ulmus glabra,7,2
+108,Epilobium adenocaulon,6,2
+108,Anemone nemorosa,6,2
+108,Impatiens noli-tangere,6,2
+108,Actaea spicata,6,2
+108,Scrophularia nodosa,6,2
+108,Melica uniflora,6,2
+108,Carpinus betulus,7,1
+108,Viola reichenbachiana,6,2
+108,Tilia platyphyllos,7,1
+108,Fagus sylvatica,7,2
+108,Moehringia trinervia,6,1
+108,Mycelis muralis,6,2
+108,Acer campestre,7,1
+108,Melica nutans,6,1
+108,Carex montana,6,1
+108,Luzula luzuloides,6,2
+108,Viola mirabilis,6,1
+109,Carpinus betulus,1,38
+109,Lonicera xylosteum,4,1
+109,Fraxinus excelsior,7,3
+109,Acer pseudoplatanus,7,2
+109,Tilia cordata,7,2
+109,Acer campestre,7,2
+109,Sorbus aucuparia,7,2
+109,Sambucus nigra,7,2
+109,Prunus avium,7,2
+109,Quercus petraea agg.,7,1
+109,Carpinus betulus,7,1
+109,Galium sylvaticum,6,3
+109,Geranium robertianum,6,3
+109,Galeobdolon luteum s.lat.,6,8
+109,Stellaria holostea,6,3
+109,Impatiens noli-tangere,6,2
+109,Hepatica nobilis,6,3
+109,Mycelis muralis,6,2
+109,Carex pilosa,6,8
+109,Pulmonaria officinalis s.lat.,6,2
+109,Galium aparine,6,2
+109,Dryopteris filix-mas,6,3
+109,Viola reichenbachiana,6,2
+109,Maianthemum bifolium,6,2
+109,Symphytum tuberosum,6,2
+109,Cyclamen purpurascens,6,2
+109,Impatiens parviflora,6,1
+109,Poa nemoralis,6,2
+109,Asarum europaeum,6,2
+109,Polygonatum multiflorum,6,1
+109,Melica nutans,6,2
+109,Carex digitata,6,2
+109,Luzula luzuloides,6,2
+109,Cystopteris fragilis,6,2
+109,Hieracium lachenalii,6,1
+109,Brachypodium sylvaticum,6,2
+110,Salix euxina,1,8
+110,Acer campestre,1,8
+110,Crataegus monogyna s.lat.,4,8
+110,Prunus insititia,4,2
+110,Sambucus nigra,4,2
+110,Prunus insititia,7,2
+110,Salix alba,7,1
+110,Acer campestre,7,1
+110,Sambucus nigra,7,1
+110,Galeobdolon luteum s.lat.,6,2
+110,Stellaria holostea,6,2
+110,Symphytum tuberosum,6,2
+110,Aegopodium podagraria,6,63
+110,Impatiens noli-tangere,6,8
+110,Impatiens parviflora,6,2
+110,Urtica dioica,6,8
+110,Chaerophyllum bulbosum,6,8
+110,Galium aparine,6,2
+110,Lamium maculatum,6,1
+110,Solanum dulcamara,6,2
+110,Alliaria petiolata,6,2
+110,Stachys sylvatica,6,2
+110,Arctium tomentosum,6,1
+110,Pulmonaria officinalis s.lat.,6,2
+110,Symphytum officinale,6,2
+110,Dactylis polygama,6,1
+110,Cardamine impatiens,6,1
+110,Cirsium oleraceum,6,2
+110,Arctium lappa,6,1
+110,Ficaria verna,6,1
+110,Ajuga reptans,6,2
+110,Geum urbanum,6,2
+110,Ranunculus repens,6,2
+110,Anemone species,6,2
+110,Elymus caninus,6,2
+110,Brachypodium sylvaticum,6,2
+110,Poa nemoralis,6,1
+110,Bidens frondosa,6,1
+110,Festuca gigantea,6,1
+110,Moehringia trinervia,6,1
+110,Humulus lupulus,6,2
+110,Myosoton aquaticum,6,2
+110,Scrophularia nodosa,6,2
+110,Allium ursinum,6,2
+110,Oxalis acetosella,6,1
+110,Anthriscus sylvestris,6,2
+110,Lysimachia nummularia,6,1
+111,Acer platanoides,1,2
+111,Fraxinus excelsior,1,3
+111,Acer pseudoplatanus,1,2
+111,Ulmus glabra,1,8
+111,Quercus petraea agg.,1,1
+111,Sambucus nigra,7,2
+111,Fraxinus excelsior,7,2
+111,Acer campestre,7,1
+111,Acer pseudoplatanus,7,2
+111,Acer platanoides,7,1
+111,Ulmus glabra,7,2
+111,Ribes uva-crispa,7,2
+111,Euonymus europaeus,7,2
+111,Corylus avellana,7,1
+111,Carpinus betulus,7,1
+111,Aegopodium podagraria,6,38
+111,Paris quadrifolia,6,8
+111,Lilium martagon,6,1
+111,Impatiens parviflora,6,2
+111,Impatiens noli-tangere,6,2
+111,Asarum europaeum,6,18
+111,Pulmonaria officinalis s.lat.,6,2
+111,Galeobdolon luteum s.lat.,6,3
+111,Mercurialis perennis,6,3
+111,Oxalis acetosella,6,2
+111,Geum urbanum,6,2
+111,Stachys sylvatica,6,8
+111,Glechoma hirsuta,6,2
+111,Geranium robertianum,6,2
+111,Adoxa moschatellina,6,1
+111,Melica uniflora,6,1
+111,Festuca gigantea,6,2
+111,Urtica dioica,6,2
+111,Myosoton aquaticum,6,2
+111,Galium aparine,6,1
+111,Circaea lutetiana,6,2
+111,Crepis paludosa,6,2
+111,Geranium phaeum,6,2
+111,Ranunculus lanuginosus,6,2
+111,Primula elatior,6,2
+111,Carex sylvatica,6,1
+112,Tilia cordata,1,3
+112,Quercus petraea agg.,1,3
+112,Tilia cordata,4,2
+112,Carpinus betulus,4,2
+112,Carex pilosa,6,38
+112,Convallaria majalis,6,2
+112,Viola reichenbachiana,6,2
+112,Hepatica nobilis,6,8
+112,Pulmonaria officinalis s.lat.,6,3
+112,Lathyrus vernus,6,2
+112,Ranunculus lanuginosus,6,2
+112,Knautia drymeia,6,4
+112,Tilia cordata,7,1
+112,Euonymus verrucosus,7,2
+112,Carpinus betulus,7,2
+112,Fraxinus excelsior,7,2
+112,Acer pseudoplatanus,7,2
+112,Acer platanoides,7,2
+112,Acer campestre,7,2
+112,Quercus petraea agg.,7,2
+112,Crataegus species,7,2
+112,Fagus sylvatica,7,2
+112,Prunus avium,7,2
+112,Asarum europaeum,6,2
+112,Viola mirabilis,6,2
+112,Pimpinella major,6,2
+112,Euphorbia dulcis,6,2
+112,Galium sylvaticum,6,2
+112,Melica nutans,6,2
+112,Poa nemoralis,6,2
+112,Anemone nemorosa,6,2
+112,Hieracium sabaudum,6,2
+112,Melittis melissophyllum,6,2
+112,Carex digitata,6,4
+112,Polygonatum multiflorum,6,2
+112,Fragaria moschata,6,2
+112,Ajuga reptans,6,2
+112,Hieracium murorum,6,2
+112,Stellaria holostea,6,2
+112,Campanula rapunculoides,6,2
+112,Lathyrus niger,6,2
+112,Ranunculus auricomus agg.,6,2
+112,Phyteuma spicatum,6,3
+112,Tanacetum corymbosum,6,1
+112,Rosa species,7,1
+112,Euonymus europaeus,7,1
+112,Brachypodium sylvaticum,6,1
+112,Melampyrum pratense,6,1
+112,Primula veris,6,1
+112,Prunus spinosa,7,1
+113,Prunus padus,1,8
+113,Salix triandra,1,2
+113,Tilia cordata,1,2
+113,Sambucus nigra,4,8
+113,Acer pseudoplatanus,4,8
+113,Prunus padus,4,8
+113,Euonymus europaeus,4,2
+113,Cornus sanguinea,4,2
+113,Prunus padus,7,3
+113,Sambucus nigra,7,2
+113,Acer pseudoplatanus,7,2
+113,Carpinus betulus,7,2
+113,Alnus glutinosa,7,2
+113,Ribes uva-crispa,7,1
+113,Crataegus species,7,1
+113,Fraxinus excelsior,7,2
+113,Euonymus europaeus,7,2
+113,Viburnum opulus,7,2
+113,Rumex obtusifolius,6,1
+113,Oxalis acetosella,6,2
+113,Galium aparine,6,1
+113,Lysimachia nummularia,6,2
+113,Solanum dulcamara,6,3
+113,Cirsium oleraceum,6,2
+113,Ranunculus repens,6,2
+113,Ranunculus lanuginosus,6,2
+113,Ajuga reptans,6,3
+113,Carex sylvatica,6,3
+113,Galium odoratum,6,8
+113,Crepis paludosa,6,8
+113,Stachys sylvatica,6,8
+113,Asarum europaeum,6,2
+113,Glechoma hirsuta,6,3
+113,Impatiens parviflora,6,2
+113,Fragaria moschata,6,1
+113,Rubus caesius,6,1
+113,Viola reichenbachiana,6,1
+113,Galeobdolon luteum s.lat.,6,3
+113,Aegopodium podagraria,6,4
+113,Geranium robertianum,6,1
+113,Rumex sanguineus,6,2
+113,Veronica beccabunga,6,2
+113,Myosotis palustris subsp. laxiflora,6,18
+113,Carex remota,6,3
+113,Caltha palustris,6,2
+113,Urtica dioica,6,2
+113,Anemone nemorosa,6,1
+113,Filipendula ulmaria,6,1
+113,Scrophularia umbrosa,6,2
+113,Brachypodium sylvaticum,6,1
+113,Cardamine impatiens,6,1
+113,Geum urbanum,6,2
+113,Polygonatum multiflorum,6,1
+113,Pulmonaria officinalis s.lat.,6,2
+113,Geranium phaeum,6,1
+114,Acer platanoides,1,8
+114,Acer pseudoplatanus,1,8
+114,Tilia cordata,1,2
+114,Tilia platyphyllos,1,8
+114,Corylus avellana,4,18
+114,Staphylea pinnata,4,18
+114,Sambucus nigra,4,2
+114,Ulmus glabra,4,2
+114,Euonymus europaeus,7,2
+114,Acer campestre,7,1
+114,Acer platanoides,7,1
+114,Galeobdolon luteum s.lat.,6,18
+114,Urtica dioica,6,8
+114,Impatiens noli-tangere,6,2
+114,Dryopteris filix-mas,6,8
+114,Asplenium trichomanes,6,1
+114,Lilium martagon,6,1
+114,Actaea spicata,6,2
+114,Pulmonaria officinalis s.lat.,6,2
+114,Cystopteris fragilis,6,2
+114,Impatiens parviflora,6,1
+114,Asarum europaeum,6,2
+114,Polypodium vulgare,6,1
+114,Fraxinus excelsior,7,2
+114,Sambucus nigra,7,1
+115,Acer pseudoplatanus,1,38
+115,Acer campestre,1,3
+115,Ulmus glabra,4,8
+115,Tilia platyphyllos,4,2
+115,Sambucus nigra,4,8
+115,Acer campestre,4,1
+115,Acer pseudoplatanus,4,3
+115,Tilia platyphyllos,7,2
+115,Ulmus glabra,7,2
+115,Impatiens parviflora,6,8
+115,Impatiens noli-tangere,6,8
+115,Lamium maculatum,6,8
+115,Galeobdolon luteum s.lat.,6,4
+115,Geranium robertianum,6,8
+115,Galium odoratum,6,8
+115,Urtica dioica,6,4
+115,Polypodium vulgare,6,3
+115,Dryopteris filix-mas,6,3
+115,Pulmonaria officinalis s.lat.,6,3
+115,Geum urbanum,6,2
+115,Actaea spicata,6,2
+115,Glechoma hirsuta,6,1
+115,Stellaria holostea,6,2
+115,Mycelis muralis,6,2
+115,Poa nemoralis,6,1
+115,Alliaria petiolata,6,1
+115,Oxalis acetosella,6,2
+115,Aegopodium podagraria,6,3
+115,Symphytum tuberosum,6,2
+115,Asarum europaeum,6,2
+115,Epilobium species,6,1
+115,Viola mirabilis,6,2
+116,Tilia cordata,1,38
+116,Acer platanoides,1,18
+116,Acer pseudoplatanus,1,18
+116,Ulmus glabra,1,3
+116,Tilia platyphyllos,4,2
+116,Sambucus nigra,4,3
+116,Acer platanoides,4,3
+116,Acer pseudoplatanus,4,3
+116,Ulmus glabra,4,1
+116,Acer platanoides,7,1
+116,Sambucus nigra,7,2
+116,Acer pseudoplatanus,7,1
+116,Impatiens parviflora,6,3
+116,Galeobdolon luteum s.lat.,6,18
+116,Geranium robertianum,6,2
+116,Impatiens noli-tangere,6,2
+116,Polypodium vulgare,6,2
+116,Dryopteris filix-mas,6,3
+116,Athyrium filix-femina,6,3
+116,Oxalis acetosella,6,2
+116,Urtica dioica,6,2
+116,Pulmonaria officinalis s.lat.,6,2
+116,Aegopodium podagraria,6,3
+116,Lamium maculatum,6,4
+116,Asarum europaeum,6,2
+116,Myosoton aquaticum,6,1
+116,Ajuga reptans,6,1
+116,Poa nemoralis,6,1
+117,Quercus petraea agg.,1,38
+117,Tilia cordata,4,8
+117,Carpinus betulus,7,3
+117,Quercus petraea agg.,7,3
+117,Acer campestre,7,2
+117,Tilia cordata,7,2
+117,Acer platanoides,7,2
+117,Lonicera xylosteum,7,2
+117,Fraxinus excelsior,7,2
+117,Galium odoratum,6,8
+117,Galeobdolon luteum s.lat.,6,3
+117,Mercurialis perennis,6,8
+117,Poa nemoralis,6,2
+117,Impatiens parviflora,6,3
+117,Melica nutans,6,4
+117,Bromus benekenii,6,2
+117,Dentaria bulbifera,6,3
+117,Lathyrus vernus,6,2
+117,Actaea spicata,6,1
+117,Luzula luzuloides,6,4
+117,Stellaria holostea,6,2
+117,Dryopteris filix-mas,6,4
+117,Viola reichenbachiana,6,2
+117,Campanula rapunculoides,6,2
+117,Carex muricata agg.,6,1
+117,Carex digitata,6,2
+117,Calamagrostis arundinacea,6,2
+117,Fragaria moschata,6,2
+117,Geranium robertianum,6,2
+117,Hepatica nobilis,6,2
+117,Hedera helix,6,2
+117,Moehringia trinervia,6,2
+117,Cardamine impatiens,6,2
+117,Hieracium murorum,6,2
+117,Myosotis sylvatica,6,1
+117,Knautia drymeia,6,1
+117,Campanula persicifolia,6,1
+117,Cystopteris fragilis,6,1
+117,Galium sylvaticum,6,2
+117,Urtica dioica,6,2
+118,Acer platanoides,1,18
+118,Carpinus betulus,1,18
+118,Acer campestre,1,3
+118,Quercus petraea agg.,1,2
+118,Acer platanoides,7,3
+118,Ribes uva-crispa,7,2
+118,Acer pseudoplatanus,7,2
+118,Carpinus betulus,7,2
+118,Quercus petraea agg.,7,2
+118,Dentaria bulbifera,6,4
+118,Galium odoratum,6,4
+118,Melica uniflora,6,4
+118,Impatiens parviflora,6,4
+118,Dryopteris filix-mas,6,8
+118,Polypodium vulgare,6,2
+118,Poa nemoralis,6,3
+118,Impatiens noli-tangere,6,1
+119,Sorbus torminalis,1,4
+119,Tilia cordata,1,18
+119,Acer campestre,1,3
+119,Acer platanoides,1,2
+119,Cornus mas,4,3
+119,Tilia cordata,4,3
+119,Corylus avellana,4,2
+119,Carpinus betulus,4,2
+119,Euonymus verrucosus,4,3
+119,Acer platanoides,7,2
+119,Acer pseudoplatanus,7,1
+119,Lonicera xylosteum,7,2
+119,Rosa species,7,1
+119,Fagus sylvatica,7,2
+119,Carpinus betulus,7,1
+119,Quercus petraea agg.,7,2
+119,Euonymus verrucosus,7,2
+119,Bromus benekenii,6,1
+119,Polypodium vulgare,6,4
+119,Convallaria majalis,6,8
+119,Hepatica nobilis,6,3
+119,Primula veris,6,3
+119,Bupleurum falcatum,6,2
+119,Hieracium murorum,6,2
+119,Campanula persicifolia,6,2
+119,Campanula trachelium,6,1
+119,Hylotelephium telephium agg.,6,2
+119,Vincetoxicum hirundinaria,6,2
+119,Stellaria holostea,6,2
+119,Galium mollugo agg.,6,2
+119,Veronica chamaedrys agg.,6,3
+119,Lathyrus vernus,6,2
+119,Tanacetum corymbosum,6,2
+119,Poa pratensis,6,2
+119,Securigera varia,6,1
+119,Melica nutans,6,3
+119,Dactylis polygama,6,2
+119,Campanula rapunculoides,6,2
+119,Viola hirta,6,2
+119,Rhamnus cathartica,6,2
+119,Sorbus torminalis,6,2
+119,Euphorbia cyparissias,6,2
+119,Hieracium sabaudum,6,1
+119,Silene nutans,6,2
+119,Mercurialis perennis,6,2
+119,Fraxinus excelsior,7,2
+119,Carex digitata,6,3
+119,Corylus avellana,7,1
+119,Acer campestre,7,2
+119,Asplenium trichomanes,6,2
+119,Carex muricata agg.,6,2
+119,Euphorbia dulcis,6,1
+119,Arabis pauciflora,6,2
+119,Poa nemoralis,6,3
+119,Glechoma hirsuta,6,2
+119,Peucedanum cervaria,6,1
+119,Pilosella officinarum,6,2
+119,Ranunculus bulbosus,6,2
+119,Brachypodium sylvaticum,6,4
+119,Lilium martagon,6,2
+119,Taraxacum sect. Taraxacum,6,1
+119,Polygonatum odoratum,6,2
+119,Melampyrum nemorosum,6,2
+119,Vicia pisiformis,6,1
+119,Teucrium chamaedrys,6,2
+119,Anemone nemorosa,6,2
+119,Pulmonaria mollis,6,2
+119,Digitalis grandiflora,6,2
+119,Lathyrus niger,6,1
+119,Melittis melissophyllum,6,1
+119,Daphne mezereum,6,1
+119,Sorbus aucuparia,7,1
+119,Fragaria vesca,6,2
+119,Carex michelii,6,3
+119,Hypericum montanum,6,1
+119,Crataegus species,7,1
+119,Cephalanthera longifolia,6,1
+119,Pimpinella major,6,2
+119,Myosotis sylvatica,6,1
+119,Viola mirabilis,6,2
+119,Neottia nidus-avis,6,1
+119,Galium sylvaticum,6,1
+119,Ligustrum vulgare,7,2
+119,Calamagrostis arundinacea,6,2
+119,Clinopodium vulgare,6,1
+119,Campanula rotundifolia agg.,6,1
+120,Fraxinus excelsior,1,8
+120,Acer campestre,1,4
+120,Pulmonaria officinalis s.lat.,6,8
+120,Asarum europaeum,6,8
+120,Aegopodium podagraria,6,3
+120,Hepatica nobilis,6,3
+120,Carex pilosa,6,38
+120,Euphorbia dulcis,6,2
+120,Ranunculus lanuginosus,6,2
+120,Oxalis acetosella,6,3
+120,Stellaria holostea,6,2
+120,Galeobdolon luteum s.lat.,6,3
+120,Paris quadrifolia,6,3
+120,Geranium phaeum,6,2
+120,Brachypodium sylvaticum,6,2
+120,Anemone nemorosa,6,2
+120,Lilium martagon,6,2
+120,Polygonatum multiflorum,6,3
+120,Elymus caninus,6,2
+120,Fraxinus excelsior,7,2
+120,Acer pseudoplatanus,7,2
+120,Carpinus betulus,7,2
+120,Heracleum sphondylium,6,1
+120,Populus tremula,7,2
+120,Maianthemum bifolium,6,2
+120,Convallaria majalis,6,2
+120,Carex digitata,6,1
+120,Lathyrus vernus,6,2
+120,Symphytum tuberosum,6,2
+120,Viola mirabilis,6,2
+120,Galium odoratum,6,3
+120,Geum urbanum,6,1
+120,Carex sylvatica,6,2
+120,Vicia sylvatica,6,1
+120,Euonymus europaeus,7,2
+120,Viola reichenbachiana,6,2
+120,Campanula rapunculoides,6,2
+120,Ajuga reptans,6,1
+120,Lamium maculatum,6,2
+120,Primula elatior,6,2
+120,Chaerophyllum aromaticum,6,1
+120,Peucedanum cervaria,6,1
+120,Acer platanoides,7,1
+120,Viola hirta,6,1
+120,Bromus benekenii,6,1
+121,Acer campestre,1,8
+121,Quercus petraea agg.,1,3
+121,Acer platanoides,1,2
+121,Carpinus betulus,4,3
+121,Lonicera xylosteum,4,2
+121,Fraxinus excelsior,4,2
+121,Tilia platyphyllos,7,1
+121,Acer campestre,7,4
+121,Fraxinus excelsior,7,2
+121,Rhamnus cathartica,7,1
+121,Quercus petraea agg.,7,2
+121,Euonymus verrucosus,7,2
+121,Prunus avium,7,1
+121,Sorbus torminalis,7,1
+121,Acer platanoides,7,1
+121,Lonicera xylosteum,7,2
+121,Convallaria majalis,6,18
+121,Hepatica nobilis,6,2
+121,Stellaria holostea,6,3
+121,Geum urbanum,6,2
+121,Hylotelephium telephium agg.,6,2
+121,Melica nutans,6,3
+121,Cephalanthera rubra,6,1
+121,Melica uniflora,6,3
+121,Polygonatum odoratum,6,8
+121,Anthericum ramosum,6,3
+121,Bupleurum falcatum,6,2
+121,Bromus benekenii,6,2
+121,Fragaria vesca,6,2
+121,Viola hirta,6,2
+121,Viola mirabilis,6,2
+121,Vincetoxicum hirundinaria,6,2
+121,Carex michelii,6,18
+121,Brachypodium sylvaticum,6,2
+121,Hedera helix,6,1
+121,Clinopodium vulgare,6,2
+121,Galium aparine,6,1
+121,Fragaria moschata,6,1
+121,Galium odoratum,6,2
+121,Allium oleraceum,6,1
+121,Elymus caninus,6,2
+121,Cephalanthera damasonium,6,1
+121,Alliaria petiolata,6,1
+121,Neottia nidus-avis,6,1
+121,Carpinus betulus,7,1
+121,Campanula rapunculoides,6,1
+121,Carex digitata,6,4
+122,Acer campestre,1,4
+122,Fraxinus excelsior,1,38
+122,Carpinus betulus,1,3
+122,Acer platanoides,1,3
+122,Ulmus glabra,1,3
+122,Ribes uva-crispa,4,3
+122,Lonicera xylosteum,4,2
+122,Euonymus verrucosus,4,3
+122,Carpinus betulus,4,3
+122,Fraxinus excelsior,4,3
+122,Corylus avellana,4,2
+122,Ribes uva-crispa,7,2
+122,Lonicera xylosteum,7,2
+122,Euonymus europaeus,7,2
+122,Acer platanoides,7,2
+122,Ulmus glabra,7,2
+122,Fraxinus excelsior,7,2
+122,Lunaria rediviva,6,38
+122,Actaea spicata,6,8
+122,Mercurialis perennis,6,3
+122,Asarum europaeum,6,3
+122,Hepatica nobilis,6,3
+122,Galeobdolon luteum s.lat.,6,3
+122,Impatiens parviflora,6,2
+122,Lathyrus vernus,6,2
+122,Aegopodium podagraria,6,1
+122,Pulmonaria officinalis s.lat.,6,2
+122,Ranunculus lanuginosus,6,1
+122,Polygonatum multiflorum,6,3
+122,Geranium robertianum,6,1
+122,Asplenium trichomanes,6,2
+122,Oxalis acetosella,6,2
+122,Polypodium vulgare,6,2
+122,Impatiens noli-tangere,6,1
+122,Campanula rapunculoides,6,1
+122,Mycelis muralis,6,1
+122,Cystopteris fragilis,6,2
+122,Viola mirabilis,6,1
+122,Maianthemum bifolium,6,1
+122,Galeopsis pubescens,6,1
+122,Campanula trachelium,6,1
+122,Heracleum sphondylium,6,1
+122,Paris quadrifolia,6,1
+122,Lilium martagon,6,1
+122,Stellaria holostea,6,1
+122,Galium sylvaticum,6,2
+123,Fraxinus excelsior,1,38
+123,Acer pseudoplatanus,1,18
+123,Acer platanoides,1,2
+123,Ulmus glabra,4,8
+123,Sambucus nigra,4,3
+123,Acer campestre,4,2
+123,Fagus sylvatica,4,8
+123,Corylus avellana,4,1
+123,Acer pseudoplatanus,4,2
+123,Fagus sylvatica,7,2
+123,Ribes uva-crispa,7,2
+123,Acer platanoides,7,2
+123,Ulmus glabra,7,2
+123,Prunus avium,7,2
+123,Fraxinus excelsior,7,3
+123,Euonymus europaeus,7,2
+123,Sambucus nigra,7,1
+123,Acer campestre,7,2
+123,Aconitum lycoctonum,6,4
+123,Impatiens parviflora,6,4
+123,Galium odoratum,6,8
+123,Alliaria petiolata,6,2
+123,Dentaria bulbifera,6,3
+123,Chaerophyllum temulum,6,2
+123,Geranium robertianum,6,2
+123,Stellaria holostea,6,8
+123,Urtica dioica,6,2
+123,Moehringia trinervia,6,2
+123,Pulmonaria officinalis s.lat.,6,2
+123,Lamium maculatum,6,8
+123,Galeobdolon luteum s.lat.,6,3
+123,Polygonatum multiflorum,6,2
+123,Mercurialis perennis,6,3
+123,Viola hirta,6,2
+123,Cardamine impatiens,6,1
+123,Geum urbanum,6,1
+123,Asplenium trichomanes,6,1
+123,Hepatica nobilis,6,2
+123,Lathyrus vernus,6,2
+123,Convallaria majalis,6,2
+123,Galium sylvaticum,6,2
+123,Carpinus betulus,7,1
+123,Viola mirabilis,6,1
+123,Carex muricata agg.,6,2
+123,Epipactis species,6,1
+123,Maianthemum bifolium,6,2
+123,Poa nemoralis,6,1
+123,Carex digitata,6,2
+123,Myosotis sylvatica,6,1
+123,Galium aparine,6,1
+123,Acer pseudoplatanus,7,1
+123,Campanula persicifolia,6,1
+123,Ranunculus lanuginosus,6,1
+123,Omphalodes scorpioides,6,2
+124,Acer pseudoplatanus,1,3
+124,Acer campestre,1,3
+124,Fraxinus excelsior,1,3
+124,Crataegus species,4,1
+124,Fagus sylvatica,4,1
+124,Acer platanoides,7,2
+124,Acer pseudoplatanus,7,2
+124,Fraxinus excelsior,7,3
+124,Carpinus betulus,7,2
+124,Acer campestre,7,2
+124,Fagus sylvatica,7,2
+124,Prunus avium,7,2
+124,Tilia platyphyllos,7,2
+124,Euonymus verrucosus,7,3
+124,Ulmus glabra,7,2
+124,Crataegus species,7,1
+124,Lonicera xylosteum,7,1
+124,Melica uniflora,6,8
+124,Poa nemoralis,6,4
+124,Carex pilosa,6,38
+124,Carex digitata,6,4
+124,Hepatica nobilis,6,3
+124,Galium odoratum,6,2
+124,Melampyrum nemorosum,6,3
+124,Lathyrus vernus,6,2
+124,Pulmonaria officinalis s.lat.,6,2
+124,Veronica chamaedrys agg.,6,1
+124,Dentaria bulbifera,6,2
+124,Mercurialis perennis,6,3
+124,Galium sylvaticum,6,3
+124,Clinopodium vulgare,6,2
+124,Campanula trachelium,6,2
+124,Campanula persicifolia,6,2
+124,Melittis melissophyllum,6,2
+124,Hieracium murorum,6,1
+124,Lilium martagon,6,1
+124,Fragaria vesca,6,2
+124,Dactylis polygama,6,2
+124,Anemone nemorosa,6,2
+124,Melica nutans,6,2
+124,Brachypodium sylvaticum,6,3
+124,Digitalis grandiflora,6,2
+124,Viola riviniana,6,2
+124,Stellaria holostea,6,2
+124,Bromus benekenii,6,2
+124,Cornus sanguinea,7,2
+124,Sorbus torminalis,7,3
+124,Euonymus europaeus,7,2
+124,Viola mirabilis,6,1
+124,Lathyrus niger,6,2
+124,Vincetoxicum hirundinaria,6,2
+124,Elymus caninus,6,2
+124,Sanicula europaea,6,2
+124,Geum urbanum,6,1
+124,Neottia nidus-avis,6,1
+125,Fraxinus excelsior,1,4
+125,Acer pseudoplatanus,1,4
+125,Carpinus betulus,1,4
+125,Acer pseudoplatanus,4,18
+125,Acer campestre,4,2
+125,Sambucus nigra,4,2
+125,Ulmus glabra,4,2
+125,Euonymus europaeus,4,2
+125,Fraxinus excelsior,4,2
+125,Acer platanoides,7,2
+125,Acer campestre,7,2
+125,Acer pseudoplatanus,7,2
+125,Ulmus glabra,7,2
+125,Euonymus europaeus,7,1
+125,Aegopodium podagraria,6,38
+125,Alliaria petiolata,6,2
+125,Lamium maculatum,6,18
+125,Impatiens parviflora,6,3
+125,Impatiens noli-tangere,6,8
+125,Asarum europaeum,6,3
+125,Myosoton aquaticum,6,38
+125,Geum urbanum,6,2
+125,Stachys sylvatica,6,8
+125,Urtica dioica,6,8
+125,Pulmonaria officinalis s.lat.,6,3
+125,Campanula trachelium,6,2
+125,Stellaria holostea,6,2
+125,Galeobdolon luteum s.lat.,6,18
+125,Chaerophyllum aromaticum,6,1
+125,Galium aparine,6,1
+125,Filipendula ulmaria,6,2
+125,Festuca gigantea,6,1
+125,Ranunculus repens,6,1
+125,Ajuga reptans,6,2
+125,Equisetum arvense,6,1
+125,Moehringia trinervia,6,1
+125,Sambucus nigra,7,1
+125,Carpinus betulus,7,1
+125,Rubus caesius,6,1
+125,Viola reichenbachiana,6,1
+125,Alnus glutinosa,7,1
+125,Brachypodium sylvaticum,6,1
+126,Acer pseudoplatanus,1,38
+126,Acer campestre,1,2
+126,Quercus petraea agg.,1,2
+126,Acer pseudoplatanus,7,4
+126,Fraxinus excelsior,7,2
+126,Acer campestre,7,2
+126,Carpinus betulus,7,2
+126,Sambucus nigra,7,2
+126,Abies alba,7,1
+126,Quercus petraea agg.,7,2
+126,Athyrium filix-femina,6,2
+126,Dryopteris filix-mas,6,8
+126,Rubus caesius,6,2
+126,Mycelis muralis,6,2
+126,Geranium robertianum,6,3
+126,Galium odoratum,6,8
+126,Carex digitata,6,3
+126,Asarum europaeum,6,3
+126,Melica nutans,6,2
+126,Pulmonaria officinalis s.lat.,6,3
+126,Impatiens parviflora,6,4
+126,Poa nemoralis,6,2
+126,Cardamine impatiens,6,2
+126,Oxalis acetosella,6,2
+126,Campanula trachelium,6,2
+126,Viola reichenbachiana,6,2
+126,Dactylis polygama,6,2
+126,Alliaria petiolata,6,2
+126,Urtica dioica,6,2
+126,Impatiens noli-tangere,6,1
+126,Moehringia trinervia,6,2
+126,Senecio nemorensis agg.,6,1
+126,Geum urbanum,6,1
+126,Campanula persicifolia,6,1
+126,Ajuga reptans,6,2
+126,Myosotis sylvatica,6,1
+126,Anemone species,6,1
+126,Galeobdolon luteum s.lat.,6,18
+127,Sambucus nigra,4,8
+127,Frangula alnus,4,2
+127,Alnus glutinosa,4,8
+127,Viburnum opulus,4,2
+127,Fraxinus excelsior,4,2
+127,Prunus avium,4,2
+127,Corylus avellana,4,1
+127,Carpinus betulus,4,1
+127,Euonymus europaeus,4,1
+127,Fagus sylvatica,7,2
+127,Stachys sylvatica,6,3
+127,Galium aparine,6,1
+127,Geranium robertianum,6,2
+127,Oxalis acetosella,6,2
+127,Geranium palustre,6,2
+127,Festuca gigantea,6,3
+127,Impatiens parviflora,6,2
+127,Equisetum arvense,6,2
+127,Carex remota,6,3
+127,Lysimachia vulgaris,6,4
+127,Crepis paludosa,6,2
+127,Viola riviniana,6,2
+127,Geum urbanum,6,2
+127,Brachypodium sylvaticum,6,3
+127,Lycopus europaeus,6,2
+127,Circaea x intermedia,6,3
+127,Ajuga reptans,6,2
+127,Carpinus betulus,7,2
+127,Lysimachia nummularia,6,2
+127,Mycelis muralis,6,2
+127,Solanum dulcamara,6,3
+127,Eupatorium cannabinum,6,2
+127,Impatiens noli-tangere,6,3
+127,Viburnum opulus,7,2
+127,Fragaria moschata,6,2
+127,Ranunculus repens,6,3
+127,Quercus petraea agg.,7,1
+127,Carex acutiformis,6,18
+127,Athyrium filix-femina,6,3
+127,Caltha palustris,6,2
+127,Veronica beccabunga,6,2
+127,Myosotis palustris subsp. laxiflora,6,4
+127,Rumex sanguineus,6,2
+127,Moehringia trinervia,6,2
+127,Bidens frondosa,6,2
+127,Juncus effusus,6,2
+127,Filipendula ulmaria,6,2
+127,Alliaria petiolata,6,2
+127,Glechoma hederacea,6,2
+127,Maianthemum bifolium,6,1
+127,Aegopodium podagraria,6,2
+127,Chrysosplenium alternifolium,6,1
+127,Anemone species,6,1
+127,Ranunculus acris,6,1
+127,Urtica dioica,6,2
+127,Scirpus sylvaticus,6,18
+127,Aesculus hippocastanum,7,1
+127,Epilobium roseum,6,2
+127,Mentha longifolia,6,2
+127,Sorbus aucuparia,7,1
+127,Vicia sepium,6,1
+127,Ranunculus lanuginosus,6,1
+127,Galeopsis speciosa,6,1
+128,Acer pseudoplatanus,1,38
+128,Fagus sylvatica,1,18
+128,Tilia platyphyllos,1,3
+128,Corylus avellana,4,4
+128,Sambucus nigra,4,4
+128,Ulmus glabra,4,2
+128,Fagus sylvatica,4,2
+128,Ribes uva-crispa,7,2
+128,Lunaria rediviva,6,63
+128,Asarum europaeum,6,3
+128,Hepatica nobilis,6,2
+128,Galium odoratum,6,3
+128,Mercurialis perennis,6,2
+128,Galeobdolon luteum s.lat.,6,2
+128,Oxalis acetosella,6,2
+128,Asplenium trichomanes,6,2
+128,Impatiens parviflora,6,1
+128,Impatiens noli-tangere,6,2
+128,Lathyrus vernus,6,2
+128,Galium sylvaticum,6,1
+128,Actaea spicata,6,2
+128,Lilium martagon,6,1
+128,Pulmonaria officinalis s.lat.,6,2
+128,Campanula rapunculoides,6,2
+128,Dryopteris filix-mas,6,2
+128,Acer pseudoplatanus,7,2
+128,Geranium robertianum,6,1
+128,Fagus sylvatica,7,2
+128,Urtica dioica,6,2
+128,Cystopteris fragilis,6,1
+128,Fraxinus excelsior,7,1
+129,Fraxinus excelsior,1,38
+129,Acer pseudoplatanus,1,8
+129,Carpinus betulus,1,1
+129,Ulmus glabra,1,3
+129,Aesculus hippocastanum,4,4
+129,Ulmus glabra,4,4
+129,Acer campestre,4,2
+129,Acer pseudoplatanus,4,1
+129,Fraxinus excelsior,4,1
+129,Corylus avellana,4,1
+129,Fraxinus excelsior,7,3
+129,Ulmus glabra,7,2
+129,Acer campestre,7,2
+129,Aegopodium podagraria,6,38
+129,Filipendula ulmaria,6,3
+129,Primula elatior,6,4
+129,Galeobdolon luteum s.lat.,6,3
+129,Geum urbanum,6,2
+129,Myosoton aquaticum,6,18
+129,Geranium phaeum,6,2
+129,Crepis paludosa,6,3
+129,Ranunculus lanuginosus,6,3
+129,Carex sylvatica,6,1
+129,Glechoma hederacea,6,3
+129,Oxalis acetosella,6,2
+129,Brachypodium sylvaticum,6,2
+129,Athyrium filix-femina,6,3
+129,Acer platanoides,7,2
+129,Chaerophyllum hirsutum,6,4
+129,Abies alba,7,1
+129,Pulmonaria officinalis s.lat.,6,2
+129,Urtica dioica,6,2
+129,Dryopteris filix-mas,6,2
+129,Viburnum opulus,7,2
+129,Impatiens noli-tangere,6,2
+129,Impatiens parviflora,6,1
+129,Alliaria petiolata,6,1
+129,Stachys sylvatica,6,2
+129,Equisetum arvense,6,2
+129,Adoxa moschatellina,6,1
+129,Dentaria bulbifera,6,1
+129,Cystopteris fragilis,6,1
+129,Sambucus nigra,7,2
+129,Ajuga reptans,6,2
+129,Chelidonium majus,6,1
+129,Festuca gigantea,6,1
+129,Agrostis stolonifera,6,1
+130,Fraxinus excelsior,1,38
+130,Acer campestre,1,1
+130,Acer platanoides,1,8
+130,Ulmus glabra,1,8
+130,Carpinus betulus,1,3
+130,Tilia platyphyllos,1,3
+130,Acer pseudoplatanus,4,3
+130,Corylus avellana,4,3
+130,Ulmus glabra,4,3
+130,Sambucus racemosa,4,2
+130,Sambucus nigra,4,2
+130,Euonymus verrucosus,7,2
+130,Acer platanoides,7,1
+130,Ribes uva-crispa,7,2
+130,Ulmus glabra,7,2
+130,Lamium maculatum,6,8
+130,Lunaria rediviva,6,63
+130,Impatiens noli-tangere,6,3
+130,Impatiens parviflora,6,3
+130,Stellaria holostea,6,3
+130,Pulmonaria officinalis s.lat.,6,2
+130,Urtica dioica,6,3
+130,Asarum europaeum,6,2
+130,Galeobdolon luteum s.lat.,6,1
+130,Dryopteris filix-mas,6,2
+130,Alliaria petiolata,6,2
+130,Geranium robertianum,6,1
+130,Polypodium vulgare,6,2
+130,Melica uniflora,6,1
+130,Glechoma hederacea,6,2
+130,Oxalis acetosella,6,1
+130,Galium odoratum,6,1
+130,Fraxinus excelsior,7,1
+130,Cardamine impatiens,6,1
+131,Alnus incana,1,38
+131,Alnus incana,4,3
+131,Rumex obtusifolius,6,3
+131,Solanum dulcamara,6,38
+131,Chaerophyllum hirsutum,6,18
+131,Lysimachia vulgaris,6,3
+131,Impatiens noli-tangere,6,3
+131,Impatiens parviflora,6,1
+131,Equisetum sylvaticum,6,2
+131,Festuca gigantea,6,3
+131,Galium palustre agg.,6,2
+131,Myosotis palustris subsp. laxiflora,6,3
+131,Lysimachia nummularia,6,2
+131,Crepis paludosa,6,3
+131,Equisetum arvense,6,2
+131,Urtica dioica,6,3
+131,Aegopodium podagraria,6,2
+131,Geum urbanum,6,2
+131,Athyrium filix-femina,6,2
+131,Mentha aquatica,6,3
+131,Ranunculus repens,6,2
+131,Carex remota,6,18
+131,Lycopus europaeus,6,2
+131,Stellaria holostea,6,2
+131,Brachypodium sylvaticum,6,8
+131,Deschampsia cespitosa,6,4
+131,Oxalis acetosella,6,2
+131,Juncus effusus,6,2
+131,Silene nutans,6,2
+131,Chrysosplenium alternifolium,6,2
+131,Poa palustris,6,2
+131,Veronica beccabunga,6,2
+131,Valeriana dioica,6,3
+131,Caltha palustris,6,2
+131,Rubus idaeus,6,1
+131,Filipendula ulmaria,6,1
+131,Cirsium palustre,6,1
+131,Ajuga reptans,6,2
+131,Viola riviniana,6,1
+131,Carduus crispus,6,1
+131,Agrostis stolonifera,6,3
+131,Carex muricata agg.,6,4
+131,Ficaria calthifolia,6,1
+131,Alnus glutinosa,7,2
+131,Dryopteris dilatata,6,3
+131,Senecio nemorensis agg.,6,2
+131,Stachys sylvatica,6,2
+131,Daphne mezereum,6,1
+131,Rubus fruticosus agg.,6,2
+131,Angelica sylvestris,6,2
+131,Geranium robertianum,6,1
+131,Epilobium roseum,6,2
+131,Alnus incana,7,1
+131,Stellaria alsine,6,2
+131,Scrophularia nodosa,6,2
+131,Scutellaria galericulata,6,2
+131,Galeopsis pubescens,6,1
+131,Fagus sylvatica,7,1
+131,Veronica chamaedrys agg.,6,1
+131,Ranunculus auricomus agg.,6,1
+131,Taraxacum sect. Palustria,6,2
+132,Alnus incana,1,8
+132,Picea abies,1,1
+132,Salix caprea,1,2
+132,Sambucus racemosa,4,1
+132,Sambucus nigra,4,3
+132,Fraxinus excelsior,4,2
+132,Euonymus europaeus,4,2
+132,Acer pseudoplatanus,4,2
+132,Rubus idaeus,4,3
+132,Alnus glutinosa,4,2
+132,Viburnum opulus,4,2
+132,Lysimachia vulgaris,6,4
+132,Lythrum salicaria,6,3
+132,Urtica dioica,6,8
+132,Eupatorium cannabinum,6,2
+132,Aegopodium podagraria,6,2
+132,Impatiens noli-tangere,6,3
+132,Impatiens parviflora,6,2
+132,Ranunculus repens,6,3
+132,Stachys sylvatica,6,3
+132,Lycopus europaeus,6,3
+132,Filipendula ulmaria,6,3
+132,Crepis paludosa,6,2
+132,Ajuga reptans,6,3
+132,Myosotis palustris subsp. laxiflora,6,3
+132,Solanum dulcamara,6,8
+132,Equisetum arvense,6,2
+132,Caltha palustris,6,2
+132,Chrysosplenium alternifolium,6,2
+132,Myosoton aquaticum,6,4
+132,Juncus effusus,6,8
+132,Lysimachia nummularia,6,2
+132,Carex remota,6,3
+132,Mentha aquatica,6,2
+132,Pulmonaria officinalis s.lat.,6,2
+132,Galium palustre agg.,6,2
+132,Poa palustris,6,2
+132,Chaerophyllum hirsutum,6,3
+132,Acer pseudoplatanus,7,2
+132,Oxalis acetosella,6,2
+132,Geum urbanum,6,1
+132,Geranium palustre,6,2
+132,Scutellaria galericulata,6,3
+132,Galeobdolon luteum s.lat.,6,1
+132,Rumex obtusifolius,6,2
+132,Alnus incana,7,1
+132,Scirpus sylvaticus,6,2
+132,Athyrium filix-femina,6,3
+132,Alchemilla vulgaris s.lat.,6,1
+132,Galium aparine,6,2
+132,Fraxinus excelsior,7,2
+132,Geranium robertianum,6,2
+132,Dryopteris dilatata,6,2
+132,Sorbus aucuparia,7,1
+132,Picea abies,7,1
+132,Silene nutans,6,2
+132,Carpinus betulus,7,1
+132,Stellaria holostea,6,2
+132,Veronica beccabunga,6,3
+132,Carex acutiformis,6,18
+132,Paris quadrifolia,6,1
+132,Primula elatior,6,2
+132,Euphorbia dulcis,6,2
+132,Poa nemoralis,6,2
+132,Knautia drymeia,6,1
+132,Festuca gigantea,6,2
+132,Viola reichenbachiana,6,1
+132,Lonicera xylosteum,7,1
+132,Carex muricata agg.,6,2
+132,Rubus fruticosus agg.,6,2
+132,Rubus idaeus,6,3
+132,Galeopsis pubescens,6,2
+132,Taraxacum sect. Palustria,6,2
+132,Agrostis stolonifera,6,2
+127,Alnus glutinosa,1,63
+104,Rubus caesius,6,2
+127,Rubus fruticosus agg.,6,3
+127,Rubus idaeus,6,8
+112,Bromus benekenii,6,1
+127,Cardamine amara,6,2
+129,Cardamine amara,6,1
+131,Cardamine amara,6,2
+132,Cardamine amara,6,2
+132,Epilobium roseum,6,2
+131,Glyceria fluitans,6,2
+127,Persicaria lapathifolia,6,2
+131,Persicaria lapathifolia,6,2
+132,Persicaria lapathifolia,6,1
+103,Persicaria mitis,6,2
+113,Cardamine amara,6,2
+118,Tilia cordata,4,4
+127,Taraxacum sect. Palustria,6,1
+121,Crataegus species,7,1
+127,Galeobdolon luteum s.lat.,6,1
+119,Genista tinctoria,6,1
+114,Ribes uva-crispa,7,4
