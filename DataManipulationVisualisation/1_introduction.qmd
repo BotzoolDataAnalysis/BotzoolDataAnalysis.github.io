@@ -13,7 +13,7 @@ We will work with R using the interface called **RStudio IDE**, in short **RStud
 
 **install R, RStudio** and **tidyverse package.** Having trouble and need advice? Try the "further reading section" at the end of this chapter, or come and ask before the first lesson.
 
-All the data used in our chapters are either available online and accessible through direct links, or you need to download them from our repository and save in the same folders. For this we prepared an **example R project**, which can be downloaded here at this link to Github folder (use the arrow icon to download the raw data). Use it as a place to train according to our tutorials, save there your scripts and notes from the lessons.
+All the data used in our chapters are either available online and accessible through direct links, or you need to download them from our repository and save in the same folders. For this we prepared an **example R project**, which can be [downloaded here](https://github.com/axmanovairena/data/blob/main/Data_manipulation_visualisation_R.zip) at this link to Github folder (use the arrow icon to download the raw data). Use it as a place to train according to our tutorials, save there your scripts and notes from the lessons.
 
 Note that each chapter has also extra exercises for training.
 
@@ -328,7 +328,7 @@ Or just come and ask!
 
 ## 1.5 Exercises
 
-For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: `Link to GitHub folder`
+For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: [`Link to GitHub folder`](https://github.com/axmanovairena/data/blob/main/Data_manipulation_visualisation_R.zip)
 
 There will be some obligatory tasks, while voluntary tasks will be marked by \*.
 
