@@ -1,9 +1,9 @@
 ---
-title: "*13 Maps"
+title: "*13 Maps in R"
 author: "Barbora Klímová"
 ---
 
-In this chapter, we will learn the basics of working with spatial data in R. Although we have specialised software for spatial calculations and creating maps (e.g. ArcGIS or QGIS), sometimes it might be helpful to do it R. For example, when we want to draw a big number of maps with small changes at the same time.
+In this advanced chapter, we will learn the basics of working with spatial data in R. Although we have specialised software for spatial calculations and creating maps (e.g. ArcGIS or QGIS), sometimes it might be helpful to do it R. For example, when we want to draw a big number of maps with small changes at the same time.
 
 We will start by loading vector and raster data, creating spatial objects from CSV or XLSX files, transforming coordinate reference systems (CRS), and saving spatial data. Next, we will explore common spatial operations for both types of spatial data, such as clipping, buffering, and finding centroids. We will also learn how to calculate several terrain variables derived from a digital elevation model (DEM), including slope, aspect, the heat load index (HLI), the topographic ruggedness index (TRI), and the topographic wetness index (TWI). Finally, we will create a basic map of study area using open-source basemaps from providers such as OpenStreetMap or Esri. After that, we will create maps with visual properties such as color, size, or fill scaled according to attribute values, and we will also create grid maps.
 

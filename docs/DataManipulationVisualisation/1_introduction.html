@@ -348,6 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">1.3 Data import</a>
   <ul class="collapse">
   <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import">1.3.1 Import</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><img src="images/clipboard-3680117051.png" class="img-fluid" width="528"></a></li>
   <li><a href="#check-the-data-structure" id="toc-check-the-data-structure" class="nav-link" data-scroll-target="#check-the-data-structure">1.3.2 Check the data structure</a></li>
   <li><a href="#cleaning-variable-names" id="toc-cleaning-variable-names" class="nav-link" data-scroll-target="#cleaning-variable-names">1.3.2 Cleaning variable names</a></li>
   <li><a href="#assign-results-to-an-object" id="toc-assign-results-to-an-object" class="nav-link" data-scroll-target="#assign-results-to-an-object">1.3.3 Assign results to an object</a></li>
@@ -607,7 +608,7 @@ The following objects are masked from 'package:stats':
 <p><img src="images/clipboard-349377751.png" class="img-fluid" width="382"></p>
 <p>This approach is very useful for finding problems in your script. Or you can use it to produce outputs such as plots, tables etc. without saving it as an intermediate object.</p>
 <p>Note: It is even possible to overwrite the original dataset with an assignment pipe <code>%&lt;&gt;%</code> included in the <code>magrittr</code> package. We will try to avoid this in our lessons, as it cannot be undone.</p>
-<p>Tip: Insert a pipe by <code>Ctrl + Shift + M</code>.</p>
+<p>Tip: <strong>Insert a pipe</strong> by <code>Ctrl + Shift + M</code>.</p>
 </section>
 </section>
 <section id="data-import" class="level2">
@@ -648,30 +649,36 @@ The following objects are masked from 'package:stats':
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Axmanova-Forest-env.csv"                              
-[2] "Axmanova-Forest-env.xlsx"                             
-[3] "Axmanova-Forest-spe.csv"                              
-[4] "Axmanova-Forest-spe.xlsx"                             
-[5] "Axmanova-Forest-understory-diversity-analyses.xlsx"   
-[6] "Axmanova-Forest-understory-diversity-merged-long.xlsx"
-[7] "readme.txt"                                           
-[8] "traits.csv"                                           
-[9] "traits.xlsx"                                          </code></pre>
+<pre><code> [1] "Axmanova-Forest-env.csv"                              
+ [2] "Axmanova-Forest-env.xlsx"                             
+ [3] "Axmanova-Forest-spe.csv"                              
+ [4] "Axmanova-Forest-spe.xlsx"                             
+ [5] "Axmanova-Forest-understory-diversity-analyses.csv"    
+ [6] "Axmanova-Forest-understory-diversity-analyses.xlsx"   
+ [7] "Axmanova-Forest-understory-diversity-merged-long.xlsx"
+ [8] "readme.txt"                                           
+ [9] "traits.csv"                                           
+[10] "traits.xlsx"                                          </code></pre>
 </div>
 </div>
 <p>Alternatively you can check the structure of your files directly in the “files” section in the R studio and open the folders by clicking on them.</p>
 <section id="import" class="level3">
 <h3 class="anchored" data-anchor-id="import">1.3.1 Import</h3>
 <p>We will train on how to import data using the <code>tidyverse</code> approach, which includes <code>readr</code> or <code>readxl</code> for Excel files (see the cheatsheet).</p>
-<p>Let’s select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Here it is an Excel file, so I can use the <code>read_excel()</code> function. Check the cheatsheet for more tips.</p>
+<p>Let’s select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Often you will need to import csv file, here we will use the <code>read_csv</code> function from the tidyverse package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Much more often you will need to import csv file, which is also often used when we import data from online repositories</p>
+<p>Note that csv files stored in github can be also uploaded directly from online repositories, which we will use in our scripts sometimes.</p>
+<p>Another option is to import an Excel file, with the <code>read_excel()</code> function. If you do not specify differently, it will automatically import only the first sheet. Check the cheatsheets for more tips.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Import through R studio is another option, which we will show you. Note that it is advisable to copy the suggested code and save it in your script for later.</p>
+<p>Import through R studio is another option, which we will show you. Click on the file in the folder directly in R studio and select the Import dataset option. However, note that it is really a good practise to use it only to adjust the script, use different settings if needed and then copy the suggested code and save it in your script for reproducibility.</p>
+<p><img src="images/clipboard-136425566.png" class="img-fluid" width="372"></p>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"><img src="images/clipboard-3680117051.png" class="img-fluid" width="528"></h3>
 </section>
 <section id="check-the-data-structure" class="level3">
 <h3 class="anchored" data-anchor-id="check-the-data-structure">1.3.2 Check the data structure</h3>
@@ -768,7 +775,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 </section>
 <section id="cleaning-variable-names" class="level3">
 <h3 class="anchored" data-anchor-id="cleaning-variable-names">1.3.2 Cleaning variable names</h3>
-<p>See this example:</p>
+<p>Sometimes you get the data in a rather messy form, check this example</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -790,7 +797,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 [5] "Braun-Blanquet Scale (New) Code"</code></pre>
 </div>
 </div>
-<p>You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.</p>
+<p>You can rename strange variable names one by one. First, use the new name and place the old one on the right, as shown in the example below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -932,18 +939,18 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <li><p><a href="https://forum.posit.co/"><strong>R Studio community</strong></a> - Questions are sorted by packages, making it nice to check when looking for frequently asked questions.</p></li>
 <li><p><a href="https://stackoverflow.com/"><strong>Stack Overflow</strong></a> - You probably already came across Stack Overflow when you were trying to Google something, as it suggests answers to coding-related questions. It is a good environment to ask questions or try to find out if somebody has already asked the same things before. Be specific about the coding style. E.g. How to separate a variable using tidyverse?</p></li>
 <li><p><strong>GitHub</strong> is a great source - you can find data, projects, packages, and instructions there. If you stay till the end of this course, we will show you more.</p></li>
-<li><p><strong>AI tools</strong> are worth asking. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g.&nbsp;from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use… We will train this a bit.</p></li>
+<li><p><strong>AI tools</strong> are worth asking. For example (i), you have code and you do not understand it, so you can ask for an explanation, or (ii) you want to get the code translated to another syntax (e.g.&nbsp;from base R to tidyverse), (iii) or you want to know how to code something, but you do not have a clue which packages to use… We will train this a bit.</p></li>
 </ul>
 <p>Or just come and ask!</p>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">1.5 Exercises</h2>
-<p>For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data"><code>Link to Github folder</code></a></p>
+<p>For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: <code>Link to GitHub folder</code></p>
 <p>There will be some obligatory tasks, while voluntary tasks will be marked by *.</p>
 <p>In this chapter:</p>
-<p>1. Create a project for this lesson, add subfolders (data, scripts, etc.), download the data from the folder <code>Forest_understory</code>, and store them in the folder <code>data</code> within your project. Import the file called <code>Axmanova-Forest-understory-diversity-analyses.xlsx</code> into the working environment and check the structure. Prepare a script with your notes, separated into sections.</p>
-<p>2. Create another project and start a new script, and try switching between the projects. Delete this project.</p>
-<p>3. Find a cheatsheet for readxl. Is there anything more than data import from Excel?</p>
+<p>1. Create a project for this lesson, add subfolders (data, scripts, etc.), check the data from the folder <code>Forest_understory</code> in the folder <code>data</code> within your project. Import the file called <code>Axmanova-Forest-understory-diversity-analyses.csv</code> into the working environment and check the structure. Prepare a script with your notes, separated into sections.</p>
+<p>2. Create another project called “test” and start a new script, and try switching between the projects. Delete this new project.</p>
+<p>3. Find a cheatsheet for readxl and readr.</p>
 <p>4. Use the cheatsheet to find out how to import the second sheet of the Excel file. Try this on import of <code>data/frozen_fauna/metadata</code>. Which sheets are there, and how can you easily check the structure?</p>
 <p>5. Download <code>Example0</code> from <code>data/messy_data</code>, save it into your data folder and import it to the working environment. Make the dataset tidy by renaming the variable names. Try one by one, with <code>rename_all()</code>, or use the <code>clean_names()</code> function from the <code>janitor</code> package. Assign the cleaned data to example_cleaned.</p>
 <p>6. Try importing the same, not cleaned file via R Studio and describe pros/cons.</p>

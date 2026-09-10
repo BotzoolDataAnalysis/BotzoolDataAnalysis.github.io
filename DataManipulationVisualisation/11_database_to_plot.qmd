@@ -59,7 +59,7 @@ env <- env %>%
   select(releve_nr, coverscale,field_nr, country, author, date, syntaxon, 
          altitude, exposition, inclinatio, 
          cov_trees, cov_shrubs, cov_herbs, cov_mosses, 
-         latitude, longitude, precision, bias_min, bias_gps, locality)
+         latitude, longitude, bias_min, bias_gps, locality)
 ```
 
 Alternatively, we can combine all the steps we've taken so far into a single pipeline and check the resulting dataset.
@@ -70,7 +70,7 @@ env <- read_csv("data/turboveg_to_R/tvhabita.csv") %>%
   select(releve_nr, coverscale, field_nr, country, author, date, syntaxon,
          altitude, exposition, inclinatio,
          cov_trees, cov_shrubs, cov_herbs, cov_mosses,
-         latitude, longitude, precision, bias_min, bias_gps, locality) %>%
+         latitude, longitude, bias_min, bias_gps, locality) %>%
   glimpse()
 ```
 

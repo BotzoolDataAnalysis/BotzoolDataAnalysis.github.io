@@ -155,7 +155,7 @@ This approach is very useful for finding problems in your script. Or you can use
 
 Note: It is even possible to overwrite the original dataset with an assignment pipe `%<>%` included in the `magrittr` package. We will try to avoid this in our lessons, as it cannot be undone.
 
-Tip: Insert a pipe by `Ctrl + Shift + M`.
+Tip: **Insert a pipe** by `Ctrl + Shift + M`.
 
 ## 1.3 Data import
 
@@ -178,22 +178,27 @@ Alternatively you can check the structure of your files directly in the "files" 
 
 We will train on how to import data using the `tidyverse` approach, which includes `readr` or `readxl` for Excel files (see the cheatsheet).
 
-Let's select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Here it is an Excel file, so I can use the `read_excel()` function. Check the cheatsheet for more tips.
+Let's select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Often you will need to import csv file, here we will use the `read_csv` function from the tidyverse package.
+
+```{r}
+#| warning: false 
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv")
+```
+
+Note that csv files stored in github can be also uploaded directly from online repositories, which we will use in our scripts sometimes.
+
+Another option is to import an Excel file, with the `read_excel()` function. If you do not specify differently, it will automatically import only the first sheet. Check the cheatsheets for more tips.
 
 ```{r}
 #| warning: false
 data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 ```
 
-Much more often you will need to import csv file, which is also often used when we import data from online repositories
+Import through R studio is another option, which we will show you. Click on the file in the folder directly in R studio and select the Import dataset option. However, note that it is really a good practise to use it only to adjust the script, use different settings if needed and then copy the suggested code and save it in your script for reproducibility.
 
-```{r}
-#| warning: false
-#| eval: false
-data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv")
-```
+![](images/clipboard-136425566.png){width="372"}
 
-Import through R studio is another option, which we will show you. Note that it is advisable to copy the suggested code and save it in your script for later.
+### ![](images/clipboard-3680117051.png){width="528"}
 
 ### 1.3.2 Check the data structure
 
@@ -233,7 +238,7 @@ Of course, you can also **`view()`** the data or click on it in the list in the 
 
 ### 1.3.2 Cleaning variable names
 
-See this example:
+Sometimes you get the data in a rather messy form, check this example
 
 ```{r}
 data<-read_csv("data/messy_data/Example0.csv")
@@ -243,7 +248,7 @@ data<-read_csv("data/messy_data/Example0.csv")
 names(data)
 ```
 
-You can rename strange names one by one. First, use the new name and place the old one on the right, as shown in the example below.
+You can rename strange variable names one by one. First, use the new name and place the old one on the right, as shown in the example below.
 
 ```{r}
 data %>% rename(Releve = "Relevé number")
@@ -317,23 +322,23 @@ Knowing that I am lost in "Regular expressions" already helps me to ask more spe
 
 -   **GitHub** is a great source - you can find data, projects, packages, and instructions there. If you stay till the end of this course, we will show you more.
 
--   **AI tools** are worth asking. For example (i), you have a code and you do not understand it, so you can ask for explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something but you do not have a clue which packages to use... We will train this a bit.
+-   **AI tools** are worth asking. For example (i), you have code and you do not understand it, so you can ask for an explanation, or (ii) you want to get the code translated to another syntax (e.g. from base R to tidyverse), (iii) or you want to know how to code something, but you do not have a clue which packages to use... We will train this a bit.
 
 Or just come and ask!
 
 ## 1.5 Exercises
 
-For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)
+For exercises, we will use either data that are published somewhere and give you the link, or we will ask you to download the data from the repository and save it into your project folder: `Link to GitHub folder`
 
 There will be some obligatory tasks, while voluntary tasks will be marked by \*.
 
 In this chapter:
 
-1\. Create a project for this lesson, add subfolders (data, scripts, etc.), download the data from the folder `Forest_understory`, and store them in the folder `data` within your project. Import the file called `Axmanova-Forest-understory-diversity-analyses.xlsx` into the working environment and check the structure. Prepare a script with your notes, separated into sections.
+1\. Create a project for this lesson, add subfolders (data, scripts, etc.), check the data from the folder `Forest_understory` in the folder `data` within your project. Import the file called `Axmanova-Forest-understory-diversity-analyses.csv` into the working environment and check the structure. Prepare a script with your notes, separated into sections.
 
-2\. Create another project and start a new script, and try switching between the projects. Delete this project.
+2\. Create another project called "test" and start a new script, and try switching between the projects. Delete this new project.
 
-3\. Find a cheatsheet for readxl. Is there anything more than data import from Excel?
+3\. Find a cheatsheet for readxl and readr.
 
 4\. Use the cheatsheet to find out how to import the second sheet of the Excel file. Try this on import of `data/frozen_fauna/metadata`. Which sheets are there, and how can you easily check the structure?
 
