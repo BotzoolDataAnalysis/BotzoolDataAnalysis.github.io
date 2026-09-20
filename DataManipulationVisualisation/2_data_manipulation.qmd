@@ -6,15 +6,15 @@ editor:
     wrap: 72
 ---
 
-In this chapter, we will try to explore the data, prepare subsets with
-selected variables and filter them to a few defined cases. We will
-prepare new variables and rearrange the data according to them. We will
-further train on importing and exporting the data.
+In this chapter, we will explore the data, prepare subsets with selected
+variables and filter them to a few defined cases. We will prepare new
+variables and rearrange the data according to them. We will further
+train on importing and exporting the data.
 
-Again we will use the data from the training project that you downloaded
-in the chapter 1. Before you start, I recommend to **create a new
-script** for this chapter and to **clear objects from the workspace**
-(use icon of the broom to clean your working environment).
+Again, we will use the data from the training project that you
+downloaded in Chapter 1. Before you start, I recommend creating **a new
+script** for this chapter and **clearing objects from the workspace**
+(use the broom icon to clean your working environment).
 
 ## 2.1. Introducing `dplyr`
 
@@ -64,26 +64,26 @@ position. It is essential to understand the distinction between
 (columns) we want to keep in the dataset, while `filter()` applies to
 rows depending on their values.
 
-You can select by naming the variables. Here, you would appreciate the
-tidy style of names! Tidy names mean no need to use parentheses :-).
+You can select variables by name. Here, you would appreciate the tidy
+style of names! Tidy names mean no need to use parentheses :-).
 
 ```{r}
 data %>% 
   select(PlotID, ForestType, ForestTypeName) 
 ```
 
-You can also select by position. However, be sure it will remain the
-same after all the changes you might make to the data.
+You can also select by position. However, if you make any changes to the
+data, it might not work as you need.
 
 ```{r}
 data %>% 
   select(1:3)
 ```
 
-Sometimes, you decide you want to get rid of some variables. Either you
-can name all the others that you want to keep, or you can remove the
-unwanted ones with a minus sign. In the case of just one variable, it is
-easy: `select(-xx)`. If you want to exclude two or more, you have to use
+Sometimes, you decide you want to get rid of some variables. Either name
+all the others that you want to keep, or remove the unwanted ones with a
+minus sign. In the case of just one variable, it is easy: `select(-xx)`.
+If you want to exclude two or more, you have to use
 `select(-c(xx, xy))`.
 
 ```{r}
@@ -136,7 +136,8 @@ according to the values of the selected variables. To view the changes
 at a glance, we will first select only a few variables in the dataset.
 
 ```{r}
-data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv") %>% select(PlotID, ForestType, ForestTypeName, Biomass,pH_KCl)
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv") %>% 
+  select(PlotID, ForestType, ForestTypeName, Biomass,pH_KCl)
 ```
 
 Now we have decided to arrange the data by Forest type.
@@ -161,7 +162,8 @@ biomass values.
 
 ```{r}
 data %>% 
-  arrange(ForestType, ForestTypeName, desc(Biomass)) %>% print(n = 30)
+  arrange(ForestType, ForestTypeName, desc(Biomass)) %>% 
+  print(n = 30)
 ```
 
 To see more rows of the resulting table, we specified their number using
@@ -204,7 +206,8 @@ will filter the rows (e.g., Forest type, soil pH) and determine which
 values are acceptable and which are not.
 
 In this first example, we use a categorical variable, and we want to
-match the **exact value**, so we have to use **EQUAL operator** `==`.
+match the **exact value**, so we have to use the **EQUAL operator**
+`==`.
 
 ```{r}
 data %>% 
@@ -231,12 +234,12 @@ data %>%
 ```
 
 You can also filter plots within a specified range and apply **multiple
-conditions**. Here, we select all plots of the specified types and use
-further condition to include only those with biomass above specified
+conditions**. Here, we select all plots of the specified types and use a
+further condition to include only those with biomass above the specified
 level.
 
 All of the conditions need to be valid for the case to be included in
-the selection, because we included **operator AND** `&`.
+the selection, because we included the **AND operator** `&`.
 
 ```{r}
 data %>% 
@@ -246,7 +249,7 @@ data %>%
 
 ```
 
-Here we use the same approache, but specify conditions for three
+Here we use the same approach, but specify conditions for three
 variables at once.
 
 ```{r}
@@ -255,15 +258,15 @@ data %>%  filter(ForestTypeName =="oak forest" & pH_KCl >=4 & Biomass>20)
 
 We can also use the **operator OR** (`|`) between the two conditions.
 This means that we will include the case where either one or the other
-condition is met. For example either high herb-layer biomass or high pH,
-which are two different ways how to estimate relatively productive
+condition is met. For example, either high herb-layer biomass or high
+pH, which are two different ways to estimate a relatively productive
 forest site.
 
 ```{r}
 data %>% filter(Biomass>90 | pH_KCl>6)
 ```
 
-We can **combine AND and OR** also in one filter step. For xample we
+We can **combine AND and OR** also in one filter step. For example, we
 want to keep only plots with biomass in the range of 40–80 g/m², but we
 also want to keep plots without any value (NA).
 
@@ -302,8 +305,8 @@ case there are ties on the given position. Check ?slice_max.
 ## 2.6 `mutate()`
 
 `mutate()` adds **new variables that are functions of existing
-variables** or it can be used to overwrite original variables according
-your specification.
+variables,** or it can be used to overwrite original variables according
+to your specification.
 
 We can use mutate to create **new variables based on mathematical
 operations** (e.g. percentage, summed, rounded). For example, in the
@@ -334,7 +337,7 @@ data %>%
 
 You can also create a variable with more categories based on the values
 of other variables using **`ifelse()`** inside **`mutate()`**. You give
-the condition when it should be called 'low' and what to do if the
+the condition for when it should be called 'low' and what to do if the
 condition is not met - name it 'high'.
 
 ```{r}
@@ -363,9 +366,9 @@ operators, like AND (`&`), OR (`|`), or EQUAL (`==`).
 
 We can set conditions to define one category and then specify what
 should happen with the rest (cases not fulfilling the above conditions).
-For example here I define the conditions for selection category "yes"
-and the rest will be "no" without any need for other definitions of this
-second group, this is done by using the TRUE \~ .
+For example, here I define the conditions for the selection category
+"yes", and the rest will be "no" without any need for other definitions
+of this second group; this is done by using the argument TRUE \~ .
 
 ```{r}
 data %>% mutate(Selection = case_when(
@@ -375,8 +378,8 @@ data %>% mutate(Selection = case_when(
 
 We often use `mutate()` to **transform original values** directly. This
 is also useful for fixing some issues that we do not want to or cannot
-change in the original source data. In the example below I will just
-change names of the categories. Check with view () if the other
+change in the original source data. In the example below, I will just
+change the names of the categories. Check with view () if the other
 categories correspond to the original ones.
 
 ```{r}
@@ -390,7 +393,7 @@ data %>%
   TRUE ~ ForestTypeName))
 ```
 
-Now you can use the same lines but use the mutate directly to change the
+Now you can use the same lines, but use mutate directly to change the
 ForestTypeName.
 
 ```{r}
@@ -402,8 +405,8 @@ data %>%
   TRUE ~ ForestTypeName))
 ```
 
-One of the examples is to change the type of the variable e.g. from
-numerical to character. To work with multiple variables at once, e.g.,
+One of the examples is to change the type of the variable, e.g. from
+numeric to character. To work with multiple variables at once, e.g.,
 round them, we can use **`mutate(across())`** and specify the function.
 **`.x`** refers to the entire column (vector) being transformed inside a
 function like `mutate(across(...))` or `map()`.
@@ -440,8 +443,8 @@ Write a semicolon-delimited file (;):
 write_csv2(data, "results/chapter2/forest_selected2.csv")
 ```
 
-Write excel_csv file, which can help to easily open the file in Excel
-and will keep the coding you need.
+Write excel_csv file, which can help you easily open the file in Excel
+and will keep the encoding you need.
 
 ```{r}
 #| eval: false
@@ -511,8 +514,8 @@ biomass from forest types other than oak forests.
 5\. Select PlotID and all variables that are connected to transmitted
 light (Trans..) \> round these variables.
 
-6\. Using `case_when()` define new variable called productivity, with
-three categories: low, medium, and high, with tresholds of x\<=60,
+6\. Using `case_when()` define a new variable called productivity, with
+three categories: low, medium, and high, with thresholds of x\<=60,
 60-90, \>=90. How many rows/cases are in the category medium?
 
 7\. **iris dataset:** We will use the famous `iris dataset` of flower
@@ -521,11 +524,11 @@ is integrated in R and ready to use. \>\> Upload the iris dataset into
 an object using the assignment like this: `data <- iris`. \>\> Check the
 structure of the dataset. Is it stored as a tibble or a data frame? If
 the latter, you might need to change the format to a tibble first using
-`data%>% as_tibble()` \>\>Now select variables including taxon name and
-those of length measurements \>\> Arrange the data according to
+`data%>% as_tibble()`.\>\> Now select variables including taxon name and
+those of length measurements.\>\> Arrange the data according to
 Sepal.Length \>\> Filter 15 rows with the longest sepals. Which species
-prevails among these top 15? \>\> \*How many rows/cases you actually got
-and do you know why?
+prevails among these top 15? \>\> \*How many rows/cases did you actually
+get, and do you know why?
 
 8\*. **squirrel data:** Load data of squirrel observations from the
 [Central Park Squirrel
