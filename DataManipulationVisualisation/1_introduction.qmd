@@ -198,7 +198,7 @@ Import through R studio is another option, which we will show you. Click on the 
 
 ![](images/clipboard-136425566.png){width="372"}
 
-### ![](images/clipboard-3680117051.png){width="528"}
+![](images/clipboard-3680117051.png){width="528"}
 
 ### 1.3.2 Check the data structure
 

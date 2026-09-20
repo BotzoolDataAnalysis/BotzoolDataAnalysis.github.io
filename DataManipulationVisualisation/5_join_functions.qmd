@@ -5,6 +5,8 @@ author: "Irena Axmanová"
 
 In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also utilise our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`). We will also use `mutate()` with additional conditions (`ifelse()`*,* `case_when()`).
 
+<!--add filtering joins and remove advanced mutate and summarise  -->
+
 ![](images/clipboard-3097956773.png)
 
 Credits: <https://r4ds.hadley.nz/joins.html>

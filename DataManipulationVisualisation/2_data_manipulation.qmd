@@ -7,9 +7,14 @@ editor:
 ---
 
 In this chapter, we will try to explore the data, prepare subsets with
-only selected variables and filter them to only defined cases. We will
+selected variables and filter them to a few defined cases. We will
 prepare new variables and rearrange the data according to them. We will
-also further train importing and exporting the data.
+further train on importing and exporting the data.
+
+Again we will use the data from the training project that you downloaded
+in the chapter 1. Before you start, I recommend to **create a new
+script** for this chapter and to **clear objects from the workspace**
+(use icon of the broom to clean your working environment).
 
 ## 2.1. Introducing `dplyr`
 
@@ -20,7 +25,7 @@ prepare it in the form you need. The functions for basic data handling,
 namely **`select()`, `filter()`, `mutate()`, `arrange()`**, and
 **`slice()`**, are provided by the tidyverse package `dplyr`. Do you
 remember how to find out more about the package? If nothing else, you
-can try `?dplyr`, which actually gives you more hints where to look
+can try `?dplyr`, which actually gives you more hints on where to look
 further.
 
 ![](images/IA_clipboard2Dplyr.png){fig-align="center" width="755"}
@@ -38,24 +43,26 @@ We will need the following libraries:
 #| warning: false
 library(tidyverse)
 library(readxl)
+library(janitor)
 ```
 
 And the forest understory dataset. Again, we will import the data just
-once and use the pipe to test the functions/effects without actually
-changing the data:
+once and use the pipe to test the
+
+functions/effects without actually changing the data:
 
 ```{r}
-data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv")
 names(data)
 ```
 
 ## 2.2 `select()`
 
-`select()` extracts columns/variables based on their names or position.
-It is essential to understand the distinction between `select()` and
-`filter()`. `select()` is used to select variables (columns) we want to
-keep in the dataset, while `filter()` applies to rows depending on their
-values.
+`select()` **extracts columns/variables** based on their names or
+position. It is essential to understand the distinction between
+`select()` and `filter()`. `select()` is used to select variables
+(columns) we want to keep in the dataset, while `filter()` applies to
+rows depending on their values.
 
 You can select by naming the variables. Here, you would appreciate the
 tidy style of names! Tidy names mean no need to use parentheses :-).
@@ -124,13 +131,12 @@ data %>%
 
 ## 2.3 `arrange()`
 
-This function retains the same variables and reorders the rows according
-to the values of the selected variables. To view the changes at a
-glance, we will first select only a few variables.
+This function retains the same variables and **reorders the rows**
+according to the values of the selected variables. To view the changes
+at a glance, we will first select only a few variables in the dataset.
 
 ```{r}
-data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") 
-data <- data %>% select(PlotID, ForestType, ForestTypeName, Biomass)
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv") %>% select(PlotID, ForestType, ForestTypeName, Biomass,pH_KCl)
 ```
 
 Now we have decided to arrange the data by Forest type.
@@ -163,12 +169,12 @@ the `print()` function.
 
 ## 2.4 `distinct()`
 
-`distinct()` is a function that takes your data and removes all the
-duplicate rows, keeping only the unique ones. There are many cases where
-you will truly appreciate this elegant and effortless approach. For
-example, we want a list of unique Plot IDs, unique combinations of two
-categories, and so on. Here, we aim to compile a list of forest type
-codes and corresponding names.
+`distinct()` is a function that **removes all the duplicate rows**,
+keeping only the unique ones. There are many cases where you will truly
+appreciate this elegant and effortless approach. For example, we want a
+list of unique Plot IDs, unique combinations of two categories, and so
+on. Here, we aim to compile a list of forest type codes and
+corresponding names.
 
 ```{r}
 data %>%
@@ -192,20 +198,20 @@ duplicate rows that were overlooked previously:
 
 ## 2.5 `filter()` and `slice()`
 
-When we have a large dataset, we sometimes need to create a subset of
-the rows/cases. First, we need to define the variable on which we will
-filter the rows (e.g., Forest type, soil pH) and determine which values
-are acceptable and which are not.
+When we have a large dataset, we sometimes need to **create a subset**
+of the rows/cases. First, we need to define the variable on which we
+will filter the rows (e.g., Forest type, soil pH) and determine which
+values are acceptable and which are not.
 
 In this first example, we use a categorical variable, and we want to
-match the exact value, so we have to use `==`
+match the **exact value**, so we have to use **EQUAL operator** `==`.
 
 ```{r}
 data %>% 
   filter(ForestTypeName == "alluvial forest")
 ```
 
-Or we might define a list of values, especially for categorical
+Or we might define a **list of values**, especially for categorical
 variables. The filter function will try to find rows with values exactly
 matching those `%in%` the list.
 
@@ -214,43 +220,64 @@ data %>%
   filter(ForestTypeName %in% c("alluvial forest", "ravine forest"))
 ```
 
-When filtering a continuous variable, we can work with thresholds. For
-example, here the biomass of the herb layer is measured in g/m^2^, and
-we want only those rows/cases where the biomass values are higher than
-80.
+When filtering a continuous variable, we can work with **thresholds**.
+For example, here the biomass of the herb layer is measured in g/m^2^,
+and we want only those rows/cases where the biomass values are higher
+than 80.
 
 ```{r}
-data <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx") 
 data %>% 
   filter(Biomass > 80) #[g/m2]
 ```
 
-You can also filter plots within a specified range and apply multiple
-conditions. Here, we want to keep only plots with biomass in the range
-of 40–80 g/m², but we also want to keep plots without a value (NA).
+You can also filter plots within a specified range and apply **multiple
+conditions**. Here, we select all plots of the specified types and use
+further condition to include only those with biomass above specified
+level.
+
+All of the conditions need to be valid for the case to be included in
+the selection, because we included **operator AND** `&`.
 
 ```{r}
 data %>% 
-  filter((Biomass >= 40 & Biomass <= 80) | is.na(Biomass))
+  filter((ForestTypeName %in% c("alluvial forest", "ravine forest") &
+    (Biomass >= 80))) %>% 
+      arrange(desc(Biomass))
 
 ```
 
-Example of multiple conditions in one filter line. Here, we select all
-plots of the specified types and exclude the others, taking only those
-with higher biomass, because we used the OR (`|`) operator between the
-two conditions.
+Here we use the same approache, but specify conditions for three
+variables at once.
 
 ```{r}
-data %>% 
-  filter((ForestTypeName %in% c("alluvial forest", "ravine forest") |
-    (Biomass >= 80)))
+data %>%  filter(ForestTypeName =="oak forest" & pH_KCl >=4 & Biomass>20)
 ```
 
-Sometimes you might find it useful to filter something out, rather than
-specifying what should stay. This is indicated by the exclamation mark,
-as shown below.
+We can also use the **operator OR** (`|`) between the two conditions.
+This means that we will include the case where either one or the other
+condition is met. For example either high herb-layer biomass or high pH,
+which are two different ways how to estimate relatively productive
+forest site.
 
 ```{r}
+data %>% filter(Biomass>90 | pH_KCl>6)
+```
+
+We can **combine AND and OR** also in one filter step. For xample we
+want to keep only plots with biomass in the range of 40–80 g/m², but we
+also want to keep plots without any value (NA).
+
+```{r}
+data %>%    
+  filter((Biomass >= 40 & Biomass <= 80) | is.na(Biomass)) 
+```
+
+Sometimes you might find it useful to **filter something out**, rather
+than specifying what should stay. This is indicated by the exclamation
+mark, as shown below.
+
+```{r}
+data <- read_csv("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv") 
 data %>% 
   filter(!is.na(Juveniles))
 ```
@@ -269,16 +296,22 @@ data %>%
 
 Tip: Try `slice_min()` if you need the lowest values.
 
+Default settings of slice may return more rows than you requested in
+case there are ties on the given position. Check ?slice_max.
+
 ## 2.6 `mutate()`
 
-`mutate()` adds new variables that are functions of existing variables,
-e.g. round the values. It can also overwrite the original variable.
+`mutate()` adds **new variables that are functions of existing
+variables** or it can be used to overwrite original variables according
+your specification.
 
-For example, in the field, I recorded juveniles of woody plants and all
-other herb-layer species separately. However, we now want to sum these
-two values for each row/case/vegetation plot so that we can speak about
-overall species richness. I create a new variable by simply summing
-these two (note how easy it is with tidy names!).
+We can use mutate to create **new variables based on mathematical
+operations** (e.g. percentage, summed, rounded). For example, in the
+field, I recorded juveniles of woody plants and all other herb-layer
+species separately. However, we now want to sum these two values for
+each row/case/vegetation plot so that we can speak about overall species
+richness. I create a new variable by simply summing these two (note how
+easy it is with tidy names!).
 
 ```{r}
 data %>% 
@@ -286,11 +319,12 @@ data %>%
   select(PlotID, SpeciesRichness, Herbs, Juveniles)
 ```
 
-Sometimes, you want to add a variable where all rows/cases will receive
-the same value. For example, because you plan to join the data with
-other data or because it is useful for another `mutate()`. This is also
-a straightforward method for converting data with abundances to
-presence/absence data.
+Sometimes, you want to **add a variable where all rows/cases will
+receive the same value**. For example, because you plan to join the data
+with other data and you want to keep information about the sources or
+because it is useful for another `mutate()` step. This is also a
+straightforward method for converting data with abundances to
+presence/absence data. Here we create a variable selection which
 
 ```{r}
 data %>% 
@@ -303,12 +337,9 @@ of other variables using **`ifelse()`** inside **`mutate()`**. You give
 the condition when it should be called 'low' and what to do if the
 condition is not met - name it 'high'.
 
-**Tip:** Inside ‘Condition’, you can also use other conditional
-operators, like AND (`&`), OR (`|`), or EQUAL (`==`).
-
 ```{r}
 data %>%
-  mutate(Productivity = ifelse(Biomass<60,"low","high")) %>% 
+  mutate(Productivity = ifelse(Biomass<=60,"low","high")) %>% 
   select (PlotID, ForestTypeName, Productivity, Biomass) %>%
   print(n=20)
 ```
@@ -320,59 +351,114 @@ yet treated by the previous condition.
 
 ```{r}
 data %>% 
-  mutate(Productivity = case_when(Biomass <= 60 ~ "low", Biomass > 60 ~ "high")) %>% 
+  mutate(Productivity = case_when(
+    Biomass <= 60 ~ "low", 
+    Biomass > 60 ~ "high")) %>% 
   select(PlotID, ForestTypeName, Productivity, Biomass) %>%
   print(n = 20)
 ```
 
-I have already said that we often use `mutate()` to transform original
-values directly. To work with multiple variables at once, e.g., round
-them, we can use **`mutate(across())`**.
+**Tip:** Inside ‘Condition’, you can also use other conditional
+operators, like AND (`&`), OR (`|`), or EQUAL (`==`).
+
+We can set conditions to define one category and then specify what
+should happen with the rest (cases not fulfilling the above conditions).
+For example here I define the conditions for selection category "yes"
+and the rest will be "no" without any need for other definitions of this
+second group, this is done by using the TRUE \~ .
+
+```{r}
+data %>% mutate(Selection = case_when(
+  Biomass>80 & ForestTypeName =="aluvial forest" ~ "yes",
+  TRUE ~"no"))
+```
+
+We often use `mutate()` to **transform original values** directly. This
+is also useful for fixing some issues that we do not want to or cannot
+change in the original source data. In the example below I will just
+change names of the categories. Check with view () if the other
+categories correspond to the original ones.
+
+```{r}
+data %>% distinct(ForestTypeName)
+
+data %>% 
+  select(PlotID, ForestTypeName,Biomass) %>% 
+  arrange(ForestTypeName) %>% 
+  mutate(ForestTypeName_corrected = case_when(
+  ForestTypeName=="alluvial forest" ~ "alder forest",
+  TRUE ~ ForestTypeName))
+```
+
+Now you can use the same lines but use the mutate directly to change the
+ForestTypeName.
 
 ```{r}
 data %>% 
-  mutate(across(c(Biomass, pH_KCl, TransTot), ~ round(.x, digits = 1))) %>%
-  select(PlotID, Biomass, pH_KCl, TransTot)
+  select(PlotID, ForestTypeName,Biomass) %>% 
+  arrange(ForestTypeName) %>% 
+  mutate(ForestTypeName = case_when(
+  ForestTypeName=="alluvial forest" ~ "alder forest",
+  TRUE ~ ForestTypeName))
 ```
 
+One of the examples is to change the type of the variable e.g. from
+numerical to character. To work with multiple variables at once, e.g.,
+round them, we can use **`mutate(across())`** and specify the function.
 **`.x`** refers to the entire column (vector) being transformed inside a
 function like `mutate(across(...))` or `map()`.
+
+```{r}
+data %>% 
+  mutate(across(c(Biomass, pH_KCl), ~ round(.x, digits = 1))) %>%
+  select(PlotID, Biomass, pH_KCl)
+```
 
 ## 2.7 Save the data
 
 If you decide that you have already prepared the dataset in the form it
 should be used later, you probably need to save it and export, e.g. as a
 csv. Remember that we were primarily trying to see what it would look
-like with the `%>%`, so you must either assign the dataset to a new name
-or add the write command at the end of the pipeline. See also Chapter 1.
+like with the `%>%`, so you must either assign the dataset to a new
+object or add the write command at the end of the pipeline. See also
+Chapter 1.
 
-Here we will play a bit with the `tidyverse` package `readr`.
+Here we will play a bit with the `tidyverse` package `readr`. You can
+find out more in the readr cheatsheet.
 
 Write a comma-delimited file:
 
 ```{r}
 #| eval: false
-write_csv(data, "exercisesIA/forest_selected1.csv") 
+write_csv(data, "results/chapter2/forest_selected1.csv") 
 ```
 
 Write a semicolon-delimited file (;):
 
 ```{r}
 #| eval: false
-write_csv2(data, "exercisesIA/forest_selected2.csv")
+write_csv2(data, "results/chapter2/forest_selected2.csv")
 ```
 
-Or find out more in the `readr` cheatsheet. Note that, in contrast to
-the `write.csv()` function, the `write_csv()` function adheres to the
-tidyverse philosophy, so row names are not included in the export.
+Write excel_csv file, which can help to easily open the file in Excel
+and will keep the coding you need.
 
-You can also write directly to an Excel file, for example, using the
+```{r}
+#| eval: false
+write_excel_csv(data, "results/chapter2/forest_selected3.csv")
+```
+
+Note that, in contrast to the `write.csv()` function, the `write_csv()`
+function adheres to the tidyverse philosophy, so row names are not
+included in the export.
+
+\*You can also write directly to an Excel file, for example, using the
 `writexl` library.
 
 ```{r}
 #| eval: false
 library(writexl)
-write_xlsx(data, 'exercisesIA/forestEnv.xlsx')
+write_xlsx(data, 'results/chapter2/forestEnv.xlsx')
 ```
 
 To create an xlsx with (multiple) named sheets, you would need to
@@ -383,32 +469,41 @@ as a sheet named forestSpe (species data from the same dataset).
 ```{r}
 #| eval: false
 library(writexl)
+
 data1 <- read_excel("data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx")
 data2 <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
-write_xlsx(list(forestEnv = data1, forestSpe = data2), 'exercisesIA/forest.xlsx' )
+
+
+write_xlsx(list(forestEnv = data1, 
+                forestSpe = data2), 
+           'results/chapter2/forest.xlsx' )
 ```
 
 ## 2.8 Exercises
 
-1\. **Forest Data** -
-`Axmanova-Forest-understory-diversity-analyses.xlsx` - download the data
-from the repository and save it into your project folder
-(`Link to Github folder`). This dataset is used throughout the whole
-chapter. Please use it to prepare your own script with remarks, copy and
-train what is described above.
+We will mostly use the data from the example project described in the
+first chapter ([section to-do
+first](https://botzooldataanalysis.github.io/DataManipulationVisualisation/1_introduction.html)),
+or data integrated in the R software packages or data available online.
 
-Tip: If you copy the description and add it directly to your script, it
-is simply too long, right? Do you know how to read long lines of text in
-an R script? Go to "Code" and tick "soft wrap long lines".
+Tip: If you copy the task descriptions and add them directly to your
+script, it is simply too long, right? Do you know how to read long lines
+of text in an R script? Go to "Code" and tick "soft wrap long lines".
 
-2\. Directly from R Studio, create a folder `results/chapter2` for
-saving today's datasets, as we will train a bit of exporting the data.
+1\. **Forest Data** - data in your project folder. This dataset is used
+throughout the whole chapter above. Please use it to prepare your own
+script with remarks, copy and train what is described above.
 
-3\. Use the Forest Data to train more. Create variable "author" which
-will contain the name Axmanova \> as we did before, create variable
-richness summing the herbs and juveniles \> select variables plotID,
-author, richness, productivity (renamed biomass) and pH. Try to save
-this subset into `results/chapter2`.
+2\. Directly from RStudio, create a folder `results/chapter2` for saving
+today's datasets, as we will train a bit of exporting of the data.
+
+3\. Use the Forest Data to train more. Import it once again with the
+clean_names function. -\> Rename the soil pH variable to soil_ph and
+biomass to productivity. -\> Create variable "author" which will contain
+the name Axmanova. -\> Create variable "richness" by summing the herbs
+and juveniles. -\> Select variables plot_id, author, richness,
+productivity and soil_ph. -\> Save this dataset as a csv file into
+`results/chapter2`.
 
 4\. Use the Forest dataset again. Find five plots with the lowest
 biomass from forest types other than oak forests.
@@ -416,54 +511,43 @@ biomass from forest types other than oak forests.
 5\. Select PlotID and all variables that are connected to transmitted
 light (Trans..) \> round these variables.
 
-6\. We will switch to another dataset, **Species Forest Data** -
-`Axmanova-Forest-spe.xlsx` - download the data from the repository and
-save it into your project folder
-([`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)`).`
-This is a long-format of the plant species recorded in the vegetation
-plots. Long format means that the records of species from one site are
-grouped by the same ID (here as RELEVE_NR). For each species, it is
-indicated in which vegetation layer it occurred, and an estimation of
-its abundance is in the form of percentage cover.
+6\. Using `case_when()` define new variable called productivity, with
+three categories: low, medium, and high, with tresholds of x\<=60,
+60-90, \>=90. How many rows/cases are in the category medium?
 
-Import the data and check the structure \> change it to presence-absence
-data (abundance set to 1) \*Alternatively, prepare presence-absence data
-without considering different layers and save both lists on two
-different sheets of the Excel file.
-
-7\. Stay with the same dataset, we will try to get the list of all
-species occurring in the tree layer. Import the data \> sort the species
-data alphabetically \> get the list of unique species names of the tree
-layer (i.e. layer == 1) \> print, view all the species or store them as
-a new dataset. Save the result into csv file.
-
-8\. **iris dataset:** We will use the famous `iris dataset` of flower
+7\. **iris dataset:** We will use the famous `iris dataset` of flower
 measurements. Find out more details by asking R `?iris` as the dataset
-is integrated and ready to use. Check the structure of the dataset \>
-select variables including species and those of length measurements \>
-arrange according to Sepal.Length \> and filter 15 rows with the longest
-sepals. Which species prevails among these top 15?
+is integrated in R and ready to use. \>\> Upload the iris dataset into
+an object using the assignment like this: `data <- iris`. \>\> Check the
+structure of the dataset. Is it stored as a tibble or a data frame? If
+the latter, you might need to change the format to a tibble first using
+`data%>% as_tibble()` \>\>Now select variables including taxon name and
+those of length measurements \>\> Arrange the data according to
+Sepal.Length \>\> Filter 15 rows with the longest sepals. Which species
+prevails among these top 15? \>\> \*How many rows/cases you actually got
+and do you know why?
 
-9\. **squirrel data:** Load data of squirrel observations from the
+8\*. **squirrel data:** Load data of squirrel observations from the
 [Central Park Squirrel
 Census](https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-05-23/readme.md)
 using this line:
 read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-05-23/squirrel_data.csv')
+\>\> Check the structure, rename variables to get tidy names \>\>find
+out what are the possible colours of fur \>\> select at least 5
+variables, including ID, fur colour, location, ... \>\> Filter squirrels
+of one fur colour, up to your preference \>\> Arrange data by location.
+\>\> Print at least 30 rows
 
-Load squirrels data, check the structure, rename variables to get tidy
-names \> find out what are the possible colours of fur \> select at
-least 5 variables, including ID, fur colour, location, ... \> filter
-squirrels of one fur colour, up to your preference \> arrange data by
-location \> print at least 30 rows
-
-10. \*get back to Forest data and using `case_when()` define three
-    levels of productivity: low, medium, and high.
+9\*. **example4** from **messy data folder** - Load the data and check
+the structure of the dataset \>\> How many rows are there? \>\> Import
+the data again and now add the distinct () as a next step in the
+pipeline \>\> Check what happened.
 
 ## 2.9 Further reading
 
 `dplyr` main web page: <https://dplyr.tidyverse.org>
 
-Find `dplyr` Cheatsheet in Posit:
+Find `dplyr` and `readr` Cheatsheet in Posit:
 <https://posit.co/resources/cheatsheets/>
 
 Chapter devoted to Data transformation in the R for Data Science book:

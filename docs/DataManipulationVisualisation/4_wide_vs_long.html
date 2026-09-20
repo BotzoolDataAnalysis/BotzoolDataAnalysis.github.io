@@ -372,6 +372,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>In this chapter, we will examine various data formats and learn how to convert between them. We will define groups within the data and calculate several statistics for them using summarise functions.</p>
+<!--add advanced mutate with by from the chapter 5 joins  -->
+<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means - move maybe to the chapter 10,  -->
 <section id="data-formats" class="level2">
 <h2 class="anchored" data-anchor-id="data-formats">4.1 Data formats</h2>
 <p>There are two main ways in which the data can be organised across rows and columns—wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, but value it relatively to the total area, i.e.&nbsp;percentage of total area). The covers of species might overlap, as they grow in different heights.</p>
@@ -483,7 +485,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here, we will deviate slightly from tidy rules and add the information about the vegetation layer directly to the variable Species using the <strong><code>unite()</code></strong> function from the <code>tidyr</code> package, which merges strings from two or more columns into a new one: <strong>A+B =</strong> <strong>A_B</strong>. Default separator is again underscore, unless you specify it differently by the <code>sep</code> argument.</p>
-<p><img src="images/clipboard-2085711370.png" class="img-fluid">Argument <code>na.rm</code> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE, it is possible that in some data, the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
+<p><img src="images/clipboard-1752338144.png" class="img-fluid"></p>
+<p>Argument <code>na.rm</code> indicates what to do if in one of the combined columns there is no value but NA. We have set this argument to TRUE to remove the NA. If you keep it FALSE, it is possible that in some data, the new string will be a_NA or NA_b, or even NA_NA (see line 4 of our example).</p>
 <p>The <code>remove</code> argument set to TRUE will remove the original columns that we used to combine the new one (in the example above, you will have only z). In our case, we will keep the original columns for visual checking, and we will use the <code>select()</code> function in the next step to remove them.</p>
 <p>Note that the function that works in the opposite direction is called <code>separate()</code> or <code>separate_wider_delim()</code>.</p>
 <div class="cell">
@@ -838,6 +841,9 @@ $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setos
 <p>8. * Import <code>Example2</code> from the Messy data and try to make the data tidy with the use of the <code>separate()</code> function. This works in an opposite direction to <code>unite()</code>.</p>
 <!--add mutate ifelse with other symbols  -->
 <!--unite and separate with different separator  -->
+<p>9. We will switch to another dataset, <strong>Species Forest Data</strong> - <code>Axmanova-Forest-spe.xlsx</code>. This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here, RELEVE_NR). For each species, it is indicated in which vegetation layer it occurred, and an estimation of its abundance is in the form of percentage cover.</p>
+<p>Import the data and check the structure &gt; change it to presence-absence data (abundance set to 1) *Alternatively, prepare presence-absence data without considering different layers and save both lists on two different sheets of the Excel file.</p>
+<p>10. Stay with the same dataset, we will try to get the list of all species occurring in the tree layer. Import the data &gt; sort the species data alphabetically &gt; get the list of unique species names of the tree layer (i.e.&nbsp;layer == 1) &gt; print, view all the species or store them as a new dataset. Save the result into csv file.</p>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">4.7 Further reading</h2>
