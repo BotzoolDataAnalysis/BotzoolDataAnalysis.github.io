@@ -440,13 +440,30 @@ object or add the write command at the end of the pipeline. See also
 Chapter 1.
 
 Here we will play a bit with the `tidyverse` package `readr`. You can
-find out more in the readr cheatsheet.
+find out more in the readr cheatsheet. In the examples below, you are
+saving the data in the folder "chapter2", which you need to create
+first. Try to create it directly in the R studio through the Files.
 
 Write a comma-delimited file:
 
 ```{r}
 #| eval: false
 write_csv(data, "results/chapter2/forest_selected1.csv") 
+```
+
+Note that you can save the data directly from the pipeline - just add it
+as another step and skip the "data" argument:
+
+```{r}
+#| eval: false
+data %>% 
+  select(PlotID, Biomass, pH_KCl) %>% 
+  mutate(across(
+    c(Biomass, pH_KCl),
+    list(round = ~ round(.x, 1),
+         log = log,
+         sqrt = sqrt))) %>% 
+  write_csv("results/chapter2/forest_selected1.csv") 
 ```
 
 Write a semicolon-delimited file (;):
