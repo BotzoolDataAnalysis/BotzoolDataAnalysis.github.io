@@ -926,7 +926,7 @@ dbl (21): PlotID, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_depth...
 </section>
 <section id="mutate" class="level2">
 <h2 class="anchored" data-anchor-id="mutate">2.6 <code>mutate()</code></h2>
-<p><code>mutate()</code> adds <strong>new variables that are functions of existing variables,</strong> or it can be used to overwrite original variables according to your specification.</p>
+<p><code>mutate()</code> adds <strong>new variables that are functions of existing variables,</strong> or it can be used to overwrite original variables according to your specification. Note that in the examples below, select is used only to make the results visible at first sight.</p>
 <p>We can use mutate to create <strong>new variables based on mathematical operations</strong> (e.g.&nbsp;percentage, summed, rounded). For example, in the field, I recorded juveniles of woody plants and all other herb-layer species separately. However, we now want to sum these two values for each row/case/vegetation plot so that we can speak about overall species richness. I create a new variable by simply summing these two (note how easy it is with tidy names!).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
@@ -1149,6 +1149,33 @@ dbl (21): PlotID, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_depth...
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
+<p>Or you can even list all the functions you want to apply at once.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, Biomass, pH_KCl) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(Biomass, pH_KCl),</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">round =</span> <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">1</span>),</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">log =</span> log,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">sqrt =</span> sqrt)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 9
+   PlotID Biomass pH_KCl Biomass_round Biomass_log Biomass_sqrt pH_KCl_round
+    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+ 1      1    12.8   5.28          12.8        2.55         3.58          5.3
+ 2      2     9.9   3.24           9.9        2.29         3.15          3.2
+ 3      3    15.2   4.01          15.2        2.72         3.90          4  
+ 4      4    16     3.77          16          2.77         4             3.8
+ 5      5    20.7   3.5           20.7        3.03         4.55          3.5
+ 6      6    46.4   3.8           46.4        3.84         6.81          3.8
+ 7      7    49.2   3.48          49.2        3.90         7.01          3.5
+ 8      8    48.7   3.68          48.7        3.89         6.98          3.7
+ 9      9    13.8   4.24          13.8        2.62         3.71          4.2
+10     10    79.1   4.01          79.1        4.37         8.89          4  
+# ℹ 55 more rows
+# ℹ 2 more variables: pH_KCl_log &lt;dbl&gt;, pH_KCl_sqrt &lt;dbl&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="save-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="save-the-data">2.7 Save the data</h2>
@@ -1156,33 +1183,33 @@ dbl (21): PlotID, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_depth...
 <p>Here we will play a bit with the <code>tidyverse</code> package <code>readr</code>. You can find out more in the readr cheatsheet.</p>
 <p>Write a comma-delimited file:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data, <span class="st">"results/chapter2/forest_selected1.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data, <span class="st">"results/chapter2/forest_selected1.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Write a semicolon-delimited file (;):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv2</span>(data, <span class="st">"results/chapter2/forest_selected2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv2</span>(data, <span class="st">"results/chapter2/forest_selected2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Write excel_csv file, which can help you easily open the file in Excel and will keep the encoding you need.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_excel_csv</span>(data, <span class="st">"results/chapter2/forest_selected3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_excel_csv</span>(data, <span class="st">"results/chapter2/forest_selected3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that, in contrast to the <code>write.csv()</code> function, the <code>write_csv()</code> function adheres to the tidyverse philosophy, so row names are not included in the export.</p>
 <p>*You can also write directly to an Excel file, for example, using the <code>writexl</code> library.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(data, <span class="st">'results/chapter2/forestEnv.xlsx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(data, <span class="st">'results/chapter2/forestEnv.xlsx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To create an xlsx with (multiple) named sheets, you would need to provide a list of data frames. Here, we specify that data1 should be saved as an Excel sheet named forestEnv (environmental data) and data2 as a sheet named forestSpe (species data from the same dataset).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">forestEnv =</span> data1, </span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">forestSpe =</span> data2), </span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">'results/chapter2/forest.xlsx'</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">forestEnv =</span> data1, </span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">forestSpe =</span> data2), </span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">'results/chapter2/forest.xlsx'</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercises" class="level2">

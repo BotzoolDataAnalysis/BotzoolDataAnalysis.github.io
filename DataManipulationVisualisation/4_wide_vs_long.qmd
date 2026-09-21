@@ -58,7 +58,7 @@ spe %>%
 \*If you want to play a bit, you can create a new column (e.g. SpeciesNew) to see both the original name and the changed name.
 
 ```{r}
-spe %>% 
+spe %>%
   rename(PlotID = RELEVE_NR) %>%
   mutate(SpeciesNew = str_replace_all(Species, " ", "_"))
 ```

@@ -306,7 +306,8 @@ case there are ties on the given position. Check ?slice_max.
 
 `mutate()` adds **new variables that are functions of existing
 variables,** or it can be used to overwrite original variables according
-to your specification.
+to your specification. Note that in the examples below, select is used
+only to make the results visible at first sight.
 
 We can use mutate to create **new variables based on mathematical
 operations** (e.g. percentage, summed, rounded). For example, in the
@@ -415,6 +416,18 @@ function like `mutate(across(...))` or `map()`.
 data %>% 
   mutate(across(c(Biomass, pH_KCl), ~ round(.x, digits = 1))) %>%
   select(PlotID, Biomass, pH_KCl)
+```
+
+Or you can even list all the functions you want to apply at once.
+
+```{r}
+data %>% 
+  select(PlotID, Biomass, pH_KCl) %>% 
+  mutate(across(
+    c(Biomass, pH_KCl),
+    list(round = ~ round(.x, 1),
+         log = log,
+         sqrt = sqrt)))
 ```
 
 ## 2.7 Save the data

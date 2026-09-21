@@ -420,6 +420,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.6
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
@@ -431,8 +434,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'janitor'
@@ -487,11 +490,11 @@ The following objects are masked from 'package:stats':
 <p>Find more about tidyverse <a href="https://www.tidyverse.org/"><code>here</code></a> or check cheatsheets and vignettes for individual packages.</p>
 <p>Remember that all the core packages are activated within the <code>tidyverse</code> library,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>while for the extra ones, you have to use an extra call:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="tidy-data" class="level3">
 <h3 class="anchored" data-anchor-id="tidy-data">1.2.1 Tidy data</h3>
@@ -507,8 +510,8 @@ The following objects are masked from 'package:stats':
 <h3 class="anchored" data-anchor-id="tibbles">1.2.2 Tibbles</h3>
 <p>Tibbles are new, updated versions of base-R data frames. They are designed to work better with other <code>tidyverse</code> packages. In contrast to data frames, tibbles never convert the type of the inputs (e.g.&nbsp;strings to factors), they never change the names of variables, and they never create row names. Example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 22
    PlotID ForestType ForestTypeName      Herbs Juveniles CoverE1 Biomass
@@ -537,21 +540,21 @@ The following objects are masked from 'package:stats':
 <p>See this example of the same steps with different approaches:</p>
 <p>Base R method:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a new variable in the data</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Productivity <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Biomass <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">"low"</span>, <span class="st">"high"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Select only some columns, save as a new dataframe</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">"PlotID"</span>, <span class="st">"ForestTypeName"</span>, <span class="st">"Productivity"</span>, <span class="st">"pH_KCl"</span>)]</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Order by soil pH (descending)</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">order</span>(df<span class="sc">$</span>pH_KCl, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Keep only the first 15 rows with the highest pH</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>df_top15 <span class="ot">&lt;-</span> df[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, ]</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Print the resulting subset to see which forest types grow in the high pH soils and if they have rather low or high productivity</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>df_top15</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a new variable in the data</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Productivity <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Biomass <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">"low"</span>, <span class="st">"high"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Select only some columns, save as a new dataframe</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">"PlotID"</span>, <span class="st">"ForestTypeName"</span>, <span class="st">"Productivity"</span>, <span class="st">"pH_KCl"</span>)]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Order by soil pH (descending)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">order</span>(df<span class="sc">$</span>pH_KCl, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Keep only the first 15 rows with the highest pH</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>df_top15 <span class="ot">&lt;-</span> df[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, ]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Print the resulting subset to see which forest types grow in the high pH soils and if they have rather low or high productivity</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>df_top15</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 4
    PlotID ForestTypeName      Productivity pH_KCl
@@ -575,12 +578,12 @@ The following objects are masked from 'package:stats':
 </div>
 <p>Piping (the same steps, but just in one line):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">ifelse</span>(Biomass <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">"low"</span>, <span class="st">"high"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, ForestTypeName, Productivity, pH_KCl) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pH_KCl)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Productivity =</span> <span class="fu">ifelse</span>(Biomass <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">"low"</span>, <span class="st">"high"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PlotID, ForestTypeName, Productivity, pH_KCl) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pH_KCl)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 4
    PlotID ForestTypeName      Productivity pH_KCl
@@ -614,7 +617,7 @@ The following objects are masked from 'package:stats':
 <h2 class="anchored" data-anchor-id="data-import">1.3 Data import</h2>
 <p>It is useful to check which files are stored in the folders we have. Here, we list all files in the working (=project) directory.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1_introduction.qmd"                  "1_introduction.rmarkdown"           
  [3] "10_long_pipelines.html"              "10_long_pipelines.qmd"              
@@ -633,7 +636,7 @@ The following objects are masked from 'package:stats':
 </div>
 <p>Or we can dive deeper into the hierarchy and check the content of the data folder or a specific subfolder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "acidophilous_grasslands" "basiphilous_grasslands" 
  [3] "climate_raster"          "dem_JMK"                
@@ -646,7 +649,7 @@ The following objects are masked from 'package:stats':
 [17] "soil_pH_LUCAS"           "spruce_forest_wide_long"
 [19] "turboveg_to_R"           "vegetation_plots_JMK"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/forest_understory"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Axmanova-Forest-env.csv"                              
  [2] "Axmanova-Forest-env.xlsx"                             
@@ -666,12 +669,12 @@ The following objects are masked from 'package:stats':
 <p>We will train on how to import data using the <code>tidyverse</code> approach, which includes <code>readr</code> or <code>readxl</code> for Excel files (see the cheatsheet).</p>
 <p>Let’s select one of the files and import it into our working environment. Depending on the type of file, we must select the appropriate approach. Often you will need to import csv file, here we will use the <code>read_csv</code> function from the tidyverse package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that csv files stored in github can be also uploaded directly from online repositories, which we will use in our scripts sometimes.</p>
 <p>Another option is to import an Excel file, with the <code>read_excel()</code> function. If you do not specify differently, it will automatically import only the first sheet. Check the cheatsheets for more tips.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/forest_understory/Axmanova-Forest-understory-diversity-analyses.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Import through R studio is another option, which we will show you. Click on the file in the folder directly in R studio and select the Import dataset option. However, note that it is really a good practise to use it only to adjust the script, use different settings if needed and then copy the suggested code and save it in your script for reproducibility.</p>
 <p><img src="images/clipboard-136425566.png" class="img-fluid" width="372"></p>
@@ -682,7 +685,7 @@ The following objects are masked from 'package:stats':
 <p>We imported the data, and here are a few tips on how to check the structure.</p>
 <p>First is the tibble, which appears automatically after any import using the <code>tidyverse</code> approach. Note that only ten rows and several variables are shown. If there are too many, the remaining variables are listed below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 22
    PlotID ForestType ForestTypeName      Herbs Juveniles CoverE1 Biomass
@@ -706,7 +709,7 @@ The following objects are masked from 'package:stats':
 </div>
 <p>An alternative way is to use <code>glimpse()</code>, where the variables are listed below each other, showing the first 15 values:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 65
 Columns: 22
@@ -736,7 +739,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 </div>
 <p>If you forget the names of variables or you want to copy them and store them in your script, simply use <code>names()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "PlotID"           "ForestType"       "ForestTypeName"   "Herbs"           
  [5] "Juveniles"        "CoverE1"          "Biomass"          "Soil_depth_categ"
@@ -748,7 +751,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 </div>
 <p>A quite useful base R function is <code>table()</code>, which shows the counts per category of the selected variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     alluvial forest          oak forest oak hornbeam forest       ravine forest 
@@ -757,7 +760,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 </div>
 <p>In the <code>tidyverse</code>, you can do the same with <code>count</code> and we will explain it in more detail in the next chapters with <code>group_by</code> and <code>summarise</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">count</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">count</span>(ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   ForestTypeName          n
@@ -774,7 +777,7 @@ $ TWI              &lt;dbl&gt; 3.353962, 2.419177, 2.159580, 1.651170, 4.741780,
 <h3 class="anchored" data-anchor-id="cleaning-variable-names">1.3.2 Cleaning variable names</h3>
 <p>Sometimes you get the data in a rather messy form, check this example</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -787,7 +790,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Relevé number"                   "Taxon"                          
 [3] "Vegetation layer"                "Cover %"                        
@@ -796,7 +799,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 <p>You can rename strange variable names one by one. First, use the new name and place the old one on the right, as shown in the example below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Releve =</span> <span class="st">"Relevé number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 51 × 5
    Releve Taxon              `Vegetation layer` `Cover %` Braun-Blanquet Scale…¹
@@ -818,7 +821,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <p>Alternatively, you can change all complex patterns at once, using RegEx regular expressions. Import the example once again.</p>
 <p>You identify the pattern on the left, starting with two backslashes and define the outcome on the right side. Be sure to keep the logic in your sequence - what is first and what last, as it really changes the patterns one by one, as they are listed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -829,7 +832,7 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Relevé number"                   "Taxon"                          
 [3] "Vegetation layer"                "Cover %"                        
@@ -837,16 +840,16 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>         </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(               </span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove dots in the variable names </span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">é"</span> <span class="ot">=</span> <span class="st">"e"</span>,    <span class="co"># replace é by e               </span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets   </span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets              </span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove slash               </span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove questionmark               </span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span> <span class="ot">=</span> <span class="st">"."</span>)))   <span class="co"># remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>         </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>(<span class="sc">~</span> <span class="fu">str_replace_all</span>(., <span class="fu">c</span>(               </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">."</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove dots in the variable names </span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">é"</span> <span class="ot">=</span> <span class="st">"e"</span>,    <span class="co"># replace é by e               </span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">%"</span> <span class="ot">=</span> <span class="st">"perc"</span>, <span class="co"># remove symbol % and change it to perc</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">("</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets   </span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">)"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove brackets              </span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">/"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove slash               </span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">?"</span> <span class="ot">=</span> <span class="st">""</span>,     <span class="co"># remove questionmark               </span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span> <span class="ot">=</span> <span class="st">"."</span>)))   <span class="co"># remove spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 51 × 5
    Releve.number Taxon        Vegetation.layer Cover.perc Braun-Blanquet.Scale…¹
@@ -868,8 +871,8 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <p>Now check the names again. Did it work?</p>
 <p>Now use the function <code>clean_names()</code> from the <code>janitor</code> package, which is of great help! Check how it works directly in the import line by sending the first part to the console first, and then both parts together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -909,8 +912,8 @@ dbl (3): Relevé number, Vegetation layer, Cover %
 <li><p><code>data1 %&gt;% ...-&gt; data2</code> # making/testing all the steps and assigning it to a new dataset as the last step</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">clean_names</span>() <span class="ot">-&gt;</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">read_csv</span>(<span class="st">"data/messy_data/Example0.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">clean_names</span>() <span class="ot">-&gt;</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 51 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
