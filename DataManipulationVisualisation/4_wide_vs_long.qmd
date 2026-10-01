@@ -5,9 +5,9 @@ author: "Irena Axmanová"
 
 In this chapter, we will examine various data formats and learn how to convert between them. We will define groups within the data and calculate several statistics for them using summarise functions.
 
-<!--add advanced mutate with by from the chapter 5 joins  -->
+<!--add advanced mutate with by from the chapter 5 joins DONE  -->
 
-<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means - move maybe to the chapter 10,  -->
+<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means move to the chapter 5 and 10  -->
 
 ## 4.1 Data formats
 
@@ -211,14 +211,6 @@ env %>%
   summarise(meanBiomass = mean(Biomass))
 ```
 
-`summarise()` is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of parasites, endangered species, or alien species. Alternatively, we can calculate the community mean of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information so that we can leave it for the next chapter.
-
-```{r}
-spe %>% 
-  group_by(PlotID = RELEVE_NR) %>%
-  summarise(totalCover = sum(CoverPerc))
-```
-
 We can also define more variables we want to summarise and more functions we want to apply. Try to find out more [`here`](https://dplyr.tidyverse.org/reference/summarise_all.html). Below is an example of the iris dataset, where we calculated the minimum, mean, and maximum values for sepal length and width in different species.
 
 ```{r}
@@ -228,8 +220,128 @@ glimpse(iris)
 ```{r}
 iris %>% 
   group_by(Species) %>%
-  summarise(across(c(Sepal.Length, Sepal.Width), list(min = min, mean = mean, max = max)))
+  summarise(across(c(Sepal.Length, Sepal.Width), 
+                   list(min = min, 
+                        mean = mean, 
+                        max = max)))
 ```
+
+`summarise()` is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of parasites, endangered species, or alien species. Alternatively, we can calculate the **community means** or **community weighted means** of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information and therefore we will go into more detail in the next chapter.
+
+```{r}
+spe %>%   
+  group_by(PlotID = RELEVE_NR) %>%      
+  summarise(totalCover = sum(CoverPerc))
+```
+
+\*Note that sometimes you might encounter situations where there are NAs in the data. For this, you will need to use the argument **`na.rm = TRUE`**, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. For more, see the next chapter.
+
+## 4.6 \*rowSums, \*n_distinct
+
+\*Another useful thing is knowing how to sum values across multiple columns and save the result in another column, i.e., row-wise sum. The relevant function is called **`rowSums()`**. We will examine the example of frozen fauna data availability. First, we will transform the table into a tidy format as you can see that we cannot work with the data directly.
+
+```{r}
+read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet = 1) %>%
+  clean_names() %>%   
+  print()
+```
+
+We need to fill all the NAs with 0 and change the "x" value to 1. For the first step, we could use replace_na, but we will do this in the second part of the case_when, where we set what should happen to the remaining values after the previous conditions are resolved (i.e. TRUE\~ 0).
+
+```{r}
+read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet = 1) %>%
+  clean_names() %>%     
+  mutate(across(c(pollen_spores, macrofossils, dna), 
+                ~ case_when(.x == "x" ~ 1,
+                              TRUE ~ 0))) %>% 
+  mutate(dataAvailableSum = rowSums(across(pollen_spores:dna))) %>%       
+  print()
+```
+
+Another useful function is the `n_distinct()`. It can be used to get unique combinations of selected variables directly in `summarise()`. Like here, a unique number of species in each plot:
+
+```{r}
+spe %>%       
+  summarise(unique_species = n_distinct(Species), .by = RELEVE_NR)
+```
+
+Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.
+
+```{r}
+spe %>%       
+  summarise(unique_species_layer = n_distinct(interaction(Species, Layer)))
+```
+
+## 4.6 Advanced `mutate()` and `.by`
+
+Below are a few examples of how we used **`mutate()`** so far
+
+```{r}
+env %>%    
+  mutate(author = "Axmanova",#add one column with specified value         
+         forestType = as.character(ForestType), #change the type of variable  
+         biomass = Biomass * 1000, # multiply to change to mg         
+         forestTypeName = str_replace_all(ForestTypeName, " ", "_")) %>% #change string   
+  select(PlotID = RELEVE_NR, author, forestType, biomass, forestTypeName) 
+```
+
+We also used `mutate()` to adjust more variables at once:
+
+```{r}
+#| warning: false 
+env %>% mutate(across(c(Radiation, Heat), ~ round(.x, digits = 2))) %>%   
+  select(PlotID = RELEVE_NR, Radiation, Heat)
+```
+
+**`.x`** refers to the entire column (vector) being transformed inside a function like `mutate(across(...))` or `map()`.
+
+Alternatively, if you have a large table with only measured variables, you can specify what should not be used, here Species, and `mutate()` will be applied to everything left. This is especially useful for changing formats, e.g., from character to numeric (using the function `as.numeric()`).
+
+```{r}
+iris %>%    
+  as_tibble() %>%  #first change from dataframe to tibble    
+  mutate(across(-Species,~round(.x, digits = 1)))
+```
+
+You can even create a list of functions which should be applied. The `relocate()` function was used here to shift all the Sepal variables before the first variable (just for an easier check).
+
+```{r}
+iris%>%    
+  as_tibble() %>%    
+  mutate(across(starts_with("Sepal"),                 
+                list(rounded = round, log = log1p))) %>%   
+  relocate(starts_with("Sepal"), .before = 1)
+```
+
+We can further **mutate a variable using the** **`group_by()`** function. This can be illustrated step by step, as shown below...
+
+```{r}
+env %>%    
+  group_by(ForestType) %>%   
+  select(PlotID = RELEVE_NR, ForestType, Biomass) %>%   
+  mutate(meanBiomass = mean(Biomass)) %>%   
+  mutate(comparison = (case_when(
+    Biomass > meanBiomass ~ "higher",                                 
+    Biomass < meanBiomass ~ "lower",   
+    TRUE ~ "equal"))) %>%   
+  arrange(ForestType, desc(Biomass))
+```
+
+Or like this, where we do not use a standalone `group_by()` but rather include it directly in the `mutate()` function with the `.by` argument.
+
+```{r}
+env %>%
+  select(PlotID=RELEVE_NR, ForestType, Biomass)%>%      
+  mutate(meanBiomass = mean(Biomass, na.rm = TRUE),               
+         comparison = case_when(                   
+           Biomass > meanBiomass ~ "higher",                   
+           Biomass < meanBiomass ~ "lower",                   
+           TRUE ~ "equal"),     .by = ForestType)
+```
+
+We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While the `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
+
+The advantage of **`.by`** is that it works only within the `mutate()` function.
 
 ## 4.6 Exercises
 

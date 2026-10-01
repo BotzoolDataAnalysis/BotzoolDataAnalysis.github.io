@@ -7,6 +7,8 @@ In this chapter, we will learn how to merge information from another dataset (us
 
 <!--add filtering joins and remove advanced mutate and summarise  -->
 
+<!--add ungroup  -->
+
 ![](images/clipboard-3097956773.png)
 
 Credits: <https://r4ds.hadley.nz/joins.html>
@@ -185,80 +187,7 @@ Sometimes you may need the opposite - to keep only rows/IDs that are not in the 
 
 ![](images/clipboard-1417970058.png)
 
-## 5.4 Advanced `mutate()` and `.by`
-
-Below are a few examples of how we used **`mutate()`** so far
-
-```{r}
-env %>% 
-  mutate(author = "Axmanova", #add one column with specified value
-        forestType = as.character(ForestType), #change the type of variable
-        biomass = Biomass * 1000, # multiply to change to mg
-        forestTypeName = str_replace_all(ForestTypeName, " ", "_")) %>% #change string
-  select(PlotID = RELEVE_NR, author, forestType, biomass, forestTypeName)
-
-```
-
-We also used `mutate()` to adjust more variables at once:
-
-```{r}
-#| warning: false
-env %>% mutate(across(c(Radiation, Heat), ~ round(.x, digits = 2))) %>%
-  select(PlotID = RELEVE_NR, Radiation, Heat)
-```
-
-**`.x`** refers to the entire column (vector) being transformed inside a function like `mutate(across(...))` or `map()`.
-
-Alternatively, if you have a large table with only measured variables, you can specify what should not be used, here Species, and `mutate()` will be applied to everything left. This is especially useful for changing formats, e.g., from character to numeric (using the function `as.numeric()`).
-
-```{r}
-iris %>% 
-  as_tibble() %>%  #first change from dataframe to tibble 
-  mutate(across(-Species,~round(.x, digits = 1)))
-```
-
-You can even create a list of functions which should be applied. The `relocate()` function was used here to shift all the Sepal variables before the first variable (just for an easier check).
-
-```{r}
-iris%>% 
-  as_tibble() %>% 
-  mutate(across(starts_with("Sepal"),
-                list(rounded = round, log = log1p))) %>%
-  relocate(starts_with("Sepal"), .before = 1)
-```
-
-We can further mutate a variable using the `group_by()` function. This can be illustrated step by step, as shown below...
-
-```{r}
-env %>% 
-  group_by(ForestType) %>%
-  select(PlotID = RELEVE_NR, ForestType, Biomass) %>%
-  mutate(meanBiomass = mean(Biomass)) %>%
-  mutate(comparison = (case_when(Biomass > meanBiomass ~ "higher", 
-                               Biomass < meanBiomass ~ "lower",
-                               TRUE ~ "equal"))) %>%
-  arrange(ForestType, desc(Biomass))
-```
-
-Or like this, where we do not use a standalone `group_by()` but rather include it directly in the `mutate()` function with the `.by` argument.
-
-```{r}
-env %>%
-  select(PlotID=RELEVE_NR, ForestType, Biomass)%>%
-  mutate(
-    meanBiomass = mean(Biomass, na.rm = TRUE),
-    comparison = case_when(
-      Biomass > meanBiomass ~ "higher",
-      Biomass < meanBiomass ~ "lower",
-      TRUE ~ "equal"),
-    .by = ForestType)
-```
-
-We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While the `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
-
-The advantage of **`.by`** is that it works only within the `mutate()` function.
-
-## 5.5 Advanced `summarise()`
+## 5.5 Community means and community weighted means with `summarise()`
 
 `summarise()` reduces the information to a single value per group, as defined by the `group_by()` function. We also used the `summarise()` function with `across()` and calculated the minimum, mean, median, maximum values, or the sum of the values.
 
@@ -266,20 +195,6 @@ The advantage of **`.by`** is that it works only within the `mutate()` function.
 env %>% 
   group_by(ForestTypeName) %>%
   summarise(meanBiomass = mean(Biomass))
-```
-
-We have not yet explained the `n_distinct()` function. It can be used for getting unique combinations of selected variables directly in `summarise()`. Like here, a unique number of species in each plot:
-
-```{r}
-spe %>% 
-  summarise(unique_species = n_distinct(Species), .by = RELEVE_NR)
-```
-
-Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.
-
-```{r}
-spe %>% 
-  summarise(unique_species_layer = n_distinct(interaction(Species, Layer)))
 ```
 
 When you become confident with joins and `summarise()`, you can even do something like this: We are working with env data, but at the same time, we want to use the summarised information from species data. We can calculate it directly in the pipeline without stepping outside, as there is no need to calculate and save intermediate steps separately.
@@ -290,19 +205,6 @@ env %>%
               group_by(RELEVE_NR) %>% 
               count(name = "Richness")) %>%
   select(PlotID = RELEVE_NR, ForestType, ForestTypeName, Richness, Biomass, pH_KCl)
-```
-
-Another useful thing is knowing how to sum values across multiple columns and save the result in another column, i.e., row-wise sum. The relevant function is called **`rowSums()`**. We will examine the example of frozen fauna data availability. First, we will transform the table into a tidy format by filling in the 0s and changing the x value to 1.
-
-Alternative is `mutate(across(c(pollen_spores, macrofossils, dna), ~ if_else(!is.na(.x) & .x == "x", 1, 0)))`.
-
-```{r}
-data <- read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet = 1) %>% 
-  clean_names() %>% 
-  mutate(across(c(pollen_spores, macrofossils, dna), ~ replace_na(.x, "0"))) %>%
-  mutate(across(c(pollen_spores, macrofossils, dna), ~ if_else(.x == "x", 1, 0))) %>%
-  mutate(dataAvailableSum = rowSums(across(pollen_spores:dna))) %>% 
-  print()
 ```
 
 `summarise()` is often used for obtaining so-called **community means** or community-weighted means. For example, we have traits for individual species, and we want to calculate a mean for each site and compare it.

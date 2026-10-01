@@ -338,6 +338,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#from-wide-to-long" id="toc-from-wide-to-long" class="nav-link" data-scroll-target="#from-wide-to-long">4.3 From wide to long</a></li>
   <li><a href="#group_by-count" id="toc-group_by-count" class="nav-link" data-scroll-target="#group_by-count">4.4 <code>group_by()</code>, <code>count()</code></a></li>
   <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise">4.5 <code>summarise()</code></a></li>
+  <li><a href="#rowsums-n_distinct" id="toc-rowsums-n_distinct" class="nav-link" data-scroll-target="#rowsums-n_distinct">4.6 *rowSums, *n_distinct</a></li>
+  <li><a href="#advanced-mutate-and-.by" id="toc-advanced-mutate-and-.by" class="nav-link" data-scroll-target="#advanced-mutate-and-.by">4.6 Advanced <code>mutate()</code> and <code>.by</code></a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">4.6 Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">4.7 Further reading</a></li>
   </ul>
@@ -372,8 +374,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>In this chapter, we will examine various data formats and learn how to convert between them. We will define groups within the data and calculate several statistics for them using summarise functions.</p>
-<!--add advanced mutate with by from the chapter 5 joins  -->
-<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means - move maybe to the chapter 10,  -->
+<!--add advanced mutate with by from the chapter 5 joins DONE  -->
+<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means move to the chapter 5 and 10  -->
 <section id="data-formats" class="level2">
 <h2 class="anchored" data-anchor-id="data-formats">4.1 Data formats</h2>
 <p>There are two main ways in which the data can be organised across rows and columns—wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, but value it relatively to the total area, i.e.&nbsp;percentage of total area). The covers of species might overlap, as they grow in different heights.</p>
@@ -776,11 +778,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 ravine forest              79.1</code></pre>
 </div>
 </div>
-<p><code>summarise()</code> is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of parasites, endangered species, or alien species. Alternatively, we can calculate the community mean of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information so that we can leave it for the next chapter.</p>
+<p>We can also define more variables we want to summarise and more functions we want to apply. Try to find out more <a href="https://dplyr.tidyverse.org/reference/summarise_all.html"><code>here</code></a>. Below is an example of the iris dataset, where we calculated the minimum, mean, and maximum values for sepal length and width in different species.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totalCover =</span> <span class="fu">sum</span>(CoverPerc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(Sepal.Length, Sepal.Width), </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">list</span>(<span class="at">min =</span> min, </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mean =</span> mean, </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max =</span> max)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  Species    Sepal.Length_min Sepal.Length_mean Sepal.Length_max Sepal.Width_min
+  &lt;fct&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 setosa                  4.3              5.01              5.8             2.3
+2 versicolor              4.9              5.94              7               2  
+3 virginica               4.9              6.59              7.9             2.2
+# ℹ 2 more variables: Sepal.Width_mean &lt;dbl&gt;, Sepal.Width_max &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><code>summarise()</code> is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of parasites, endangered species, or alien species. Alternatively, we can calculate the <strong>community means</strong> or <strong>community weighted means</strong> of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information and therefore we will go into more detail in the next chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>   </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span>      </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totalCover =</span> <span class="fu">sum</span>(CoverPerc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 2
    PlotID totalCover
@@ -798,33 +830,245 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 55 more rows</code></pre>
 </div>
 </div>
-<p>We can also define more variables we want to summarise and more functions we want to apply. Try to find out more <a href="https://dplyr.tidyverse.org/reference/summarise_all.html"><code>here</code></a>. Below is an example of the iris dataset, where we calculated the minimum, mean, and maximum values for sepal length and width in different species.</p>
+<p>*Note that sometimes you might encounter situations where there are NAs in the data. For this, you will need to use the argument <strong><code>na.rm = TRUE</code></strong>, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. For more, see the next chapter.</p>
+</section>
+<section id="rowsums-n_distinct" class="level2">
+<h2 class="anchored" data-anchor-id="rowsums-n_distinct">4.6 *rowSums, *n_distinct</h2>
+<p>*Another useful thing is knowing how to sum values across multiple columns and save the result in another column, i.e., row-wise sum. The relevant function is called <strong><code>rowSums()</code></strong>. We will examine the example of frozen fauna data availability. First, we will transform the table into a tidy format as you can see that we cannot work with the data directly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_xlsx</span>(<span class="st">"data/frozen_fauna/FrozenFauna_metadata.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span>   </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 150
-Columns: 5
-$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
-$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
-$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
-$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
-$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+<pre><code># A tibble: 27 × 6
+      id code   species                       pollen_spores macrofossils dna  
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                         &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;
+ 1     1 D-M5   Mammuthus primigenius         &lt;NA&gt;          &lt;NA&gt;         x    
+ 2     2 D-BP4  Bison priscus                 &lt;NA&gt;          &lt;NA&gt;         x    
+ 3     3 D-MP11 Mammuthus primigenius         x             x            &lt;NA&gt; 
+ 4     4 SK2    Stephanorhinus kirchbergensis &lt;NA&gt;          x            &lt;NA&gt; 
+ 5     5 MP5    Mammuthus primigenius         x             x            &lt;NA&gt; 
+ 6     6 CA2    Coelodonta antiquitatis       &lt;NA&gt;          x            &lt;NA&gt; 
+ 7     7 MP9    Mammuthus primigenius         x             x            x    
+ 8     8 D-MP10 Mammuthus primigenius         x             x            &lt;NA&gt; 
+ 9     9 MP3    Mammuthus primigenius         x             x            &lt;NA&gt; 
+10    10 MP4    Mammuthus primigenius         x             x            &lt;NA&gt; 
+# ℹ 17 more rows</code></pre>
 </div>
 </div>
+<p>We need to fill all the NAs with 0 and change the “x” value to 1. For the first step, we could use replace_na, but we will do this in the second part of the case_when, where we set what should happen to the remaining values after the previous conditions are resolved (i.e.&nbsp;TRUE~ 0).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(Sepal.Length, Sepal.Width), <span class="fu">list</span>(<span class="at">min =</span> min, <span class="at">mean =</span> mean, <span class="at">max =</span> max)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_xlsx</span>(<span class="st">"data/frozen_fauna/FrozenFauna_metadata.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span>     </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(pollen_spores, macrofossils, dna), </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">case_when</span>(.x <span class="sc">==</span> <span class="st">"x"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dataAvailableSum =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(pollen_spores<span class="sc">:</span>dna))) <span class="sc">%&gt;%</span>       </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
-  Species    Sepal.Length_min Sepal.Length_mean Sepal.Length_max Sepal.Width_min
-  &lt;fct&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
-1 setosa                  4.3              5.01              5.8             2.3
-2 versicolor              4.9              5.94              7               2  
-3 virginica               4.9              6.59              7.9             2.2
-# ℹ 2 more variables: Sepal.Width_mean &lt;dbl&gt;, Sepal.Width_max &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 27 × 7
+      id code   species        pollen_spores macrofossils   dna dataAvailableSum
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt;
+ 1     1 D-M5   Mammuthus pri…             0            0     1                1
+ 2     2 D-BP4  Bison priscus              0            0     1                1
+ 3     3 D-MP11 Mammuthus pri…             1            1     0                2
+ 4     4 SK2    Stephanorhinu…             0            1     0                1
+ 5     5 MP5    Mammuthus pri…             1            1     0                2
+ 6     6 CA2    Coelodonta an…             0            1     0                1
+ 7     7 MP9    Mammuthus pri…             1            1     1                3
+ 8     8 D-MP10 Mammuthus pri…             1            1     0                2
+ 9     9 MP3    Mammuthus pri…             1            1     0                2
+10    10 MP4    Mammuthus pri…             1            1     0                2
+# ℹ 17 more rows</code></pre>
 </div>
 </div>
+<p>Another useful function is the <code>n_distinct()</code>. It can be used to get unique combinations of selected variables directly in <code>summarise()</code>. Like here, a unique number of species in each plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>       </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unique_species =</span> <span class="fu">n_distinct</span>(Species), <span class="at">.by =</span> RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 2
+   RELEVE_NR unique_species
+       &lt;dbl&gt;          &lt;int&gt;
+ 1         1             42
+ 2         2             16
+ 3         3             15
+ 4         4             20
+ 5         5             14
+ 6         6             19
+ 7         7             22
+ 8         8             23
+ 9         9             22
+10        10             18
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>       </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unique_species_layer =</span> <span class="fu">n_distinct</span>(<span class="fu">interaction</span>(Species, Layer)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  unique_species_layer
+                 &lt;int&gt;
+1                  369</code></pre>
+</div>
+</div>
+</section>
+<section id="advanced-mutate-and-.by" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-mutate-and-.by">4.6 Advanced <code>mutate()</code> and <code>.by</code></h2>
+<p>Below are a few examples of how we used <strong><code>mutate()</code></strong> so far</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span>    </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">author =</span> <span class="st">"Axmanova"</span>,<span class="co">#add one column with specified value         </span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">forestType =</span> <span class="fu">as.character</span>(ForestType), <span class="co">#change the type of variable  </span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">biomass =</span> Biomass <span class="sc">*</span> <span class="dv">1000</span>, <span class="co"># multiply to change to mg         </span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">forestTypeName =</span> <span class="fu">str_replace_all</span>(ForestTypeName, <span class="st">" "</span>, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span> <span class="co">#change string   </span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, author, forestType, biomass, forestTypeName) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 5
+   PlotID author   forestType biomass forestTypeName     
+    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;              
+ 1      1 Axmanova 2            12800 oak_hornbeam_forest
+ 2      2 Axmanova 1             9900 oak_forest         
+ 3      3 Axmanova 1            15200 oak_forest         
+ 4      4 Axmanova 1            16000 oak_forest         
+ 5      5 Axmanova 1            20700 oak_forest         
+ 6      6 Axmanova 1            46400 oak_forest         
+ 7      7 Axmanova 1            49200 oak_forest         
+ 8      8 Axmanova 2            48700 oak_hornbeam_forest
+ 9      9 Axmanova 2            13800 oak_hornbeam_forest
+10     10 Axmanova 1            79100 oak_forest         
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>We also used <code>mutate()</code> to adjust more variables at once:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Radiation, Heat), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">%&gt;%</span>   </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, Radiation, Heat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 3
+   PlotID Radiation  Heat
+    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1      1      0.88  0.86
+ 2      2      0.93  0.81
+ 3      3      0.92  0.85
+ 4      4      0.93  0.95
+ 5      5      0.87  0.87
+ 6      6      0.92  0.88
+ 7      7      0.83  0.8 
+ 8      8      0.87  0.87
+ 9      9      0.61  0.42
+10     10      0.91  0.93
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p><strong><code>.x</code></strong> refers to the entire column (vector) being transformed inside a function like <code>mutate(across(...))</code> or <code>map()</code>.</p>
+<p>Alternatively, if you have a large table with only measured variables, you can specify what should not be used, here Species, and <code>mutate()</code> will be applied to everything left. This is especially useful for changing formats, e.g., from character to numeric (using the function <code>as.numeric()</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span>    </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span>  <span class="co">#first change from dataframe to tibble    </span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span>Species,<span class="sc">~</span><span class="fu">round</span>(.x, <span class="at">digits =</span> <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ℹ 140 more rows</code></pre>
+</div>
+</div>
+<p>You can even create a list of functions which should be applied. The <code>relocate()</code> function was used here to shift all the Sepal variables before the first variable (just for an easier check).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">%&gt;%</span>    </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span>    </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>),                 </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">list</span>(<span class="at">rounded =</span> round, <span class="at">log =</span> log1p))) <span class="sc">%&gt;%</span>   </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>), <span class="at">.before =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 9
+   Sepal.Length Sepal.Width Sepal.Length_rounded Sepal.Length_log
+          &lt;dbl&gt;       &lt;dbl&gt;                &lt;dbl&gt;            &lt;dbl&gt;
+ 1          5.1         3.5                    5             1.81
+ 2          4.9         3                      5             1.77
+ 3          4.7         3.2                    5             1.74
+ 4          4.6         3.1                    5             1.72
+ 5          5           3.6                    5             1.79
+ 6          5.4         3.9                    5             1.86
+ 7          4.6         3.4                    5             1.72
+ 8          5           3.4                    5             1.79
+ 9          4.4         2.9                    4             1.69
+10          4.9         3.1                    5             1.77
+# ℹ 140 more rows
+# ℹ 5 more variables: Sepal.Width_rounded &lt;dbl&gt;, Sepal.Width_log &lt;dbl&gt;,
+#   Petal.Length &lt;dbl&gt;, Petal.Width &lt;dbl&gt;, Species &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p>We can further <strong>mutate a variable using the</strong> <strong><code>group_by()</code></strong> function. This can be illustrated step by step, as shown below…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span>    </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestType) <span class="sc">%&gt;%</span>   </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, Biomass) <span class="sc">%&gt;%</span>   </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meanBiomass =</span> <span class="fu">mean</span>(Biomass)) <span class="sc">%&gt;%</span>   </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">comparison =</span> (<span class="fu">case_when</span>(</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    Biomass <span class="sc">&gt;</span> meanBiomass <span class="sc">~</span> <span class="st">"higher"</span>,                                 </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    Biomass <span class="sc">&lt;</span> meanBiomass <span class="sc">~</span> <span class="st">"lower"</span>,   </span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"equal"</span>))) <span class="sc">%&gt;%</span>   </span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ForestType, <span class="fu">desc</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 5
+# Groups:   ForestType [4]
+   PlotID ForestType Biomass meanBiomass comparison
+    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
+ 1     10          1    79.1        26.7 higher    
+ 2      7          1    49.2        26.7 higher    
+ 3      6          1    46.4        26.7 higher    
+ 4     44          1    34.1        26.7 higher    
+ 5     82          1    33.9        26.7 higher    
+ 6     28          1    29.7        26.7 higher    
+ 7     42          1    21.5        26.7 lower     
+ 8      5          1    20.7        26.7 lower     
+ 9     81          1    20.6        26.7 lower     
+10      4          1    16          26.7 lower     
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>Or like this, where we do not use a standalone <code>group_by()</code> but rather include it directly in the <code>mutate()</code> function with the <code>.by</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID=</span>RELEVE_NR, ForestType, Biomass)<span class="sc">%&gt;%</span>      </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meanBiomass =</span> <span class="fu">mean</span>(Biomass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),               </span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">comparison =</span> <span class="fu">case_when</span>(                   </span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>           Biomass <span class="sc">&gt;</span> meanBiomass <span class="sc">~</span> <span class="st">"higher"</span>,                   </span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>           Biomass <span class="sc">&lt;</span> meanBiomass <span class="sc">~</span> <span class="st">"lower"</span>,                   </span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"equal"</span>),     <span class="at">.by =</span> ForestType)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 5
+   PlotID ForestType Biomass meanBiomass comparison
+    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
+ 1      1          2    12.8        44.4 lower     
+ 2      2          1     9.9        26.7 lower     
+ 3      3          1    15.2        26.7 lower     
+ 4      4          1    16          26.7 lower     
+ 5      5          1    20.7        26.7 lower     
+ 6      6          1    46.4        26.7 higher    
+ 7      7          1    49.2        26.7 higher    
+ 8      8          2    48.7        44.4 higher    
+ 9      9          2    13.8        44.4 lower     
+10     10          1    79.1        26.7 higher    
+# ℹ 55 more rows</code></pre>
+</div>
+</div>
+<p>We need to realise that after you use <code>group_by()</code>, the data stay grouped until you explicitly call <code>ungroup()</code>, or use a verb that drops grouping automatically by default settings (usually <code>summarise()</code> or <code>count()</code>). While the <code>summarise()</code> removes the grouping, <code>mutate()</code> does not. Therefore, grouping still applies until the end of that call.</p>
+<p>The advantage of <strong><code>.by</code></strong> is that it works only within the <code>mutate()</code> function.</p>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>

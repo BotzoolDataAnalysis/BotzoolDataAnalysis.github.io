@@ -1,5 +1,5 @@
 ---
-title: "10 Long pipelines"
+title: "10 Advanced pipeline workflows"
 format: html
 ---
 
