@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Irena Axmanová, Klára Friesová">
+<meta name="author" content="Štěpánka Pustková, Branislav Kopčan">
 
-<title>Data Manipulation and Visualisation – Botzool Data Analysis</title>
+<title>gordi: Plot ordination diagrams with ggplot2 – Botzool Data Analysis</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -83,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../DataManipulationVisualisation/data_manipulation_visualisation.html">Data Manipulation and Visualization</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">gordi: Plot ordination diagrams with ggplot2</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -117,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link active">
+            <a href="../DataManipulationVisualisation/data_manipulation_visualisation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Manipulation and Visualization</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -302,19 +302,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-manipulation-and-visualisation-course" id="toc-data-manipulation-and-visualisation-course" class="nav-link active" data-scroll-target="#data-manipulation-and-visualisation-course">Data manipulation and visualisation course</a></li>
-  <li><a href="#bi8190-manipulace-a-vizualizace-dat" id="toc-bi8190-manipulace-a-vizualizace-dat" class="nav-link" data-scroll-target="#bi8190-manipulace-a-vizualizace-dat">(Bi8190 Manipulace a vizualizace dat)</a></li>
-  <li><a href="#introduction---14.-9.-2026" id="toc-introduction---14.-9.-2026" class="nav-link" data-scroll-target="#introduction---14.-9.-2026">1 Introduction - 14. 9. 2026</a></li>
-  <li><a href="#data-manipulation---21.-9.-2026" id="toc-data-manipulation---21.-9.-2026" class="nav-link" data-scroll-target="#data-manipulation---21.-9.-2026">2 Data manipulation - 21. 9. 2026</a></li>
-  <li><a href="#data-visualisation-with-ggplot---5.-10.-2026" id="toc-data-visualisation-with-ggplot---5.-10.-2026" class="nav-link" data-scroll-target="#data-visualisation-with-ggplot---5.-10.-2026">3 Data visualisation with ggplot - 5. 10. 2026</a></li>
-  <li><a href="#wide-vs.-long-format---12.-10.-2026" id="toc-wide-vs.-long-format---12.-10.-2026" class="nav-link" data-scroll-target="#wide-vs.-long-format---12.-10.-2026">4 Wide vs.&nbsp;long format - 12. 10. 2026</a></li>
-  <li><a href="#join-functions---19.-10.-2026" id="toc-join-functions---19.-10.-2026" class="nav-link" data-scroll-target="#join-functions---19.-10.-2026">5 Join functions - 19. 10. 2026</a></li>
-  <li><a href="#advanced-data-visualisation---26.-10.-and-2.-11.-2026" id="toc-advanced-data-visualisation---26.-10.-and-2.-11.-2026" class="nav-link" data-scroll-target="#advanced-data-visualisation---26.-10.-and-2.-11.-2026">6 + 7 Advanced data visualisation - 26. 10. and 2. 11. 2026</a></li>
-  <li><a href="#script-automatisation---9.-and-23.-11.-2026" id="toc-script-automatisation---9.-and-23.-11.-2026" class="nav-link" data-scroll-target="#script-automatisation---9.-and-23.-11.-2026">8 + 9 Script automatisation - 9. and 23. 11. 2026</a></li>
-  <li><a href="#long-pipelines---30.-11.-2026" id="toc-long-pipelines---30.-11.-2026" class="nav-link" data-scroll-target="#long-pipelines---30.-11.-2026">10 Long pipelines - 30. 11. 2026</a></li>
-  <li><a href="#from-database-to-plot-review---7.-12.-2026" id="toc-from-database-to-plot-review---7.-12.-2026" class="nav-link" data-scroll-target="#from-database-to-plot-review---7.-12.-2026">11 From database to plot (review) - 7. 12. 2026</a></li>
-  <li><a href="#github---14.-12.-2026" id="toc-github---14.-12.-2026" class="nav-link" data-scroll-target="#github---14.-12.-2026">12 GitHub - 14. 12. 2026</a></li>
-  <li><a href="#maps-in-r" id="toc-maps-in-r" class="nav-link" data-scroll-target="#maps-in-r">* Maps in R</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   </ul>
 </nav>
     </div>
@@ -323,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Manipulation and Visualisation</h1>
+<h1 class="title">gordi: Plot ordination diagrams with ggplot2</h1>
 </div>
 
 
@@ -333,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Irena Axmanová, Klára Friesová </p>
+             <p>Štěpánka Pustková, Branislav Kopčan </p>
           </div>
   </div>
     
@@ -346,118 +335,34 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="data-manipulation-and-visualisation-course" class="level1">
-<h1>Data manipulation and visualisation course</h1>
+<style>
+/* Logo style */
+#sidebar-logo {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 1em auto 0 auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Check if sidebar exists
+  const sidebar = document.querySelector("nav.sidebar-toc");
+  if(sidebar) {
+    const img = document.createElement("img");
+    img.src = "images/gordi_3_logo.png";  // path relative to your page
+    img.id = "sidebar-logo";
+    sidebar.appendChild(img);           // add logo at the bottom of TOC
+  }
+});
+</script>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 </section>
-<section id="bi8190-manipulace-a-vizualizace-dat" class="level1">
-<h1>(<a href="https://is.muni.cz/predmet/sci/podzim2025/BI8190">Bi8190 Manipulace a vizualizace dat</a>)</h1>
-<p>During the course, we will introduce advanced methods of data manipulation and visualization in R, especially using libraries from the tidyverse collection (tidyr, dplyr, tibble, purrr, stringr, ggplot2, readr). The goal of the course is to teach students routine data manipulation so that they can import, edit, filter, attach new information from external data, create new variables (e.g.&nbsp;based on a calculation), group samples based on some characteristic/information and calculate other parameters for these groups. Students will also learn basic and advanced methods of data visualization using ggplot2 (*and create basic maps in R). The goal of the course is also to adopt the open data science approach, where they will learn how to prepare a script so that it can be published on the GitHub platform at the end.</p>
-</section>
-<section id="introduction---14.-9.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/1_introduction.html">1 Introduction</a> - 14. 9. 2026</h1>
-<ul>
-<li>R as a programming language</li>
-<li>Tidyverse package, %&gt;%, |&gt;</li>
-<li>projects in RStudio, cheatsheets, keyboard shortcuts</li>
-<li>principles of a tidy script (formatting, headings, bookmarks, notes)</li>
-<li>information sources and where to look for help, AI</li>
-<li>import using readr, readxl, what to watch out for (encoding)</li>
-<li>data structure (names, table, glimpse)</li>
-<li>tidy data (principles, preparation, checking), renaming variables (rename)</li>
-</ul>
-</section>
-<section id="data-manipulation---21.-9.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/2_data_manipulation.html">2 Data manipulation</a> - 21. 9. 2026</h1>
-<ul>
-<li>basic data manipulation (select, filter, mutate, arrange, slice)</li>
-<li>data export (write_csv)</li>
-</ul>
-</section>
-<section id="data-visualisation-with-ggplot---5.-10.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/3_data_visualisation.html">3 Data visualisation with ggplot</a> - 5. 10. 2026</h1>
-<ul>
-<li>logic of ggplot</li>
-<li>basic geom functions (point, boxplot, histogram, barplot)</li>
-<li>trend fitting</li>
-<li>symbols, colors</li>
-<li>legend, axis labels</li>
-<li>theme</li>
-<li>saving a plot (ggsave)</li>
-</ul>
-</section>
-<section id="wide-vs.-long-format---12.-10.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/4_wide_vs_long.html">4 Wide vs.&nbsp;long format</a> - 12. 10. 2026</h1>
-<ul>
-<li>format transformations (pivot)</li>
-<li>new variables (mutate, group_by, summarise)</li>
-<li>species richness, sums/proportions of different values within a sample (count)</li>
-</ul>
-</section>
-<section id="join-functions---19.-10.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/5_join_functions.html">5 Join functions</a> - 19. 10. 2026</h1>
-<ul>
-<li>join functions (left_join, full_join), adding information from other data files</li>
-<li>filtering functions: semi_join, anti_join</li>
-<li>proportions of certain groups by traits, indicator values, CWM</li>
-<li>nomenclature editing (advanced mutate, summarise), merging duplicates</li>
-<li>mutate with multiple conditions (ifelse, case_when)</li>
-</ul>
-</section>
-<section id="advanced-data-visualisation---26.-10.-and-2.-11.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/6_7_advanced_visualisation.html">6 + 7 Advanced data visualisation</a> - 26. 10. and 2. 11. 2026</h1>
-<ul>
-<li>ggplot advanced – faceting, using multiple data sources, scales, position adjustments, legend modifications</li>
-<li>useful extensions – patchwork, ggpubr, ggeffects</li>
-<li>shiny trailer (demo)</li>
-</ul>
-</section>
-<section id="script-automatisation---9.-and-23.-11.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/8_9_automatisation.html">8 + 9 Script automatisation</a> - 9. and 23. 11. 2026</h1>
-<ul>
-<li>writing your own function</li>
-<li>using loops (for loops)</li>
-<li>purrr and an example of working with nested dataframes</li>
-</ul>
-</section>
-<section id="long-pipelines---30.-11.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/10_long_pipelines.html">10 Long pipelines</a> - 30. 11. 2026</h1>
-<ul>
-<li>combining the entire process into one pipeline</li>
-</ul>
-</section>
-<section id="from-database-to-plot-review---7.-12.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/11_database_to_plot.html">11 From database to plot (review)</a> - 7. 12. 2026</h1>
-<ul>
-<li>importing data from a database, linking different data files, adjusting data structure</li>
-<li>filtering a subset</li>
-<li>merging duplicates, e.g., those created during nomenclature conversion</li>
-<li>linking external traits, calculating weighted means</li>
-<li>preparing a publication-ready figure</li>
-<li>combining the entire process into one pipeline</li>
-</ul>
-</section>
-<section id="github---14.-12.-2026" class="level1">
-<h1><a href="../DataManipulationVisualisation/12_github.html">12 GitHub</a> - 14. 12. 2026</h1>
-<ul>
-<li>how it works, downloading data from public projects</li>
-<li>version control</li>
-<li>own account, linking with RStudio</li>
-<li>creating your own repository, linking it with an R project on your computer</li>
-<li>collaborating on a project (branch, commit, push, pull, merge conflicts)</li>
-<li>publishing a script, making it public (DOI, README guidelines)</li>
-<li>GitHub Pages</li>
-</ul>
-</section>
-<section id="maps-in-r" class="level1">
-<h1><a href="../DataManipulationVisualisation/13_maps.html">* Maps in R</a></h1>
-<ul>
-<li>maps using terra</li>
-<li>displaying samples in space (overview map, scale bar, legend…) on an OpenStreetMap background</li>
-<li>cartograms, grid-based mapping</li>
-<li>extracting data from a raster, digital model</li>
-<li>selecting data using a mask</li>
-<li>scaling mapped points according to values (colour, symbol)</li>
-</ul>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
 
 
 </section>
@@ -882,6 +787,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
   </div>
 </footer>
+_includes/sidebar-logo.html
 
 
 
