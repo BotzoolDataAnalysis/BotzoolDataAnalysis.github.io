@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>5 Join Functions – Botzool Data Analysis</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -74,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-104f2622452aeaad4c018a66f4effed7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0508618caa1d256af916c83e0797e277.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -133,8 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="../ubz_logo_eng_2barvy.jpg" alt="Botzool Logo" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -340,9 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#matching-selected-information-with-left_join" id="toc-matching-selected-information-with-left_join" class="nav-link active" data-scroll-target="#matching-selected-information-with-left_join">5.1 Matching selected information with <code>left_join()</code></a></li>
   <li><a href="#full_join-vs.-bind_rows" id="toc-full_join-vs.-bind_rows" class="nav-link" data-scroll-target="#full_join-vs.-bind_rows">5.2 <code>full_join()</code> vs.&nbsp;<code>bind_rows()</code></a></li>
   <li><a href="#filtering-joins" id="toc-filtering-joins" class="nav-link" data-scroll-target="#filtering-joins">5.3 Filtering joins</a></li>
-  <li><a href="#community-means-and-community-weighted-means-with-summarise" id="toc-community-means-and-community-weighted-means-with-summarise" class="nav-link" data-scroll-target="#community-means-and-community-weighted-means-with-summarise">5.5 Community means and community weighted means with <code>summarise()</code></a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">5.6 Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">5.7 Further reading</a></li>
+  <li><a href="#community-means-and-community-weighted-means-with-summarise" id="toc-community-means-and-community-weighted-means-with-summarise" class="nav-link" data-scroll-target="#community-means-and-community-weighted-means-with-summarise">5.4 Community means and community weighted means with <code>summarise()</code></a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">5.5 Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">5.6 Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -374,41 +370,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this chapter, we will learn how to merge information from another dataset (using <code>left_join()</code>, <code>full_join()</code>) and how to filter our data based on another dataset (<code>semi_join()</code>, <code>anti_join()</code>). We will also utilise our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using <code>left_join()</code>, <code>group_by()</code>, and <code>summarise()</code>). We will also use <code>mutate()</code> with additional conditions (<code>ifelse()</code><em>,</em> <code>case_when()</code>).</p>
-<!--add filtering joins and remove advanced mutate and summarise  -->
+<p>In this chapter, we will learn how to merge information from another dataset (using <code>left_join()</code>, <code>full_join()</code>) and how to filter our data based on another dataset (<code>semi_join()</code>, <code>anti_join()</code>). We will also use our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using <code>left_join()</code>, <code>group_by()</code>, and <code>summarise()</code>). We will also use <code>mutate()</code> with additional conditions (<code>ifelse()</code><em>,</em> <code>case_when()</code>).</p>
+<!--add more examples on filtering joins  -->
+<!-- remove advanced mutate and summarise, keep only community means  -->
 <!--add ungroup  -->
+<!-- ADD keep all - distinct, -->
+<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist - either here or chapter 10   -->
 <p><img src="images/clipboard-3097956773.png" class="img-fluid"></p>
 <p>Credits: <a href="https://r4ds.hadley.nz/joins.html" class="uri">https://r4ds.hadley.nz/joins.html</a></p>
 <section id="matching-selected-information-with-left_join" class="level2">
 <h2 class="anchored" data-anchor-id="matching-selected-information-with-left_join">5.1 Matching selected information with <code>left_join()</code></h2>
 <p>In most cases, the data you need for analyses is not organised in one file, but rather in multiple files. For example, we have measured characteristics, known as traits, for each species in the region, and we have species lists for all the sites. To calculate the mean values of selected traits for each site, we must first append the information to individual records. For this, we will use the function called <code>left_join()</code>, which belongs to the group of <strong>mutating joins</strong> available in the <code>tidyverse</code> package <code>dplyr</code>.</p>
-<p><img src="images/clipboard-3580080053.png" class="img-fluid">This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the <code>by</code> argument. It will append all the columns available in the second “lifeforms” dataset, but only for rows where there is an exact match. Although we have information for other species, such as <em>Abies alba</em> or <em>Carex sylvatica</em>, these do not have matching rows in the first dataset, “data”, and the information will therefore not be used. This means that <code>left_join()</code> is only selecting rows that are present in the first dataset. If the information is missing in the matching file, for example, if there is no information for <em>Trientalis europaea</em> in the lifeforms dataset, the resulting file will contain NA.</p>
+<p><img src="images/clipboard-3580080053.png" class="img-fluid">This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the <code>by</code> argument. It will append all the columns available in the second “lifeforms” dataset, but only for rows where there is an exact match. Although we have information for other species, such as <em>Abies alba</em> or <em>Carex sylvatica</em>, these do not have matching rows in the first dataset named “data”, and the information will therefore not be used. This means that <code>left_join()</code> is only selecting rows that are present in the first dataset. If the information is missing in the matching file, for example, if there is no information for <em>Trientalis europaea</em> in the lifeforms dataset, the resulting file will contain NA.</p>
 <p>Let’s train a bit. Start a new script for this chapter again.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will import the data from the Forest understory again.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/Axmanova-Forest-spe.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will also import data with some traits, such as plant height and Ellenberg-type indicator values, which indicate demands on environmental factors, including soil reaction, light, and nutrients. Lower values indicate lower demands, meaning that species can tolerate low (acidic) pH levels or low nutrient levels. High values suggest that the species requires or grows in habitats with high (basic) soil reaction and high nutrient availability.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/traits.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/traits.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If we try to merge these two files directly, it does not work. We will get a warning explaining that there are no common variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(traits)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `left_join()`:
 ! `by` must be supplied when `x` and `y` have no common variables.
 ℹ Use `cross_join()` to perform a cross-join.</code></pre>
 </div>
 </div>
-<p>So there are more options for what we can do. We verify the data and find that the required information to match is stored once as ‘Species’ (in the data) and once as ‘Taxon’ (in traits).</p>
+<p>So there are more options for what we can do. We check the data and find out that the corresponding/matching information is stored once as ‘Species’ (in the data) and once as ‘Taxon’ (in traits).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(spe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 4
    RELEVE_NR Species              Layer CoverPerc
@@ -427,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(traits)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 316 × 7
    Taxon       Height SeedMass EIV_Light EIV_Moisture EIV_Reaction EIV_Nutrients
@@ -447,8 +446,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can decide to rename the ‘Species’ column to ‘Taxon’ and use this column for matching.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Taxon =</span> Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="st">"Taxon"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Taxon =</span> Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="st">"Taxon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 10
    RELEVE_NR Taxon        Layer CoverPerc Height SeedMass EIV_Light EIV_Moisture
@@ -469,8 +468,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Or we can even skip the by argument, as there is only one common matching column.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Taxon =</span> Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Taxon =</span> Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(Taxon)`</code></pre>
 </div>
@@ -494,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can also skip the <code>rename()</code> step and directly say in the <code>left_join()</code> function what is matching with what. Note that it will retain ‘Species’ as the outcome, because this was how we named it in the primary data file.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 10
    RELEVE_NR Species      Layer CoverPerc Height SeedMass EIV_Light EIV_Moisture
@@ -513,32 +512,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2 more variables: EIV_Reaction &lt;dbl&gt;, EIV_Nutrients &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Note that <code>left_join()</code> is a great help. However, you should always consider the data. If you have more potentially matching rows, you can create a lot of unwanted mess with <code>left_join()</code>. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)</p>
+<p>Note that <code>left_join()</code> is a great help. However, you should always check or know well the data. If you have more matching rows, you can create a lot of unwanted mess with <code>left_join()</code>. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)</p>
 </section>
 <section id="full_join-vs.-bind_rows" class="level2">
 <h2 class="anchored" data-anchor-id="full_join-vs.-bind_rows">5.2 <code>full_join()</code> vs.&nbsp;<code>bind_rows()</code></h2>
-<p>Sometimes it is needed to match both datasets. In contrast to <code>left_join()</code>, <code>full_join()</code> will also add additional rows that appear in the other dataset.</p>
+<p>Sometimes it is needed to match both datasets exactly as they are. First we will look at the full_join. In contrast to <code>left_join()</code>, <code>full_join()</code> will also add additional rows that appear in the other dataset.</p>
 <p><img src="images/clipboard-1035988765.png" class="img-fluid"></p>
 <p>Credits: <a href="https://r4ds.hadley.nz/joins.html" class="uri">https://r4ds.hadley.nz/joins.html</a></p>
 <p>We will upload the forest env data and make two subsets to train a bit.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/Axmanova-Forest-env.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/forest_understory/Axmanova-Forest-env.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the first subset, we will use only the first two forest types, namely oak and oak-hornbeam forests and the selection of variables.</p>
+<p>In the first subset, we will use only the first two forest types, namely oak and oak-hornbeam forests and the following selection of variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ForestType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ForestType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the second subset, we will use one forest type shared with the previous subset and two others: oak-hornbeam, ravine, and alluvial forests, with a slightly different selection of variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>forest2 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>forest2 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))<span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Canopy_E3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Canopy_E3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, <strong><code>left_join()</code></strong> the data and check the preview (use <code>view()</code>) to see more of the dataset. We have added the extra information available in the second dataset to our selection of plots and variables in the first dataset.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(forest2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(forest2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(PlotID, ForestType, ForestTypeName, pH_KCl)`</code></pre>
 </div>
@@ -561,8 +560,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In the next step, we will combine both subsets using a <strong><code>full_join()</code></strong>. What is the output? We will obtain a dataset containing all available information, encompassing all four forest types. However, since Forest type 1 is only present in the first subset, the corresponding rows will include only the information available there (forest type and pH). The Type 2 is present in both datasets so that it will contain all information from both datasets (forest type, pH, biomass, and canopy). Types 3 and 4 will have information only from the second dataset (forest type, pH, canopy). Use <code>view()</code> to see the complete merged dataset.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(forest2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(forest2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(PlotID, ForestType, ForestTypeName, pH_KCl)`</code></pre>
 </div>
@@ -585,9 +584,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note that the joining worked well, since we had the same names in both datasets. For example, if biomass were called soil_pH in one and pH_KCl in the other dataset, it will treat them as different variables, as you can see below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">soil_pH =</span> pH_KCl) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(forest2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(forest2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(PlotID, ForestType, ForestTypeName)`</code></pre>
 </div>
@@ -611,18 +610,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>*Tip: if you are merging data from different sources and you get a similar mess, check the function <code>coalesce()</code> <a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="uri">https://dplyr.tidyverse.org/reference/coalesce.html</a>.</p>
 <p>Imagine a situation where data were sampled in different years/months or by different colleagues, or in different regions separately. If these <strong>subsets have exactly the same structure</strong>, we can use the <strong><code>bind_rows()</code></strong> function to merge them, one below the other.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestType <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>forest2 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestType <span class="sc">==</span> <span class="dv">2</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, pH_KCl, Biomass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Bind and check the whole dataset with <code>view()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(forest2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>forest1 <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(forest2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 44 × 5
    PlotID ForestType ForestTypeName pH_KCl Biomass
@@ -642,17 +641,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note that the <code>rbind()</code> function in base R works similarly, but less effectively and it is designed for data frames.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(forest1, forest2) <span class="co">#remove unwanted data from the environment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(forest1, forest2) <span class="co">#remove unwanted data from the environment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filtering-joins" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-joins">5.3 Filtering joins</h2>
 <p>Sometimes we need to filter the data according to another dataset. For example, we have reviewed the environmental file and determined that for a follow-up analysis, we only need the alluvial forest data. Therefore, we filtered rows in the env file.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>env_selected <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>env_selected <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestType <span class="sc">==</span> <span class="dv">4</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR,ForestType, ForestTypeName, pH_KCl, Biomass) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 5
    PlotID ForestType ForestTypeName  pH_KCl Biomass
@@ -672,8 +671,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>However, we also need to filter the rows in the species data where there is no information about forest types. The only common identifier is the PlotID (i.e.&nbsp;sample/site ID).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env_selected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(PlotID)`</code></pre>
 </div>
@@ -696,9 +695,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>With the <code>distinct()</code> function, you can check if the IDs are the same.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">PlotID =</span> RELEVE_NR) <span class="sc">%&gt;%</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env_selected) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(PlotID)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(PlotID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(PlotID)`</code></pre>
 </div>
@@ -723,12 +722,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/clipboard-1417970058.png" class="img-fluid"></p>
 </section>
 <section id="community-means-and-community-weighted-means-with-summarise" class="level2">
-<h2 class="anchored" data-anchor-id="community-means-and-community-weighted-means-with-summarise">5.5 Community means and community weighted means with <code>summarise()</code></h2>
+<h2 class="anchored" data-anchor-id="community-means-and-community-weighted-means-with-summarise">5.4 Community means and community weighted means with <code>summarise()</code></h2>
 <p><code>summarise()</code> reduces the information to a single value per group, as defined by the <code>group_by()</code> function. We also used the <code>summarise()</code> function with <code>across()</code> and calculated the minimum, mean, median, maximum values, or the sum of the values.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ForestTypeName) <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass =</span> <span class="fu">mean</span>(Biomass))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass =</span> <span class="fu">mean</span>(Biomass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   ForestTypeName      meanBiomass
@@ -741,11 +740,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>When you become confident with joins and <code>summarise()</code>, you can even do something like this: We are working with env data, but at the same time, we want to use the summarised information from species data. We can calculate it directly in the pipeline without stepping outside, as there is no need to calculate and save intermediate steps separately.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(RELEVE_NR) <span class="sc">%&gt;%</span> </span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(<span class="at">name =</span> <span class="st">"Richness"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, Richness, Biomass, pH_KCl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">PlotID =</span> RELEVE_NR, ForestType, ForestTypeName, Richness, Biomass, pH_KCl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(RELEVE_NR)`</code></pre>
 </div>
@@ -768,9 +767,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code>summarise()</code> is often used for obtaining so-called <strong>community means</strong> or community-weighted means. For example, we have traits for individual species, and we want to calculate a mean for each site and compare it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height), <span class="at">.by =</span> RELEVE_NR)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height), <span class="at">.by =</span> RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 2
    RELEVE_NR meanHeight
@@ -790,9 +789,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>So far, we have had data with no missing values, but you will most likely encounter situations where there are some NAs. For this, you will need to use the argument <strong><code>na.rm = TRUE</code></strong>, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. The same issue occurred here, so we need to address it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height, <span class="at">na.rm =</span> T), <span class="at">.by =</span> RELEVE_NR)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height, <span class="at">na.rm =</span> T), <span class="at">.by =</span> RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 2
    RELEVE_NR meanHeight
@@ -812,11 +811,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can also consider using abundance to weight the result. This is called the <strong>community-weighted mean</strong>, and it assigns higher importance to species that are more abundant and lower importance to those that are rare. Here, the abundance is approximated as a percentage cover in the plot.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height, <span class="at">na.rm =</span> T),</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanHeight_weighted =</span> <span class="fu">weighted.mean</span>(Height, CoverPerc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> RELEVE_NR)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 3
    RELEVE_NR meanHeight meanHeight_weighted
@@ -836,12 +835,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You can see that the results are pretty different! Note that we are in a forest, so we now compare the heights of the dominant trees and the smaller, less abundant herbs. Especially for the CWM, it plays a huge role. Therefore, we will now calculate the CWM only for the herb-layer (6).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Layer <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanHeight =</span> <span class="fu">mean</span>(Height, <span class="at">na.rm =</span> T),</span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanHeight_weighted =</span> <span class="fu">weighted.mean</span>(Height, CoverPerc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> RELEVE_NR)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by =</span> RELEVE_NR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 3
    RELEVE_NR meanHeight meanHeight_weighted
@@ -861,12 +860,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Similarly, we can calculate community means across multiple variables simultaneously. Here, we will try the <strong>Ellenberg-type indicator values</strong> (abbreviated as EIV), which measure species demands for particular factors. The higher the value, the higher the demands or affinity to habitats with higher values of these environmental factors. We will apply them solely based on the presence of species; no weights will be used. Therefore, we do not need to care that much about the differences among layers. However, we will keep each species only once (a list of unique species for each plot), so we will remove information about layers first and use <code>distinct()</code>. An alternative is to add <code>filter(Layer == 6) %&gt;%</code> if we want to focus on the herb layer only.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Layer, CoverPerc)) <span class="sc">%&gt;%</span></span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RELEVE_NR) <span class="sc">%&gt;%</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 5
    RELEVE_NR EIV_Light EIV_Moisture EIV_Reaction EIV_Nutrients
@@ -886,26 +885,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">5.6 Exercises</h2>
+<h2 class="anchored" data-anchor-id="exercises">5.5 Exercises</h2>
 <p>1. Do a bit more with <strong>Forest understory</strong> data. Upload the env file called <code>Axmanova-Forest-env.xlsx</code>, create two subsets: <em>forest1</em>, where you select PlotID = RELEVE_NR, ForestType, ForestTypeName and <em>forest2</em>, with columns ForestType, pH_KCl, Biomass. Now use <code>left_join()</code> to match forest2 to forest1. What happened? Check how many times there are rows with the same PlotID using some simple functions.</p>
-<p>2. Upload the data from the <strong>Lepidoptera</strong> folder. First, load the env data and check its structure. The structure is inverted, so we will first transpose it to work with it normally.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/lepidoptera/env_char_MSVejnoha.xlsx"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># move 'Site' column to row names</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">%&gt;%</span>                               <span class="co"># transpose like Excel</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span>                   <span class="co"># back to data frame</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Site"</span>) <span class="sc">%&gt;%</span>  <span class="co"># make the row names a column again</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">view</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now look at the tibble again. Since we went through the step with the dataframe, everything has been changed to text. Add one more row to change everything to numeric (<code>as.numeric()</code>) except for the first column called Site (ID of the site) &gt;&gt; check the histogram of the cover of trees across sites &gt;&gt; prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of tress (select the tresholds based on the histogram) &gt; filter out the group with only low cover &gt;&gt; Import the spe data and filter to have the same sites in both files.</p>
+<p>2. Upload the data from the <strong>Lepidoptera</strong> folder “env_MSVejnoha_transposed.csv”. First, load the env data and check its structure. &gt;&gt; Check the histogram of the cover of trees across sites &gt;&gt; prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of trees (select the thresholds based on the histogram) &gt;&gt; filter out the group with only low cover and assign it to <em>lepidoptera_env_selection</em> &gt;&gt; Import the species data from the same folder and filter this data to <em>lepidoptera_spe_selection</em>, where you will have only the same sites as in the env selection.</p>
 <p>3. Upload <strong>Penguins data</strong> &gt; check names (<code>penguins</code>) &gt; calculate mean weight and SD of weight for different penguin species &gt; visualise the results by <code>ggplot</code> (<code>geom_col()</code>).</p>
-<p>4. Stay with Penguins, count how many individuals are at each island and to which species they belong. Use a ggplot to visualise this. *Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.</p>
-<p>5. Get back to the <strong>Forest understory</strong> species file (<code>Axmanova-Forest-spe.xlsx</code>). In the data you can see which species occur in the tree layer (=1) &gt; prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e.&nbsp;tree with highest cover (<em>for simplicity, specify in the <code>slice_max()</code> to take just <code>n = 1, with_ties = F</code></em>) &gt; append it to env data &gt; summarise counts of plots with each of the dominant. *Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.</p>
+<p>4. Stay with Penguins, count how many individuals are on each island and to which species they belong. Use a ggplot to visualise this. *Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.</p>
+<p>5. Get back to the <strong>Forest understory</strong> species file (<code>Axmanova-Forest-spe.xlsx</code>). In the data, you can see which species occur in the tree layer (=1) &gt; prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e.&nbsp;tree with highest cover (<em>for simplicity, specify in the <code>slice_max()</code> to take just <code>n = 1, with_ties = F</code></em>) &gt; append it to env data &gt; summarise counts of plots with each of the dominant. *Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.</p>
 <p>6. Use forest datasets - species and traits &gt; calculate community mean and community weighted mean for SeedMass. *Create boxplots for these means within forest types (info about forest type is available in the env file).</p>
 </section>
 <section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">5.7 Further reading</h2>
+<h2 class="anchored" data-anchor-id="further-reading">5.6 Further reading</h2>
 <p>Joins - chapter in R for Data Science: <a href="https://r4ds.hadley.nz/joins.html" class="uri">https://r4ds.hadley.nz/joins.html</a></p>
 <p>Summarise: <a href="https://dplyr.tidyverse.org/reference/summarise.html" class="uri">https://dplyr.tidyverse.org/reference/summarise.html</a></p>
 <p>Summarise multiple columns: <a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="uri">https://dplyr.tidyverse.org/reference/summarise_all.html</a></p>
@@ -922,8 +911,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- # bird collisions -->
 <!-- # https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-04-30 -->
 <!-- # numbats <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-03-07/numbats.csv') -->
-<!-- ADD keep all - distinct, -->
-<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist   -->
 
 
 </section>
@@ -980,14 +967,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

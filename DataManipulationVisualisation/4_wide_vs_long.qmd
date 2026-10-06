@@ -9,6 +9,10 @@ In this chapter, we will examine various data formats and learn how to convert b
 
 <!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means move to the chapter 5 and 10  -->
 
+<!--add mutate ifelse with other symbols  -->
+
+<!--unite and separate with different separator  -->
+
 ## 4.1 Data formats
 
 There are two main ways in which the data can be organised across rows and columns—wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, but value it relatively to the total area, i.e. percentage of total area). The covers of species might overlap, as they grow in different heights.
@@ -87,7 +91,7 @@ Note that the function that works in the opposite direction is called `separate(
 ```{r}
 spe %>% 
   rename(PlotID = RELEVE_NR) %>%
-  mutate(Species = str_replace_all(Species, " ", "_")) %>%
+  mutate(Species = str_replace_all(Species, " ", ".")) %>%
   unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = FALSE) 
 ```
 
@@ -96,7 +100,7 @@ At this point, we have everything we need to use it as input for the wide-format
 ```{r}
 spe %>% 
   rename(PlotID = RELEVE_NR) %>%
-  mutate(Species = str_replace_all(Species, " ", "_")) %>%
+  mutate(Species = str_replace_all(Species, " ", ".")) %>%
   unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = FALSE) %>%
   select(PlotID, Species, Layer)
 ```
@@ -106,7 +110,7 @@ Now we can finally use the **`pivot_wider()`** function to transform the data. W
 ```{r}
 spe %>% 
   rename(PlotID = RELEVE_NR) %>%
-  mutate(Species = str_replace_all(Species, " ", "_")) %>%
+  mutate(Species = str_replace_all(Species, " ", ".")) %>%
   unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = TRUE) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc)
 ```
@@ -116,7 +120,7 @@ There are different combinations of species in each plot, with some species pres
 ```{r}
 spe %>% 
   rename(PlotID = RELEVE_NR) %>%
-  mutate(Species = str_replace_all(Species, " ", "_")) %>%
+  mutate(Species = str_replace_all(Species, " ", ".")) %>%
   unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = TRUE) %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc,
               values_fill = 0) -> spe_wide
@@ -236,7 +240,7 @@ spe %>%
 
 \*Note that sometimes you might encounter situations where there are NAs in the data. For this, you will need to use the argument **`na.rm = TRUE`**, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. For more, see the next chapter.
 
-## 4.6 \*rowSums, \*n_distinct
+## 4.6 \*`rowSums`, \*`n_distinct`
 
 \*Another useful thing is knowing how to sum values across multiple columns and save the result in another column, i.e., row-wise sum. The relevant function is called **`rowSums()`**. We will examine the example of frozen fauna data availability. First, we will transform the table into a tidy format as you can see that we cannot work with the data directly.
 
@@ -362,10 +366,6 @@ The advantage of **`.by`** is that it works only within the `mutate()` function.
 Import `Example4` from the **`messy_data`** and try to find duplicate rows.
 
 8\. \* Import `Example2` from the Messy data and try to make the data tidy with the use of the `separate()` function. This works in an opposite direction to `unite()`.
-
-<!--add mutate ifelse with other symbols  -->
-
-<!--unite and separate with different separator  -->
 
 9\. We will switch to another dataset, **Species Forest Data** - `Axmanova-Forest-spe.xlsx`. This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here, RELEVE_NR). For each species, it is indicated in which vegetation layer it occurred, and an estimation of its abundance is in the form of percentage cover.
 

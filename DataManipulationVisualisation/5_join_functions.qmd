@@ -3,11 +3,17 @@ title: "5 Join Functions"
 author: "Irena Axmanová"
 ---
 
-In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also utilise our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`). We will also use `mutate()` with additional conditions (`ifelse()`*,* `case_when()`).
+In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also use our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`). We will also use `mutate()` with additional conditions (`ifelse()`*,* `case_when()`).
 
-<!--add filtering joins and remove advanced mutate and summarise  -->
+<!--add more examples on filtering joins  -->
+
+<!-- remove advanced mutate and summarise, keep only community means  -->
 
 <!--add ungroup  -->
+
+<!-- ADD keep all - distinct, -->
+
+<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist - either here or chapter 10   -->
 
 ![](images/clipboard-3097956773.png)
 
@@ -17,7 +23,7 @@ Credits: <https://r4ds.hadley.nz/joins.html>
 
 In most cases, the data you need for analyses is not organised in one file, but rather in multiple files. For example, we have measured characteristics, known as traits, for each species in the region, and we have species lists for all the sites. To calculate the mean values of selected traits for each site, we must first append the information to individual records. For this, we will use the function called `left_join()`, which belongs to the group of **mutating joins** available in the `tidyverse` package `dplyr`.
 
-![](images/clipboard-3580080053.png)This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the `by` argument. It will append all the columns available in the second "lifeforms" dataset, but only for rows where there is an exact match. Although we have information for other species, such as *Abies alba* or *Carex sylvatica*, these do not have matching rows in the first dataset, "data", and the information will therefore not be used. This means that `left_join()` is only selecting rows that are present in the first dataset. If the information is missing in the matching file, for example, if there is no information for *Trientalis europaea* in the lifeforms dataset, the resulting file will contain NA.
+![](images/clipboard-3580080053.png)This function will automatically look for columns with exactly matching names, or we can specify the corresponding variables directly using the `by` argument. It will append all the columns available in the second "lifeforms" dataset, but only for rows where there is an exact match. Although we have information for other species, such as *Abies alba* or *Carex sylvatica*, these do not have matching rows in the first dataset named "data", and the information will therefore not be used. This means that `left_join()` is only selecting rows that are present in the first dataset. If the information is missing in the matching file, for example, if there is no information for *Trientalis europaea* in the lifeforms dataset, the resulting file will contain NA.
 
 Let's train a bit. Start a new script for this chapter again.
 
@@ -47,7 +53,7 @@ If we try to merge these two files directly, it does not work. We will get a war
 spe %>% left_join(traits)
 ```
 
-So there are more options for what we can do. We verify the data and find that the required information to match is stored once as 'Species' (in the data) and once as 'Taxon' (in traits).
+So there are more options for what we can do. We check the data and find out that the corresponding/matching information is stored once as 'Species' (in the data) and once as 'Taxon' (in traits).
 
 ```{r}
 tibble(spe)
@@ -77,11 +83,11 @@ We can also skip the `rename()` step and directly say in the `left_join()` funct
 spe %>% left_join(traits, by = c("Species" = "Taxon"))
 ```
 
-Note that `left_join()` is a great help. However, you should always consider the data. If you have more potentially matching rows, you can create a lot of unwanted mess with `left_join()`. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)
+Note that `left_join()` is a great help. However, you should always check or know well the data. If you have more matching rows, you can create a lot of unwanted mess with `left_join()`. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)
 
 ## 5.2 `full_join()` vs. `bind_rows()`
 
-Sometimes it is needed to match both datasets. In contrast to `left_join()`, `full_join()` will also add additional rows that appear in the other dataset.
+Sometimes it is needed to match both datasets exactly as they are. First we will look at the full_join. In contrast to `left_join()`, `full_join()` will also add additional rows that appear in the other dataset.
 
 ![](images/clipboard-1035988765.png)
 
@@ -93,7 +99,7 @@ We will upload the forest env data and make two subsets to train a bit.
 env <- read_xlsx("data/forest_understory/Axmanova-Forest-env.xlsx")
 ```
 
-In the first subset, we will use only the first two forest types, namely oak and oak-hornbeam forests and the selection of variables.
+In the first subset, we will use only the first two forest types, namely oak and oak-hornbeam forests and the following selection of variables.
 
 ```{r}
 forest1 <- env %>% filter(ForestType %in% c(1, 2)) %>% 
@@ -187,7 +193,7 @@ Sometimes you may need the opposite - to keep only rows/IDs that are not in the 
 
 ![](images/clipboard-1417970058.png)
 
-## 5.5 Community means and community weighted means with `summarise()`
+## 5.4 Community means and community weighted means with `summarise()`
 
 `summarise()` reduces the information to a single value per group, as defined by the `group_by()` function. We also used the `summarise()` function with `across()` and calculated the minimum, mean, median, maximum values, or the sum of the values.
 
@@ -256,33 +262,21 @@ spe %>%
   summarise(across(starts_with("EIV"), ~mean(.x, na.rm = TRUE)))
 ```
 
-## 5.6 Exercises
+## 5.5 Exercises
 
 1\. Do a bit more with **Forest understory** data. Upload the env file called `Axmanova-Forest-env.xlsx`, create two subsets: *forest1*, where you select PlotID = RELEVE_NR, ForestType, ForestTypeName and *forest2*, with columns ForestType, pH_KCl, Biomass. Now use `left_join()` to match forest2 to forest1. What happened? Check how many times there are rows with the same PlotID using some simple functions.
 
-2\. Upload the data from the **Lepidoptera** folder. First, load the env data and check its structure. The structure is inverted, so we will first transpose it to work with it normally.
-
-```{r}
-env <- read_xlsx("data/lepidoptera/env_char_MSVejnoha.xlsx") %>%
-  column_to_rownames(var = "Site") %>%  # move 'Site' column to row names
-  t() %>%                               # transpose like Excel
-  as.data.frame() %>%                   # back to data frame
-  rownames_to_column(var = "Site") %>%  # make the row names a column again
-  as_tibble() %>% 
-  view()
-```
-
-Now look at the tibble again. Since we went through the step with the dataframe, everything has been changed to text. Add one more row to change everything to numeric (`as.numeric()`) except for the first column called Site (ID of the site) \>\> check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of tress (select the tresholds based on the histogram) \> filter out the group with only low cover \>\> Import the spe data and filter to have the same sites in both files.
+2\. Upload the data from the **Lepidoptera** folder "env_MSVejnoha_transposed.csv". First, load the env data and check its structure. \>\> Check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_cover_groups corresponding to low/medium/high cover of trees (select the thresholds based on the histogram) \>\> filter out the group with only low cover and assign it to *lepidoptera_env_selection* \>\> Import the species data from the same folder and filter this data to *lepidoptera_spe_selection*, where you will have only the same sites as in the env selection.
 
 3\. Upload **Penguins data** \> check names (`penguins`) \> calculate mean weight and SD of weight for different penguin species \> visualise the results by `ggplot` (`geom_col()`).
 
-4\. Stay with Penguins, count how many individuals are at each island and to which species they belong. Use a ggplot to visualise this. \*Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.
+4\. Stay with Penguins, count how many individuals are on each island and to which species they belong. Use a ggplot to visualise this. \*Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.
 
-5\. Get back to the **Forest understory** species file (`Axmanova-Forest-spe.xlsx`). In the data you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover (*for simplicity, specify in the `slice_max()` to take just `n = 1, with_ties = F`*) \> append it to env data \> summarise counts of plots with each of the dominant. \*Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.
+5\. Get back to the **Forest understory** species file (`Axmanova-Forest-spe.xlsx`). In the data, you can see which species occur in the tree layer (=1) \> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. tree with highest cover (*for simplicity, specify in the `slice_max()` to take just `n = 1, with_ties = F`*) \> append it to env data \> summarise counts of plots with each of the dominant. \*Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.
 
 6\. Use forest datasets - species and traits \> calculate community mean and community weighted mean for SeedMass. \*Create boxplots for these means within forest types (info about forest type is available in the env file).
 
-## 5.7 Further reading
+## 5.6 Further reading
 
 Joins - chapter in R for Data Science: <https://r4ds.hadley.nz/joins.html>
 
@@ -315,7 +309,3 @@ case_when example: <https://rpubs.com/jenrichmond/case_when>
 <!-- # https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-04-30 -->
 
 <!-- # numbats <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-03-07/numbats.csv') -->
-
-<!-- ADD keep all - distinct, -->
-
-<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist   -->
