@@ -276,6 +276,8 @@ spe %>%
 
 6\. Use forest datasets - species and traits \> calculate community mean and community weighted mean for SeedMass. \*Create boxplots for these means within forest types (info about forest type is available in the env file).
 
+<!--filtering joins / prepare filtered dataset of traits for only the list of tree layer species  -->
+
 ## 5.6 Further reading
 
 Joins - chapter in R for Data Science: <https://r4ds.hadley.nz/joins.html>

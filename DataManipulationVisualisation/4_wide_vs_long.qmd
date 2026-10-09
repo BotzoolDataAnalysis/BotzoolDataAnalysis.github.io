@@ -5,21 +5,17 @@ author: "Irena Axmanová"
 
 In this chapter, we will examine various data formats and learn how to convert between them. We will define groups within the data and calculate several statistics for them using summarise functions.
 
-<!--add advanced mutate with by from the chapter 5 joins DONE  -->
-
-<!--add advanced summarise from the chapter 5 joins /  just a selection and coomunity weighted means move to the chapter 5 and 10  -->
-
 <!--add mutate ifelse with other symbols  -->
 
 <!--unite and separate with different separator  -->
 
 ## 4.1 Data formats
 
-There are two main ways in which the data can be organised across rows and columns—wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and at each site we also estimated their abundance, here approximated as percentage cover (higher value means that the species covered larger area of the surveyed vegetation plot, but we do not give the area itself, but value it relatively to the total area, i.e. percentage of total area). The covers of species might overlap, as they grow in different heights.
+There are two main ways in which the data can be organised across rows and columns—wide or long format. We will show you an example of spruce forest data, where we recorded plant species in several sites and, at each site, we also estimated their abundance, here approximated as percentage cover (a higher value means that the species covered a larger area of the surveyed vegetation plot, but we do not give the area itself, but relatively to the total area, i.e. percentage of the total area). Note that the cover of species might overlap, as they grow at different heights.
 
 ![](images/clipboard-1036617063.png)
 
-**Wide format** is more conservative and used in many older packages for ecological data analysis. In our example, we list all species, and the columns are used to indicate their abundance at each site. This is the way you need to prepare your species matrix for ordinations in `vegan`. However, wide format also has many cons.
+**Wide format** is more conservative and used in many older packages for ecological data analysis. In our example, we list all species, and the columns correspond to individual sites/samples, and the values indicate species abundance at each site. This type of data is often called a species matrix, and you would need this arrangement e.g. for ordinations in `vegan`. However, the wide format also has many cons.
 
 One of them is the file size. In the example above, there is an abundance of given plants in each of the sites. When a species is present at only one site, such as *Trientalis europaea*, it still occupies space across the entire table, where there can be hundreds or thousands of sites. The table code, of course, is memory-demanding.
 
@@ -44,10 +40,10 @@ library(readxl)
 library(janitor)
 ```
 
-Now, we will import the data. In the first example, we will again use the `Forest understory data` from our folder: [`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). However, this time we will upload the species data saved in a long format, and we will prepare a species matrix in a wide format, so that it can be used in specific ecological analyses, e.g. in `vegan`.
+Now, we will import the data. In the first example, we will again use the `Forest understory data` from our folder. However, this time we will upload the species data saved in a long format, and we will prepare a species matrix in a wide format, so that it can be used in specific ecological analyses, e.g. in `vegan`.
 
 ```{r}
-spe <- read_excel("data/forest_understory/Axmanova-Forest-spe.xlsx")
+spe <- read_csv("data/forest_understory/Axmanova-Forest-spe.csv")
 tibble(spe)
 ```
 
@@ -59,7 +55,7 @@ spe %>%
   mutate(Species = str_replace_all(Species, " ", "_"))
 ```
 
-\*If you want to play a bit, you can create a new column (e.g. SpeciesNew) to see both the original name and the changed name.
+\*If you want to play a bit, you can create a new column (e.g. SpeciesNew) to see both the original name and the changed name and test also other types of separators.
 
 ```{r}
 spe %>%
@@ -78,7 +74,7 @@ spe %>%
   select(PlotID, Species, SpeciesNew, check) #select only relevant to see at a first glance
 ```
 
-We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here, we will deviate slightly from tidy rules and add the information about the vegetation layer directly to the variable Species using the **`unite()`** function from the `tidyr` package, which merges strings from two or more columns into a new one: **A+B =** **A_B**. Default separator is again underscore, unless you specify it differently by the `sep` argument.
+We have the condensed name with underscores, but there are still more variables in the table. We can either remove them or merge them to be included in the final wide format. Here, we will deviate slightly from tidy rules and add the information about the vegetation layer directly to the variable Species using the **`unite()`** function from the `tidyr` package, which merges strings from two or more columns into a new one: **A+B =** **A_B**. Default separator is again underscore, unless you specify it differently by the `sep` argument e.g. `sep= "."`
 
 ![](images/clipboard-1752338144.png)
 
@@ -86,13 +82,20 @@ Argument `na.rm` indicates what to do if in one of the combined columns there is
 
 The `remove` argument set to TRUE will remove the original columns that we used to combine the new one (in the example above, you will have only z). In our case, we will keep the original columns for visual checking, and we will use the `select()` function in the next step to remove them.
 
-Note that the function that works in the opposite direction is called `separate()` or `separate_wider_delim()`.
+```{r}
+spe %>% 
+  rename(PlotID = RELEVE_NR) %>%
+  mutate(Species = str_replace_all(Species, " ", "_")) %>%
+  unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = FALSE) 
+```
+
+Note that the function that works in the opposite direction is called `separate()` or, more recently, it is recommended to use `separate_wider_delim()`. To make it easier to later separate the information about layer, we can decide to use one separator within the species-name string (e.g. ".") and another separator to attach the layer information (here I specify it in the sep argument, but the default would be the same).
 
 ```{r}
 spe %>% 
   rename(PlotID = RELEVE_NR) %>%
   mutate(Species = str_replace_all(Species, " ", ".")) %>%
-  unite("SpeciesLayer", Species, Layer, na.rm = TRUE, remove = FALSE) 
+  unite("SpeciesLayer", Species, Layer, sep= "_", na.rm = TRUE, remove = FALSE) 
 ```
 
 At this point, we have everything we need to use it as input for the wide-format table: PlotID, SpeciesLayer, and the values of abundance saved as CoverPerc. One more step is to select only these or deselect (-) those that are not needed.
@@ -115,7 +118,7 @@ spe %>%
   pivot_wider(names_from = SpeciesLayer, values_from = CoverPerc)
 ```
 
-There are different combinations of species in each plot, with some species present and others absent. Since we changed the format, all species, even those not occurring at that particular site or plot, must have some values. In long format, abundance or other information is not stored for absent species, so they are assigned NAs. Therefore, one additional step is to fill the empty cells with zeros using **values_fill**. In this case, we can do that because we know that if the species were absent, its abundance was exactly 0.
+There are different combinations of species in each plot, with some species present and others absent. Since we changed the format, all species, even those not occurring at that particular site or plot, must have some values. In long format, abundance or other information is not stored for absent species, so they are assigned NAs. Therefore, one additional step is to fill the empty cells with zeros using **values_fill**. In this case, we can do that because we know that if the species were absent, its abundance was exactly 0. I will assign the results to a new object called spe_wide.
 
 ```{r}
 spe %>% 
@@ -128,7 +131,7 @@ spe %>%
 
 ## 4.3 From wide to long
 
-Sometimes, it is necessary to transform data **from wide to long** format. Here, we need to say which column should not be changed, which is the PlotID (**`cols = -PlotID`**). Alternatively, `-1` would also work.
+Sometimes, it is necessary to transform data **from wide to long** format. Here, we need to say which column should not be changed, which is the PlotID (**`cols = -PlotID`**). Alternatively, `-1` would also work here. It means skip the first column from pivoting and take all the other columns. Since this argument always goes first, you can write it even without "cols" e.g. ...pivot_longer(-1, names_to = 'species', values_to = 'cover') .
 
 Then we specify what to do with the column names, how they should be saved (**names_to**). And how to call the column with values (**values_to**).
 
@@ -145,18 +148,38 @@ spe_wide %>%
   filter(!cover == 0)
 ```
 
-Sometimes, we have data with NAs (not zeros). Here, it is very useful to use argument **`values_drop_na`**`= TRUE`.
+Sometimes, we have data with NAs (not zeros). Here, it is very useful to use the argument **`values_drop_na`**`= TRUE`.
 
 ```{r}
 spe_wide %>% 
   pivot_longer(cols = -PlotID, names_to = 'species', values_to = 'cover', values_drop_na = TRUE)
 ```
 
+Sometimes you get the data in wide format but want to continue with analyses in long. And for that you want to separate the information about layer to another column.
+
+```{r}
+spe_wide %>%
+  pivot_longer(cols = -PlotID, 
+               names_to = 'species_layer', values_to = 'cover') %>% 
+  separate_wider_delim(species_layer, "_", names = c("species", "layer"))
+
+```
+
+**\***When you check the result, you can also want to change the species name from the condensed form to a normal one e.g. *Abies.alba* to *Abies alba*. Do you know how to do it? Since we used "." as a separator, we need to be careful with parts of the string like "agg." where the dot has a meaning and should stay. We can play with the regex to specify that only the dots not followed by any other word should be replaced.
+
+```{r}
+spe_wide %>%
+  pivot_longer(cols = -PlotID, 
+               names_to = 'species_layer', values_to = 'cover') %>% 
+  separate_wider_delim(species_layer, "_", names = c("species", "layer")) %>% 
+  mutate(species_new =str_replace_all(species, "\\.(?=\\w)", " "))
+```
+
 ## 4.4 `group_by()`, `count()`
 
 Using the **`group_by()`** function, we can define how the data should be arranged into groups. Then we can proceed with asking questions about these groups. The basic function of summarising information is to count the number of rows.
 
-In the first example, we are working with a species list in a long format. We can easily calculate the number of species in each plot/sample by counting the corresponding number of rows. First, you have to specify what the grouping variable is. In this case, it would be PlotID. And then you can directly count.
+In the first example, we are working with a species list in a long format. We can easily calculate the number of species in each plot/sample by counting the corresponding number of rows. First, you have to specify what the grouping variable is. In this case, it would be PlotID. Then you can directly count.
 
 ```{r}
 spe %>% 
@@ -165,20 +188,28 @@ spe %>%
   count()
 ```
 
-`count()` returns the number of rows in a new variable called n. You can directly put an extra line in your code and rename it. e.g. `rename(SpeciesRichness = n)`. Note that in this case, we simply counted all the rows. However, we know that some woody species may be recorded in the tree vegetation layer as shrubs or as small juveniles, so we potentially calculated such species three times. We can experiment with the `distinct()` function and remove the layer information. Is there a difference in the resulting numbers?
+`count()` returns the number of rows in a new variable called **n**. You can directly put an extra line in your code and rename it. e.g. `rename(SpeciesRichness = n)` or you can add an argument `name=` to say how it should be named in the count.
+
+```{r}
+spe %>% 
+  group_by(PlotID=RELEVE_NR) %>%
+  count(name = "richness")
+```
+
+Note that in this case, we simply counted all the rows. However, we know that some woody species may be recorded in the tree vegetation layer as shrubs or as small juveniles, so we potentially calculated such species three times. We can experiment with the `distinct()` function and remove the layer information. Is there a difference in the resulting numbers?
 
 ```{r}
 spe %>% 
   distinct(PlotID = RELEVE_NR, Species) %>%
   group_by(PlotID) %>%
-  count() %>%
-  rename(SpeciesRichness = n)
+  count()
+ 
 ```
 
 The `count()` function can also be used in other cases. For example, we are interested in how many rows/plots/samples in the table are assigned to vegetation types. We will upload a table with descriptive characteristics for each forest plot, named `env`, which is a shortcut often used for an environmental data file.
 
 ```{r}
-env <- read_excel("data/forest_understory/Axmanova-Forest-env.xlsx")
+env <- read_csv("data/forest_understory/Axmanova-Forest-env.csv")
 tibble(env)
 ```
 
@@ -190,18 +221,18 @@ env %>%
   count() 
 ```
 
-**We can even skip the `group_by()` step** and directly specify what to count, which is very useful.
+What is great, **we can even skip the `group_by()` step** and directly specify what to count, which is very useful.
 
 ```{r}
 env %>% 
-  count(ForestTypeName)
+  count(ForestTypeName, name="number_of_plots")
 ```
 
 The `count()` function can be very useful for checking duplicate rows. You can ask to count, for example, IDs in the file where you expect a unique ID in each row and filter those results that have more occurrences than 1. In the example below, each ID was used just once, so the filter returns no rows. Such a check is especially important if you need to append additional information using join functions.
 
 ```{r}
 env %>% 
-  count(PlotID = RELEVE_NR) %>%
+  count(RELEVE_NR) %>%
   filter(n > 1)
 ```
 
@@ -215,6 +246,13 @@ env %>%
   summarise(meanBiomass = mean(Biomass))
 ```
 
+Another option is to add the grouping directly to the function - which gives us more flexibility later. See further.
+
+```{r}
+env %>% 
+  summarise(meanBiomass = mean(Biomass), .by = ForestTypeName)
+```
+
 We can also define more variables we want to summarise and more functions we want to apply. Try to find out more [`here`](https://dplyr.tidyverse.org/reference/summarise_all.html). Below is an example of the iris dataset, where we calculated the minimum, mean, and maximum values for sepal length and width in different species.
 
 ```{r}
@@ -225,12 +263,12 @@ glimpse(iris)
 iris %>% 
   group_by(Species) %>%
   summarise(across(c(Sepal.Length, Sepal.Width), 
-                   list(min = min, 
-                        mean = mean, 
-                        max = max)))
+                   list(min_value = min, 
+                        mean_value = mean, 
+                        max_value = max)))
 ```
 
-`summarise()` is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of parasites, endangered species, or alien species. Alternatively, we can calculate the **community means** or **community weighted means** of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information and therefore we will go into more detail in the next chapter.
+`summarise()` is also very useful for species data. For example, we can calculate the total abundance, approximated as cover, of all plants in the plot/sample. Later on, we can ask about the relative share of some species groups, endangered species, alien species etc. Alternatively, we can calculate the **community means** or **community weighted means** of specific traits, such as the mean height of the plants or their mean leaf area index. For this, we would have to append new information and therefore we will go into more detail in the next chapter.
 
 ```{r}
 spe %>%   
@@ -299,7 +337,7 @@ env %>% mutate(across(c(Radiation, Heat), ~ round(.x, digits = 2))) %>%
 
 **`.x`** refers to the entire column (vector) being transformed inside a function like `mutate(across(...))` or `map()`.
 
-Alternatively, if you have a large table with only measured variables, you can specify what should not be used, here Species, and `mutate()` will be applied to everything left. This is especially useful for changing formats, e.g., from character to numeric (using the function `as.numeric()`).
+Alternatively, if you have a large table with only measured variables, you can specify which variable the `mutate` should not be applied to, here Species, and it will be applied to everything else. This is especially useful for changing formats, e.g., from character to numeric (using the function `as.numeric()`).
 
 ```{r}
 iris %>%    
@@ -307,7 +345,7 @@ iris %>%
   mutate(across(-Species,~round(.x, digits = 1)))
 ```
 
-You can even create a list of functions which should be applied. The `relocate()` function was used here to shift all the Sepal variables before the first variable (just for an easier check).
+You can even create a list of functions which should be applied. \*The `relocate()` function was used here to shift all the Sepal variables before the first variable (just for an easier check).
 
 ```{r}
 iris%>%    
@@ -343,35 +381,35 @@ env %>%
            TRUE ~ "equal"),     .by = ForestType)
 ```
 
-We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While the `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
+We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
 
 The advantage of **`.by`** is that it works only within the `mutate()` function.
 
 ## 4.6 Exercises
 
-1\. **Forest Understory Data** - download the data from the repository ([`Link to Github folder`](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)`)` and save it into your project folder. This dataset is used in the chapter above; please use it to prepare your own script with remarks, copy, and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.xlsx`, and environmental data `Axmanova-Forest-env.xlsx`
+1\. **Forest Understory Data** - download the data from the repository (see chapter 1 intro) This dataset is used in the chapter above; please use it to prepare your own script with remarks, copy, and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.csv`, and environmental data `Axmanova-Forest-env.csv`
 
-2\. Use the **Spruce forest data** used in the graphical example at the beginning of this chapter. *2a,* Import `spruce_forestWIDE.xlsx` \> transform *wide to long* format \> keep only true presences \> calculate species richness for each site (count of number of species). *2b,* Import also `spruce_forestLONG.xlsx` \> and transform *long to wide* format.
+2\. Use the **Spruce forest data** used in the graphical example at the beginning of this chapter. Import `spruce_forestWIDE.xlsx` (use library readxl) \>\> transform *wide to long* format \>\> keep only true presences \>\> arrange sites so that all the species from site 1 are listed, then form site2... \>\> calculate species richness for each site (count of number of species). Did you included
 
-3\. Train the transformation of *wide to long* with another dataset, **Acidophilous grasslands,** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check the structure. Then, transform the format to long and remove absences. \*Use the `separate_wider_delim()` function to separate information about the species name and layer into two variables.
+3\. Import also `spruce_forestLONG.xlsx` \>\> check the structure \>\> merge the information about species name and layer \>\> transform *long to wide* format \>\> fill empty values as zeros.
 
-4\. Work with the dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \> transform to long format \> count number of individuals at each site \> create barplot to visualise the differences (ggplot2, geom_col). \*For comparison, you can calculate the number of species (unique names) and visualise this as well.
+4\. Train the transformation of *wide to long* with another dataset, **Acidophilous grasslands,** namely the species file called `SW_moravia_acidgrass_species.csv`. Import the data and check the structure. Then, transform the format to long and remove absences. Use the `separate_wider_delim()` function to separate information about the species name and layer into two variables.
 
-5\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable which will combine Forest type code and name (unite) \> calculate mean values of biomass for these forest types (group_by, summarise) \> prepare a graph with boxplots of forest type and biomass (ggplot2, geom_boxplot). \*You can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
+5\. Work with the dataset **Lepidoptera**, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \>\> transform to long format \>\> summarise the number of all individuals of all species recorded at each site into variable all_individuals \>\> create a barplot to visualise the differences (ggplot2, geom_col). Tip: use `aes(x = reorder(site, -all_individuals)`
 
-6\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed, change the format to tibble using the `as_tibble()` function (`iris.data <- iris %>% as_tibble()`) \> calculate median values for selected parameters within different iris species.
+\*For comparison, you can calculate the number of species (unique names) and visualise this as well.
 
-> 7\. “*Tidy datasets are all alike, but every messy dataset is messy in its own way.*” Hadley Wickham
+6\. Use **Forest understory environmental data** `Axmanova-Forest-env.xlsx`\> prepare a new variable "forest_type" which will combine Forest type code and name (use unite function) \>\> calculate mean values of biomass for these forest_types (group_by, summarise) \>\> prepare a graph with boxplots of biomass in the forest_types (ggplot2, geom_boxplot). \*You can also play more with the data, calculate min, mean and max values for biomass and soil pH at once.
 
-Import `Example4` from the **`messy_data`** and try to find duplicate rows.
+6\. We will use the **iris dataset** integrated in R. Use glimpse(iris) to check the structure \> if needed, change the format to tibble using the `as_tibble()` function (`iris.data <- iris %>% as_tibble()`) \>\> calculate median values for selected parameters within different iris species.
 
-8\. \* Import `Example2` from the Messy data and try to make the data tidy with the use of the `separate()` function. This works in an opposite direction to `unite()`.
+7\*. We will now check the examples of **`messy_data`** again. “*Tidy datasets are all alike, but every messy dataset is messy in its own way.*” Hadley Wickham
 
-9\. We will switch to another dataset, **Species Forest Data** - `Axmanova-Forest-spe.xlsx`. This is a long-format of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here, RELEVE_NR). For each species, it is indicated in which vegetation layer it occurred, and an estimation of its abundance is in the form of percentage cover.
+\>\>Import `Example4` \>\>try to find duplicate rows and remove them.
 
-Import the data and check the structure \> change it to presence-absence data (abundance set to 1) \*Alternatively, prepare presence-absence data without considering different layers and save both lists on two different sheets of the Excel file.
+8\. \* Import `Example2` from the messy data and try to make the data tidy with the use of the `separate_wider_delim()` function.
 
-10\. Stay with the same dataset, we will try to get the list of all species occurring in the tree layer. Import the data \> sort the species data alphabetically \> get the list of unique species names of the tree layer (i.e. layer == 1) \> print, view all the species or store them as a new dataset. Save the result into csv file.
+<!--We will switch to another dataset, Species Forest Data Axmanova-Forest-spe.xlsx. This is a long-format dataset of the plant species recorded in the vegetation plots. Long format means that the records of species from one site are grouped by the same ID (here, RELEVE_NR). For each species, it is indicated in which vegetation layer it occurred, and an estimate of its abundance is in the form of percentage cover.Import the data and check the structure > change it to presence-absence data (abundance set to 1). *Alternatively, prepare presence-absence data without considering different layers. Stay with the same dataset, prepare a list of all trees - i.e. the list of all species occurring in the tree layer (layer == 1). Import the data > sort the species data alphabetically >> get the list of unique species names of the tree layer > print, view all the species or store them as a new dataset. Save the result into csv file.  -->
 
 ## 4.7 Further reading
 

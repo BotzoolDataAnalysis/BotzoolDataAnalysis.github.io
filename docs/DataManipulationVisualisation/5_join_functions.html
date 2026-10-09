@@ -892,6 +892,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>4. Stay with Penguins, count how many individuals are on each island and to which species they belong. Use a ggplot to visualise this. *Prepare a wide-format matrix with islands as rows and species as names, where values will be counts of individuals.</p>
 <p>5. Get back to the <strong>Forest understory</strong> species file (<code>Axmanova-Forest-spe.xlsx</code>). In the data, you can see which species occur in the tree layer (=1) &gt; prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e.&nbsp;tree with highest cover (<em>for simplicity, specify in the <code>slice_max()</code> to take just <code>n = 1, with_ties = F</code></em>) &gt; append it to env data &gt; summarise counts of plots with each of the dominant. *Alternatively, you can prepare a script, where all spe data handling will be a part of the pipeline of env data handling.</p>
 <p>6. Use forest datasets - species and traits &gt; calculate community mean and community weighted mean for SeedMass. *Create boxplots for these means within forest types (info about forest type is available in the env file).</p>
+<!--filtering joins / prepare filtered dataset of traits for only the list of tree layer species  -->
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">5.6 Further reading</h2>
