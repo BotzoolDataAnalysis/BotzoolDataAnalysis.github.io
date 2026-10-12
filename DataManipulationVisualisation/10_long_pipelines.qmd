@@ -3,3 +3,10 @@ title: "10 Advanced pipeline workflows"
 format: html
 ---
 
+<!--add mutate ifelse with other symbols  -->
+
+<!--add ungroup  -->
+
+<!--pivot with values_drop_na  -->
+
+<!--regex? species names?  -->

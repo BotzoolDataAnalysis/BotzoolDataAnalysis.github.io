@@ -11,7 +11,7 @@ In this chapter, we will learn how to merge information from another dataset (us
 
 <!--add ungroup - here or to the chapter 10  -->
 
-<!-- ADD keep all - distinct, -->
+<!-- ADD keep all and n-distinct, -->
 
 <!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist - either here or chapter 10   -->
 
