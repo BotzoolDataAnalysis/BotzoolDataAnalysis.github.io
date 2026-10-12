@@ -984,13 +984,24 @@ $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setos
 </div>
 <p>Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>       </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unique_species_layer =</span> <span class="fu">n_distinct</span>(<span class="fu">interaction</span>(Species, Layer)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span>  </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unique_species_layer =</span> <span class="fu">n_distinct</span>(<span class="fu">interaction</span>(Species, Layer)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  unique_species_layer
-                 &lt;int&gt;
-1                  369</code></pre>
+<pre><code># A tibble: 316 × 2
+   Species                   unique_species_layer
+   &lt;chr&gt;                                    &lt;int&gt;
+ 1 Abies alba                                   1
+ 2 Acer campestre                               3
+ 3 Acer platanoides                             3
+ 4 Acer pseudoplatanus                          3
+ 5 Achillea millefolium agg.                    1
+ 6 Aconitum lycoctonum                          1
+ 7 Actaea spicata                               1
+ 8 Adoxa moschatellina                          1
+ 9 Aegopodium podagraria                        1
+10 Aesculus hippocastanum                       2
+# ℹ 306 more rows</code></pre>
 </div>
 </div>
 </section>

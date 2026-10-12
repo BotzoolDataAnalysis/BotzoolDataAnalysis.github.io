@@ -280,7 +280,8 @@ spe %>%
 Or unique pairs or combinations of selected variables, such as species + vegetation layers in which they appeared across the whole dataset.
 
 ```{r}
-spe %>%       
+spe %>%  
+  group_by(Species) %>% 
   summarise(unique_species_layer = n_distinct(interaction(Species, Layer)))
 ```
 
