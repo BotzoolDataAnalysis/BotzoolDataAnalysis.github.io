@@ -165,7 +165,7 @@ spe_wide %>%
 
 ```
 
-**\***When you check the result, you can also want to change the species name from the condensed form to a normal one e.g. *Abies.alba* to *Abies alba*. Do you know how to do it? Since we used "." as a separator, we need to be careful with parts of the string like "agg." where the dot has a meaning and should stay. We can play with the regex to specify that only the dots not followed by any other word should be replaced.
+**\***When you check the result, you can also want to change the species name from the condensed form to a normal one e.g. *Abies.alba* to *Abies alba*. Do you know how to do it? Since we used "." as a separator, we need to be careful with parts of the string like "agg." where the dot has a meaning and should stay. We can play with the regex to specify that only the dots followed by some word should be replaced.
 
 ```{r}
 spe_wide %>%
@@ -246,7 +246,7 @@ env %>%
   summarise(meanBiomass = mean(Biomass))
 ```
 
-Another option is to add the grouping directly to the function - which gives us more flexibility later. See further.
+Another option is to add the grouping directly to the function - which gives us more flexibility later. See also further chapters.
 
 ```{r}
 env %>% 
@@ -383,7 +383,7 @@ env %>%
 
 We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
 
-The advantage of **`.by`** is that it works only within the `mutate()` function.
+The advantage of **`.by`** is that it works only within the `mutate()` function and the grouping is therefore valid just for this function (no need to use ungroup).
 
 ## 4.6 Exercises
 

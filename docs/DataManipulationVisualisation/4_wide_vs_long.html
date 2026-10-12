@@ -699,7 +699,7 @@ dbl (3): RELEVE_NR, Layer, CoverPerc
 # ℹ 23,975 more rows</code></pre>
 </div>
 </div>
-<p><strong>*</strong>When you check the result, you can also want to change the species name from the condensed form to a normal one e.g.&nbsp;<em>Abies.alba</em> to <em>Abies alba</em>. Do you know how to do it? Since we used “.” as a separator, we need to be careful with parts of the string like “agg.” where the dot has a meaning and should stay. We can play with the regex to specify that only the dots not followed by any other word should be replaced.</p>
+<p><strong>*</strong>When you check the result, you can also want to change the species name from the condensed form to a normal one e.g.&nbsp;<em>Abies.alba</em> to <em>Abies alba</em>. Do you know how to do it? Since we used “.” as a separator, we need to be careful with parts of the string like “agg.” where the dot has a meaning and should stay. We can play with the regex to specify that only the dots followed by some word should be replaced.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>spe_wide <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>PlotID, </span>
@@ -889,7 +889,7 @@ dbl (12): RELEVE_NR, ForestType, Biomass, pH_KCl, Canopy_E3, Radiation, Heat...
 4 ravine forest              79.1</code></pre>
 </div>
 </div>
-<p>Another option is to add the grouping directly to the function - which gives us more flexibility later. See further.</p>
+<p>Another option is to add the grouping directly to the function - which gives us more flexibility later. See also further chapters.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBiomass =</span> <span class="fu">mean</span>(Biomass), <span class="at">.by =</span> ForestTypeName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1195,7 +1195,7 @@ $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setos
 </div>
 </div>
 <p>We need to realise that after you use <code>group_by()</code>, the data stay grouped until you explicitly call <code>ungroup()</code>, or use a verb that drops grouping automatically by default settings (usually <code>summarise()</code> or <code>count()</code>). While <code>summarise()</code> removes the grouping, <code>mutate()</code> does not. Therefore, grouping still applies until the end of that call.</p>
-<p>The advantage of <strong><code>.by</code></strong> is that it works only within the <code>mutate()</code> function.</p>
+<p>The advantage of <strong><code>.by</code></strong> is that it works only within the <code>mutate()</code> function and the grouping is therefore valid just for this function (no need to use ungroup).</p>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">4.6 Exercises</h2>

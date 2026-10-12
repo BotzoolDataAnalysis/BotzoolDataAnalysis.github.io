@@ -3,13 +3,13 @@ title: "5 Join Functions"
 author: "Irena Axmanová"
 ---
 
-In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also use our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`). We will also use `mutate()` with additional conditions (`ifelse()`*,* `case_when()`).
+In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also use our skills from the previous chapter to calculate various statistics about our data, such as mean indicator values, community-weighted means of certain traits, and the proportion of specific plant groups (using `left_join()`, `group_by()`, and `summarise()`).
 
 <!--add more examples on filtering joins  -->
 
 <!-- remove advanced mutate and summarise, keep only community means  -->
 
-<!--add ungroup  -->
+<!--add ungroup - here or to the chapter 10  -->
 
 <!-- ADD keep all - distinct, -->
 
@@ -83,11 +83,11 @@ We can also skip the `rename()` step and directly say in the `left_join()` funct
 spe %>% left_join(traits, by = c("Species" = "Taxon"))
 ```
 
-Note that `left_join()` is a great help. However, you should always check or know well the data. If you have more matching rows, you can create a lot of unwanted mess with `left_join()`. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)
+Note that `left_join()` is a great help. However, you should always check or know the data well. If you have more matching rows, you can create a lot of unwanted mess with `left_join()`. For example, if you do not use a unique ID, but a descriptor such as forest type. Please read the warning messages carefully. :-)
 
 ## 5.2 `full_join()` vs. `bind_rows()`
 
-Sometimes it is needed to match both datasets exactly as they are. First we will look at the full_join. In contrast to `left_join()`, `full_join()` will also add additional rows that appear in the other dataset.
+Sometimes it is needed to match both datasets exactly as they are. First, we will look at the full_join. In contrast to `left_join()`, `full_join()` will also add additional rows that appear in the other dataset.
 
 ![](images/clipboard-1035988765.png)
 
