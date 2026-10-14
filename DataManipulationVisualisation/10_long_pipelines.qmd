@@ -10,3 +10,11 @@ format: html
 <!--pivot with values_drop_na  -->
 
 <!--regex? species names?  -->
+
+<!-- remove advanced mutate and summarise, keep only community means  -->
+
+<!--add ungroup - here or to the chapter 10  -->
+
+<!-- ADD keep all and n-distinct, -->
+
+<!--calculate relative share of some group of plants / add info on status or threatened status / calculate total cover in plot and cover of the species classified as alien, or redlist - either here or chapter 10   -->

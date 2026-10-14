@@ -588,3 +588,12 @@ Chapter devoted to Data transformation in the R for Data Science book:
 
 encoding issues during import and export:
 <https://irene.rbind.io/post/encoding-in-r/>
+
+Mutate across: <https://dplyr.tidyverse.org/reference/across.html>
+
+if_else, case_when chapter in R for Data Science:
+<https://r4ds.hadley.nz/logicals.html#conditional-transformations>
+
+case_when: <https://dplyr.tidyverse.org/reference/case_when.html>
+
+case_when example: <https://rpubs.com/jenrichmond/case_when>
