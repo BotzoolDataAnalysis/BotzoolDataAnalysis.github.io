@@ -382,7 +382,7 @@ read_xlsx("data/frozen_fauna/FrozenFauna_metadata.xlsx", sheet = 1) %>%
 
 1\. **Forest Understory Data** - download the data from the repository (see chapter 1 intro) This dataset is used in the chapter above; please use it to prepare your own script with remarks, copy, and train what is described above. Note that you will use species data in long format: `Axmanova-Forest-spe.csv`, and environmental data `Axmanova-Forest-env.csv`
 
-2\. Use the **Spruce forest data** used in the graphical example at the beginning of this chapter. Import `spruce_forestWIDE.xlsx` (use library readxl) \>\> transform *wide to long* format \>\> keep only true presences \>\> arrange sites so that all the species from site 1 are listed, then form site2... \>\> calculate species richness for each site (count of number of species). Did you included
+2\. Use the **Spruce forest data** used in the graphical example at the beginning of this chapter. Import `spruce_forestWIDE.xlsx` (use library readxl) \>\> transform *wide to long* format \>\> keep only true presences \>\> arrange sites so that all the species from site 1 are listed, then form site2... \>\> calculate species richness for each site (count of number of species). \*Are there cases where one species is present in more layers and is counted more times in the species richness? How can this be changed?
 
 3\. Import also `spruce_forestLONG.xlsx` \>\> check the structure \>\> merge the information about species name and layer \>\> transform *long to wide* format \>\> fill empty values as zeros.
 

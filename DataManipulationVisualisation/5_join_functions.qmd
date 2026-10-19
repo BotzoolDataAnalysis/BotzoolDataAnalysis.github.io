@@ -194,7 +194,7 @@ rm(forest, forest123, forest234)
 Sometimes we need to filter the data according to another dataset. For example, we have reviewed the environmental file and determined that for a follow-up analysis, we only need the alluvial forest data. Therefore, we filtered rows in the env file.
 
 ```{r}
-env_selected <- env %>% 
+forest4 <- env %>% 
   filter(ForestType == 4)%>%
   select(PlotID = RELEVE_NR,ForestType, ForestTypeName, pH_KCl, Biomass) %>% 
   print()
@@ -204,14 +204,14 @@ However, we also need to filter the rows in the species data where there is no i
 
 ```{r}
 spe %>% rename(PlotID = RELEVE_NR) %>% 
-  semi_join(env_selected)
+  semi_join(forest4)
 ```
 
 With the `distinct()` function, you can check if the IDs are the same.
 
 ```{r}
 spe %>% rename(PlotID = RELEVE_NR) %>% 
-  semi_join(env_selected) %>% 
+  semi_join(forest4) %>% 
   distinct(PlotID)
 ```
 
@@ -318,21 +318,21 @@ env %>%
 
 2\. Do a bit more training with **Forest understory** **env data**. Upload the env file called `Axmanova-Forest-env.csv` and create two subsets saved in your environment: *forest1* with variables PlotID = RELEVE_NR, ForestType, ForestTypeName and *forest2* with variables ForestType, pH_KCl, Biomass. Now use `left_join()` to match forest2 to forest1. What happened?
 
-2\. Get back to the **Forest understory** **species file** (`Axmanova-Forest-spe.csv`). In the data, you can see which species occur in the tree layer (=1) \>\> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. the tree with the highest cover (*for simplicity, specify in the `slice_max(n= 1, with_ties = F`*)\>\> What is the most common dominant? In how many plots?
+3\. Get back to the **Forest understory** **species file** (`Axmanova-Forest-spe.csv`). In the data, you can see which species occur in the tree layer (=1) \>\> prepare a table where for each plotID you will have in another column a single name of the tree dominant, i.e. the tree with the highest cover (*for simplicity, specify in the `slice_max(n= 1, with_ties = F`*)\>\> What is the most common dominant? In how many plots?
 
-3\. Append this list of dominants to env data \>\> calculate counts of plots with each of the dominant for each forest type \>\> arrange the data. \*Create a table in a wide format of forest types x dominants.
+4\. Append this list of dominants to env data \>\> calculate counts of plots with each of the dominant for each forest type \>\> arrange the data. \*Create a table in a wide format of forest types x dominants.
 
-4\. Use **Forest understory species and traits** \>\> calculate community mean and community weighted mean for SeedMass.
+5\. Use **Forest understory species and traits** \>\> calculate community mean and community weighted mean for SeedMass.
 
-5\. Take the file with traits and filter it to contain only values for dominants from the exercise 2.
+6\. Take the file with traits and filter it to contain only values for dominants from the exercise 2.
 
-6\. Upload **Penguins data** by loading the library(palmerpenguins) \>\> check names \>\> calculate mean weight and standard deviation of weight for different penguin species (group_by, summarise). \>\> Do you remember how to visualise the weight data for each species with ggplot?
+7\. Upload **Penguins data** by loading the library(palmerpenguins) \>\> check names \>\> calculate mean weight and standard deviation of weight for different penguin species (group_by, summarise). \>\> Do you remember how to visualise the weight data for each species with ggplot?
 
-7\. Stay with Penguins. In Chapter 3.4 / Bar charts, we used a ggplot to visualise how many individuals are on each island and to which species they belong. Now, try to summarise the information into a table format with islands as rows and species as names, where values will be counts of individuals.
+8\. Stay with Penguins. In Chapter 3.4 / Bar charts, we used a ggplot to visualise how many individuals are on each island and to which species they belong. Now, try to summarise the information into a table format with islands as rows and species as names, where values will be counts of individuals.
 
 ![](images/clipboard-2988591032.png){width="231"}
 
-8\. \*Upload the data from the **Lepidoptera** folder "env_MSVejnoha_transposed.csv". First, load the env data and check its structure and assign it to the *lepidoptera_env*. \>\> Check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_shading corresponding to low/medium/high cover of trees (select the thresholds based on the histogram) and save it in the data \>\> filter out the group with only low cover and assign it to *lepidoptera_env_selection* \>\>
+9\. \*Upload the data from the **Lepidoptera** folder "env_MSVejnoha_transposed.csv". First, load the env data and check its structure and assign it to the *lepidoptera_env*. \>\> Check the histogram of the cover of trees across sites \>\> prepare a new variable called tree_shading corresponding to low/medium/high cover of trees (select the thresholds based on the histogram) and save it in the data \>\> filter out the group with only low cover and assign it to *lepidoptera_env_selection* \>\>
 
 Import the species data from the same folder "spe_matrix_MSVejnoha.csv" which contains for each site the list of taxa and corresponding counts of individuals \>\> change it to long format (pivot_longer) \>\> and, using filtering join, filter this data to *lepidoptera_spe_selection*, where you will have only the same sites as in the env selection.
 
