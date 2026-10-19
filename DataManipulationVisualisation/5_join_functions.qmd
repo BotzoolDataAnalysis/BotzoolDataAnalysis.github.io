@@ -5,6 +5,8 @@ author: "Irena Axmanová"
 
 In this chapter, we will learn how to merge information from another dataset (using `left_join()`, `full_join()`) and how to filter our data based on another dataset (`semi_join()`, `anti_join()`). We will also use our skills from the previous chapter to calculate various statistics about our data, such as community means and community-weighted means of selected traits or indicator values (using `left_join()`, `group_by()`, and `summarise()`).
 
+In the picture below, you can see simple visualisation of two datasets joined by different approaches. The resulting dataset is depicted in grey.
+
 ![](images/clipboard-3097956773.png)
 
 Credits: <https://r4ds.hadley.nz/joins.html>
@@ -166,7 +168,7 @@ rm(forest1, forest2, forest12, forest234) #remove unwanted data from the environ
 
 ## 5.3 \*Inner_join
 
-**`Inner_join`** compares the two files and keeps only rows that are common in both files. Therefore, it is easy to lose information, and we should be careful about this approach. In the example below, I have a dataset with forest types 1, 2 and 3 and information about biomass and another dataset with forest types 2, 3 and 4 and information about pH. In the merged file, inner_join keeps only the common rows with the same key= PlotID. Therefore we will have only vegetation type 2 in the result, but with all information available in the two files i.e. biomass and pH.
+**`Inner_join`** compares the two files and keeps only rows that are common in both files. Therefore, it is easy to lose information, and we should be careful about this approach. In the example below, I have a dataset with forest types 1, 2 and 3 and information about biomass and another dataset with forest types 2, 3 and 4 and information about pH. In the merged file, inner_join keeps only the common rows with the same key= PlotID. Therefore, the result will include only vegetation types 2 and 3, but with all information available in both files (i.e., biomass and pH).
 
 ```{r}
 forest123 <- env %>% 
@@ -180,6 +182,8 @@ forest234 <- env %>%
 forest<- forest123 %>% inner_join(forest234)
 tibble(forest)
 ```
+
+With the lines below, I remove specified objects that I no longer need from the environment. `rm` is a shortcut for remove.
 
 ```{r}
 rm(forest, forest123, forest234)
@@ -257,6 +261,8 @@ spe %>%
 
 So far, we have had data with no missing values, but you will most likely encounter situations where there are some NAs. For this, you will need to use the argument **`na.rm = TRUE`**, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. The same issue occurred here, so we need to address it.
 
+![](images/clipboard-601904000.png){fig-align="center" width="554"}
+
 ```{r}
 spe %>% 
   left_join(traits, by = c("Species" = "Taxon")) %>%
@@ -306,7 +312,7 @@ env %>%
   select(PlotID = RELEVE_NR, ForestType, ForestTypeName, Richness)
 ```
 
-## 5.6 Exercises 
+## 5.6 Exercises
 
 1\. Prepare a script from this chapter with your notes.
 

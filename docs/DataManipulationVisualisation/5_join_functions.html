@@ -372,6 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>In this chapter, we will learn how to merge information from another dataset (using <code>left_join()</code>, <code>full_join()</code>) and how to filter our data based on another dataset (<code>semi_join()</code>, <code>anti_join()</code>). We will also use our skills from the previous chapter to calculate various statistics about our data, such as community means and community-weighted means of selected traits or indicator values (using <code>left_join()</code>, <code>group_by()</code>, and <code>summarise()</code>).</p>
+<p>In the picture below, you can see simple visualisation of two datasets joined by different approaches. The resulting dataset is depicted in grey.</p>
 <p><img src="images/clipboard-3097956773.png" class="img-fluid"></p>
 <p>Credits: <a href="https://r4ds.hadley.nz/joins.html" class="uri">https://r4ds.hadley.nz/joins.html</a></p>
 <section id="matching-selected-information-with-left_join" class="level2">
@@ -705,7 +706,7 @@ dbl (12): RELEVE_NR, ForestType, Biomass, pH_KCl, Canopy_E3, Radiation, Heat...
 </section>
 <section id="inner_join" class="level2">
 <h2 class="anchored" data-anchor-id="inner_join">5.3 *Inner_join</h2>
-<p><strong><code>Inner_join</code></strong> compares the two files and keeps only rows that are common in both files. Therefore, it is easy to lose information, and we should be careful about this approach. In the example below, I have a dataset with forest types 1, 2 and 3 and information about biomass and another dataset with forest types 2, 3 and 4 and information about pH. In the merged file, inner_join keeps only the common rows with the same key= PlotID. Therefore we will have only vegetation type 2 in the result, but with all information available in the two files i.e.&nbsp;biomass and pH.</p>
+<p><strong><code>Inner_join</code></strong> compares the two files and keeps only rows that are common in both files. Therefore, it is easy to lose information, and we should be careful about this approach. In the example below, I have a dataset with forest types 1, 2 and 3 and information about biomass and another dataset with forest types 2, 3 and 4 and information about pH. In the merged file, inner_join keeps only the common rows with the same key= PlotID. Therefore, the result will include only vegetation types 2 and 3, but with all information available in both files (i.e., biomass and pH).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>forest123 <span class="ot">&lt;-</span> env <span class="sc">%&gt;%</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ForestType <span class="sc">%in%</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
@@ -737,6 +738,7 @@ dbl (12): RELEVE_NR, ForestType, Biomass, pH_KCl, Canopy_E3, Radiation, Heat...
 # ℹ 28 more rows</code></pre>
 </div>
 </div>
+<p>With the lines below, I remove specified objects that I no longer need from the environment. <code>rm</code> is a shortcut for remove.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(forest, forest123, forest234)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -905,6 +907,11 @@ dbl (12): RELEVE_NR, ForestType, Biomass, pH_KCl, Canopy_E3, Radiation, Heat...
 </div>
 </div>
 <p>So far, we have had data with no missing values, but you will most likely encounter situations where there are some NAs. For this, you will need to use the argument <strong><code>na.rm = TRUE</code></strong>, which indicates that you want to skip the NAs from counting. Otherwise, a single NA would mean that the result will also be NA. The same issue occurred here, so we need to address it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-601904000.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="554"></p>
+</figure>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Species"</span> <span class="ot">=</span> <span class="st">"Taxon"</span>)) <span class="sc">%&gt;%</span></span>
