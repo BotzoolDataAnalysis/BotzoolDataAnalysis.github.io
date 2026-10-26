@@ -475,7 +475,7 @@ Just a few tips for packages that you might useful for your work:
 
 5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and visualise the relationship between radiation and mean Ellenberg-type indicator values for light. Use custom colours to distinguish forest types and change the labels in the legend to 'Alluvial', 'Oak', 'Oak hornbeam' and 'Ravine'.
 
-6.  Use dataset of rats (`read_csv("https://raw.githubusercontent.com/weecology/portal-teachingdb/master/combined.csv")`) and visualise the relationship between weight and hindfoot lenght for species of the genus Dipodomys. Use different colours and shapes to distinguish the species. \* You can also facet the plot according to the species identity.
+6.  Use dataset of rats (`read_csv("https://raw.githubusercontent.com/weecology/portal-teachingdb/master/combined.csv")`) and visualise the relationship between weight and hindfoot lenght for species of the genus Dipodomys. Use different colours and shapes to distinguish the species and in the legend, show both genus and species names.
 
 7.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
