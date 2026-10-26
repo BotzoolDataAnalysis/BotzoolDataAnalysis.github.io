@@ -243,7 +243,7 @@ penguins |>
   ggplot(aes(bill_length_mm, bill_depth_mm, fill = island, size = body_mass_g))+
   geom_point(pch = 21, alpha = 0.6)+
   theme_bw()+
-  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island', size = 'Body mass (g)')
+  labs(x = 'Bill length (mm)', y = 'Bill depth (mm)', fill = 'Island', size = 'Body mass (g)')
 ```
 
 We can again play with the size aesthetics, e.g., modify the size of the smallest and largest points, using the `scale_size_continuous()` function.
