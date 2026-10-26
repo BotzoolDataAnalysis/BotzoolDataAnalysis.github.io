@@ -137,7 +137,7 @@ But we can also use a predefined colour scale, e.g. from [colour brewer](https:/
 penguins |> 
   ggplot(aes(body_mass_g, flipper_length_mm, fill = island))+
   geom_point(pch = 21)+
-  scale_fill_brewer(type = 'qual', palette = 7, labels = c('Dream' = 'Dream Island', 'Biscoe' = 'Biscoe Island', 'Torgersen' = 'Torgersen Island'))+
+  scale_fill_brewer(type = 'qual', palette = 7, labels = c(Dream = 'Dream Island', Biscoe = 'Biscoe Island', Torgersen = 'Torgersen Island'))+
   theme_bw()+
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Island')
 ```
@@ -161,6 +161,17 @@ penguins |>
   ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
   geom_point(pch = 21)+
   scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
+
+Again, we can change the colour palette, for example using the `palette` argument.
+
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(palette = c("#FEE0D2", "#FC9272", "#DE2D26"), breaks = c(2007, 2008, 2009))+
   theme_bw()+
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
 ```
@@ -191,7 +202,29 @@ penguins |>
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
 ```
 
-The `scale_x_` and `scale_y` functions might also be used to change which ticks are displayed on the axes:
+```{r}
+penguins |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  scale_x_log10()+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
+
+`scale_x_log10()` is just a shortcut for `scale_x_continuous(transform = 'log')` and you can notice that the x axis is transformed, but still shows the values at the original scale. Another way to transform the axis would be to transform the values before entering the plot, however, we would then get the values on the transformed scale:
+
+```{r}
+penguins |> 
+  mutate(body_mass_g = log(body_mass_g)) |> 
+  ggplot(aes(body_mass_g, flipper_length_mm, fill = year))+
+  geom_point(pch = 21)+
+  scale_fill_continuous(breaks = c(2007, 2008, 2009))+
+  theme_bw()+
+  labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
+```
+
+The `scale_x_` and `scale_y_` functions might also be used to change which ticks are displayed on the axes:
 
 ```{r}
 penguins |> 
@@ -203,7 +236,7 @@ penguins |>
   labs(x = 'Body mass (g)', y = 'Flipper length (mm)', fill = 'Year')
 ```
 
-In addition to color, fill and shape of the points, we can also modify their size, or opacity. Here, we plot the penguing bill length vs bill depth and adjust the size of the points according to their body mass. In addition, we make the points a bit transparent using the `alpha` argument so that we can see the overlapping points.
+In addition to color, fill and shape of the points, we can also modify their size, or opacity. Here, we plot the penguin bill length vs bill depth and adjust the size of the points according to their body mass. In addition, we make the points a bit transparent using the `alpha` argument so that we can see the overlapping points.
 
 ```{r}
 penguins |> 
@@ -254,7 +287,7 @@ penguins |>
 
 ## 6.5 Factors and reordering
 
-When using a categorical variable in a plot, the default order of the categories in alphabetical. However, that is not always what we want and it might be helpful to reorder the categories for the final presentation of our plots. For this, turning categorical variables to factors becomes especially useful. We can then use functions from the `forcats` package, whoch is also part of `tidyverse` to reorder the categories as desired.
+When using a categorical variable in a plot, the default order of the categories in alphabetical. However, that is not always what we want and it might be helpful to reorder the categories for the final presentation of our plots. For this, turning categorical variables to factors becomes especially useful. We can then use functions from the `forcats` package, which is also part of `tidyverse` to reorder the categories as desired.
 
 For illustration, we will now use data on the characters from Star Wars coming with the `dplyr` package.
 
@@ -436,25 +469,27 @@ Just a few tips for packages that you might useful for your work:
 
 2.  Use the [gapminder](https://www.gapminder.org/data) dataset, from the `gapminder` package (the dataset will be loaded in the environment once you load the package), which provides values for life expectancy, GDP per capita, and population size for each country of the world. Visualise the relationship between GDP per capita (on a log scale) and life expectancy in 2007. Make the size of the points proportional to the country population size. Highlight the Czech Republic and Slovakia with different colours.
 
-3.  Use the same data as in the previous exercise and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
+3.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`) and visualise the relationship between Pokémon weight and height. Use logarithmic transformation for both axes. Make all points partly transparent. Highlight 20 Pokémons with the highest attack power by different color and larger point size.
 
-4.  Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`) and visualise the relationship between Pokémon weight and height. Use logarithmic transformation for both axes. Make all points partly transparent. Highlight 20 Pokémons with the highest attack power by different color and larger point size.
+4.  Facet the previous plot according to Pokémon type \*and color them using colors from the column `color_1`.
 
-5.  Facet the previous plot according to Pokémon type \*and color them using colors from the column `color_1`.
+5.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and visualise the relationship between radiation and mean Ellenberg-type indicator values for light. Use custom colours to distinguish forest types and change the labels in the legend to 'Alluvial', 'Oak', 'Oak hornbeam' and 'Ravine'.
 
-6.  Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and visualise the relationship between radiation and mean Ellenberg-type indicator values for light. Use custom colours to distinguish forest types and change the labels in the legend to 'Alluvial', 'Oak', 'Oak hornbeam' and 'Ravine'.
+6.  Use dataset of rats (`read_csv("https://raw.githubusercontent.com/weecology/portal-teachingdb/master/combined.csv")`) and visualise the relationship between weight and hindfoot lenght for species of the genus Dipodomys. Use different colours and shapes to distinguish the species. \* You can also facet the plot according to the species identity.
 
 7.  Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
 **Chapter 7**
 
-8.  Combine the two plots from exercises 2 and 3 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. Modify the legend so that there is only one legend with coloured points at the bottom.
+8.  Use the gapminder dataset as in the exercise 3 and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
 
-9.  Calculate mean, minimum and maximum of penguin bill length for each species and visualize it using `geom_pointrange()`. Order the species according to their mean bill length.
+9.  Combine the two plots from exercises 2 and 8 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. Modify the legend so that there is only one legend with coloured points at the bottom.
 
-10. Take the plot from exercise 6, order the categories in legend according to the column `forest_type`. Move legend to the bottom of the plot.
+10. Calculate mean, minimum and maximum of penguin bill length for each species and visualize it using `geom_pointrange()`. Order the species according to their mean bill length.
 
-11. Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
+11. Take the plot from exercise 6, order the categories in legend according to the column `forest_type`. Move legend to the bottom of the plot.
+
+12. Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
 
     ```{r}
     #| echo: false
@@ -506,11 +541,11 @@ Just a few tips for packages that you might useful for your work:
 
     ```
 
-12. Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
+13. Use the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`), calculate the mean defense power for each Pokémon type and draw a barplot showing the mean defense power for each type. Order the bars from the highest to the shortest. \*Colour the bars according to the colour defined for each Pokémon type in the column `color_1`. Add errorbars showing the minimum and maximum for each type.
 
-13. Select electric Pokémons and visualise the relationship between their weight and height. Use their names as text labels instead of points. Do the same for ice Pokémons and then combine both plots together. Add annotations 'A' and 'B' to the panels.
+14. Select electric Pokémons and visualise the relationship between their weight and height. Use their names as text labels instead of points. Do the same for ice Pokémons and then combine both plots together. Add annotations 'A' and 'B' to the panels.
 
-14. Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
+15. Modify axis labels, legend, colours, etc. of all plots you created so far, so that you like their appearance and save them to the folder `plots`.
 
 ## 6.10 Further reading
 

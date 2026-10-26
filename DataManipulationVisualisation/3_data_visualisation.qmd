@@ -147,7 +147,7 @@ To make the plot more publication-ready, we should pay more attention to the axe
 ```{r}
 #| warning: false
 ggplot(data = penguins, 
-       mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, shape = species)) +
+       mapping = aes(x = bill_length_mm, y = bill_depth_mm, fill = species, colour  = species, shape = species)) +
   geom_point() + 
   geom_smooth(aes(colour = species), method = 'lm', show.legend = F) + 
   scale_shape_manual(values = c(21, 22, 24)) + 
@@ -226,8 +226,8 @@ Instead of the number of individuals, we can also display the relative frequency
 
 ```{r}
 #| warning: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
+penguins |> 
+  ggplot(aes(x = island, fill = species)) +
   geom_bar(colour = 'black', position = 'fill') + 
   labs(x = 'Island', y = 'Relative frequency', fill = 'Species') + 
   theme_bw()
