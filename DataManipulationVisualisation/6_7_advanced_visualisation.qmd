@@ -489,7 +489,7 @@ Just a few tips for packages that you might useful for your work:
 
 - [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
 
-- [`gordi`](CommunityEcology/gordi_vignette.qmd) a ggplot-based package for making ordination plots, developed in our group
+- [`gordi`](https://botzooldataanalysis.github.io/CommunityEcology/gordi_vignette.html) a ggplot-based package for making ordination plots, developed in our group
 
 - [`ggtree`](https://www.bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/ggtree.html) for visualisation of phylogenetic trees
 
