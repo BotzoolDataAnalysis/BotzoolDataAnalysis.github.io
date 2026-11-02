@@ -415,7 +415,13 @@ Or collect all legends of the subplots and place them in one place:
 p1 + p2 + plot_layout(guides = 'collect')
 ```
 
-And there are many more options to customise your plot layout, annotations etc.
+And move the legend to the bottom of the plot:
+
+```{r}
+p1 + p2 + plot_layout(guides = 'collect') & theme(legend.position = 'bottom')
+```
+
+And there are many more options to customise your plot layout, annotations etc. Look [here](https://patchwork.data-imaginist.com) for more.
 
 ## 6.7 Other examples of `geom` functions
 
@@ -443,6 +449,34 @@ And `geom_text_repel()` from the `ggrepel` package is helpful to distinguish ove
 starwars |> filter(species == 'Human') |> 
   ggplot(aes(x = mass, y = height, label = name)) + 
   geom_text_repel(alpha = 0.6, max.overlaps = Inf) 
+```
+
+`geom_line` might be useful for example to show a certain development over time. In this example, we will use data about rats:
+
+```{r}
+rats <- read_csv("https://raw.githubusercontent.com/weecology/portal-teachingdb/master/combined.csv")
+
+glimpse(rats)
+```
+
+Because there are also data of other taxa than rats, we will filter only rodent species. Then, we want to calculate how many individuals were captured in each plot in individual years.
+
+```{r}
+rats |> 
+  filter(taxa == 'Rodent') |>
+  count(plot_id, plot_type, year)
+```
+
+And finally, we can plot it:
+
+```{r}
+rats |> 
+  filter(taxa == 'Rodent') |>
+  count(plot_id, plot_type, year) |> 
+  ggplot(aes(x = year, y = n, color = plot_type, group = plot_id)) +
+  geom_line() +
+  theme_bw() +
+  labs(x = 'Year', y = 'Number of individuals', color = 'Plot type')
 ```
 
 ## 6.8 Useful extensions
@@ -481,13 +515,13 @@ Just a few tips for packages that you might useful for your work:
 
 **Chapter 7**
 
-8.  Use the gapminder dataset as in the exercise 3 and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
+8.  Use the gapminder dataset as in the exercise 2 and create a plot showing the development of life expectancy in the Czech Republic and Slovakia over time.
 
 9.  Combine the two plots from exercises 2 and 8 using `p1 / p2`. What is the difference compared to `p1 + p2`? Add annotations 'A' and 'B' to the panels. Modify the legend so that there is only one legend with coloured points at the bottom.
 
 10. Calculate mean, minimum and maximum of penguin bill length for each species and visualize it using `geom_pointrange()`. Order the species according to their mean bill length.
 
-11. Take the plot from exercise 6, order the categories in legend according to the column `forest_type`. Move legend to the bottom of the plot.
+11. Take the plot from exercise 5, order the categories in legend according to the column `forest_type`. Move legend to the bottom of the plot.
 
 12. Use the dataset `Axmanova-Forest-understory-diversity-analyses.xlsx` from the folder `forest_understory` ([Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and recreate the following plot:
 
