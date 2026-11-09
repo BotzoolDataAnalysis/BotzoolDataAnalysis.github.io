@@ -151,7 +151,6 @@ Imagine we now want to run an ordination analysis that needs species data in a w
 ```{r}
 spe_long |> 
   semi_join(head |> filter(cluster == 'Corynephorion')) |>
-  select(releve_nr, valid_name, cover_perc) |> 
   mutate(cover_perc = sqrt(cover_perc)) |> 
   pivot_wider(names_from = valid_name, values_from = cover_perc, values_fill = 0) |> 
   select(-releve_nr)
@@ -163,7 +162,6 @@ We can incorporate all these steps into a single function, that we will then run
 subset_to_wide <- function(data_long, veg_type){
   data_long |> 
     semi_join(head |> filter(cluster == veg_type)) |>
-    select(releve_nr, valid_name, cover_perc) |> 
     mutate(cover_perc = sqrt(cover_perc)) |> 
     pivot_wider(names_from = valid_name, values_from = cover_perc, values_fill = 0) |> 
     select(-releve_nr)
