@@ -22,7 +22,7 @@ library(tidyverse)
 
 ## 8.1 Functions
 
-In more complex data analysis tasks, when you need to repeat a similar operation multiple times, e.g. calculate the same model for multiple subsets of data, calculate models with the same explanatory variables for different response variables, or draw similarly looking plots for multiple variables, it becomes really useful to be able to write your own function and hide the repeated code into it. A huge advantage of only writing the code once and saving it as a function is that when you have to change something, you only do it once and thus prevent mistakes like replacing the variable name in one place but not in the other, etc. In the long term, it also saves time and improves the understandability of the code, as the script does not end up being hundreds or thousands of lines long and all important commands are in one place.
+In more complex data analysis tasks, when you need to repeat a similar operation multiple times, e.g., calculate the same model for multiple subsets of data, calculate models with the same explanatory variables for different response variables, or draw similarly looking plots for multiple variables, it becomes really useful to be able to write your own function and hide the repeated code into it. A huge advantage of only writing the code once and saving it as a function is that when you have to change something, you only do it once and thus prevent mistakes like replacing the variable name in one place but not in the other, etc. In the long term, it also saves time and improves the understandability of the code, as the script does not end up being hundreds or thousands of lines long and all important commands are in one place.
 
 We will now look at three types of functions:
 
@@ -45,15 +45,21 @@ A **vector** is a one dimensional data type, you can imagine it as one column of
 
 In R, we can easily create a vector using `c()`. Based on the values, R will automatically assign the type to the vector. For example, `fruits` will be a character vector:
 
-`fruits <- c('banana', 'apple', 'orange', 'pear')`
+```{r}
+fruits <- c('banana', 'apple', 'orange', 'pear')
+```
 
 `numbers` a numeric vector:
 
-`numbers <- c(1, 2, 3, 4, 5)`
+```{r}
+numbers <- c(1, 2, 3, 4, 5)
+```
 
 and `truefalse` a logical vector:
 
-`truefalse <- c(TRUE, TRUE, FALSE, TRUE)`
+```{r}
+truefalse <- c(TRUE, TRUE, FALSE, TRUE)
+```
 :::
 
 Vector functions will be most useful for us when used inside `mutate()` to modify a column in our dataset. Actually every function we used in `mutate()` so far (e.g., `round()`, `sqrt()`, `ifelse()`) was a vector function predefined in some package.
@@ -140,7 +146,18 @@ head <- read_csv('data/sands/sands_head.csv') |>
 glimpse(head)
 ```
 
-Imagine we now want to run an ordination analysis that needs species data in a wide format for each of the three vegetation types separately. We need to subset the species data to only the selected vegetation type, select only relevant columns, square-root the species abundances, and transform the data into a wide format. We can incorporate all these steps into a single function, that we will then run three times for different subsets:
+Imagine we now want to run an ordination analysis that needs species data in a wide format for each of the three vegetation types separately. We need to subset the species data to only the selected vegetation type, select only relevant columns, square-root the species abundances, and transform the data into a wide format. For one vegetation type, we would do it like this:
+
+```{r}
+spe_long |> 
+  semi_join(head |> filter(cluster == 'Corynephorion')) |>
+  select(releve_nr, valid_name, cover_perc) |> 
+  mutate(cover_perc = sqrt(cover_perc)) |> 
+  pivot_wider(names_from = valid_name, values_from = cover_perc, values_fill = 0) |> 
+  select(-releve_nr)
+```
+
+We can incorporate all these steps into a single function, that we will then run three times for different subsets:
 
 ```{r}
 subset_to_wide <- function(data_long, veg_type){
@@ -554,15 +571,15 @@ lm(lifeExp~year, data = by_country$data[[1]])
     ```{r}
     #| eval: false
     x / sum(x, na.rm = T)*100
-    y / sum(y, na.rm = T)*100
-    z / sum(z, na.rm = T)*100
     ```
 
-2.  Use the function to calculate the percentage of each species in the penguins dataset.
+2.  Use the function for `x = c(5, 15, 30, NA)`.
 
-3.  Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula $C = (F-32) *5/9$. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F.
+3.  Use the function to calculate the percentage of each species in the penguins dataset (you will need to calculate the number of individuals for each species first).
 
-4.  In Turboveg 2, a programme used for storing vegetation plot data, the geographical coordinates are stored in a format DDMMSS.SS. To show the plots in the map or perform any spatial calculations, you will need to transform the coordinates to decimal degrees. That is the purpose of the following function:
+4.  Write your own function that takes a numeric vector of temperatures in Fahrenheit and returns them converted to Celsius using the formula $C = (F-32) *5/9$. Test it with the following values: 0°F, 20°F, 68°F, 86°F, 100°F. \*Create a function to convert Celsius to Fahrenheit or generalize the previous function to convert temperatures both ways.
+
+5.  In Turboveg 2, a programme used for storing vegetation plot data, the geographical coordinates are stored in a format DDMMSS.SS. To show the plots in the map or perform any spatial calculations, you will need to transform the coordinates to decimal degrees. That is the purpose of the following function:
 
     ```{r}
     #| eval: false
@@ -574,47 +591,47 @@ lm(lifeExp~year, data = by_country$data[[1]])
 
     Look at the function and try to explain how it works. Load the basiphilous grassland data (`basiphilous_grasslands/basiphilous_grasslands_S_Moravia_head.csv`, [Link to the Github folder](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data)) and use this function to transform coordinates in the fields `Longitude` and `Latitude`.
 
-5.  Write a function with two arguments, which divides value `x` by a second value `y` (`x/y`).
+6.  Write a function with two arguments, which divides value `x` by a second value `y` (`x/y`). Test it with `x = c(4, 10, 25, 50, 48, NA)`, `y = c(2, 2, 5, 10, 8, 3)`.
 
-6.  Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula [@mccune_equations_2002]:
+7.  Write a function that calculates the heat load index using measured values of slope and aspect in a vegetation plot. You will need the following formula [@mccune_equations_2002]:
 
     $$0.339 + 0.808 \cdot \cos\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \cos\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.196 \cdot \sin\left(\frac{\text{latitude} \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)- 0.482 \cdot \cos\left(\frac{\left|180 - \left|\text{aspect} - 225\right|\right| \cdot \pi}{180}\right) \cdot \sin\left(\frac{\text{slope} \cdot \pi}{180}\right)$$
 
     `0.339+0.808*cos(DEG_LAT*pi/180)*cos(SLOPE*pi/180)-0.196*sin(DEG_LAT*pi/180)*sin(SLOPE*pi/180)-0.482*cos((abs(180-abs(ASPECT-225)))*pi/180)*sin(SLOPE*pi/180)`
 
-7.  Use the function to calculate the heat load index for vegetation plots in basiphilous grasslands (use the same data as in exercise 4). \* Calculate species richness of the plots and plot the relationship between the heat load index and species richness. Select only plots sampled in 2022 which are more precisely located. (Use the species data `basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv`, transform them to the long format, calculate the number of species per plot and join this information to the header data before you start plotting).
+8.  Use the function to calculate the heat load index for vegetation plots in basiphilous grasslands (use the same data as in exercise 5). \* Calculate species richness of the plots and plot the relationship between the heat load index and species richness. Select only plots sampled in 2022 which are more precisely located. (Use the species data `basiphilous_grasslands/basiphilous_grasslands_S_Moravia_species.csv`, transform them to the long format, calculate the number of species per plot and join this information to the header data before you start plotting).
 
-8.  Write a function to calculate the logistic population growth using the formula $N_t = \frac{K}{1 + \left( \frac{K - N_0}{N_0} \right) e^{-r t}}$, where $N_0$ is the initial population, K the carrying capacity, r an intrinsic growth rate and t time. Run the function for the values $N_0 = 10$, K = 100, r = 0.3 and time varies from 1 to 20.
+9.  Write a function to calculate the logistic population growth using the formula $N_t = \frac{K}{1 + \left( \frac{K - N_0}{N_0} \right) e^{-r t}}$, where $N_0$ is the initial population, K the carrying capacity, r an intrinsic growth rate and t time. Run the function for the values $N_0 = 10$, K = 100, r = 0.3 and time varies from 1 to 20.
 
     `K / (1 + ((K - N0) / N0) * exp(-r * t))`
 
-9.  \* Write a function that calculates the Shannon diversity index using the formula $H' = -∑p_i ln(p_i)$. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.
+10. \* Write a function that calculates the Shannon diversity index using the formula $H' = -∑p_i ln(p_i)$. Use the function to calculate Shannon diversity of each plot in the sand vegetation dataset.
 
-10. Take the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`) and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. \* Try to generalize the code so that you can plot a distribution of any numerical variable.
+11. Take the Pokémon dataset (`read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv')`) and visualise the distribution of defense power of water-type Pokémon. Turn this code into a function that helps you draw a histogram of defense power for different Pokémon types. \* Try to generalize the code so that you can plot a distribution of any numerical variable.
 
     **Chapter 9**
 
-11. Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
+12. Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
 
-12. Write a for loop that takes a numeric vector of numbers 1-10, adds 1 to each element and then prints it.
+13. Write a for loop that takes a numeric vector of numbers 1-10, adds 1 to each element and then prints it.
 
-13. Write a for loop that takes penguin species names and for each element prints for example: `Species: Adelie`.
+14. Write a for loop that takes penguin species names and for each element prints for example: `Species: Adelie`.
 
-14. Use a function from the `purrr` package to calculate the logaritm of each value in the following list: `test_list <- list(0, 1, 4, 8, 10)`. Save the output first as a list and second as a numeric vector. Compare the differences.
+15. Use a function from the `purrr` package to calculate the logaritm of each value in the following list: `test_list <- list(0, 1, 4, 8, 10)`. Save the output first as a list and second as a numeric vector. Compare the differences.
 
-15. Take the following numeric vectors and use a function from the `purrr` package to multiply the first one by the second one. `num1 <- list(1, 2, 3, 4, 5, 6)`, `num2 <- list(7, 8, 9, 10, 11, 12)`. Save the output first as a list and second as a numeric vector. Compare the differences.
+16. Take the following numeric vectors and use a function from the `purrr` package to multiply the first one by the second one. `num1 <- list(1, 2, 3, 4, 5, 6)`, `num2 <- list(7, 8, 9, 10, 11, 12)`. Save the output first as a list and second as a numeric vector. Compare the differences.
 
-16. Use the function from exercise 10 and create plots of the distribution of defense power for all Pokémon types using functions from the `purrr` package.
+17. Use the function from exercise 10 and create plots of the distribution of defense power for all Pokémon types using functions from the `purrr` package.
 
-17. \* In this exercise, we will use data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline and save to your environment as a single tibble. Store the species names in a column in the final tibble.
+18. \* In this exercise, we will use data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline and save to your environment as a single tibble. Store the species names in a column in the final tibble.
 
-18. \* Create a bar plot showing which frog species are most often recorded (to order the species from the most to the least common, use a function from the `forcats()` package). Add colour distinction of records from different territories (column `stateProvince`).
+19. \* Create a bar plot showing which frog species are most often recorded (to order the species from the most to the least common, use a function from the `forcats()` package). Add colour distinction of records from different territories (column `stateProvince`).
 
-19. \* Save the frog data as separate csv files by territory, where the observations were made in a folder `frogs_territory`.
+20. \* Save the frog data as separate csv files by territory, where the observations were made in a folder `frogs_territory`.
 
-20. \* Use the Pokémon dataset, nest it by Pokémon type and calculate linear models for the relationship between defense and attack power (`lm(defense ~ attack)`) of each Pokémon type using a `map()` function within `mutate()`. Use the `tidy()` function to extract coefficients and p-values from the model. Unnest the list column where you saved the results of `tidy()`. For each Pokémon type, filter only statistics for the attack coefficient, keep only significant results (p \< 0.05) and arrange the dataset according to the coefficient from the linear model from Pokémon types where the relationship between defence and attack power is the strongest to those with the weakest relationship.
+21. \* Use the Pokémon dataset, nest it by Pokémon type and calculate linear models for the relationship between defense and attack power (`lm(defense ~ attack)`) of each Pokémon type using a `map()` function within `mutate()`. Use the `tidy()` function to extract coefficients and p-values from the model. Unnest the list column where you saved the results of `tidy()`. For each Pokémon type, filter only statistics for the attack coefficient, keep only significant results (p \< 0.05) and arrange the dataset according to the coefficient from the linear model from Pokémon types where the relationship between defence and attack power is the strongest to those with the weakest relationship.
 
-21. \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save them in the `plots` folder.
+22. \* Take the code for visualisation of Ellenberg-type indicator values in different forest types (Exercise 5 in Chapter 6) and turn it into a function. Draw the boxplots for four different Ellenberg-type indicator values using this function. Use a for loop or `purrr` functions to make these four plots. Combine them and save them in the `plots` folder.
 
 ## 8.5 Further reading
 

@@ -430,7 +430,10 @@ Some other useful `geom` functions include, `geom_pointrage()` for showing summa
 ```{r}
 penguins |> 
   group_by(species) |> 
-  summarise(min_body_mass = min(body_mass_g, na.rm = T), median_body_mass = median(body_mass_g, na.rm = T), max_body_mass = max(body_mass_g, na.rm = T)) |> ggplot()+
+  summarise(min_body_mass = min(body_mass_g, na.rm = T), 
+            median_body_mass = median(body_mass_g, na.rm = T), 
+            max_body_mass = max(body_mass_g, na.rm = T)) |> 
+  ggplot()+
   geom_pointrange(aes(x = species, y = median_body_mass, ymin = min_body_mass, ymax = max_body_mass))
 ```
 
