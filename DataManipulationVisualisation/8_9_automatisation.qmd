@@ -98,28 +98,36 @@ custom_scale <- function(x){
 }
 ```
 
+To define the function, we need to run this code by entering it either anywhere before `{` or after `}`, not between them.
+
+![](images/clipboard-3273770174.png)
+
+![](images/clipboard-126150962.png)
+
 When we run this code, our new function is saved into the environment, and we can use it as any other function. We created a function that takes a vector and returns a vector of the same length that might be use within the `mutate()` function.
 
 ```{r}
 penguins |> 
-  mutate(bill_length_mm = custom_scale(bill_length_mm), 
-         bill_depth_mm = custom_scale(bill_depth_mm),
-         flipper_length_mm = custom_scale(flipper_length_mm),
-         body_mass_g = custom_scale(body_mass_g))
+  mutate(bill_length_mm = custom_scale(x = bill_length_mm), 
+         bill_depth_mm = custom_scale(x = bill_depth_mm),
+         flipper_length_mm = custom_scale(x = flipper_length_mm),
+         body_mass_g = custom_scale(x = body_mass_g))
 ```
 
 We can, of course, reduce the duplication even further by using the `across()` function:
 
 ```{r}
 penguins |> 
-  mutate(across(c(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g), ~custom_scale(.x)))
+  mutate(across(c(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g), ~custom_scale(x = .x)))
 ```
 
 There are some useful RStudio keyboard shortcuts you can use to work with functions:
 
-- To find a definition of any function, place a cursor on the name of the function in the script and press `F2`.
+- To find a definition of any function, place a cursor on the name of the function in the script and press `F2`. It will direct you to the place where you defined the function in your script or open a new window with the function definition in case of function defined in some package in R.
 
 - To extract a function from a code you have written, use `Alt + Ctrl + X`. Just be sure you always check the results, because sometimes it will not do exactly what you expect, so you will have to make some adjustments.
+
+If you define any function you want to use in your script, it is a good idea to move the definition of the function at the beginning of your script after loading packages. That way, you make sure you always load the function(s) at the beginning of your work.
 
 A specific case of vector functions are summary functions that take a single vector and return a single values (e.g., `min()`, `max()`, `mean()`). These functions might be used in a `summarise()` call. For example, we can calculate the difference between the minimum and maximum values of the given variable:
 
@@ -227,18 +235,36 @@ for (i in fruits) {
 
 The for loop takes one value from the vector, prints it, then takes the next one, prints it, and so on till the end of the sequence.
 
-Another example might be a basic numerical operation with each element of a list of numeric values:
+Another example might be a basic numerical operation with each element of a vector or list of numeric values:
 
 ```{r}
-test_list <- list(2, 4, 6, 8, 10)
+test_vector <- c(2, 4, 6, 8, 10)
 
-for (i in test_list) {
+for (i in test_vector) {
   sqrt(i) |> 
   print()
 }
 ```
 
-We can, for example, take our plot function to plot the scatterplot of bill length and bill depth of individual species and loop over the species names to sequentially make a plot for all species.
+We can also calculate new values in a for loop and store them in a new vector. For that we will first need an empty vector to save the results in it. `seq_along()` creates a vector of numbers from 1 to the number of values in `test_vector`, which means 1 to 5 in this case. And then, we will need `[]` to extract the elements of the given order from `test_vector` and store the results to a desired position in `new_vector`.
+
+```{r}
+new_vector <- NA
+
+seq_along(test_vector)
+
+test_vector[1]
+
+for(i in seq_along(test_vector)){
+  new_vector[i] <- test_vector[i]*10
+}
+
+new_vector
+```
+
+With simple operations, it seems quite complicated and not very useful, but it becomes more useful with more complex calculations and higher number of iterations needed.
+
+Another example of the use of for loop might be, that we take our plot function to plot the scatterplot of bill length and bill depth of individual species and loop over the species names to sequentially make a plot for all species.
 
 ```{r}
 for (species_name in unique(penguins$species)) {
@@ -253,7 +279,7 @@ There are always multiple ways to get to the same result, and this is also true 
 
 ### 8.3.1 Basic usage of `purrr`
 
-We already went through most of the `tidyverse` packages, but we didn't talk about the `purrr` package yet. `purrr` provides powerful tools for automatisation of tasks that need to be repeated multiple times, e.g. for each file in a directory, each element of a list, each dataframe... They allow you to replace for loops with `map()` functions, which might be more powerful, readable and consistent with the rest of `tidyverse`.
+We already went through most of the `tidyverse` packages, but we didn't talk about the `purrr` package yet. `purrr` provides powerful tools for automatisation of tasks that need to be repeated multiple times, e.g., for each file in a directory, each element of a list, each dataframe... They allow you to replace for loops with `map()` functions, which might be more powerful, readable and consistent with the rest of `tidyverse`.
 
 The `map()` function works similarly to `across()`, but instead of applying a function to each column in a data frame or tibble, it applies a function to each element of a vector or list. It is an analogy of a for loop, the function takes each element of a sequence and applies a function to it. Let's look at the difference between the for loop and `map()` in the following example:
 
@@ -298,7 +324,17 @@ Each of the above-mentioned functions takes a vector input, applies a function t
 
 And there is also a group of `walk()` functions, which return their side-effects and return the input `.x`. They might be used, for example, for saving multiple files or plots.
 
-We will now look at several examples of their usage. We can use the `map()` function to apply any function to multiple elements. It becomes very useful for working with lists. As a basic example, we can apply a simple function like `sqrt()` to every element of a list.
+We will now look at several examples of their usage. `map()` creates a list, but `map_chr()` returns a character vector:
+
+```{r}
+map(fruits, ~.x)
+```
+
+```{r}
+map_chr(fruits, ~.x)
+```
+
+We can use the `map()` function to apply any function to multiple elements. It becomes very useful for working with lists. As a basic example, we can apply a simple function like `sqrt()` to every element of a list.
 
 ```{r}
 test_list <- list(2, 4, 6, 8, 10)
@@ -318,7 +354,7 @@ And we can also write it with the pipe:
 test_list |> map_dbl(~sqrt(.x))
 ```
 
-We can also rewrite our for loop used for creating plots of the relationship between penguin bill length and bill depth separately using the function from 7.1.3 in a `map()` function:
+We can also rewrite our for loop used for creating plots of the relationship between penguin bill length and bill depth separately using the function from 8.1.3 in a `map()` function:
 
 ```{r}
 map(unique(penguins$species), ~plot_species(penguins, .x))
@@ -345,7 +381,7 @@ We can also use the relatives `map2_dbl()`, `map2_chr()` etc., to create a **sin
 map2_chr(genus, species, ~str_c(.x, .y, sep = ' '))
 ```
 
-### 8.3.2 \* Loading multiple files
+### 8.3.2 Loading multiple files
 
 The huge advantage of such an approach becomes more visible once we start, e.g., working with multiple datasets with the same structure, building the same models for different variables, or plotting many plots.
 
@@ -371,7 +407,7 @@ files <- map(paths, ~read_csv(.x))
 We can now check the structure of object we just created:
 
 ```{r}
-str(files)
+glimpse(files)
 ```
 
 We got a list with 12 tibbles. To access the first element of the list, we would call `files[[1]]`.
@@ -609,9 +645,9 @@ lm(lifeExp~year, data = by_country$data[[1]])
 
     **Chapter 9**
 
-12. Use the function in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
+12. Use the function from exercise 11 in a for loop and create plots of the distribution of defense power for all Pokémon types. \* Save all plots in a `plots` folder.
 
-13. Write a for loop that takes a numeric vector of numbers 1-10, adds 1 to each element and then prints it.
+13. Write a for loop that takes a numeric vector of numbers 1-10, adds 1 to each element and then prints it. Modify the for loop so that the result is stored in a vector.
 
 14. Write a for loop that takes penguin species names and for each element prints for example: `Species: Adelie`.
 
@@ -619,9 +655,9 @@ lm(lifeExp~year, data = by_country$data[[1]])
 
 16. Take the following numeric vectors and use a function from the `purrr` package to multiply the first one by the second one. `num1 <- list(1, 2, 3, 4, 5, 6)`, `num2 <- list(7, 8, 9, 10, 11, 12)`. Save the output first as a list and second as a numeric vector. Compare the differences.
 
-17. Use the function from exercise 10 and create plots of the distribution of defense power for all Pokémon types using functions from the `purrr` package.
+17. Use the function from exercise 12 and create plots of the distribution of defense power for all Pokémon types using functions from the `purrr` package.
 
-18. \* In this exercise, we will use data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline and save to your environment as a single tibble. Store the species names in a column in the final tibble.
+18. In this exercise, we will use data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline and save to your environment as a single tibble. Store the species names in a column in the final tibble.
 
 19. \* Create a bar plot showing which frog species are most often recorded (to order the species from the most to the least common, use a function from the `forcats()` package). Add colour distinction of records from different territories (column `stateProvince`).
 
