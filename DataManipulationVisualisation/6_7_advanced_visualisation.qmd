@@ -11,19 +11,19 @@ Every plot in `ggplot` consists of 7 parts that together serve as instructions o
 
 To produce any plot, `ggplot` needs **data**, **mapping** and at least one **layer**. The other parts have some defaults, but often need adjustments for a better appearance.
 
-- **Data** - preferably as a tidy tibble
+-   **Data** - preferably as a tidy tibble
 
-- **Mapping** - instructions, how the data should be displayed, usually defined using `aes()` to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot
+-   **Mapping** - instructions, how the data should be displayed, usually defined using `aes()` to pair graphical attributes of the plot with the data, typically x and y axis with specific variables from the data, but also colours, sizes, shapes, whatever should reflect some data variable in the resulting plot
 
-- **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`. Note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
+-   **Layers** - graphical representation of the data, usually defined by the `geom` functions, e.g. `geom_point()`, `geom_line()`, `geom_bar()`, `geom_boxplot()`. Note that layers are added to the plot in the order you write them in the code, so the last `geom` you added will be displayed on top
 
-- **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes, etc., to modify the defaults, use `scale` functions
+-   **Scales** - scale graphical attributes to the desired values, responsible for setting the limits of the plot, breaks, labels, colour palettes, etc., to modify the defaults, use `scale` functions
 
-- **Facets** - split data into smaller panels based on one or more variables
+-   **Facets** - split data into smaller panels based on one or more variables
 
-- **Coordinates** - typically Cartesian coordinates (x and y axis), important to set for map projections or polar plots
+-   **Coordinates** - typically Cartesian coordinates (x and y axis), important to set for map projections or polar plots
 
-- **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
+-   **Theme** - controls the overall appearance of the plot, not controlled by the data, can be used for customisation of the legend position, background colour, sizes of axis labels and many more
 
 We will again use the penguin dataset and play with the individual plot parts. In addition we will use some other packages, so please make sure you have them installed and loaded.
 
@@ -488,17 +488,17 @@ It is possible to do almost everything you would imagine using `ggplot2` and its
 
 Just a few tips for packages that you might useful for your work:
 
-- [`ggpubr`](https://rpkgs.datanovia.com/ggpubr) to make publication-ready plots - some easy-to-use functions for creating and customising `ggplot` plots
+-   [`ggpubr`](https://rpkgs.datanovia.com/ggpubr) to make publication-ready plots - some easy-to-use functions for creating and customising `ggplot` plots
 
-- [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
+-   [`ggeffects`](https://strengejacke.github.io/ggeffects) to calculate model predictions and plot them (will be replaced by [`modelbased`](https://easystats.github.io/modelbased/index.html), but the functionality shouldn't be lost)
 
-- [`gordi`](https://botzooldataanalysis.github.io/CommunityEcology/gordi_vignette.html) a ggplot-based package for making ordination plots, developed in our group
+-   [`gordi`](https://botzooldataanalysis.github.io/CommunityEcology/gordi_vignette.html) a ggplot-based package for making ordination plots, developed in our group
 
-- [`ggtree`](https://www.bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/ggtree.html) for visualisation of phylogenetic trees
+-   [`ggtree`](https://www.bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/ggtree.html) for visualisation of phylogenetic trees
 
-- [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
+-   [`ggnewscale`](https://eliocamp.github.io/ggnewscale) to use multiple colour or fill scales in the same plot, especially useful for maps
 
-- [`shiny`](https://shiny.posit.co) for creating web apps from R
+-   [`shiny`](https://shiny.posit.co) for creating web apps from R
 
 ## 6.9 Exercises
 

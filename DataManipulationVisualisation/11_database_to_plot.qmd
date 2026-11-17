@@ -4,7 +4,7 @@ format: html
 author: Irena Axmanová
 ---
 
-This tutorial aims to repeat what we have learned so far. We will step by step show you how to import data from a database into R, prepare it for further analysis, and provide some basic summaries of the data, as well as plot answers to our questions. At the end of this chapter, you will find the final exercises that we would like you to complete and hand in. The script will then be considered your final project for this course.
+This tutorial aims to repeat what we have learned so far. We will step by step show you how to import data from a database into R, prepare it for further analysis, and provide some basic summaries of the data, as well as plot answer to our questions. At the end of this chapter, you will find the final exercises that we would like you to complete and hand in. The script will then be considered your final project for this course.
 
 ## 11.1 Example of database format data / Turboveg
 
@@ -427,15 +427,15 @@ list.files("data/turboveg_to_R")
 First, we will import the file downloaded from the Pladias database, which contains information about the status. The file itself is in Czech, and it needs some fixing to make it tidy. Below, you can already find one suggestion on how to import this file, but we will check it together to understand how to read it and how it works step by step.
 
 ```{r}
-status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>% 
-  clean_names() %>% 
-  select(species = vedecke_jmeno, origin = puvodnost_v_cr, 
+status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>%
+  clean_names() %>%
+  select(species = vedecke_jmeno, origin = puvodnost_v_cr,
          redlist = cerveny_seznam_2017_narodni_kategorie_ohrozeni) %>%
   mutate(origin = case_when(
     origin == "původní" ~ "native",
     origin %in% c("archeofyt/neofyt", "archeofyt") ~ "arch",
     origin == "neofyt" ~ "neo",
-    TRUE ~ NA_character_)) %>% 
+    TRUE ~ NA_character_)) %>%
   mutate(redlist = case_when(
     redlist == "taxon není zařazen do Červeného seznamu" ~ NA_character_,
     TRUE ~ redlist))
@@ -444,9 +444,9 @@ status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cer
 Now we will import data about plant height. Again, there are a few issues, so we will fix them and calculate the mean height.
 
 ```{r}
-plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>% 
-  clean_names() %>% 
-  select(species = taxon, height_min = min, height_max = max) %>% 
+plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>%
+  clean_names() %>%
+  select(species = taxon, height_min = min, height_max = max) %>%
   mutate(across(c(height_min, height_max), ~ as.numeric(.x))) %>%
   mutate(height_mean = ((height_min + height_max)/2))
 ```
@@ -496,7 +496,8 @@ Alternatively, we can also do it like this, that we save the values to long form
 ```{r}
 env %>%
   arrange(forest) %>%
-  select(forest, cover_herbs = cov_herbs, biomass, cover_trees = cov_trees, soil_ph) %>%
+  select(forest, cover_herbs = cov_herbs, biomass, 
+         cover_trees = cov_trees, soil_ph) %>%
   tidyr::pivot_longer(
     cols = c(cover_herbs, biomass, cover_trees, soil_ph),
     names_to = "variable",
@@ -505,7 +506,9 @@ env %>%
   geom_boxplot() +
   facet_wrap(~variable, scales = "free_y") +
   theme_bw() +
-  theme(legend.position = 'none', axis.text.x = element_text(angle = 45, hjust = 1), axis.title = element_blank())
+  theme(legend.position = 'none', 
+        axis.text.x = element_text(angle = 45, hjust = 1), 
+        axis.title = element_blank())
 ```
 
 We might be interested in exploring the relationship between species richness and several factors. Below is an example of herb-layer species richness and biomass. At first, we need to calculate the species richness in the `spe` file. As an output, we want to plot this with different colours for different forest types, while keeping the regression line for the whole dataset.
@@ -520,11 +523,9 @@ spe %>%
   geom_point(aes(colour = forest), size = 2, alpha = 0.8) +
   geom_smooth(method = "lm", se = TRUE, colour = "black") +
   theme_bw() +
-  labs(
-    x = "sqrt Biomass",
-    y = "Herb-layer species richness",
-    colour = "Forest type"
-  )
+  labs(x = "sqrt Biomass",
+       y = "Herb-layer species richness",
+       colour = "Forest type")
 ```
 
 **Boxplots of Ellenberg-type indicator values** are based again on species data and values specific to each species. We will calculate the non-weighted mean for each plot and prepare boxplots for individual forest types. Again, we will use the step with long format and facet wrap.

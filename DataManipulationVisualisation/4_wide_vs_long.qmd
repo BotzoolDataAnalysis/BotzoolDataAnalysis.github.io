@@ -285,6 +285,8 @@ spe %>%
   summarise(unique_species_layer = n_distinct(interaction(Species, Layer)))
 ```
 
+See more in the chapter 10- long pipelines.
+
 ## 4.7 Advanced `mutate()` and `.by`
 
 Below are a few examples of how we used **`mutate()`** so far
@@ -354,7 +356,7 @@ env %>%
 
 We need to realise that after you use `group_by()`, the data stay grouped until you explicitly call `ungroup()`, or use a verb that drops grouping automatically by default settings (usually `summarise()` or `count()`). While `summarise()` removes the grouping, `mutate()` does not. Therefore, grouping still applies until the end of that call.
 
-The advantage of **`.by`** is that it works only within the `mutate()` function and the grouping is therefore valid just for this function (no need to use ungroup).
+The advantage of **`.by`** is that it works only within the `mutate()` function and the grouping is therefore valid just for this function (no need to use ungroup). See more in the chapter 10 - long pipelines.
 
 ## 4.8 \*`rowSums`
 
