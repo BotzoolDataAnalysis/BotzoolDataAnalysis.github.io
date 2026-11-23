@@ -484,7 +484,69 @@ spe %>%
 
 ## 10.6 Exercises
 
-<!-- just a few exercises? e.g. elton_birds -  available in the package "traitdata" install and use data<-data(elton_birds) -->
+Today we will use data from a specific package called **traitdata**. This package is not available through CRAN as you are used to, but it is stored in a GitHub repository. Let´s try to install it together.
+
+First, you will need to install a library which helps you download any libraries stored on GitHub. It is called `remotes`. The following chunk will check if you already have it installed, and if not, it will install it
+
+```{r}
+#| eval: false
+if(!"remotes" %in% installed.packages()[, "Package"]) {
+  install.packages("remotes")
+}
+```
+
+Now we will use a function from the remotes library and install `traitdata`
+
+```{r}
+#| eval: false
+remotes::install_github("RS-eco/traitdata", build_vignettes = TRUE, force = TRUE)
+```
+
+Still, you need to load the library into your console.
+
+```{r}
+#| eval: false
+library(traitdata)
+
+?traitdata
+```
+
+When you check the environment and switch it from Global to **package:traitdata** you can see the structure and available datasets within this package. To get them to your working environment, you can either click on them in this view, or use the function called data. You will need the following four datasets.
+
+![](images/clipboard-2568328883.png){width="365"}
+
+```{r}
+#| eval: false
+data(elton_birds)
+data(passerines)
+data(elton_mammals)
+data(mammal_diet)
+```
+
+Now the data are ready to be used and you can explore them as you are used to e.g.
+
+```{r}
+#| eval: false
+names(elton_birds)
+```
+
+1.  Look at the **elton_birds** dataset. Check the structure. The species name is saved in the "scientificNameStd" and there is also information about higher taxonomy and body mass. Prepare boxplots of "BodyMass.Value" for the Orders listed below. Reorder the graph to be sorted by ascending or descending body mass. Consider log scale of the body mass axis. Orders: "Anseriformes","Galliformes","Passeriformes", "Piciformes","Strigiformes"
+
+2.  Now focus only on the Passeriformes. In the **passerines** dataset there are several measurements of morphological traits. Let's use these: Length, Wing, Bill L, Tail. In the elton_birds dataset, we have the body mass in the variable "BodyMass.Value". Your task is to prepare scatterplots of the relationship between the morphological traits and body mass (use facetting so that we can directly compare it in one picture, and you can add geom_smooth lines). Unfortunately, in both datasets, there are more measurements for some species (i.e. more rows than we need), therefore, I suggest renaming the variables, converting to numeric type and summarising mean values for the species first. Consider log scale of the body mass axis.
+
+3.  We can use the **elton_mammals** dataset to define simple categories of what the species are mostly eating like and create a boxplot of body mass related to diet type. Consider log scale of the body mass axis.
+
+    ```{r}
+    # plant_diet = Diet.Fruit + Diet.Nect + Diet.Seed + Diet.PlantO, 
+    # animal_diet = Diet.Inv + Diet.Vend + Diet.Vect + Diet.Vfish + Diet.Vunk, 
+    # diet_type = case_when(plant_diet > animal_diet ~ "Plant-based", 
+    #                       animal_diet > plant_diet ~ "Animal-based", 
+    #                       TRUE ~ "Mixed" )
+    ```
+
+4.  Or we can find similar information in the **mammal_diet** dataset simplified to so-called TrophicLevel. Prepare a bar plot with geom_col function showing the proportion of the herbivores in each of the mammal orders. First, remove the NotAssigned category of the "TrophicLevel" and calculate the relative share of herbivores to all species in each order. Remove orders which have less than 30 species.
+
+5.  Now use both mammals datasets to prepare a comparison of body mass and main trophic levels (herbivory, carnivory and omnivory) visualised by boxplots. To be able to match both datasets, you need to check first the structure and calculate the mean values of the body mass (summarise for each species different measurements). Consider a log scale of the body mass axis and reordering of the categories according to the body mass. Which group has the highest body mass?
 
 ## 10.7 Further reading
 

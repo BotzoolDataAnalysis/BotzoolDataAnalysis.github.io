@@ -562,140 +562,6 @@ Eigenvalues for unconstrained axes:
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="st">'species'</span>,   <span class="co"># we want to focus on the species</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">correlation =</span> T</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$m
-
-Call: capscale(formula = sqrt(dune) ~ A1, data = dune.env, distance =
-"bray", sqrt.dist = T)
-
-              Inertia Proportion Rank
-Total           5.699      1.000     
-Constrained     0.678      0.119    1
-Unconstrained   5.021      0.881   18
-
-Inertia is Bray distance
-
--- NOTE:
-Species scores projected from 'sqrt'
-Species scores projected from 'dune'
-
-Eigenvalues for constrained axes:
- CAP1 
-0.678 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-1.0664 0.8972 0.5421 0.4314 0.4050 0.2744 0.2453 0.1891 
-(Showing 8 of 18 unconstrained eigenvalues)
-
-
-$type
-[1] "db-RDA"
-
-$explained_variation
-      CAP1       MDS1       MDS2       MDS3       MDS4       MDS5       MDS6 
-0.11897706 0.18713012 0.15743892 0.09512279 0.07570342 0.07107262 0.04815021 
-      MDS7       MDS8       MDS9      MDS10      MDS11      MDS12      MDS13 
-0.04304449 0.03318727 0.02994104 0.02652510 0.02343062 0.01907886 0.01792983 
-     MDS14      MDS15      MDS16      MDS17      MDS18 
-0.01486430 0.01220752 0.01074280 0.00844054 0.00701251 
-
-$choices
-[1] 1 2
-
-$scaling
-[1] "species"
-
-$correlation
-[1] TRUE
-
-$hill
-[1] FALSE
-
-$const
-[1] 2 2
-
-$axis_names
-[1] "CAP1" "MDS1"
-
-$site_scores
-# A tibble: 20 × 2
-      CAP1      MDS1
-     &lt;dbl&gt;     &lt;dbl&gt;
- 1 -0.756  -0.0517  
- 2 -0.563  -0.208   
- 3 -0.211   0.143   
- 4 -0.263   0.150   
- 5 -0.505  -0.818   
- 6 -0.454  -0.552   
- 7 -0.559  -0.367   
- 8  0.287   0.568   
- 9 -0.0969  0.397   
-10 -0.590  -0.467   
-11 -0.426  -0.197   
-12  0.295   0.301   
-13  0.318   0.313   
-14  1.23   -0.000327
-15  1.24   -0.124   
-16  0.867   0.814   
-17 -0.326  -0.476   
-18 -0.312  -0.352   
-19 -0.0791  0.00428 
-20  0.905   0.922   
-
-$species_scores
-# A tibble: 30 × 2
-       CAP1    MDS1
-      &lt;dbl&gt;   &lt;dbl&gt;
- 1 -0.0908  -0.157 
- 2  0.114    0.180 
- 3 -0.0431  -0.0358
- 4 -0.00467  0.131 
- 5 -0.0600  -0.148 
- 6 -0.0430  -0.0854
- 7 -0.0662  -0.0937
- 8  0.0338   0.0367
- 9 -0.0191   0.0176
-10  0.237   -0.0106
-# ℹ 20 more rows
-
-$predictor_scores
-# A tibble: 1 × 4
-   CAP1  MDS1 score  label
-  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt;
-1     1     0 biplot A1   
-
-$species_names
-# A tibble: 30 × 1
-   species_names
-   &lt;chr&gt;        
- 1 Achimill     
- 2 Agrostol     
- 3 Airaprae     
- 4 Alopgeni     
- 5 Anthodor     
- 6 Bellpere     
- 7 Bromhord     
- 8 Chenalbu     
- 9 Cirsarve     
-10 Comapalu     
-# ℹ 20 more rows
-
-$predictor_names
-# A tibble: 1 × 1
-  predictor_names
-  &lt;chr&gt;          
-1 A1             
-
-$env
-NULL
-
-$spe
-NULL
-
-$traits
-NULL</code></pre>
-</div>
 </div>
 </section>
 <section id="choose-what-to-display" class="level3">
@@ -713,9 +579,9 @@ NULL</code></pre>
 <li>If you have decided to display sites, use <code>gordi_sites()</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -726,9 +592,9 @@ NULL</code></pre>
 </div>
 <p>OK, good. We have a bunch of blue arrows. Each arrow represent one species, but which one? For a quick information, we can set argument <code>label = T</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -743,9 +609,9 @@ NULL</code></pre>
 </blockquote>
 <p>What else can we improve is the position of the species names, so they do not overlap each other. For this, set the argument <code>repel_label = T</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T, <span class="at">repel_label =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T, <span class="at">repel_label =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -756,9 +622,9 @@ NULL</code></pre>
 </div>
 <p>We can also decide, that arrows will look better in ‘hotpink3’.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T, <span class="at">repel_label =</span> T, <span class="at">colour =</span> <span class="st">'hotpink3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_read</span>(<span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="st">'species'</span>, <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">label =</span> T, <span class="at">repel_label =</span> T, <span class="at">colour =</span> <span class="st">'hotpink3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -775,27 +641,27 @@ NULL</code></pre>
 <p><strong>Note:</strong> For species, this variable (<code>Subclass</code>) must be supplied to the <code>traits</code> argument as a tibble or data frame. This table has a strict format: the <strong>first column must contain species names</strong> that exactly match the column names in the <strong>spe</strong> table. In every following column, every species must have assigned only one value.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At first, we need to prepare traits table to be compatible with species table.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The first column in the traits table must contain species names as used in species table</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'dune.taxon'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(dune.taxon, <span class="at">rownames =</span> <span class="st">'species'</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we continue with the gordi pipeline</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">env =</span> dune.env,      <span class="co"># table with environmental variable</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">traits =</span> traits,     <span class="co"># table with traits, respective in this case,</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># table with species names, families and </span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># other stuff is used</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,       <span class="co"># choose 1st and 2nd ordination axes</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">correlation =</span> T,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">scaling =</span> <span class="st">'species'</span>  <span class="co"># we want to display species, we choose scaling = 'species'</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span>  </span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">'Subclass'</span>,     <span class="co"># colour may be set statically,</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># or dynamically, by using name of some</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># variable in traits data frame</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span>,             <span class="co"># opacity of symbols</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow_size =</span> <span class="fl">0.5</span>)        <span class="co"># changes arrow size (in cm)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At first, we need to prepare traits table to be compatible with species table.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The first column in the traits table must contain species names as used in species table</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'dune.taxon'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(dune.taxon, <span class="at">rownames =</span> <span class="st">'species'</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we continue with the gordi pipeline</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">env =</span> dune.env,      <span class="co"># table with environmental variable</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">traits =</span> traits,     <span class="co"># table with traits, respective in this case,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># table with species names, families and </span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># other stuff is used</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,       <span class="co"># choose 1st and 2nd ordination axes</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">correlation =</span> T,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">scaling =</span> <span class="st">'species'</span>  <span class="co"># we want to display species, we choose scaling = 'species'</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span>  </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">'Subclass'</span>,     <span class="co"># colour may be set statically,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># or dynamically, by using name of some</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                             <span class="co"># variable in traits data frame</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span>,             <span class="co"># opacity of symbols</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow_size =</span> <span class="fl">0.5</span>)        <span class="co"># changes arrow size (in cm)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -807,17 +673,17 @@ NULL</code></pre>
 <p>However, these two functions allows you to use only the default colour palettes or shapes.</p>
 <p>If we want to select some predefined or custom colour scale or different shapes, we have to do it immediately after <code>gordi_species()</code> or <code>gordi_sites()</code> with <code>gordi_colour()</code> and <code>gordi_shape()</code> functions. - <code>gordi_colour()</code> controls both, colour and fill (by setting argument <code>fill = T/F</code>) - <code>gordi_shape()</code> controls point shape (for details about the numbers of shape, see <code>?pch</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,       <span class="co"># first, you must define the scale (see </span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                                         <span class="co"># ?gordi_colour() for options)</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'brewer'</span>)        <span class="co"># then you must select from a family of colour scales or set one manually </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,       <span class="co"># first, you must define the scale (see </span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                                         <span class="co"># ?gordi_colour() for options)</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'brewer'</span>)        <span class="co"># then you must select from a family of colour scales or set one manually </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -828,19 +694,19 @@ NULL</code></pre>
 </div>
 <p>We may want to set the colours manually. This is also possible with <code>gordi_colour()</code> (or <code>gordi_shape()</code>) and in this case, we set the first two arguments like this: <code>scale = 'discrete</code>, <code>family = 'manual</code>, and then we have to define <code>values = c('lightsalmon3', 'palegreen2')</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,       <span class="co"># first, you must define the scale (see </span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>                                         <span class="co"># ?gordi_colour() for options)</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'manual'</span>,        </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'lightsalmon3'</span>, <span class="st">'palegreen2'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,       <span class="co"># first, you must define the scale (see </span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                                         <span class="co"># ?gordi_colour() for options)</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'manual'</span>,        </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'lightsalmon3'</span>, <span class="st">'palegreen2'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -853,6 +719,30 @@ NULL</code></pre>
 <section id="add-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="add-predictors">5. Add predictors</h3>
 <p>At the beginning, we calculated constrained ordination (<code>RDA</code>). Predictors also have their scores and we will now use <code>gordi_predict()</code> to add them to the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,    </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'manual'</span>,        </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'lightsalmon3'</span>, <span class="st">'palegreen2'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># here, we apply gordi_predict</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gordi_vignette_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As before, we want to see the name of the predictor variable. Or possibly to change the colour, linewidth, linetype or alpha of the arrow.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
@@ -867,38 +757,14 @@ NULL</code></pre>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'manual'</span>,        </span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'lightsalmon3'</span>, <span class="st">'palegreen2'</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># here, we apply gordi_predict</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gordi_vignette_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>As before, we want to see the name of the predictor variable. Or possibly to change the colour, linewidth, linetype or alpha of the arrow.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span> <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,      </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">traits =</span> traits,   </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">correlation =</span> T,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scaling =</span> <span class="st">'species'</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>,     </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.8</span>,             </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">arrow_size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span>       </span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>,    </span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">family =</span> <span class="st">'manual'</span>,        </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'lightsalmon3'</span>, <span class="st">'palegreen2'</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># here, we apply gordi_predict</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>(</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_label =</span> T,         <span class="co"># whether label should be shown</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">repel_label =</span> T,        <span class="co"># should it be repelled?</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">'royalblue3'</span>,  <span class="co"># colour of the arrow (static - if there were more arrows, all would be the same)</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.5</span>,        <span class="co"># default = 1</span></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="dv">4</span>,           <span class="co"># default = 1, for more linetypes see linetype help page</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span>             <span class="co"># opacity of the arrow</span></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>(</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_label =</span> T,         <span class="co"># whether label should be shown</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">repel_label =</span> T,        <span class="co"># should it be repelled?</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">'royalblue3'</span>,  <span class="co"># colour of the arrow (static - if there were more arrows, all would be the same)</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.5</span>,        <span class="co"># default = 1</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="dv">4</span>,           <span class="co"># default = 1, for more linetypes see linetype help page</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span>             <span class="co"># opacity of the arrow</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -915,22 +781,22 @@ NULL</code></pre>
 <p><strong>Note</strong>: Don’t forget, that traditional <strong>ggplot2</strong> functions use the <code>+</code> sign, not pipe operator <code>|&gt;</code>.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">traits =</span> traits,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">scaling =</span> <span class="st">'species'</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>, <span class="at">family =</span> <span class="st">'brewer'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>(<span class="at">show_label =</span> T, <span class="at">repel_label =</span> T, <span class="at">colour =</span> <span class="st">'gold'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_plot</span>() <span class="sc">+</span>      <span class="co"># from here, we are using standard ggplot2 syntax (with "+")</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_abyss</span>() <span class="sc">+</span>     <span class="co"># change default theme</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'This is a very nice plot'</span>,                        <span class="co"># add custom title and subtitle</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">'Do not try to argue with the authors.'</span>) <span class="sc">+</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.12</span>, <span class="at">y =</span> <span class="fl">0.15</span>),                            <span class="co"># add another layer (data must be defined manually, no plotting data pass behind the gordi_plot())</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">'pink'</span>, <span class="at">stroke =</span> <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">gordi_read</span>(<span class="at">env =</span> dune.env,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">traits =</span> traits,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">scaling =</span> <span class="st">'species'</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">correlation =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_species</span>(<span class="at">colour =</span> <span class="st">'Subclass'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_colour</span>(<span class="at">scale =</span> <span class="st">'discrete'</span>, <span class="at">family =</span> <span class="st">'brewer'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_predict</span>(<span class="at">show_label =</span> T, <span class="at">repel_label =</span> T, <span class="at">colour =</span> <span class="st">'gold'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gordi_plot</span>() <span class="sc">+</span>      <span class="co"># from here, we are using standard ggplot2 syntax (with "+")</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_abyss</span>() <span class="sc">+</span>     <span class="co"># change default theme</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'This is a very nice plot'</span>,                        <span class="co"># add custom title and subtitle</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">'Do not try to argue with the authors.'</span>) <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.12</span>, <span class="at">y =</span> <span class="fl">0.15</span>),                            <span class="co"># add another layer (data must be defined manually, no plotting data pass behind the gordi_plot())</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">'pink'</span>, <span class="at">stroke =</span> <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

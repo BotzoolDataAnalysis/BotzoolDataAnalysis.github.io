@@ -1330,7 +1330,49 @@ Joining with `by = join_by(species)`</code></pre>
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">10.6 Exercises</h2>
-<!-- just a few exercises? e.g. elton_birds -  available in the package "traitdata" install and use data<-data(elton_birds) -->
+<p>Today we will use data from a specific package called <strong>traitdata</strong>. This package is not available through CRAN as you are used to, but it is stored in a GitHub repository. Let´s try to install it together.</p>
+<p>First, you will need to install a library which helps you download any libraries stored on GitHub. It is called <code>remotes</code>. The following chunk will check if you already have it installed, and if not, it will install it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="st">"remotes"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>]) {</span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we will use a function from the remotes library and install <code>traitdata</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"RS-eco/traitdata"</span>, <span class="at">build_vignettes =</span> <span class="cn">TRUE</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Still, you need to load the library into your console.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(traitdata)</span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>?traitdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you check the environment and switch it from Global to <strong>package:traitdata</strong> you can see the structure and available datasets within this package. To get them to your working environment, you can either click on them in this view, or use the function called data. You will need the following four datasets.</p>
+<p><img src="images/clipboard-2568328883.png" class="img-fluid" width="365"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(elton_birds)</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(passerines)</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(elton_mammals)</span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mammal_diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the data are ready to be used and you can explore them as you are used to e.g.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(elton_birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>Look at the <strong>elton_birds</strong> dataset. Check the structure. The species name is saved in the “scientificNameStd” and there is also information about higher taxonomy and body mass. Prepare boxplots of “BodyMass.Value” for the Orders listed below. Reorder the graph to be sorted by ascending or descending body mass. Consider log scale of the body mass axis. Orders: “Anseriformes”,“Galliformes”,“Passeriformes”, “Piciformes”,“Strigiformes”</p></li>
+<li><p>Now focus only on the Passeriformes. In the <strong>passerines</strong> dataset there are several measurements of morphological traits. Let’s use these: Length, Wing, Bill L, Tail. In the elton_birds dataset, we have the body mass in the variable “BodyMass.Value”. Your task is to prepare scatterplots of the relationship between the morphological traits and body mass (use facetting so that we can directly compare it in one picture, and you can add geom_smooth lines). Unfortunately, in both datasets, there are more measurements for some species (i.e.&nbsp;more rows than we need), therefore, I suggest renaming the variables, converting to numeric type and summarising mean values for the species first. Consider log scale of the body mass axis.</p></li>
+<li><p>We can use the <strong>elton_mammals</strong> dataset to define simple categories of what the species are mostly eating like and create a boxplot of body mass related to diet type. Consider log scale of the body mass axis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plant_diet = Diet.Fruit + Diet.Nect + Diet.Seed + Diet.PlantO, </span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="co"># animal_diet = Diet.Inv + Diet.Vend + Diet.Vect + Diet.Vfish + Diet.Vunk, </span></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="co"># diet_type = case_when(plant_diet &gt; animal_diet ~ "Plant-based", </span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                       animal_diet &gt; plant_diet ~ "Animal-based", </span></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                       TRUE ~ "Mixed" )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Or we can find similar information in the <strong>mammal_diet</strong> dataset simplified to so-called TrophicLevel. Prepare a bar plot with geom_col function showing the proportion of the herbivores in each of the mammal orders. First, remove the NotAssigned category of the “TrophicLevel” and calculate the relative share of herbivores to all species in each order. Remove orders which have less than 30 species.</p></li>
+<li><p>Now use both mammals datasets to prepare a comparison of body mass and main trophic levels (herbivory, carnivory and omnivory) visualised by boxplots. To be able to match both datasets, you need to check first the structure and calculate the mean values of the body mass (summarise for each species different measurements). Consider a log scale of the body mass axis and reordering of the categories according to the body mass. Which group has the highest body mass?</p></li>
+</ol>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">10.7 Further reading</h2>
