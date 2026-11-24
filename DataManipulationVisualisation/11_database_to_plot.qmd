@@ -6,6 +6,12 @@ author: Irena Axmanová
 
 This tutorial aims to repeat what we have learned so far. We will step by step show you how to import data from a database into R, prepare it for further analysis, and provide some basic summaries of the data, as well as plot answer to our questions. At the end of this chapter, you will find the final exercises that we would like you to complete and hand in. The script will then be considered your final project for this course.
 
+<!--change status and other complicated things to more easy files  -->
+
+<!--check if the inner join is needed - do I have updated dataset with only a selection of plots?  -->
+
+<!--check the excercises and adjust  -->
+
 ## 11.1 Example of database format data / Turboveg
 
 Turboveg for Windows is a program designed for storing, selecting, and exporting vegetation plot data (relevés). The information is divided among several files that are matched by either species ID or releve ID. Within the Turboveg interface, you do not see this structure directly; however, you can find it by looking in the `Turbowin` folder, subfolder `Data`, and a particular database (see example below).
@@ -118,6 +124,12 @@ There are several advantages to this approach. First, you can adjust the nomencl
 Second, I can add a concept that groups several taxa into higher units, e.g., taxa that are not easily recognisable in the field are assigned to aggregates. This is the same approach you use when creating an expert system file. Here, it is even easier to understand and much easier to change the translation when you need to make a correction. The name in this file is called ESy.
 
 Last but not least. We can directly add much more information to such a table, for example, status, growth form or anything else. Here, we indicate whether the species is nonvascular.
+
+First, we will check if all species codes are available in our translation file - is there anything left that is not in the translation table? Here the output is a tibble with no rows, so it is OK. If there were a problem, we would add a pipe to write the output directly (%\>% write_excel_csv("data/add_to_nomenclature")) and fix the translation table in Excel.
+
+```{r}
+tvabund %>% anti_join(nomenclature)
+```
 
 We might want to check how the species are translated using my translation file and select only these matching rows. Either create a variable called 'selection' to indicate whether the species is in the subset or not.
 
@@ -401,7 +413,7 @@ For the env dataset, we want to import the previously saved clean version, but w
 
 ```{r}
 env <- read_csv("data/turboveg_to_R/env.csv") %>% 
-  inner_join(env_extra %>% 
+  left_join(env_extra %>% 
                select (releve_nr, forest_type, forest_type_name,
                        soil_ph=p_h_k_cl, biomass) %>% 
                unite(forest, forest_type, forest_type_name))
@@ -424,44 +436,42 @@ We would also like to include some information about traits. So we will check wh
 list.files("data/turboveg_to_R")
 ```
 
-First, we will import the file downloaded from the Pladias database, which contains information about the status. The file itself is in Czech, and it needs some fixing to make it tidy. Below, you can already find one suggestion on how to import this file, but we will check it together to understand how to read it and how it works step by step.
+<!--First, we will import the file downloaded from the Pladias database, which contains information about the status. The file itself is in Czech, and it needs some fixing to make it tidy. Below, you can already find one suggestion on how to import this file, but we will check it together to understand how to read it and how it works step by step. status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>% clean_names() %>% select(species = vedecke_jmeno, origin = puvodnost_v_cr, redlist = cerveny_seznam_2017_narodni_kategorie_ohrozeni) %>% mutate(origin = case_when( origin == "původní" ~ "native", origin %in% c("archeofyt/neofyt", "archeofyt") ~ "arch", origin == "neofyt" ~ "neo", TRUE ~ NA_character_)) %>% mutate(redlist = case_when( redlist == "taxon není zařazen do Červeného seznamu" ~ NA_character_, TRUE ~ redlist)) -->
+
+First, we will import the dataset containing information about status.
 
 ```{r}
-status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>%
-  clean_names() %>%
-  select(species = vedecke_jmeno, origin = puvodnost_v_cr,
-         redlist = cerveny_seznam_2017_narodni_kategorie_ohrozeni) %>%
-  mutate(origin = case_when(
-    origin == "původní" ~ "native",
-    origin %in% c("archeofyt/neofyt", "archeofyt") ~ "arch",
-    origin == "neofyt" ~ "neo",
-    TRUE ~ NA_character_)) %>%
-  mutate(redlist = case_when(
-    redlist == "taxon není zařazen do Červeného seznamu" ~ NA_character_,
-    TRUE ~ redlist))
+status<- read_csv("data/turboveg_to_R/status.csv")
 ```
 
-Now we will import data about plant height. Again, there are a few issues, so we will fix them and calculate the mean height.
+There are two main variables. The "origin" has categories "native", while non-native plants are classified either as "arch"(=archaeophyte) or "neo"=(neophyte), depending on the time of introduction.
 
 ```{r}
-plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>%
-  clean_names() %>%
-  select(species = taxon, height_min = min, height_max = max) %>%
-  mutate(across(c(height_min, height_max), ~ as.numeric(.x))) %>%
-  mutate(height_mean = ((height_min + height_max)/2))
+status %>% count(origin)
+status %>% count(redlist)
 ```
 
-And the Ellenberg-type indicator values:
+The other variable is "redlist" and the categories are variants of A (extinct) or C1, C2, C3 and C4 (with descending threat from 1 to 4), species without any category are not considered endangered, so we can make the categories more simple.
 
 ```{r}
-#| warning: false
-indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.xlsx") %>% 
-  clean_names() %>% 
-  select(species = name, 
-         eiv_light = l_cz, eiv_temperature = t_cz, 
-         eiv_moisture = m_cz, eiv_reaction = r_cz, 
-         eiv_nutrients = n_cz, eiv_salinity = s_cz) %>%
-  mutate(across(-species, ~as.numeric(.x)))
+status<- status %>%  
+  mutate(redlist_simple= case_when(is.na(redlist) ~ "not endangered", 
+                                   TRUE ~ "endangered")) 
+```
+
+<!--Now we will import data about plant height. Again, there are a few issues, so we will fix them and calculate the mean height. plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>% clean_names() %>% select(species = taxon, height_min = min, height_max = max) %>% mutate(across(c(height_min, height_max), ~ as.numeric(.x))) %>% mutate(height_mean = ((height_min + height_max)/2)) And the Ellenberg-type indicator values:indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.xlsx") %>% clean_names() %>% select(species = name, eiv_light = l_cz, eiv_temperature = t_cz, eiv_moisture = m_cz, eiv_reaction = r_cz, eiv_nutrients = n_cz, eiv_salinity = s_cz) %>%mutate(across(-species, ~as.numeric(.x)))-->
+
+We will import the file with plant height and seed mass.
+
+```{r}
+traits <- read_csv("data/turboveg_to_R/traits.csv")
+names(traits)
+```
+
+And last but not least, we will import the Ellenberg type indicator values
+
+```{r}
+indicator_values <- read_csv("data/turboveg_to_R/ellenberg_type_indicators_cz.csv")
 ```
 
 ## 11.7 Summary statistics and graphical outputs
@@ -469,10 +479,10 @@ indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.
 We will explore the data and examine which factors influence species richness. Here are just a few examples. We will read the scripts together, and you will adapt them later for other tasks. First, we want to produce a table with summary statistics, such as minimum, mean, and maximum, for two variables: plant height and biomass per forest type. The first one is a trait, so we need to append it to the species file and calculate community means, while the other is a variable measured in each plot.
 
 ```{r}
-statistics <- spe %>% 
+spe %>% 
   filter(layer == "6") %>%
-  left_join(plant_height %>% 
-              select(species, height = height_mean)) %>%
+  left_join(traits %>% 
+              select(species, height)) %>%
   left_join(env) %>%
   arrange(forest) %>%
   summarise(across(c(height,cov_herbs, biomass, cov_trees,soil_ph),
@@ -552,22 +562,21 @@ spe %>%
 **Proportions of endangered or alien species** in forest types. We will first look at the numbers of these species, for example, the Red List (i.e., endangered) species. We would like to see the average number of Red List species per forest type.
 
 ```{r}
-env %>%
-  select(releve_nr, forest) %>% 
-  left_join(spe %>% 
-              left_join(status) %>% 
-              filter(!is.na(redlist)) %>%
-              count(releve_nr, name = "richness_redlist")) %>%
-  left_join(spe %>% 
-              summarise(richness_all = n_distinct(species), 
-                        .by = releve_nr)) %>%
-  mutate(richness_redlist = replace_na(richness_redlist, 0)) %>%
-  mutate(richness_redlist_perc = richness_redlist/richness_all*100) %>%
-  summarise(redlist_mean_perc = mean(richness_redlist_perc), .by = forest) %>%
-  arrange(forest)
+spe %>% 
+  left_join(env %>% select(releve_nr, forest)) %>% 
+  left_join(status) %>% 
+  distinct(forest, releve_nr, species, redlist_simple) %>% 
+  mutate(endangered = redlist_simple== "endangered") %>%  
+  summarise(species_richness = n_distinct(species),
+    endangered_richness = sum(endangered, na.rm = T),
+    .by = c(forest, releve_nr)) %>% 
+  summarise(
+    endangered_perc = mean(endangered_richness / species_richness) * 100,
+    .by = forest) %>% 
+  arrange(desc(endangered_perc))
 ```
 
-However, I can also examine the differences in the abundance of specific plant groups. What is the proportion of cover of alien species relative to total cover in different forests?
+However, I can also examine the **differences in the abundance of specific plant groups**. What is the proportion of cover of alien species relative to total cover in different forests?
 
 ```{r}
 env %>%
