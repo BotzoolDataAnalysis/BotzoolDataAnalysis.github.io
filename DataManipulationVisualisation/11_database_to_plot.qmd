@@ -6,10 +6,6 @@ author: Irena Axmanová
 
 This tutorial aims to repeat what we have learned so far. We will step by step show you how to import data from a database into R, prepare it for further analysis, and provide some basic summaries of the data, as well as plot answer to our questions. At the end of this chapter, you will find the final exercises that we would like you to complete and hand in. The script will then be considered your final project for this course.
 
-<!--change status and other complicated things to more easy files  -->
-
-<!--check if the inner join is needed - do I have updated dataset with only a selection of plots?  -->
-
 <!--check the excercises and adjust  -->
 
 ## 11.1 Example of database format data / Turboveg
@@ -84,7 +80,7 @@ And save it for easier access.
 
 ```{r}
 
-write.csv(env, "data/turboveg_to_R/env.csv")
+write_excel_csv(env, "data/turboveg_to_R/env.csv")
 ```
 
 ## 11.4 Import spe file = species file in a long format
@@ -152,7 +148,7 @@ We can then write the file, make adjustments (e.g., in Excel), and upload it aga
 
 ```{r}
 #| eval: false
-write.csv(nomenclature_check, "data/turboveg_to_R/nomenclature_check.csv")
+write_excel_csv(nomenclature_check, "data/turboveg_to_R/nomenclature_check.csv")
 ```
 
 Upload the new, adjusted file:
@@ -228,7 +224,7 @@ We can again save the final file, to be easily accessible for later:
 
 ```{r}
 #| eval: false
-write.csv(spe, "data/turboveg_to_R/spe.csv")
+write_excel_csv(spe, "data/turboveg_to_R/spe.csv")
 ```
 
 ## 11.5 Merging of species covers
@@ -333,8 +329,8 @@ combine_cover <- function(x){
 
 ```{r}
 spe %>% 
-  group_by(releve_nr, species, layer) %>% 
-  summarise(cover_perc_new = combine_cover(cover_perc)) 
+  summarise(cover_perc_new = combine_cover(cover_perc), 
+            .by=c(releve_nr, species, layer)) 
 ```
 
 We will also add pipelines to check for any remaining duplicate rows. Note that we need to specify the grouping again in the `count()` (or add the `group_by()` before the `count()` again), since the `summarise()` finished the grouping from the `group_by()` function.
@@ -342,8 +338,8 @@ We will also add pipelines to check for any remaining duplicate rows. Note that 
 ```{r}
 #| warning: false
 spe %>% 
-  group_by(releve_nr, species, layer) %>% 
-  summarize(cover_perc_new = combine_cover(cover_perc)) %>%
+  summarize(cover_perc_new = combine_cover(cover_perc), 
+            .by=c(releve_nr, species, layer)) %>%
   count(releve_nr, species, layer) %>%
   filter(n > 1)
 ```
@@ -355,9 +351,9 @@ If we are happy, we can overwrite the cover directly, save the output for easier
 ```{r}
 #| warning: false
 spe %>% 
-  group_by(releve_nr, species, layer) %>% 
-  summarize(cover_perc = combine_cover(cover_perc)) %>%
-  write_csv("data/turboveg_to_R/spe_merged_covers.csv")
+  summarize(cover_perc = combine_cover(cover_perc), 
+            .by=c(releve_nr, species, layer)) %>%
+  write_excel_csv("data/turboveg_to_R/spe_merged_covers.csv")
 
 ```
 
@@ -366,9 +362,9 @@ spe %>%
 ```{r}
 #| warning: false
 spe %>% 
-  group_by(releve_nr, species) %>% 
-  summarize(cover_perc = combine_cover(cover_perc)) %>%
-  write_csv("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
+  summarize(cover_perc = combine_cover(cover_perc), 
+            .by=c(releve_nr, species)) %>%
+  write_excel_csv("data/turboveg_to_R/spe_merged_covers_across_layers.csv")
 ```
 
 ### 11.5.4 Total cover of all species in the plot
@@ -378,9 +374,9 @@ The same approach used for merging covers can also be applied to calculating the
 ```{r}
 #| warning: false
 spe %>% 
-  group_by(releve_nr) %>% 
   summarize(covertotal_sum = sum(cover_perc), 
-            covertotal_overlap = combine_cover(cover_perc)) %>%
+            covertotal_overlap = combine_cover(cover_perc),
+            .by= releve_nr) %>%
   select(releve_nr, covertotal_sum, covertotal_overlap) %>%
   arrange(desc(covertotal_sum))
 ```
@@ -390,9 +386,9 @@ The same with respect to layers
 ```{r}
 #| warning: false
 spe %>% 
-  group_by(releve_nr, layer) %>% 
   summarize(covertotal_sum = sum(cover_perc), 
-            covertotal_overlap = combine_cover(cover_perc)) %>%
+            covertotal_overlap = combine_cover(cover_perc), 
+            .by=c(releve_nr,layer)) %>%
   select(releve_nr, layer, covertotal_sum, covertotal_overlap)
 ```
 
@@ -597,7 +593,7 @@ env %>%
 
 ## Almost at the end of this course!
 
-A couple of tidyverse songs as a bonus for staying with us and learned many new things:
+A couple of tidyverse songs as a bonus for staying with us and learning many new things:
 
 Human-made: <https://www.youtube.com/watch?v=p8Py9C8iq2s>
 
@@ -615,6 +611,6 @@ AI-made: <https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4Io
 
 3.  **Frogs** Use the data of the 10 most common frog species recorded within the Australian [FrogID initiative](https://www.frogid.net.au/explore). The original data comes from the [TidyTuesdays repository](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md), but we modified it slightly for this exercise and stored it in the `frogs` folder of our [repository](https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data). The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline (with `map()`) and save to your environment as a single tibble \>\> prepare two barplots, first showing number of species in each stateProvince, and second showing number of all records irrespective of species \>\> prepare a table where there will be species as rows, columns for each stateProvince and values will represent the absolute number of records \>\> calculate also relative variables which will show representation of each species in the stateProvince relative to all species (%) in the stateProvince.
 
-4.  **Lepidoptera** Work with this dataset, namely `spe_matrix_MSvejnoha`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \>\> count the number of all individuals at each site, i.e. abundance of moths \>\> from the env file import for each site, cover of herbs, shrubs, trees and dead wood \>\> prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.
+4.  **Lepidoptera** Work with this dataset, namely `spe_matrix_MSvejnoha.csv`, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure \>\> count the number of all individuals at each site, i.e. abundance of moths \>\> from the env file (use the ..transposed) import for each site, cover of herbs, shrubs, trees and dead wood \>\> prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.
 
 5.  **Acidophilous grasslands** Import the head dataset, transform latitude and longitude into deg_lat and deg_long format \>\>prepare map with sites/sampled localities \>\> for vegetation types (`syntax_new`) with more than 15 plots/samples prepare boxplots with comparison of species richness in old and new plots (information about new plots can be identified in the head as those sampled by M. Harásek, indicated as resampled).

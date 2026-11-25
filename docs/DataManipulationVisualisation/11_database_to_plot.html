@@ -393,8 +393,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This tutorial aims to repeat what we have learned so far. We will step by step show you how to import data from a database into R, prepare it for further analysis, and provide some basic summaries of the data, as well as plot answer to our questions. At the end of this chapter, you will find the final exercises that we would like you to complete and hand in. The script will then be considered your final project for this course.</p>
-<!--change status and other complicated things to more easy files  -->
-<!--check if the inner join is needed - do I have updated dataset with only a selection of plots?  -->
 <!--check the excercises and adjust  -->
 <section id="example-of-database-format-data-turboveg" class="level2">
 <h2 class="anchored" data-anchor-id="example-of-database-format-data-turboveg">11.1 Example of database format data / Turboveg</h2>
@@ -554,7 +552,7 @@ $ locality   &lt;chr&gt; "Brno, Maloměřice, Hády; 1,7 km od středu městské
 </div>
 <p>And save it for easier access.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(env, <span class="st">"data/turboveg_to_R/env.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_excel_csv</span>(env, <span class="st">"data/turboveg_to_R/env.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-spe-file-species-file-in-a-long-format" class="level2">
@@ -661,7 +659,7 @@ lgl (1): SYNONYM
 </div>
 <p>We can then write the file, make adjustments (e.g., in Excel), and upload it again. The great thing is that we have an indication of which species are in the dataset, and we do not have to pay attention to the other rows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(nomenclature_check, <span class="st">"data/turboveg_to_R/nomenclature_check.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_excel_csv</span>(nomenclature_check, <span class="st">"data/turboveg_to_R/nomenclature_check.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Upload the new, adjusted file:</p>
 <div class="cell">
@@ -811,7 +809,7 @@ Joining with `by = join_by(cover_code, coverscale)`</code></pre>
 </div>
 <p>We can again save the final file, to be easily accessible for later:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(spe, <span class="st">"data/turboveg_to_R/spe.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_excel_csv</span>(spe, <span class="st">"data/turboveg_to_R/spe.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -973,15 +971,10 @@ Joining with `by = join_by(releve_nr, species)`</code></pre>
 <p><strong>A)</strong> Now let’s check how it works. We will first fix the issue with duplicates within the same layer (A)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cover_perc_new =</span> <span class="fu">combine_cover</span>(cover_perc)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'releve_nr', 'species'. You can override
-using the `.groups` argument.</code></pre>
-</div>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cover_perc_new =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span><span class="fu">c</span>(releve_nr, species, layer)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,277 × 4
-# Groups:   releve_nr, species [2,061]
    releve_nr species                  layer cover_perc_new
        &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;
  1         1 Acer campestre               1           20  
@@ -999,43 +992,42 @@ using the `.groups` argument.</code></pre>
 </div>
 <p>We will also add pipelines to check for any remaining duplicate rows. Note that we need to specify the grouping again in the <code>count()</code> (or add the <code>group_by()</code> before the <code>count()</code> again), since the <code>summarise()</code> finished the grouping from the <code>group_by()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc_new =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc_new =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span><span class="fu">c</span>(releve_nr, species, layer)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 4
-# Groups:   releve_nr, species [0]
 # ℹ 4 variables: releve_nr &lt;dbl&gt;, species &lt;chr&gt;, layer &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 </div>
 </div>
 <p>When the output has no rows, it means our attempt solved the issue.</p>
 <p>If we are happy, we can overwrite the cover directly, save the output for easier access (next time you can start with reloading this file), or we can assign the whole pipeline to a new object, e.g., <code>-&gt; spe_merged</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span><span class="fu">c</span>(releve_nr, species, layer)) <span class="sc">%&gt;%</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_excel_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>B)</strong> We also want to remove information about the layer and work at the whole community level. This means we will do the same; we will just not add the layer to the grouping, as we no longer want to pay attention to it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, species) <span class="sc">%&gt;%</span> </span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers_across_layers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cover_perc =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span><span class="fu">c</span>(releve_nr, species)) <span class="sc">%&gt;%</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_excel_csv</span>(<span class="st">"data/turboveg_to_R/spe_merged_covers_across_layers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="total-cover-of-all-species-in-the-plot" class="level3">
 <h3 class="anchored" data-anchor-id="total-cover-of-all-species-in-the-plot">11.5.4 Total cover of all species in the plot</h3>
 <p>The same approach used for merging covers can also be applied to calculating the total cover in the plot. Here, you can see a comparison of total cover calculated as an ordinary sum and total cover calculated by considering overlaps.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span> </span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, covertotal_sum, covertotal_overlap) <span class="sc">%&gt;%</span></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(covertotal_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc),</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span> releve_nr) <span class="sc">%&gt;%</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, covertotal_sum, covertotal_overlap) <span class="sc">%&gt;%</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(covertotal_sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 65 × 3
    releve_nr covertotal_sum covertotal_overlap
@@ -1055,25 +1047,24 @@ using the `.groups` argument.</code></pre>
 </div>
 <p>The same with respect to layers</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr, layer) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, layer, covertotal_sum, covertotal_overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">covertotal_sum =</span> <span class="fu">sum</span>(cover_perc), </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">covertotal_overlap =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.by=</span><span class="fu">c</span>(releve_nr,layer)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, layer, covertotal_sum, covertotal_overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 237 × 4
-# Groups:   releve_nr [65]
    releve_nr layer covertotal_sum covertotal_overlap
        &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
  1         1     1           82.5              70   
- 2         1     4           13.5              13.1 
+ 2         1     7           10                 9.64
  3         1     6           22.2              20.1 
- 4         1     7           10                 9.64
- 5         2     1           62.5              62.5 
- 6         2     6           31.5              28.8 
- 7         2     7           13.1              12.8 
- 8         3     1           62.5              62.5 
- 9         3     6           23.8              21.5 
+ 4         1     4           13.5              13.1 
+ 5         2     6           31.5              28.8 
+ 6         2     7           13.1              12.8 
+ 7         2     1           62.5              62.5 
+ 8         3     6           23.8              21.5 
+ 9         3     1           62.5              62.5 
 10         3     7            4                 4   
 # ℹ 227 more rows</code></pre>
 </div>
@@ -1087,8 +1078,8 @@ using the `.groups` argument.</code></pre>
 <h3 class="anchored" data-anchor-id="env-dataset">11.6.1 <code>env</code> dataset</h3>
 <p>First, we want to add some more variables that were measured separately. Additionally, this file is already filtered to a subset that we want to use.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>env_extra <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/axmanova_forest_env_extra.csv"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>env_extra <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/axmanova_forest_env_extra.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 65 Columns: 22
 ── Column specification ────────────────────────────────────────────────────────
@@ -1102,22 +1093,22 @@ dbl (21): Releve_nr, ForestType, Herbs, Juveniles, CoverE1, Biomass, Soil_de...
 </div>
 <p>For the env dataset, we want to import the previously saved clean version, but we will filter it directly to the same subset as above. We can do it with semi_join. However, we decided to merge the two datasets at this point, retaining only the matching rows while preserving all the desired information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/env.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env_extra <span class="sc">%&gt;%</span> </span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span> (releve_nr, forest_type, forest_type_name,</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">soil_ph=</span>p_h_k_cl, biomass) <span class="sc">%&gt;%</span> </span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">unite</span>(forest, forest_type, forest_type_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/env.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env_extra <span class="sc">%&gt;%</span> </span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span> (releve_nr, forest_type, forest_type_name,</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">soil_ph=</span>p_h_k_cl, biomass) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">unite</span>(forest, forest_type, forest_type_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>New names:
-Rows: 65 Columns: 20
-── Column specification
-──────────────────────────────────────────────────────── Delimiter: "," chr
-(5): coverscale, field_nr, country, author, locality dbl (14): ...1, releve_nr,
-date, altitude, exposition, inclinatio, cov_trees... lgl (1): syntaxon
-ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Joining with `by = join_by(releve_nr)`
-• `` -&gt; `...1`</code></pre>
+<pre><code>Rows: 65 Columns: 19
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (5): coverscale, field_nr, country, author, locality
+dbl (13): releve_nr, date, altitude, exposition, inclinatio, cov_trees, cov_...
+lgl  (1): syntaxon
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 </div>
 </section>
@@ -1125,8 +1116,8 @@ Joining with `by = join_by(releve_nr)`
 <h3 class="anchored" data-anchor-id="spe-dataset">11.6.2 <code>spe</code> dataset</h3>
 <p>We want to work with the <strong><code>spe</code> dataset</strong> and retain information about layers, as we aim to focus on the herb layer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/turboveg_to_R/spe_merged_covers.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 2277 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
@@ -1144,7 +1135,7 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <h3 class="anchored" data-anchor-id="traits">11.6.3 traits</h3>
 <p>We would also like to include some information about traits. So we will check what is available in our folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/turboveg_to_R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/turboveg_to_R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "axmanova_forest_env_extra.csv"                                             
  [2] "cover_20230402.csv"                                                        
@@ -1176,7 +1167,7 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <!--First, we will import the file downloaded from the Pladias database, which contains information about the status. The file itself is in Czech, and it needs some fixing to make it tidy. Below, you can already find one suggestion on how to import this file, but we will check it together to understand how to read it and how it works step by step. status <- read_excel("data/turboveg_to_R/Pladias-taxony-puvod-invazni-status-cerveny-seznam-ochrana-2023-11-06.xlsx") %>% clean_names() %>% select(species = vedecke_jmeno, origin = puvodnost_v_cr, redlist = cerveny_seznam_2017_narodni_kategorie_ohrozeni) %>% mutate(origin = case_when( origin == "původní" ~ "native", origin %in% c("archeofyt/neofyt", "archeofyt") ~ "arch", origin == "neofyt" ~ "neo", TRUE ~ NA_character_)) %>% mutate(redlist = case_when( redlist == "taxon není zařazen do Červeného seznamu" ~ NA_character_, TRUE ~ redlist)) -->
 <p>First, we will import the dataset containing information about status.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>status<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/status.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>status<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/status.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 6098 Columns: 3
 ── Column specification ────────────────────────────────────────────────────────
@@ -1189,7 +1180,7 @@ chr (3): species, origin, redlist
 </div>
 <p>There are two main variables. The “origin” has categories “native”, while non-native plants are classified either as “arch”(=archaeophyte) or “neo”=(neophyte), depending on the time of introduction.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>status <span class="sc">%&gt;%</span> <span class="fu">count</span>(origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>status <span class="sc">%&gt;%</span> <span class="fu">count</span>(origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   origin     n
@@ -1199,7 +1190,7 @@ chr (3): species, origin, redlist
 3 neo     1700
 4 &lt;NA&gt;      66</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>status <span class="sc">%&gt;%</span> <span class="fu">count</span>(redlist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>status <span class="sc">%&gt;%</span> <span class="fu">count</span>(redlist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 2
    redlist     n
@@ -1221,14 +1212,14 @@ chr (3): species, origin, redlist
 </div>
 <p>The other variable is “redlist” and the categories are variants of A (extinct) or C1, C2, C3 and C4 (with descending threat from 1 to 4), species without any category are not considered endangered, so we can make the categories more simple.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>status<span class="ot">&lt;-</span> status <span class="sc">%&gt;%</span>  </span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">redlist_simple=</span> <span class="fu">case_when</span>(<span class="fu">is.na</span>(redlist) <span class="sc">~</span> <span class="st">"not endangered"</span>, </span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"endangered"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>status<span class="ot">&lt;-</span> status <span class="sc">%&gt;%</span>  </span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">redlist_simple=</span> <span class="fu">case_when</span>(<span class="fu">is.na</span>(redlist) <span class="sc">~</span> <span class="st">"not endangered"</span>, </span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"endangered"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!--Now we will import data about plant height. Again, there are a few issues, so we will fix them and calculate the mean height. plant_height <- read_excel("data/turboveg_to_R/Vyska.xlsx") %>% clean_names() %>% select(species = taxon, height_min = min, height_max = max) %>% mutate(across(c(height_min, height_max), ~ as.numeric(.x))) %>% mutate(height_mean = ((height_min + height_max)/2)) And the Ellenberg-type indicator values:indicator_values <- read_excel("data/turboveg_to_R/ekologicke_indikacni_hodnoty.xlsx") %>% clean_names() %>% select(species = name, eiv_light = l_cz, eiv_temperature = t_cz, eiv_moisture = m_cz, eiv_reaction = r_cz, eiv_nutrients = n_cz, eiv_salinity = s_cz) %>%mutate(across(-species, ~as.numeric(.x)))-->
 <p>We will import the file with plant height and seed mass.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/traits.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/traits.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 317 Columns: 3
 ── Column specification ────────────────────────────────────────────────────────
@@ -1239,14 +1230,14 @@ dbl (2): height, seed_mass
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "species"   "height"    "seed_mass"</code></pre>
 </div>
 </div>
 <p>And last but not least, we will import the Ellenberg type indicator values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>indicator_values <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/ellenberg_type_indicators_cz.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>indicator_values <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/turboveg_to_R/ellenberg_type_indicators_cz.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 3076 Columns: 7
 ── Column specification ────────────────────────────────────────────────────────
@@ -1264,17 +1255,17 @@ dbl (6): eiv_light, eiv_temperature, eiv_moisture, eiv_reaction, eiv_nutrien...
 <h2 class="anchored" data-anchor-id="summary-statistics-and-graphical-outputs">11.7 Summary statistics and graphical outputs</h2>
 <p>We will explore the data and examine which factors influence species richness. Here are just a few examples. We will read the scripts together, and you will adapt them later for other tasks. First, we want to produce a table with summary statistics, such as minimum, mean, and maximum, for two variables: plant height and biomass per forest type. The first one is a trait, so we need to append it to the species file and calculate community means, while the other is a variable measured in each plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">==</span> <span class="st">"6"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits <span class="sc">%&gt;%</span> </span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species, height)) <span class="sc">%&gt;%</span></span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env) <span class="sc">%&gt;%</span></span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest) <span class="sc">%&gt;%</span></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(height,cov_herbs, biomass, cov_trees,soil_ph),</span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">min  =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">max  =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))), <span class="at">.by =</span> forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">==</span> <span class="st">"6"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(traits <span class="sc">%&gt;%</span> </span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(species, height)) <span class="sc">%&gt;%</span></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env) <span class="sc">%&gt;%</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest) <span class="sc">%&gt;%</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(height,cov_herbs, biomass, cov_trees,soil_ph),</span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">min  =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">max  =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))), <span class="at">.by =</span> forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(species)`
 Joining with `by = join_by(releve_nr)`</code></pre>
@@ -1295,10 +1286,10 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 <p>Alternatively, we can create boxplots for these, one by one or using a function (see chapters 7 and 8).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(forest, biomass)) <span class="sc">+</span></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(forest, biomass)) <span class="sc">+</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1309,21 +1300,21 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 <p>Alternatively, we can also do it like this, that we save the values to long format and use <code>facet_wrap()</code> to create more boxplots at once:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest) <span class="sc">%&gt;%</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(forest, <span class="at">cover_herbs =</span> cov_herbs, biomass, </span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cover_trees =</span> cov_trees, soil_ph) <span class="sc">%&gt;%</span></span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(cover_herbs, biomass, cover_trees, soil_ph),</span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
-<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> forest, <span class="at">y =</span> value, <span class="at">fill =</span> forest)) <span class="sc">+</span></span>
-<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>, </span>
-<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), </span>
-<span id="cb101-15"><a href="#cb101-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest) <span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(forest, <span class="at">cover_herbs =</span> cov_herbs, biomass, </span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cover_trees =</span> cov_trees, soil_ph) <span class="sc">%&gt;%</span></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(cover_herbs, biomass, cover_trees, soil_ph),</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> forest, <span class="at">y =</span> value, <span class="at">fill =</span> forest)) <span class="sc">+</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>, </span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), </span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1334,18 +1325,18 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 <p>We might be interested in exploring the relationship between species richness and several factors. Below is an example of herb-layer species richness and biomass. At first, we need to calculate the species richness in the <code>spe</code> file. As an output, we want to plot this with different colours for different forest types, while keeping the regression line for the whole dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, <span class="at">name =</span> <span class="st">"herblayer_richness"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> </span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(releve_nr, biomass, forest), <span class="at">by =</span> <span class="st">"releve_nr"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">sqrt</span>(biomass), <span class="at">y =</span> herblayer_richness)) <span class="sc">+</span></span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> forest), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"sqrt Biomass"</span>,</span>
-<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Herb-layer species richness"</span>,</span>
-<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Forest type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(layer <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(releve_nr, <span class="at">name =</span> <span class="st">"herblayer_richness"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> </span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(releve_nr, biomass, forest), <span class="at">by =</span> <span class="st">"releve_nr"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">sqrt</span>(biomass), <span class="at">y =</span> herblayer_richness)) <span class="sc">+</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> forest), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"sqrt Biomass"</span>,</span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Herb-layer species richness"</span>,</span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Forest type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -1359,22 +1350,22 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 <p><strong>Boxplots of Ellenberg-type indicator values</strong> are based again on species data and values specific to each species. We will calculate the non-weighted mean for each plot and prepare boxplots for individual forest types. Again, we will use the step with long format and facet wrap.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(indicator_values) <span class="sc">%&gt;%</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(layer, cover_perc)) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span></span>
-<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest)) <span class="sc">%&gt;%</span></span>
-<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"EIV"</span>),</span>
-<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"EIV_variable"</span>,</span>
-<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> forest, <span class="at">y =</span> value, <span class="at">fill =</span> forest)) <span class="sc">+</span></span>
-<span id="cb104-13"><a href="#cb104-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb104-14"><a href="#cb104-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>EIV_variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb104-15"><a href="#cb104-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb104-16"><a href="#cb104-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>, <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(indicator_values) <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(layer, cover_perc)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(releve_nr) <span class="sc">%&gt;%</span></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"EIV"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"EIV"</span>),</span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"EIV_variable"</span>,</span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-12"><a href="#cb103-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> forest, <span class="at">y =</span> value, <span class="at">fill =</span> forest)) <span class="sc">+</span></span>
+<span id="cb103-13"><a href="#cb103-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb103-14"><a href="#cb103-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>EIV_variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb103-15"><a href="#cb103-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb103-16"><a href="#cb103-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>, <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(species)`
 Joining with `by = join_by(releve_nr)`</code></pre>
@@ -1389,18 +1380,18 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </div>
 <p><strong>Proportions of endangered or alien species</strong> in forest types. We will first look at the numbers of these species, for example, the Red List (i.e., endangered) species. We would like to see the average number of Red List species per forest type.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest)) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(status) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(forest, releve_nr, species, redlist_simple) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">endangered =</span> redlist_simple<span class="sc">==</span> <span class="st">"endangered"</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">species_richness =</span> <span class="fu">n_distinct</span>(species),</span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">endangered_richness =</span> <span class="fu">sum</span>(endangered, <span class="at">na.rm =</span> T),</span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(forest, releve_nr)) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">endangered_perc =</span> <span class="fu">mean</span>(endangered_richness <span class="sc">/</span> species_richness) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> forest) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(endangered_perc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>spe <span class="sc">%&gt;%</span> </span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(env <span class="sc">%&gt;%</span> <span class="fu">select</span>(releve_nr, forest)) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(status) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(forest, releve_nr, species, redlist_simple) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">endangered =</span> redlist_simple<span class="sc">==</span> <span class="st">"endangered"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">species_richness =</span> <span class="fu">n_distinct</span>(species),</span>
+<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">endangered_richness =</span> <span class="fu">sum</span>(endangered, <span class="at">na.rm =</span> T),</span>
+<span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(forest, releve_nr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-9"><a href="#cb105-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb105-10"><a href="#cb105-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">endangered_perc =</span> <span class="fu">mean</span>(endangered_richness <span class="sc">/</span> species_richness) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb105-11"><a href="#cb105-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> forest) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-12"><a href="#cb105-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(endangered_perc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(releve_nr)`
 Joining with `by = join_by(species)`</code></pre>
@@ -1417,20 +1408,20 @@ Joining with `by = join_by(species)`</code></pre>
 </div>
 <p>However, I can also examine the <strong>differences in the abundance of specific plant groups</strong>. What is the proportion of cover of alien species relative to total cover in different forests?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, forest) <span class="sc">%&gt;%</span> </span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">left_join</span>(status) <span class="sc">%&gt;%</span> </span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"arch"</span>,<span class="st">"neo"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_alien =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by =</span> releve_nr))<span class="sc">%&gt;%</span></span>
-<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
-<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_total =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
-<span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by =</span> releve_nr))<span class="sc">%&gt;%</span></span>
-<span id="cb109-11"><a href="#cb109-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien =</span> <span class="fu">replace_na</span>(cover_alien, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb109-12"><a href="#cb109-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien_perc =</span> cover_alien<span class="sc">/</span>cover_total<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb109-13"><a href="#cb109-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">alien_cover_mean_perc =</span> <span class="fu">mean</span>(cover_alien_perc), <span class="at">.by =</span> forest) <span class="sc">%&gt;%</span></span>
-<span id="cb109-14"><a href="#cb109-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(releve_nr, forest) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">left_join</span>(status) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"arch"</span>,<span class="st">"neo"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_alien =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by =</span> releve_nr))<span class="sc">%&gt;%</span></span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(spe <span class="sc">%&gt;%</span> </span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">summarize</span>(<span class="at">cover_total =</span> <span class="fu">combine_cover</span>(cover_perc), </span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.by =</span> releve_nr))<span class="sc">%&gt;%</span></span>
+<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien =</span> <span class="fu">replace_na</span>(cover_alien, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cover_alien_perc =</span> cover_alien<span class="sc">/</span>cover_total<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">alien_cover_mean_perc =</span> <span class="fu">mean</span>(cover_alien_perc), <span class="at">.by =</span> forest) <span class="sc">%&gt;%</span></span>
+<span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(forest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(species)`
 Joining with `by = join_by(releve_nr)`
@@ -1449,7 +1440,7 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 </section>
 <section id="almost-at-the-end-of-this-course" class="level2">
 <h2 class="anchored" data-anchor-id="almost-at-the-end-of-this-course">Almost at the end of this course!</h2>
-<p>A couple of tidyverse songs as a bonus for staying with us and learned many new things:</p>
+<p>A couple of tidyverse songs as a bonus for staying with us and learning many new things:</p>
 <p>Human-made: <a href="https://www.youtube.com/watch?v=p8Py9C8iq2s" class="uri">https://www.youtube.com/watch?v=p8Py9C8iq2s</a></p>
 <p>AI-made: <a href="https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo" class="uri">https://suno.com/song/0599ca04-d17b-4fbd-8e3c-1a1a8a21e446?sh=iVMVs4IoyAXEoZMo</a></p>
 </section>
@@ -1462,7 +1453,7 @@ Joining with `by = join_by(releve_nr)`</code></pre>
 <li><p>Use the data from the folder <strong>basiphilous_grasslands</strong> and recreate the following plot. Note that some data handling will be needed before you start plotting (transform the species abundance data from wide to long format, join species characteristics, calculate the number of species and number of specialists (<code>THE_THF</code>) for each plot (Releve), join header data and transform the variable for the time of sampling (<code>Rs_observ</code>) to a character/factor).</p>
 <p><img src="images/clipboard-3338851266.png" class="img-fluid"></p></li>
 <li><p><strong>Frogs</strong> Use the data of the 10 most common frog species recorded within the Australian <a href="https://www.frogid.net.au/explore">FrogID initiative</a>. The original data comes from the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-09-02/readme.md">TidyTuesdays repository</a>, but we modified it slightly for this exercise and stored it in the <code>frogs</code> folder of our <a href="https://github.com/BotzoolDataAnalysis/BotzoolDataAnalysis.github.io/tree/main/DataManipulationVisualisation/data">repository</a>. The data are stored in multiple csv files, one for each species. Load all these files using a single pipeline (with <code>map()</code>) and save to your environment as a single tibble &gt;&gt; prepare two barplots, first showing number of species in each stateProvince, and second showing number of all records irrespective of species &gt;&gt; prepare a table where there will be species as rows, columns for each stateProvince and values will represent the absolute number of records &gt;&gt; calculate also relative variables which will show representation of each species in the stateProvince relative to all species (%) in the stateProvince.</p></li>
-<li><p><strong>Lepidoptera</strong> Work with this dataset, namely <code>spe_matrix_MSvejnoha</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt;&gt; count the number of all individuals at each site, i.e.&nbsp;abundance of moths &gt;&gt; from the env file import for each site, cover of herbs, shrubs, trees and dead wood &gt;&gt; prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.</p></li>
+<li><p><strong>Lepidoptera</strong> Work with this dataset, namely <code>spe_matrix_MSvejnoha.csv</code>, which is the species file with counts of moths in forest steppe localities. Import the data and check the structure &gt;&gt; count the number of all individuals at each site, i.e.&nbsp;abundance of moths &gt;&gt; from the env file (use the ..transposed) import for each site, cover of herbs, shrubs, trees and dead wood &gt;&gt; prepare suitable graphs to visualise the relationship between abundance of moths and these variables characterising the vegetation.</p></li>
 <li><p><strong>Acidophilous grasslands</strong> Import the head dataset, transform latitude and longitude into deg_lat and deg_long format &gt;&gt;prepare map with sites/sampled localities &gt;&gt; for vegetation types (<code>syntax_new</code>) with more than 15 plots/samples prepare boxplots with comparison of species richness in old and new plots (information about new plots can be identified in the head as those sampled by M. Harásek, indicated as resampled).</p></li>
 </ol>
 
